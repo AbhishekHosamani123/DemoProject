@@ -2,44 +2,55 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const auditDetails = [
   {
     title: "Latest Updates",
-    points: [
-      "All updated news related to compliance and regulations.",
-      "Market-cap-based updates, customized as per your company's scale and needs.",
+    content: [
+      "SEBI (Listing Obligations and Disclosure Requirements) (Second Amendment) Regulations, 2023, effective from June 14, 2023.",
+      "Introduction of mandatory ESG reporting for the top 1000 listed companies by market capitalization.",
+      "Updated FEMA guidelines impacting foreign direct investment in the e-commerce sector.",
     ],
   },
   {
     title: "Company-Specific Rules & Formats",
-    points: [
-      "Standard formats, rules, and procedures necessary for your company.",
-      "Personalized display of rules and information applicable only to your organization.",
+    content: [
+      "All new vendor contracts must now include the updated Data Privacy clause (Ref: CP-2024-V4).",
+      "Quarterly internal audit reports must be submitted in the new digital format via the compliance portal by the 5th of the following month.",
+      "Approval matrix for financial expenditures above ₹5,00,000 has been revised. Refer to the finance policy document.",
     ],
   },
   {
     title: "Laws & Sections",
-    points: [
-      "All concerned laws and sections that must be followed.",
-      "Display of only the specific provisions applicable to your company.",
+    content: [
+      "Companies Act, 2013: Section 135 - Corporate Social Responsibility (CSR) compliance requires a 2% net profit contribution.",
+      "Income Tax Act, 1961: Section 194R - TDS on benefits or perquisites, compliance for all business transactions.",
+      "IGST Act, 2017: Section 16 - Clarifications on zero-rated supply for exports.",
     ],
   },
   {
     title: "Government Regulations",
-    points: [
-      "Central government rules and regulations relevant to your operations.",
-      "State government rules and regulations applicable to your company.",
+    content: [
+      "Central Government: Plastic Waste Management (Amendment) Rules, 2023, banning specific single-use plastic items.",
+      "State Government (Maharashtra): Professional Tax (PT) filing deadline extended to the 30th of each month.",
+      "Ministry of Corporate Affairs (MCA): Mandatory filing of Form DPT-3 for all companies regarding loans and deposits.",
     ],
   },
   {
     title: "Compliance & Applicability",
-    points: [
-      "Only the laws, rules, and sections directly impacting your company will be shown.",
-      "Ensures you follow exactly what is required—nothing more, nothing less.",
+    content: [
+      "As a listed entity, all SEBI LODR regulations are fully applicable and must be audited quarterly.",
+      "Our manufacturing unit in Pune must adhere to the latest Maharashtra Pollution Control Board (MPCB) emission standards.",
+      "Data Protection Bill, 2023: While not yet law, proactive measures for data minimization and consent management are advised.",
     ],
   },
 ];
@@ -58,33 +69,44 @@ export default function AuditZonePage() {
         </div>
 
         <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-              Compliance Dashboard
-            </h1>
+          <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
+            Compliance Dashboard
+          </h1>
         </div>
-        
-        <Card className="bg-card/60 backdrop-blur-sm p-6">
-            <CardContent className="text-lg space-y-6">
-                <p className="text-muted-foreground leading-relaxed">
-                    This dashboard displays customized updates and guidelines for your company. The content is tailored to your organization's specific compliance needs.
-                </p>
-                
-                <div>
-                    {auditDetails.map((category) => (
-                        <div key={category.title} className="mb-6">
-                            <h2 className="text-2xl font-semibold mb-3 text-primary">{category.title}</h2>
-                            <ul className="space-y-2 list-disc pl-5">
-                                {category.points.map((point, index) => (
-                                    <li key={index} className="text-base font-normal text-muted-foreground">
-                                        {point}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
 
-            </CardContent>
+        <Card className="bg-card/60 backdrop-blur-sm p-6">
+          <CardContent className="space-y-6">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              This dashboard displays customized updates and guidelines for your
+              company. The content is tailored to your organization's specific
+              compliance needs.
+            </p>
+
+            <Accordion type="single" collapsible className="w-full">
+              {auditDetails.map((category) => (
+                <AccordionItem
+                  key={category.title}
+                  value={category.title}
+                >
+                  <AccordionTrigger className="text-2xl font-semibold text-primary hover:no-underline">
+                    {category.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="space-y-2 list-disc pl-5 py-2">
+                      {category.content.map((point, index) => (
+                        <li
+                          key={index}
+                          className="text-base font-normal text-muted-foreground"
+                        >
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
         </Card>
       </div>
     </div>
