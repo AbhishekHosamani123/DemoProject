@@ -66,7 +66,7 @@ export default function Home() {
                     <div className="mb-2">
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="secondary" size="lg" className="w-full">
+                          <Button variant="primary" size="lg" className="w-full">
                             <Server className="mr-2 h-5 w-5" />
                             CONNECT CLOUD SERVER
                           </Button>
