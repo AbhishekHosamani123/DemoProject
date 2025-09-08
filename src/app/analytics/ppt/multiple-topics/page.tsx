@@ -20,10 +20,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChevronLeft, PlusCircle, CheckCircle2 } from "lucide-react";
+import { ChevronLeft, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -94,7 +94,7 @@ export default function MultipleTopicsPage() {
           Select the topics you want to include in your presentation.
         </p>
       </div>
-      <div className="w-full max-w-4xl mx-auto">
+      <div className="w-full max-w-2xl mx-auto">
         <div className="mb-8">
           <Button
             onClick={() => router.back()}
@@ -109,63 +109,55 @@ export default function MultipleTopicsPage() {
           <CardHeader className="p-0 mb-6">
             <CardTitle>Select Topics</CardTitle>
             <CardDescription>
-              Click on the topics to select them, or add your own.
+              Choose from the list below or add your own.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="space-y-4">
               {topics.map((topic) => (
-                <Card
-                  key={topic.id}
-                  onClick={() => handleTopicSelect(topic.id)}
-                  className={cn(
-                    "cursor-pointer transition-all duration-200 p-4 flex items-center justify-center text-center flex-col aspect-square relative",
-                    "border-2 bg-card/50 hover:bg-card/80",
-                    selectedTopics.includes(topic.id)
-                      ? "border-primary"
-                      : "border-transparent hover:border-primary/50"
-                  )}
-                >
-                  {selectedTopics.includes(topic.id) && (
-                    <CheckCircle2 className="absolute top-2 right-2 h-5 w-5 text-primary" />
-                  )}
-                  <p className="font-semibold">{topic.label}</p>
-                </Card>
-              ))}
-
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                  <Card
-                    className={cn(
-                      "cursor-pointer transition-all duration-200 p-4 flex items-center justify-center text-center flex-col aspect-square",
-                      "border-2 border-dashed border-border hover:border-primary hover:text-primary"
-                    )}
+                <div key={topic.id} className="flex items-center space-x-3">
+                  <Checkbox
+                    id={topic.id}
+                    checked={selectedTopics.includes(topic.id)}
+                    onCheckedChange={() => handleTopicSelect(topic.id)}
+                  />
+                  <Label
+                    htmlFor={topic.id}
+                    className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
-                    <PlusCircle className="h-8 w-8 mb-2" />
-                    <p className="font-semibold">Add New Topic</p>
-                  </Card>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                  <DialogHeader>
-                    <DialogTitle>Add a New Topic</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <Label htmlFor="new-topic">Topic Name</Label>
-                    <Input
-                      id="new-topic"
-                      value={newTopic}
-                      onChange={(e) => setNewTopic(e.target.value)}
-                      placeholder="e.g., Q4 Marketing Strategy"
-                    />
-                  </div>
-                  <DialogFooter>
-                    <Button type="submit" onClick={handleAddTopic}>
-                      Add
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+                    {topic.label}
+                  </Label>
+                </div>
+              ))}
             </div>
+
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="mt-6 w-full">
+                  <PlusCircle className="mr-2 h-4 w-4" />
+                  Add New Topic
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                <DialogHeader>
+                  <DialogTitle>Add a New Topic</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <Label htmlFor="new-topic">Topic Name</Label>
+                  <Input
+                    id="new-topic"
+                    value={newTopic}
+                    onChange={(e) => setNewTopic(e.target.value)}
+                    placeholder="e.g., Q4 Marketing Strategy"
+                  />
+                </div>
+                <DialogFooter>
+                  <Button type="submit" onClick={handleAddTopic}>
+                    Add Topic
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </CardContent>
         </Card>
 
