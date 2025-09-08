@@ -39,8 +39,8 @@ const CustomTooltip = ({ active, payload }: any) => {
         const colorKey = data.name.toLowerCase() as keyof typeof TEXT_COLORS;
         const color = TEXT_COLORS[colorKey] || data.payload.fill;
         return (
-            <div className="p-2 bg-background/80 backdrop-blur-sm border border-border rounded-lg shadow-lg">
-                <p style={{ color }}>{`${data.name}: ${data.value.toLocaleString()}`}</p>
+            <div className="p-1 bg-background/90 border border-border/50 rounded-md">
+                <p className="text-xs" style={{ color }}>{`${data.name}: ${data.value.toLocaleString()}`}</p>
             </div>
         );
     }
