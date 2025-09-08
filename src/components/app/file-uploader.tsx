@@ -134,10 +134,10 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                     <UploadCloud className="h-8 w-8 text-primary" />
                 </div>
-              <p className="font-semibold text-white text-lg">
+              <p className="font-semibold text-primary text-lg">
                 {isDragging ? "Drop it here!" : "Drag and Drop"}
               </p>
-              <p className="text-sm">
+              <p className="text-sm text-primary">
                 Upload your business data files to get started with AI analysis
               </p>
               <Button
