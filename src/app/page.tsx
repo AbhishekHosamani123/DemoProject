@@ -45,15 +45,6 @@ export default function Home() {
         {data.length === 0 ? (
           <div className="flex-1 flex flex-col items-center text-center">
             <div className="flex-1 flex flex-col justify-center items-center w-full max-w-lg">
-                <h1 className="text-4xl font-headline tracking-tight mb-2">
-                  Welcome to INERA Software
-                </h1>
-                <p className="text-lg text-muted-foreground mb-1">
-                  AI-Powered Business Intelligence Platform
-                </p>
-                <p className="text-sm text-muted-foreground mb-8">
-                  INTELLIGENCE AT THE SPEED OF THOUGHT
-                </p>
                 <FileUploader onFileUpload={handleFileUpload} />
             </div>
             <div className="w-full max-w-lg flex flex-col items-center gap-4 py-8">
