@@ -7,9 +7,6 @@ import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
@@ -50,15 +47,13 @@ export default function MonthlySuggestionPage() {
     });
   };
 
-  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
         <div className="mb-8">
           <Button
             onClick={() => router.back()}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            variant="outline"
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
@@ -86,7 +81,6 @@ export default function MonthlySuggestionPage() {
             <Button
               type="submit"
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Submit
             </Button>
@@ -99,14 +93,12 @@ export default function MonthlySuggestionPage() {
               {initialSuggestions.map((suggestion) => (
                 <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="group">
                   <Card className="text-center bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
-                    <CardHeader>
-                      <CardTitle>{suggestion.text}</CardTitle>
-                    </CardHeader>
-                    <CardFooter className="justify-center">
-                      <div className="text-lg font-bold text-primary bg-primary/10 px-4 py-1 rounded-md">
+                    <CardContent className="p-6">
+                      <div className="text-lg font-bold text-primary bg-primary/10 px-4 py-2 rounded-md mb-4">
                         {suggestion.percentage}%
                       </div>
-                    </CardFooter>
+                      <p className="text-base font-semibold">{suggestion.text}</p>
+                    </CardContent>
                   </Card>
                 </Link>
               ))}
