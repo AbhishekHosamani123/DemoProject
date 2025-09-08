@@ -72,7 +72,7 @@ export default function CustomTopicPage() {
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="e.g., 'Create a 10-slide presentation on our Q3 financial performance. Include slides on revenue, profit margins, and a forecast for Q4. Keep the tone professional.'"
+              placeholder="Tell us how and what you want to present...."
               className="h-40"
             />
           </CardContent>
