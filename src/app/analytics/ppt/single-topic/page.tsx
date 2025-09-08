@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import {
   ChevronLeft,
-  Settings,
   Presentation,
   ArrowRight,
 } from "lucide-react";
@@ -50,45 +49,69 @@ const presentationTemplates = [
     href: "#",
   },
   {
-    title: "Project Update Presentation",
+    title: "PPT6",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Share progress and updates on current projects.",
     href: "#",
   },
   {
-    title: "Training Manual Presentation",
+    title: "PPT7",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Create training materials for your team.",
     href: "#",
   },
   {
-    title: "Company Goals Presentation",
+    title: "PPT8",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Outline your company's goals and objectives.",
     href: "#",
   },
   {
-    title: "Data Insights Presentation",
+    title: "PPT9",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Present key insights from your data.",
     href: "#",
   },
   {
-    title: "New Ideas Presentation",
+    title: "PPT10",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Pitch new and innovative ideas.",
     href: "#",
   },
   {
-    title: "Technical Plan Presentation",
+    title: "PPT11",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Detail a technical implementation plan.",
     href: "#",
   },
   {
-    title: "Custom PPT",
-    icon: <Settings className="h-8 w-8 mb-4 text-primary" />,
-    description: "Create a custom presentation from scratch.",
+    title: "PPT12",
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: "A presentation template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "PPT13",
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: "A presentation template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "PPT14",
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: "A presentation template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "PPT15",
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: "A presentation template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "PPT16",
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: "A presentation template for various use cases.",
     href: "#",
   },
 ];
