@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -6,27 +7,99 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
+import {
+  ChevronLeft,
+  Briefcase,
+  TrendingUp,
+  Target,
+  FileText,
+  Rocket,
+  Megaphone,
+  UserCheck,
+  ClipboardList,
+  BarChart2,
+  Lightbulb,
+  GitBranchPlus,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const presentationTemplates = [
-  "SALES STRATEGY DECKS",
-  "FINANCIAL REVIEW PRESENTATION",
-  "PRODUCT LAUNCH PRESENTATION",
-  "PPT 4",
-  "PPT 5",
-  "PPT 6",
-  "PPT 7",
-  "PPT 8",
-  "PPT 9",
-  "PPT 10",
-  "PPT 11",
-  "PPT 12",
-  "PPT 13",
-  "PPT 16",
-  "CUSTOM PPT",
+  {
+    title: "Sales Strategy",
+    icon: <Briefcase className="h-8 w-8 mb-4 text-primary" />,
+    description: "Decks for outlining sales strategies and targets.",
+    href: "#",
+  },
+  {
+    title: "Financial Review",
+    icon: <TrendingUp className="h-8 w-8 mb-4 text-primary" />,
+    description: "Presentations for financial performance reviews.",
+    href: "#",
+  },
+  {
+    title: "Product Launch",
+    icon: <Rocket className="h-8 w-8 mb-4 text-primary" />,
+    description: "Everything you need to launch a new product.",
+    href: "#",
+  },
+  {
+    title: "Marketing Campaign",
+    icon: <Megaphone className="h-8 w-8 mb-4 text-primary" />,
+    description: "Present your next big marketing campaign.",
+    href: "#",
+  },
+  {
+    title: "Business Proposal",
+    icon: <FileText className="h-8 w-8 mb-4 text-primary" />,
+    description: "Propose a new business idea or project.",
+    href: "#",
+  },
+  {
+    title: "Project Update",
+    icon: <ClipboardList className="h-8 w-8 mb-4 text-primary" />,
+    description: "Share progress and updates on current projects.",
+    href: "#",
+  },
+  {
+    title: "Training Manual",
+    icon: <UserCheck className="h-8 w-8 mb-4 text-primary" />,
+    description: "Create training materials for your team.",
+    href: "#",
+  },
+  {
+    title: "Company Goals",
+    icon: <Target className="h-8 w-8 mb-4 text-primary" />,
+    description: "Outline your company's goals and objectives.",
+    href: "#",
+  },
+  {
+    title: "Data Insights",
+    icon: <BarChart2 className="h-8 w-8 mb-4 text-primary" />,
+    description: "Present key insights from your data.",
+    href: "#",
+  },
+  {
+    title: "New Ideas",
+    icon: <Lightbulb className="h-8 w-8 mb-4 text-primary" />,
+    description: "Pitch new and innovative ideas.",
+    href: "#",
+  },
+  {
+    title: "Technical Plan",
+    icon: <GitBranchPlus className="h-8 w-8 mb-4 text-primary" />,
+    description: "Detail a technical implementation plan.",
+    href: "#",
+  },
+  {
+    title: "Custom PPT",
+    icon: <Settings className="h-8 w-8 mb-4 text-primary" />,
+    description: "Create a custom presentation from scratch.",
+    href: "#",
+  },
 ];
 
 export default function SingleTopicPage() {
@@ -54,15 +127,19 @@ export default function SingleTopicPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {presentationTemplates.map((template) => (
-          <Link href="#" key={template}>
-            <Card className="group h-32 flex items-center justify-center p-4 text-center bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
-              <CardHeader>
-                <CardTitle className="text-sm font-semibold">
-                  {template}
+          <Link href={template.href} key={template.title} className="flex">
+            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full">
+              {template.icon}
+              <CardHeader className="p-0">
+                <CardTitle className="text-xl font-semibold">
+                  {template.title}
                 </CardTitle>
               </CardHeader>
+              <CardContent className="p-0 mt-2 flex-1">
+                <CardDescription>{template.description}</CardDescription>
+              </CardContent>
             </Card>
           </Link>
         ))}
