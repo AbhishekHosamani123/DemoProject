@@ -77,6 +77,11 @@ export default function ProblemSuggestionDetailsPage() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <Button className="w-full">
+            <Video className="mr-2 h-4 w-4" />
+            VIDEO
+          </Button>
         </div>
       </div>
     </div>
