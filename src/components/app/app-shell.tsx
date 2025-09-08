@@ -38,8 +38,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     className="bg-transparent"
                   >
                     <Image
-                      src="/inera-logo.svg"
-                      alt="INERA Logo"
+                      src="/logo.svg"
+                      alt="Company Logo"
                       width={32}
                       height={32}
                     />
