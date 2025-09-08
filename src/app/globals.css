@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    --background: 216 100% 33%; /* deep blue #003DA5 */
-    --foreground: 0 0% 100%; /* white */
-    --card: 216 100% 15%; /* darker blue for cards */
+    --background: 224 71.4% 4.1%;
+    --foreground: 0 0% 100%; 
+    --card: 224 71.4% 8%; 
     --card-foreground: 0 0% 100%;
-    --popover: 216 100% 10%;
+    --popover: 224 71.4% 6%;
     --popover-foreground: 0 0% 100%;
-    --primary: 45 100% 50%; /* gold #FFD700 */
-    --primary-foreground: 216 100% 33%; /* deep blue for text on gold */
-    --secondary: 205 56% 74%; /* light blue #A5C8E1 */
+    --primary: 45 100% 50%;
+    --primary-foreground: 216 100% 15%; 
+    --secondary: 205 56% 74%; 
     --secondary-foreground: 216 100% 10%;
-    --muted: 216 100% 15%;
-    --muted-foreground: 205 56% 74%; /* light blue */
-    --accent: 216 100% 40%; /* slightly lighter blue for hover */
+    --muted: 224 71.4% 8%;
+    --muted-foreground: 205 56% 74%;
+    --accent: 216 100% 40%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 205 56% 74%; /* light blue */
+    --border: 205 56% 74%;
     --input: 216 100% 20%;
-    --ring: 45 100% 50%; /* gold */
-    --radius: 0.5rem; /* 8px */
-    --chart-1: 45 100% 50%; /* gold */
-    --chart-2: 205 56% 74%; /* light blue */
-    --chart-3: 0 0% 100%; /* white */
-    --chart-4: 45 100% 70%; /* lighter gold */
-    --chart-5: 216 100% 70%; /* lighter blue */
-    --sidebar-background: 216 100% 10%;
+    --ring: 45 100% 50%;
+    --radius: 0.5rem;
+    --chart-1: 45 100% 50%;
+    --chart-2: 205 56% 74%;
+    --chart-3: 0 0% 100%;
+    --chart-4: 45 100% 70%;
+    --chart-5: 216 100% 70%;
+    --sidebar-background: 224 71.4% 6%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-accent: 45 100% 50%;
     --sidebar-accent-foreground: 216 100% 15%;
@@ -38,31 +38,31 @@
   }
 
   .dark {
-    --background: 216 100% 33%; /* deep blue #003DA5 */
-    --foreground: 0 0% 100%; /* white */
-    --card: 216 100% 15%; /* darker blue for cards */
+    --background: 224 71.4% 4.1%;
+    --foreground: 0 0% 100%; 
+    --card: 224 71.4% 8%; 
     --card-foreground: 0 0% 100%;
-    --popover: 216 100% 10%;
+    --popover: 224 71.4% 6%;
     --popover-foreground: 0 0% 100%;
-    --primary: 45 100% 50%; /* gold #FFD700 */
-    --primary-foreground: 216 100% 33%; /* deep blue for text on gold */
-    --secondary: 205 56% 74%; /* light blue #A5C8E1 */
+    --primary: 45 100% 50%;
+    --primary-foreground: 216 100% 15%; 
+    --secondary: 205 56% 74%; 
     --secondary-foreground: 216 100% 10%;
-    --muted: 216 100% 15%;
-    --muted-foreground: 205 56% 74%; /* light blue */
-    --accent: 216 100% 40%; /* slightly lighter blue for hover */
+    --muted: 224 71.4% 8%;
+    --muted-foreground: 205 56% 74%;
+    --accent: 216 100% 40%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 205 56% 74%; /* light blue */
+    --border: 205 56% 74%;
     --input: 216 100% 20%;
-    --ring: 45 100% 50%; /* gold */
-    --chart-1: 45 100% 50%; /* gold */
-    --chart-2: 205 56% 74%; /* light blue */
-    --chart-3: 0 0% 100%; /* white */
-    --chart-4: 45 100% 70%; /* lighter gold */
-    --chart-5: 216 100% 70%; /* lighter blue */
-    --sidebar-background: 216 100% 10%;
+    --ring: 45 100% 50%;
+    --chart-1: 45 100% 50%;
+    --chart-2: 205 56% 74%;
+    --chart-3: 0 0% 100%;
+    --chart-4: 45 100% 70%;
+    --chart-5: 216 100% 70%;
+    --sidebar-background: 224 71.4% 6%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-accent: 45 100% 50%;
     --sidebar-accent-foreground: 216 100% 15%;

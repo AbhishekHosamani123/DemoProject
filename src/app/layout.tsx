@@ -50,9 +50,9 @@ export default function RootLayout({
         >
           <source src={backgroundVideo} type="video/mp4" />
         </video>
-        <div className="fixed inset-0 w-full h-full bg-black/50 -z-40"></div>
+        <div className="fixed inset-0 w-full h-full bg-black/60 -z-40"></div>
         <AppShell>
-          <div className="relative flex-1">
+          <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
             {children}
           </div>
         </AppShell>
