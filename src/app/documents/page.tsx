@@ -218,7 +218,7 @@ export default function DocumentsPage() {
           Select a document type to begin generating with your data.
         </p>
       </div>
-      <div className="flex justify-start mb-8">
+      <div className="mb-8">
         <Button variant="ghost" onClick={() => router.back()}>
           <ChevronLeft className="mr-2 h-4 w-4" />
           Back

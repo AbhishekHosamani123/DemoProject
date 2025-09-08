@@ -58,7 +58,6 @@ export default function BrdPage() {
           <Button
             variant="ghost"
             onClick={() => router.back()}
-            className="self-start"
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back

@@ -81,7 +81,7 @@ export default function AnalyticsPage() {
           Unlock the power of your data with our suite of analytics tools.
         </p>
       </div>
-      <div className="flex justify-start mb-8">
+      <div className="mb-8">
         <Button variant="ghost" onClick={() => router.back()}>
           <ChevronLeft className="mr-2 h-4 w-4" />
           Back
