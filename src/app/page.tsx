@@ -55,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+    <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
       {data.length === 0 ? (
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <div className="w-full max-w-lg">
@@ -88,7 +88,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="space-y-8 animate-in fade-in duration-500 py-8">
           <h2 className="text-3xl tracking-tight">
             Dashboard for <span className="text-primary">{fileName}</span>
           </h2>
