@@ -15,8 +15,8 @@ import { cn } from "@/lib/utils";
 
 const forecastData = [
     { name: "April", period: "Apr", isPast: true, value: 8000, profit: 5000, loss: 1000, revenue: 4000 },
-    { name: "May", period: "May", isCurrent: true, value: 10000, profit: 6000, loss: 1000, revenue: 5000 },
-    { name: "June", period: "June", value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
+    { name: "May", period: "May", isPast: true, value: 10000, profit: 6000, loss: 1000, revenue: 5000 },
+    { name: "June", period: "June", isCurrent: true, value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
     { name: "July", period: "July", value: 14000, profit: 9000, loss: 2000, revenue: 7000 },
     { name: "August", period: "Aug", value: 18000, profit: 12000, loss: 2500, revenue: 8500 },
 ];
