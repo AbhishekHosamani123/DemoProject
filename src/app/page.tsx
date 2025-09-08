@@ -55,10 +55,10 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col justify-center">
+    <main className="flex-1 flex flex-col justify-center items-center">
       {data.length === 0 ? (
-        <div className="flex flex-col text-center mt-48">
-          <div className="w-full max-w-lg">
+        <div className="flex flex-col items-center">
+          <div className="w-full max-w-lg mt-48">
             <FileUploader onFileUpload={handleFileUpload} />
           </div>
           <div className="w-full max-w-lg flex flex-col items-center pt-4">
