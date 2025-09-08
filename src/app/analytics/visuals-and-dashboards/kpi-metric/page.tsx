@@ -124,7 +124,7 @@ export default function KpiMetricDashboardPage() {
           <CardHeader>
             <CardTitle>Sales by Region</CardTitle>
             <CardDescription>Regional sales distribution.</CardDescription>
-          CardHeader>
+          </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={salesByRegionData}>
