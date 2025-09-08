@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Download, Video, Wrench } from "lucide-react";
 
 export default function BrdPage() {
@@ -32,40 +32,57 @@ export default function BrdPage() {
 - IT Department: Responsible for system maintenance and support.`;
 
   return (
-    <div className="relative flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+    <div className="relative flex-1 bg-background">
+       <div
+        className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
+      >
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
       </div>
-      <div className="w-full max-w-4xl text-center mb-8">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Business Requirement Document
-        </h1>
-      </div>
-      <Card className="w-full max-w-4xl bg-card/60 backdrop-blur-sm">
-        <CardContent className="p-6">
-          <Textarea
-            className="w-full h-[400px] bg-background/50 text-base"
-            readOnly
-            value={generatedText}
-          />
-        </CardContent>
-        <CardHeader className="p-6 pt-0">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="outline" size="lg">
-              <Download className="mr-2 h-5 w-5" />
-              Download
-            </Button>
-            <Button variant="outline" size="lg">
-              <Video className="mr-2 h-5 w-5" />
-              Video
-            </Button>
-            <Button variant="outline" size="lg">
-              <Wrench className="mr-2 h-5 w-5" />
-              Customize
-            </Button>
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl text-center mb-8">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Business Requirement Document
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            Review and take action on your generated BRD.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+          <div className="md:col-span-2">
+            <Card className="h-full shadow-lg">
+                <CardContent className="p-6 h-full">
+                <Textarea
+                    className="w-full h-full resize-none border-0 focus:ring-0 text-base"
+                    readOnly
+                    value={generatedText}
+                />
+                </CardContent>
+            </Card>
           </div>
-        </CardHeader>
-      </Card>
+          <div className="flex flex-col gap-4">
+              <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle>Actions</CardTitle>
+                    <CardDescription>What would you like to do next?</CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-4">
+                <Button size="lg">
+                    <Download className="mr-2" />
+                    Download BRD
+                </Button>
+                <Button variant="secondary" size="lg">
+                    <Video className="mr-2" />
+                    Generate Video
+                </Button>
+                <Button variant="outline" size="lg">
+                    <Wrench className="mr-2" />
+                    Customize
+                </Button>
+                </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
