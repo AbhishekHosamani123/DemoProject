@@ -65,6 +65,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Tooltip
+                                animationDuration={0}
                                 content={<CustomTooltip />}
                                 cursor={{ fill: 'hsla(var(--muted-foreground), 0.1)' }}
                             />
