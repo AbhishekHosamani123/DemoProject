@@ -57,33 +57,35 @@ export default function Home() {
   return (
     <main className="flex-1 flex flex-col justify-center">
       {data.length === 0 ? (
-        <div className="w-full max-w-xl flex flex-col items-center gap-8 mt-24 mr-32">
-          <FileUploader onFileUpload={handleFileUpload} />
-          <div className="w-full max-w-sm">
-              <div className="mb-2">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="secondary" size="lg" className="w-full">
-                      <Server className="mr-2 h-5 w-5" />
-                      CONNECT CLOUD SERVER
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                    <DialogHeader>
-                      <DialogTitle>Connect Cloud Source</DialogTitle>
-                    </DialogHeader>
-                    <CloudConnect />
-                  </DialogContent>
-                </Dialog>
-              </div>
-              <Button
-                size="lg"
-                onClick={handleProceed}
-                className="w-full"
-              >
-                PROCEED TO ANALYTICS
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+        <div className="relative">
+          <div className="relative right-8 w-full max-w-xl mx-auto flex flex-col items-center gap-8 mt-24">
+            <FileUploader onFileUpload={handleFileUpload} />
+            <div className="w-full max-w-sm">
+                <div className="mb-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="secondary" size="lg" className="w-full">
+                        <Server className="mr-2 h-5 w-5" />
+                        CONNECT CLOUD SERVER
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                      <DialogHeader>
+                        <DialogTitle>Connect Cloud Source</DialogTitle>
+                      </DialogHeader>
+                      <CloudConnect />
+                    </DialogContent>
+                  </Dialog>
+                </div>
+                <Button
+                  size="lg"
+                  onClick={handleProceed}
+                  className="w-full"
+                >
+                  PROCEED TO ANALYTICS
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+            </div>
           </div>
         </div>
       ) : (
