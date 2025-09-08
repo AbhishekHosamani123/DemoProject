@@ -142,7 +142,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
               </p>
               <Button
                 asChild
-                variant="secondary"
+                variant="primary"
                 size="sm"
                 className="mt-2"
               >
