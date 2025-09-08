@@ -29,51 +29,52 @@ const COLORS = {
 const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
     const isNext = dataPoint.name === 'Next';
 
-    if (dataPoint.isPast) {
-        return (
-             <div className="flex flex-col items-center text-center w-40">
-                <div className="flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 border-dashed border-muted-foreground/50">
-                    <div className="text-lg font-bold text-muted-foreground">{dataPoint.name}</div>
-                    <div className="text-sm text-muted-foreground">{dataPoint.period}</div>
-                </div>
-            </div>
-        )
-    }
-
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
         { name: 'Loss', value: dataPoint.loss },
         { name: 'Revenue', value: dataPoint.revenue },
     ];
+    
+    const hasData = pieData.some(d => d.value > 0);
 
     return (
         <div className="flex flex-col items-center text-center w-40">
              <div className={cn("flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 relative transition-all duration-300",
-                isNext ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border"
+                isNext ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border",
+                dataPoint.isPast && "border-dashed border-muted-foreground/50"
             )}>
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                            data={pieData}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={28}
-                            outerRadius={38}
-                            dataKey="value"
-                            stroke="none"
-                        >
-                            <Cell key={`cell-profit`} fill={COLORS.profit} />
-                            <Cell key={`cell-loss`} fill={COLORS.loss} />
-                            <Cell key={`cell-revenue`} fill={COLORS.revenue} />
-                        </Pie>
-                    </PieChart>
-                </ResponsiveContainer>
-                <div className="absolute flex flex-col items-center justify-center">
-                    <div className="text-lg font-bold text-foreground">{dataPoint.name}</div>
-                    {dataPoint.period && <div className="text-sm text-muted-foreground">{dataPoint.period}</div>}
-                </div>
+                {hasData ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={pieData}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={28}
+                                outerRadius={38}
+                                dataKey="value"
+                                stroke="none"
+                            >
+                                <Cell key={`cell-profit`} fill={COLORS.profit} />
+                                <Cell key={`cell-loss`} fill={COLORS.loss} />
+                                <Cell key={`cell-revenue`} fill={COLORS.revenue} />
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer>
+                ) : (
+                    <div className="flex flex-col items-center justify-center h-full w-full">
+                         <div className="text-lg font-bold text-muted-foreground">{dataPoint.name}</div>
+                         <div className="text-sm text-muted-foreground">{dataPoint.period}</div>
+                    </div>
+                )}
+                {hasData && (
+                    <div className="absolute flex flex-col items-center justify-center">
+                        <div className="text-lg font-bold text-foreground">{dataPoint.name}</div>
+                        {dataPoint.period && <div className="text-sm text-muted-foreground">{dataPoint.period}</div>}
+                    </div>
+                )}
             </div>
-             <div className="mt-4 text-base font-semibold text-foreground bg-card/80 border px-4 py-2 rounded-lg shadow-sm">
+             <div className={cn("mt-4 text-base font-semibold text-foreground bg-card/80 border px-4 py-2 rounded-lg shadow-sm", dataPoint.isPast && "invisible")}>
                 {`₹${dataPoint.value.toLocaleString()}`}
             </div>
         </div>
