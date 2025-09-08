@@ -161,7 +161,10 @@ export default function MultipleTopicsPage() {
           </CardContent>
         </Card>
 
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex justify-end gap-4">
+          <Button size="lg" variant="outline">
+            Customize
+          </Button>
           <Button size="lg" onClick={handleGenerate}>
             Generate Presentation
           </Button>
