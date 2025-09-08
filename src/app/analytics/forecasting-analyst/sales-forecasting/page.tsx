@@ -9,6 +9,7 @@ import {
 import { ChevronLeft, Download, Wrench } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const suggestions = [
   { text: "Focus on upsells for 'InsightEngine'", percentage: 98 },
@@ -18,6 +19,30 @@ const suggestions = [
   { text: "Bundle 'InsightEngine' with 'DataScribe'", percentage: 85 },
   { text: "Run a win-back campaign for churned clients", percentage: 80 },
 ];
+
+const generatedText = `**Q3 2024 Sales Forecast & Analysis**
+
+**1. Executive Summary**
+This report projects a 15% quarter-over-quarter revenue growth, reaching $3.2M. Key drivers include the launch of 'InsightEngine v2' and expansion into the APAC market. North America remains the dominant region, with a projected 60% of total revenue.
+
+**2. Forecast by Region**
+- **North America:** $1.92M (60%)
+- **Europe:** $0.8M (25%)
+- **APAC:** $0.48M (15%)
+
+**3. Product Performance**
+- **InsightEngine:** Expected to contribute 70% of new revenue, driven by strong enterprise adoption.
+- **DataScribe:** Stable growth, projected at 10% QoQ.
+- **Legacy Products:** Declining sales, recommend sunsetting by Q1 2025.
+
+**4. Key Performance Indicators (KPIs)**
+- **New ARR Target:** $3.0M
+- **Customer Acquisition Cost (CAC):** Target < $5k
+- **Lifetime Value (LTV):** Maintain LTV/CAC ratio of 3:1 or higher.
+
+**5. Risks & Mitigation**
+- **Risk:** Increased competition in the analytics space.
+- **Mitigation:** Emphasize unique AI-driven features in marketing campaigns and provide competitive pricing bundles.`;
 
 export default function SalesForecastingPage() {
   const router = useRouter();
@@ -47,14 +72,11 @@ export default function SalesForecastingPage() {
         <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-4">
             <Card className="shadow-lg border-border/60">
-              <CardContent className="p-4">
-                 <Image
-                    src="https://placehold.co/800x600/1e293b/ffffff?text=Sales+Forecast+Chart"
-                    alt="Sales Forecast Chart"
-                    width={800}
-                    height={600}
-                    className="object-cover rounded-lg"
-                    data-ai-hint="sales forecast chart"
+              <CardContent className="p-0">
+                 <Textarea
+                    className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
+                    readOnly
+                    value={generatedText}
                   />
               </CardContent>
             </Card>
