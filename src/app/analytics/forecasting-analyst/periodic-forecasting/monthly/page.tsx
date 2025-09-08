@@ -51,7 +51,6 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
                                 outerRadius={40}
                                 dataKey="value"
                                 stroke="none"
-                                paddingAngle={5}
                             >
                                 <Cell key={`cell-profit`} fill={COLORS.profit} />
                                 <Cell key={`cell-loss`} fill={COLORS.loss} />
