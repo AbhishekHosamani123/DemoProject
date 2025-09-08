@@ -11,19 +11,9 @@ import {
 } from "@/components/ui/card";
 import {
   ChevronLeft,
-  Briefcase,
-  TrendingUp,
-  Target,
-  FileText,
-  Rocket,
-  Megaphone,
-  UserCheck,
-  ClipboardList,
-  BarChart2,
-  Lightbulb,
-  GitBranchPlus,
   Settings,
   Presentation,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -141,6 +131,9 @@ export default function SingleTopicPage() {
               <CardContent className="p-0 mt-2 flex-1">
                 <CardDescription>{template.description}</CardDescription>
               </CardContent>
+              <div className="mt-4 flex justify-end">
+                <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
+              </div>
             </Card>
           </Link>
         ))}
