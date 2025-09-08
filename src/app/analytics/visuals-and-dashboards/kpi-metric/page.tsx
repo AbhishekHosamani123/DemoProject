@@ -77,7 +77,7 @@ const dashboardData: Record<string, any> = {
                 type: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
-                height: 300,
+                height: 250,
                 colSpan: 'lg:col-span-1',
                 component: (data:any) => (
                     <BarChart data={data}>
@@ -112,13 +112,13 @@ const dashboardData: Record<string, any> = {
                 type: 'pie',
                 title: 'Top Sale Categories',
                 dataKey: 'topProductsData',
-                height: 200,
+                height: 150,
                 colSpan: 'lg:col-span-1',
                 component: (data:any) => {
                     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
                     return (
                         <PieChart>
-                            <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
+                            <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" label>
                                 {data.map((entry:any, index:number) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
@@ -132,7 +132,7 @@ const dashboardData: Record<string, any> = {
                 type: 'line',
                 title: 'Sales Growth Analysis',
                 dataKey: 'revenueData',
-                height: 200,
+                height: 150,
                 colSpan: 'lg:col-span-2',
                 component: (data:any) => (
                      <LineChart data={data}>
@@ -177,7 +177,7 @@ const dashboardData: Record<string, any> = {
                 type: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
-                height: 300,
+                height: 250,
                 colSpan: 'lg:col-span-2',
                 component: (data:any) => (
                     <BarChart data={data}>
@@ -196,12 +196,12 @@ const dashboardData: Record<string, any> = {
                 title: 'Traffic Sources',
                 dataKey: 'trafficData',
                 colSpan: 'lg:col-span-1',
-                height: 300,
+                height: 250,
                 component: (data: any) => {
                     const COLORS = ['#FF8042', '#00C49F', '#0088FE', '#FFBB28'];
                     return (
                         <PieChart>
-                            <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5}>
+                            <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={40} outerRadius={60} fill="#8884d8" paddingAngle={5}>
                                 {data.map((entry:any, index:number) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
@@ -216,7 +216,7 @@ const dashboardData: Record<string, any> = {
                 type: 'line',
                 title: 'SEO Keyword Funnel',
                 dataKey: 'seoData',
-                height: 200,
+                height: 150,
                 colSpan: 'lg:col-span-3',
                 component: (data:any) => (
                      <LineChart data={data}>
@@ -281,7 +281,7 @@ const diverseTopics = [
     ]},
 ];
 
-for (let i = 3; i <= 20; i++) {
+for (let i = 3; i <= 6; i++) {
     const topicIndex = (i - 3) % diverseTopics.length;
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
@@ -293,7 +293,7 @@ for (let i = 3; i <= 20; i++) {
 }
 
 
-const suggestions = Array.from({ length: 20 }, (_, i) => ({
+const suggestions = Array.from({ length: 6 }, (_, i) => ({
     id: `suggestion-${i + 1}`,
     text: `Option ${i + 1}`,
     percentage: 98 - i,
@@ -377,7 +377,7 @@ export default function KpiMetricDashboardPage() {
             {/* Sidebar */}
             <div className="space-y-4">
                 <Card className="bg-card/60 backdrop-blur-sm">
-                    <CardContent className="p-4 max-h-[80vh] overflow-y-auto">
+                    <CardContent className="p-4">
                         <div className="space-y-3">
                         {suggestions.map((suggestion) => (
                             <div key={suggestion.id} className="group">
@@ -398,3 +398,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
