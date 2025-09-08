@@ -59,10 +59,10 @@ export function Chatbot() {
   }
 
   return (
-    <div className="fixed right-0 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-lg ml-auto pb-4">
+    <div className="fixed bottom-4 right-0 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-lg ml-auto">
       <div
         className={cn(
-          "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out ml-auto",
+          "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out ml-auto mb-2",
           isOpen
             ? "max-h-[80vh] sm:max-h-[400px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
