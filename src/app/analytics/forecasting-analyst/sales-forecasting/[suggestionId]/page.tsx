@@ -68,7 +68,7 @@ Hypothesis J: Simplifying the current multi-tiered pricing model into three clea
       "To better educate potential leads and establish our brand as a thought leader, we recommend creating more in-depth content marketing materials. High-quality whitepapers, detailed case studies, and comprehensive webinars will help articulate the value of our products and nurture leads through the sales funnel.",
     hypotheses: `Hypothesis K: Providing a dedicated account manager for all enterprise-level clients will increase customer retention by 30% over a 12-month period, as it fosters a stronger, more personalized relationship and ensures that clients are maximizing the value of our products.
 
-Hypothesis L: A/B testing different landing pages for our upcoming marketing campaign, one focused on technical features and the other on business outcomes, will improve overall conversion rates by up to 5% by identifying the most effective messaging for我们的 target audience.`,
+Hypothesis L: A/B testing different landing pages for our upcoming marketing campaign, one focused on technical features and the other on business outcomes, will improve overall conversion rates by up to 5% by identifying the most effective messaging for our target audience.`,
   },
   "suggestion-6": {
     title: "Suggestion 6",
@@ -141,7 +141,7 @@ export default function SuggestionDetailPage() {
               <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
               <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
                 {data.suggestion}
-              p>
+              </p>
             </div>
           </div>
         </div>
