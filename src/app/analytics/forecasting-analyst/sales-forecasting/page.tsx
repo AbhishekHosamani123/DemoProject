@@ -8,14 +8,13 @@ import {
 } from "@/components/ui/card";
 import { ChevronLeft, Download, Wrench } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 
 const suggestions = [
   { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
   { id: "suggestion-2", text: "Suggestion 2", percentage: 95 },
-  { id: "suggestion-3", text: "Suggestion 3", percentage: 92 },
+  { id: "suggestion-3",text: "Suggestion 3", percentage: 92 },
   { id: "suggestion-4", text: "Suggestion 4", percentage: 88 },
   { id: "suggestion-5", text: "Suggestion 5", percentage: 85 },
   { id: "suggestion-6", text: "Suggestion 6", percentage: 80 },
@@ -49,10 +48,7 @@ export default function SalesForecastingPage() {
   const router = useRouter();
 
   return (
-    <div className="relative flex-1 bg-background">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
-      </div>
+    <div className="flex-1 bg-background">
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
         <div className="w-full mb-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight">
