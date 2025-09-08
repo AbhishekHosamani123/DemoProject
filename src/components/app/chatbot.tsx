@@ -59,7 +59,7 @@ export function Chatbot() {
   }
 
   return (
-    <div className="fixed bottom-4 right-[-350px] z-50">
+    <div className="fixed bottom-4 right-[-300px] z-50">
       <div
         className={cn(
           "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out",
