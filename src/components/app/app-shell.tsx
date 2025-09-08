@@ -13,6 +13,7 @@ import {
   BarChart2,
   Database,
   DollarSign,
+  FileText,
   Home,
   LayoutGrid,
   User,
@@ -25,7 +26,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
-      <Sidebar collapsible="icon" className="md:w-16">
+      <Sidebar>
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -59,6 +60,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   isActive={pathname === "/analytics"}
                 >
                   <BarChart2 className="group-hover/menu-button:text-black" />
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <Link href="/documents">
+                <SidebarMenuButton
+                  tooltip="Documents"
+                  isActive={pathname === "/documents"}
+                >
+                  <FileText className="group-hover/menu-button:text-black" />
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
