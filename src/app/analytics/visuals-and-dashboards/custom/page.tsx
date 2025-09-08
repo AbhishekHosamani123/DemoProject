@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -48,6 +49,7 @@ export default function CustomDashboardPage() {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [newTopic, setNewTopic] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [prompt, setPrompt] = useState("");
   const [tone, setTone] = useState("formal");
   const [audience, setAudience] = useState("");
   const { toast } = useToast();
@@ -180,11 +182,24 @@ export default function CustomDashboardPage() {
             <CardHeader>
               <CardTitle>Customizations</CardTitle>
               <CardDescription>
-                Fine-tune the output by specifying the tone and target
+                Fine-tune the output by specifying the prompt, tone, and target
                 audience.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              <div className="space-y-3">
+                <Label htmlFor="custom-prompt" className="text-base">
+                  Custom Prompt
+                </Label>
+                <Textarea
+                  id="custom-prompt"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="e.g., 'Focus on the sales growth in the last quarter and highlight top-performing products.'"
+                  className="h-24"
+                />
+              </div>
+
               <div className="space-y-3">
                 <Label className="text-base">Tone of Voice</Label>
                 <RadioGroup
@@ -206,6 +221,7 @@ export default function CustomDashboardPage() {
                   </div>
                 </RadioGroup>
               </div>
+
               <div className="space-y-3">
                 <Label htmlFor="audience" className="text-base">
                   Target Audience
