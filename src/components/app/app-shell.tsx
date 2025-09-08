@@ -22,8 +22,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 
-export function AppShell({ children }: { children: React.Node }) {
+export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
@@ -68,8 +69,16 @@ export function AppShell({ children }: { children: React.Node }) {
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="/analytics">
-                  <SidebarMenuButton tooltip="Finance">
+                <Link href="/finance">
+                  <SidebarMenuButton tooltip={{
+                    children: (
+                      <div className="flex items-center gap-2">
+                        Finance <Badge variant="secondary" className="text-xs">Beta</Badge>
+                      </div>
+                    ),
+                  }}
+                  isActive={pathname.startsWith("/finance")}
+                  >
                     <DollarSign />
                   </SidebarMenuButton>
                 </Link>
