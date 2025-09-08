@@ -6,10 +6,9 @@ import { FileUploader } from "@/components/app/file-uploader";
 import { AiInsights } from "@/components/app/ai-insights";
 import { DataPreview } from "@/components/app/data-preview";
 import { ChartGenerator } from "@/components/app/chart-generator";
-import { CloudConnect } from "@/components/app/cloud-connect";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Server } from "lucide-react";
 
 type ParsedData = Record<string, string>[];
 
@@ -43,24 +42,30 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col">
         {data.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="max-w-4xl w-full">
-              <h2 className="text-3xl font-headline tracking-tight mb-4">
-                Connect Your Data Source
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Upload a file or connect to a cloud service to get started.
+          <div className="flex-1 flex flex-col items-center justify-center text-center">
+            <div className="w-full max-w-lg">
+              <h1 className="text-4xl font-headline tracking-tight mb-2">
+                Welcome to INERA Software
+              </h1>
+              <p className="text-lg text-muted-foreground mb-1">
+                AI-Powered Business Intelligence Platform
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                <div className="md:col-span-3">
-                  <FileUploader onFileUpload={handleFileUpload} />
-                </div>
-                <div className="md:col-span-2">
-                  <CloudConnect />
-                </div>
-              </div>
+              <p className="text-sm text-muted-foreground mb-8">
+                INTELLIGENCE AT THE SPEED OF THOUGHT
+              </p>
+              <FileUploader onFileUpload={handleFileUpload} />
+            </div>
+            <div className="mt-auto pt-8 w-full max-w-lg flex flex-col items-center gap-4">
+               <Button variant="outline" className="w-full" disabled>
+                  <Server className="mr-2 h-5 w-5" />
+                  CONNECT CLOUD SERVER
+                </Button>
+              <Button size="lg" onClick={handleProceed} className="w-full" disabled={!fileName}>
+                PROCEED TO ANALYTICS
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
           </div>
         ) : (

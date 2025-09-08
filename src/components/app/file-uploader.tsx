@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useCallback, type DragEvent } from "react";
-import { UploadCloud, File as FileIcon } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type ParsedData = Record<string, string>[];
 
@@ -107,13 +108,8 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle className="font-headline flex items-center gap-2">
-          <FileIcon className="h-6 w-6" /> Upload a File
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+    <Card className="bg-accent/30 border-accent">
+      <CardContent className="p-8">
         <div
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
@@ -134,14 +130,17 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
             onChange={handleFileChange}
           />
           <label htmlFor="file-upload" className="cursor-pointer">
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <UploadCloud className="h-12 w-12" />
-              <p className="font-semibold">
-                {isDragging
-                  ? "Drop it here!"
-                  : "Drag & drop a CSV file or click to browse"}
+            <div className="flex flex-col items-center gap-4 text-muted-foreground">
+              <UploadCloud className="h-10 w-10 text-primary" />
+              <p className="font-semibold text-foreground">
+                {isDragging ? "Drop it here!" : "Drag and Drop"}
               </p>
-              <p className="text-sm">Max file size 5MB</p>
+              <p className="text-sm">
+                Upload your business data files to get started with AI analysis
+              </p>
+              <Button asChild>
+                <span>UPLOAD FILES</span>
+              </Button>
             </div>
           </label>
         </div>
