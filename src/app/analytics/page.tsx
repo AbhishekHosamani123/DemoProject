@@ -64,7 +64,7 @@ const analyticsFeatures = [
     title: "Collab & Share",
     icon: <Share2 className="h-5 w-5 mb-2 text-primary" />,
     description: "Collaborate and share your findings.",
-    href: "/analytics",
+    href: "/analytics/collab-and-share",
   }
 ];
 
