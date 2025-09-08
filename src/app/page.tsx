@@ -46,15 +46,7 @@ export default function Home() {
   const handleProceed = () => {
     setIsLoading(true);
     setTimeout(() => {
-      if (fileName) {
-        router.push('/analytics');
-      } else {
-        toast({
-          variant: "destructive",
-          title: "No file uploaded",
-          description: "Please upload a file to proceed.",
-        });
-      }
+      router.push('/analytics');
       setIsLoading(false);
     }, 3000);
   };
