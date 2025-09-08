@@ -66,14 +66,14 @@ export default function MonthlySuggestionPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto mb-12">
-          <Card className="bg-primary/10 border-primary/50">
+          <Card className="bg-cyan-900/30 border-cyan-500/50">
             <CardContent className="p-0">
               <Input
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
                 placeholder="What is your profit goal for this month?"
-                className="w-full text-lg bg-transparent border-0 focus:ring-0 text-primary-foreground h-20 placeholder:text-muted-foreground"
+                className="w-full text-lg bg-transparent border-0 focus:ring-0 text-cyan-100 h-20 placeholder:text-cyan-200/70"
                 autoFocus
               />
             </CardContent>
