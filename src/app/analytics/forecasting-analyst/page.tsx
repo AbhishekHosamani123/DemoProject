@@ -30,7 +30,7 @@ const forecastTemplates = [
     title: "Sales Forecasting",
     icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
     description: "Predict future sales and revenue.",
-    href: "#",
+    href: "/analytics/forecasting-analyst/sales-forecasting",
   },
   {
     title: "Customer Behaviour",
