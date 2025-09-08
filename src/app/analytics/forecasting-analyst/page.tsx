@@ -16,11 +16,6 @@ import {
   Users,
   Box,
   Container,
-  PieChart,
-  AreaChart,
-  LineChart,
-  BarChart,
-  HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -50,48 +45,6 @@ const forecastTemplates = [
     description: "Optimize stock levels and reduce costs.",
     href: "#",
   },
-  {
-    title: "Forecast 5",
-    icon: <PieChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 6",
-    icon: <AreaChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 7",
-    icon: <LineChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 8",
-    icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 9",
-    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 10",
-    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
-  {
-    title: "Forecast 11",
-    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
-    description: "A forecast template for various use cases.",
-    href: "#",
-  },
 ];
 
 export default function ForecastingAnalystPage() {
@@ -116,7 +69,7 @@ export default function ForecastingAnalystPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {forecastTemplates.map((template) => (
           <Link href={template.href} key={template.title} className="flex group">
             <Card className="flex flex-col text-left p-6 w-full">

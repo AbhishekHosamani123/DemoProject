@@ -15,7 +15,6 @@ import {
   BarChart,
   Lightbulb,
   ShieldCheck,
-  Share2,
   ArrowRight,
   ChevronLeft,
 } from "lucide-react";
@@ -58,12 +57,6 @@ const analyticsFeatures = [
     title: "Audit Zone",
     icon: <ShieldCheck className="h-10 w-10 mb-4 text-primary" />,
     description: "Review and audit your data.",
-    href: "#",
-  },
-  {
-    title: "Collab & Share",
-    icon: <Share2 className="h-10 w-10 mb-4 text-primary" />,
-    description: "Collaborate with your team and share insights.",
     href: "#",
   },
 ];

@@ -42,69 +42,6 @@ const dashboardItems = [
     icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
     href: "#",
   },
-  {
-    id: "vd4",
-    label: "Visuals & Dashboard 4",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd5",
-    label: "Visuals & Dashboard 5",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd6",
-    label: "Visuals & Dashboard 6",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd7",
-    label: "Visuals & Dashboard 7",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd8",
-    label: "Visuals & Dashboard 8",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd9",
-    label: "Visuals & Dashboard 9",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd10",
-    label: "Visuals & Dashboard 10",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd11",
-    label: "Visuals & Dashboard 11",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
-  {
-    id: "vd12",
-    label: "Visuals & Dashboard 12",
-    description: "A dashboard for various use cases.",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
-  },
 ];
 
 export default function VisualsAndDashboardsPage() {
@@ -129,7 +66,7 @@ export default function VisualsAndDashboardsPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {dashboardItems.map((item) => (
           <Link href={item.href} key={item.id} className="flex group">
             <Card className="flex flex-col text-left p-6 w-full">
