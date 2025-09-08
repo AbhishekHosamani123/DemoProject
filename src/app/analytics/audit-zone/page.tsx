@@ -59,32 +59,29 @@ export default function AuditZonePage() {
 
         <div className="text-center mb-8">
             <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-              Zone Overview
+              Compliance Dashboard
             </h1>
         </div>
         
         <Card className="bg-card/60 backdrop-blur-sm p-6">
             <CardContent className="text-lg space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
-                    In this section, you will find all relevant updates and guidelines for your company.
+                    This dashboard displays customized updates and guidelines for your company. The content is tailored to your organization's specific compliance needs.
                 </p>
                 
                 <div>
-                    <h2 className="text-2xl font-semibold mb-4 text-primary">Details include:</h2>
-                    <ul className="space-y-4 list-disc pl-5">
-                        {auditDetails.map((category) => (
-                            <li key={category.title} className="text-xl font-medium text-foreground">
-                                {category.title}
-                                <ul className="list-disc pl-6 mt-2 space-y-2">
-                                    {category.points.map((point, index) => (
-                                        <li key={index} className="text-base font-normal text-muted-foreground">
-                                            {point}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </li>
-                        ))}
-                    </ul>
+                    {auditDetails.map((category) => (
+                        <div key={category.title} className="mb-6">
+                            <h2 className="text-2xl font-semibold mb-3 text-primary">{category.title}</h2>
+                            <ul className="space-y-2 list-disc pl-5">
+                                {category.points.map((point, index) => (
+                                    <li key={index} className="text-base font-normal text-muted-foreground">
+                                        {point}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
                 </div>
 
             </CardContent>
