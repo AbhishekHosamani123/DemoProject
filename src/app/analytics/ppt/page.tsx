@@ -23,7 +23,7 @@ const presentationTypes = [
     icon: <File className="h-10 w-10 mb-4 text-primary" />,
     description:
       "Generate a presentation focusing on a single topic from your data.",
-    href: "#",
+    href: "/analytics/ppt/single-topic",
   },
   {
     title: "Multiple Topic Presentation",
