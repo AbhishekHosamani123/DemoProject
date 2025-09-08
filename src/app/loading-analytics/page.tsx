@@ -6,22 +6,27 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 
+const loadingMessages = [
+  "Loading...",
+  "Processing...",
+  "Done",
+  "You are ready to change your future. All the best.",
+];
+
 export default function LoadingAnalyticsPage() {
   const router = useRouter();
-  const [showMessage, setShowMessage] = useState(false);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
   useEffect(() => {
-    const messageTimer = setTimeout(() => {
-      setShowMessage(true);
-    }, 2000);
-
-    const redirectTimer = setTimeout(() => {
-      router.push("/analytics");
-    }, 4000);
+    const timers = [
+      setTimeout(() => setCurrentMessageIndex(1), 1500), // Loading... -> Processing...
+      setTimeout(() => setCurrentMessageIndex(2), 3000), // Processing... -> Done
+      setTimeout(() => setCurrentMessageIndex(3), 4000), // Done -> Final Message
+      setTimeout(() => router.push("/analytics"), 6000), // Redirect after final message
+    ];
 
     return () => {
-      clearTimeout(messageTimer);
-      clearTimeout(redirectTimer);
+      timers.forEach(clearTimeout);
     };
   }, [router]);
 
@@ -29,21 +34,20 @@ export default function LoadingAnalyticsPage() {
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
       <div className="space-y-8">
         <div className="flex justify-center animate-pulse">
-            <Image
-                src="/logo.png"
-                alt="Company Logo"
-                width={100}
-                height={100}
-            />
+          <Image
+            src="/logo.png"
+            alt="Company Logo"
+            width={100}
+            height={100}
+          />
         </div>
-        <div className="h-10">
-            {showMessage ? (
-                 <p className="text-xl text-primary animate-in fade-in duration-500">
-                    You are ready to change your future. All the best.
-                 </p>
-            ) : (
-                <Loader2 className="h-8 w-8 mx-auto animate-spin text-primary" />
+        <div className="h-10 flex items-center justify-center">
+          <div className="flex items-center gap-4 text-xl text-primary animate-in fade-in duration-500">
+            {currentMessageIndex < 2 && ( // Show loader for "Loading..." and "Processing..."
+              <Loader2 className="h-8 w-8 animate-spin" />
             )}
+            <p>{loadingMessages[currentMessageIndex]}</p>
+          </div>
         </div>
       </div>
     </div>
