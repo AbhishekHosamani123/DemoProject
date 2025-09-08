@@ -10,7 +10,8 @@ const loadingMessages = [
   "Loading...",
   "Processing...",
   "Done",
-  "Are you ready to change your future? All the best.",
+  "Are you ready to change your future?",
+  "All the best.",
 ];
 
 export default function LoadingAnalyticsPage() {
@@ -21,8 +22,9 @@ export default function LoadingAnalyticsPage() {
     const timers = [
       setTimeout(() => setCurrentMessageIndex(1), 1500), // Loading... -> Processing...
       setTimeout(() => setCurrentMessageIndex(2), 3000), // Processing... -> Done
-      setTimeout(() => setCurrentMessageIndex(3), 4000), // Done -> Final Message
-      setTimeout(() => router.push("/analytics"), 6000), // Redirect after final message
+      setTimeout(() => setCurrentMessageIndex(3), 4500), // Done -> Are you ready...
+      setTimeout(() => setCurrentMessageIndex(4), 6000), // Are you ready... -> All the best.
+      setTimeout(() => router.push("/analytics"), 7500), // Redirect after final message
     ];
 
     return () => {
