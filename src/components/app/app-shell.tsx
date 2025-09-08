@@ -64,16 +64,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <Link href="/documents">
-                <SidebarMenuButton
-                  tooltip="Documents"
-                  isActive={pathname.startsWith("/documents")}
-                >
-                  <FileText className="group-hover/menu-button:text-black" />
-                </SidebarMenuButton>
-              </Link>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
               <Link href="#">
                 <SidebarMenuButton tooltip="Transactions">
                   <DollarSign className="group-hover/menu-button:text-black" />
