@@ -139,14 +139,13 @@ export default function ForecastingAnalystPage() {
         ))}
       </div>
       <div className="mt-8 flex justify-center">
-        <Link href="/analytics/forecasting-analyst/periodic-forecasting" className="w-full max-w-sm">
           <Button
             size="lg"
-            className="w-full text-lg font-bold h-16"
+            className="w-full max-w-sm text-lg font-bold h-16"
+            onClick={() => router.push('/analytics/forecasting-analyst/periodic-forecasting')}
           >
             PERIODICALLY FORECASTING
           </Button>
-        </Link>
       </div>
     </div>
   );
