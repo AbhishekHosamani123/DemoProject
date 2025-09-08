@@ -10,12 +10,11 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import {
+  AppWindow,
   BarChart2,
   Database,
   DollarSign,
-  FileText,
   Home,
-  LayoutGrid,
   User,
 } from "lucide-react";
 import Image from "next/image";
@@ -31,7 +30,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             <SidebarMenuItem>
               <Link href="/">
-                <SidebarMenuButton tooltip="INERA" className="bg-yellow-400 text-black hover:bg-yellow-500">
+                <SidebarMenuButton
+                  tooltip="INERA"
+                  className="bg-yellow-400 text-black hover:bg-yellow-500"
+                >
                   <Image
                     src="/inera-logo.svg"
                     alt="INERA Logo"
@@ -64,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <Link href="#">
-                <SidebarMenuButton tooltip="Transactions">
+                <SidebarMenuButton tooltip="Finance">
                   <DollarSign className="group-hover/menu-button:text-black" />
                 </SidebarMenuButton>
               </Link>
@@ -82,8 +84,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             <SidebarMenuItem>
               <Link href="#">
-                <SidebarMenuButton tooltip="Dashboard">
-                  <LayoutGrid className="group-hover/menu-button:text-black" />
+                <SidebarMenuButton tooltip="Integration Hub">
+                  <AppWindow className="group-hover/menu-button:text-black" />
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
