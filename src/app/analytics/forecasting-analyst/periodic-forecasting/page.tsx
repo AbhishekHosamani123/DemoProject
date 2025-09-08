@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const timePeriods = [
   { id: "daily", label: "DAILY", href: "#" },
+  { id: "weekly", label: "WEEKLY", href: "#" },
   {
     id: "monthly",
     label: "MONTHLY",
@@ -22,7 +23,7 @@ export default function PeriodicForecastingPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-5xl">
         <div className="mb-8">
           <Button onClick={() => router.back()} variant="outline">
             <ChevronLeft className="mr-2 h-4 w-4" />
@@ -35,7 +36,7 @@ export default function PeriodicForecastingPage() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
           {timePeriods.map((period) => (
             <Link href={period.href} key={period.id}>
               <Button
