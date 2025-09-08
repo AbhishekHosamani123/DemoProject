@@ -68,7 +68,7 @@ export default function BrdPage() {
                     <Video className="mr-2" />
                     Generate Video
                 </Button>
-                <Button variant="outline" size="lg" className="w-full">
+                <Button size="lg" className="w-full">
                     <Wrench className="mr-2" />
                     Customize
                 </Button>
