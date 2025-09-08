@@ -28,7 +28,7 @@ This process ensures that the database retains summarized data at different gran
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-            Database Backup & Retention Policy
+            Database Backup
           </h1>
         </div>
 
