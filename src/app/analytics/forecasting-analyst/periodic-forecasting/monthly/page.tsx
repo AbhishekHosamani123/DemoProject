@@ -104,8 +104,7 @@ export default function MonthlyForecastingPage() {
             </div>
         </div>
 
-        <div className="w-full flex justify-center items-start relative">
-             <div className="w-full h-0.5 bg-border absolute top-12 -z-10" />
+        <div className="w-full flex justify-center items-start">
             <div className="flex justify-between w-full max-w-5xl px-4">
                 {forecastData.map((dataPoint) => (
                     <CustomTimelineNode key={dataPoint.name} dataPoint={dataPoint} />
