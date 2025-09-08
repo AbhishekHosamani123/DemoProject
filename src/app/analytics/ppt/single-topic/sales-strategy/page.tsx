@@ -66,7 +66,7 @@ Slide 2: Title: Agenda
 - Q3 2024 Strategic Goals
 - Target Segments & Expansion
 - Product Focus & Messaging
-- GTM Strategy & Key Initiatives
+- Go-to-Market Strategy & Key Initiatives
 - KPIs & Success Measurement
 - Q&A
 
@@ -124,6 +124,7 @@ export default function SalesStrategyPage() {
     toast({
       title: "Done",
       description: "Your presentation has been customized.",
+      duration: 2000,
     });
   };
 
