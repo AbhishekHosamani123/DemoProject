@@ -10,14 +10,15 @@ import { ChevronLeft, Download, Wrench } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 
 const suggestions = [
-  { text: "Suggestion 1", percentage: 98 },
-  { text: "Suggestion 2", percentage: 95 },
-  { text: "Suggestion 3", percentage: 92 },
-  { text: "Suggestion 4", percentage: 88 },
-  { text: "Suggestion 5", percentage: 85 },
-  { text: "Suggestion 6", percentage: 80 },
+  { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
+  { id: "suggestion-2", text: "Suggestion 2", percentage: 95 },
+  { id: "suggestion-3", text: "Suggestion 3", percentage: 92 },
+  { id: "suggestion-4", text: "Suggestion 4", percentage: 88 },
+  { id: "suggestion-5", text: "Suggestion 5", percentage: 85 },
+  { id: "suggestion-6", text: "Suggestion 6", percentage: 80 },
 ];
 
 const generatedText = `Q3 2024 Sales Forecast & Analysis
@@ -96,11 +97,13 @@ export default function SalesForecastingPage() {
             <Card className="bg-card/60 backdrop-blur-sm">
                 <CardContent className="p-4">
                     <div className="space-y-3">
-                    {suggestions.map((suggestion, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-background/80 border">
-                        <span className="font-medium">{suggestion.text}</span>
-                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
+                    {suggestions.map((suggestion) => (
+                      <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id}>
+                        <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors cursor-pointer">
+                          <span className="font-medium">{suggestion.text}</span>
+                          <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
                         </div>
+                      </Link>
                     ))}
                     </div>
                 </CardContent>
