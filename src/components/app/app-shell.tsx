@@ -83,7 +83,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <SidebarMenuButton
                     tooltip="Integration Hub"
                   >
-                    <AppWindow />
+                    <AppWindow className="text-primary" />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
