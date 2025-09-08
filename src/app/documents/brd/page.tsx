@@ -64,7 +64,7 @@ export default function BrdPage() {
                     <Download className="mr-2" />
                     Download BRD
                 </Button>
-                <Button variant="secondary" size="lg" className="w-full">
+                <Button size="lg" className="w-full">
                     <Video className="mr-2" />
                     Generate Video
                 </Button>
