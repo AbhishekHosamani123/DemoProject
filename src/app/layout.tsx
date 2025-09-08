@@ -60,22 +60,23 @@ export default function RootLayout({
                       alt="INERA Logo"
                       width={32}
                       height={32}
+                      className="group-hover/menu-button:brightness-[2]"
                     />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton isActive tooltip="Home">
-                    <Home />
+                    <Home className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Analytics">
-                    <BarChart2 />
+                    <BarChart2 className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Finance">
-                    <DollarSign />
+                    <DollarSign className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -89,7 +90,7 @@ export default function RootLayout({
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Sign In">
-                    <LogIn />
+                    <LogIn className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
