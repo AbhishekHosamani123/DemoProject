@@ -10,7 +10,7 @@ const loadingMessages = [
   "Loading...",
   "Processing...",
   "Done",
-  "You are ready to change your future. All the best.",
+  "Are you ready to change your future? All the best.",
 ];
 
 export default function LoadingAnalyticsPage() {
