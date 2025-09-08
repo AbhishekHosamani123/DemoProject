@@ -4,13 +4,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+
+const latestUpdate = {
+  title: "SEBI (LODR) Second Amendment Regulations, 2023",
+  summary: "The SEBI (Listing Obligations and Disclosure Requirements) (Second Amendment) Regulations, 2023, have been enacted, effective from June 14, 2023. This update introduces mandatory ESG reporting for the top 1000 listed companies by market capitalization, requiring detailed disclosures on environmental, social, and governance metrics. All relevant internal teams must align their reporting frameworks immediately to ensure compliance by the next filing cycle."
+};
 
 export default function ShareDailyUpdatePage() {
   const router = useRouter();
@@ -37,24 +40,31 @@ export default function ShareDailyUpdatePage() {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight inline-block border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
-            Share Daily Update
-            <span className="block text-sm text-muted-foreground font-normal mt-1">(AS NOTIFICATION)</span>
+          <h1 className="text-3xl font-bold tracking-tight inline-flex items-center gap-4 border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
+            <BellRing className="h-8 w-8 animate-pulse" />
+            Latest Update Notification
           </h1>
         </div>
 
         <form onSubmit={handleSubmit}>
             <Card className="bg-card/60 backdrop-blur-sm p-6">
                 <CardContent className="space-y-6 p-0">
-                    <div className="space-y-2">
-                        <Label htmlFor="summary" className="text-lg">MAIN SUMMARY BASED UPDATE / REAL TIME ISSUES</Label>
-                        <p className="text-sm text-muted-foreground"># AUTO GENERATED OF END OF SETTED TIME</p>
-                        <Textarea id="summary" placeholder="Enter the summary or let the AI generate it..." className="h-32" />
+                    <div className="space-y-4">
+                        <Label htmlFor="summary" className="text-xl font-semibold">MAIN SUMMARY BASED UPDATE</Label>
+                        
+                        <Card className="bg-background/50">
+                            <CardHeader>
+                                <CardTitle>{latestUpdate.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{latestUpdate.summary}</p>
+                            </CardContent>
+                        </Card>
                     </div>
 
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="analytics" />
-                        <Label htmlFor="analytics" className="text-lg font-medium">ANALYTICS</Label>
+                    <div className="space-y-2">
+                        <Label className="text-lg font-medium">ANALYTICS</Label>
+                        <Button variant="outline" className="w-full justify-start">View Associated Analytics</Button>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -83,7 +93,7 @@ export default function ShareDailyUpdatePage() {
             </Card>
              <div className="mt-8 flex justify-center">
                 <Button type="submit" size="lg" className="w-full max-w-xs">
-                    SUBMIT
+                    SEND NOTIFICATION
                 </Button>
             </div>
         </form>
