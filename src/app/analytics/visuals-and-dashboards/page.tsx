@@ -42,6 +42,13 @@ const dashboardItems = [
     icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
     href: "#",
   },
+  ...Array.from({ length: 9 }, (_, i) => ({
+    id: `dashboard-${i + 4}`,
+    label: `Visuals and Dashboards - ${i + 4}`,
+    description: `This is a description for Visuals and Dashboards - ${i + 4}.`,
+    icon: <LayoutDashboard className="h-10 w-10 mb-4 text-primary" />,
+    href: "#",
+  })),
 ];
 
 export default function VisualsAndDashboardsPage() {
