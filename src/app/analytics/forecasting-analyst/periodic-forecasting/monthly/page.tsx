@@ -27,6 +27,19 @@ const COLORS = {
   revenue: 'hsl(var(--chart-1))',
 };
 
+const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+        const data = payload[0];
+        const color = data.payload.fill;
+        return (
+            <div className="p-2 bg-background/80 backdrop-blur-sm border border-border rounded-lg shadow-lg">
+                <p style={{ color }}>{`${data.name}: ${data.value.toLocaleString()}`}</p>
+            </div>
+        );
+    }
+    return null;
+};
+
 const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
@@ -45,11 +58,8 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Tooltip
-                                contentStyle={{
-                                    backgroundColor: 'hsl(var(--background))',
-                                    borderColor: 'hsl(var(--border))',
-                                    borderRadius: 'var(--radius)',
-                                }}
+                                content={<CustomTooltip />}
+                                cursor={{ fill: 'hsla(var(--muted-foreground), 0.1)' }}
                             />
                             <Pie
                                 data={pieData}
