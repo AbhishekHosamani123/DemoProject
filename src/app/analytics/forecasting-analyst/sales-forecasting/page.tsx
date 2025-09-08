@@ -20,29 +20,29 @@ const suggestions = [
   { text: "Run a win-back campaign for churned clients", percentage: 80 },
 ];
 
-const generatedText = `**Q3 2024 Sales Forecast & Analysis**
+const generatedText = `Q3 2024 Sales Forecast & Analysis
 
-**1. Executive Summary**
+1. Executive Summary
 This report projects a 15% quarter-over-quarter revenue growth, reaching ₹25.6Cr. Key drivers include the launch of 'InsightEngine v2' and expansion into the APAC market. The Indian market remains the dominant region, with a projected 60% of total revenue.
 
-**2. Forecast by Region**
-- **India:** ₹15.36Cr (60%)
-- **Europe:** ₹6.4Cr (25%)
-- **APAC:** ₹3.84Cr (15%)
+2. Forecast by Region
+- India: ₹15.36Cr (60%)
+- Europe: ₹6.4Cr (25%)
+- APAC: ₹3.84Cr (15%)
 
-**3. Product Performance**
-- **InsightEngine:** Expected to contribute 70% of new revenue, driven by strong enterprise adoption.
-- **DataScribe:** Stable growth, projected at 10% QoQ.
-- **Legacy Products:** Declining sales, recommend sunsetting by Q1 2025.
+3. Product Performance
+- InsightEngine: Expected to contribute 70% of new revenue, driven by strong enterprise adoption.
+- DataScribe: Stable growth, projected at 10% QoQ.
+- Legacy Products: Declining sales, recommend sunsetting by Q1 2025.
 
-**4. Key Performance Indicators (KPIs)**
-- **New ARR Target:** ₹24Cr
-- **Customer Acquisition Cost (CAC):** Target < ₹4L
-- **Lifetime Value (LTV):** Maintain LTV/CAC ratio of 3:1 or higher.
+4. Key Performance Indicators (KPIs)
+- New ARR Target: ₹24Cr
+- Customer Acquisition Cost (CAC): Target < ₹4L
+- Lifetime Value (LTV): Maintain LTV/CAC ratio of 3:1 or higher.
 
-**5. Risks & Mitigation**
-- **Risk:** Increased competition in the analytics space.
-- **Mitigation:** Emphasize unique AI-driven features in marketing campaigns and provide competitive pricing bundles.`;
+5. Risks & Mitigation
+- Risk: Increased competition in the analytics space.
+- Mitigation: Emphasize unique AI-driven features in marketing campaigns and provide competitive pricing bundles.`;
 
 export default function SalesForecastingPage() {
   const router = useRouter();
