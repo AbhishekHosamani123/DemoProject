@@ -15,13 +15,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hello! How can I help you analyze your data today?",
+      content: "Welcome to InEra Software",
     },
   ]);
   const [input, setInput] = useState("");
@@ -98,6 +99,13 @@ export function Chatbot() {
                         : "justify-start"
                     )}
                   >
+                     {message.role === 'assistant' && (
+                        <Avatar className="h-8 w-8">
+                            <AvatarFallback className="bg-primary/20">
+                                <Bot className="h-5 w-5 text-primary" />
+                            </AvatarFallback>
+                        </Avatar>
+                     )}
                     <div
                       className={cn(
                         "max-w-[80%] rounded-lg px-3 py-2 text-sm",
@@ -125,7 +133,7 @@ export function Chatbot() {
               <Button onClick={handleSendMessage} size="icon">
                 <Send className="h-4 w-4" />
               </Button>
-              <Button variant="secondary" size="icon">
+              <Button variant="primary" size="icon">
                 <Mic className="h-4 w-4" />
               </Button>
             </div>
