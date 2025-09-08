@@ -23,6 +23,14 @@ export default function ShareDailyUpdatePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!phoneNumbers.trim() && !emailIds.trim()) {
+        toast({
+            variant: "destructive",
+            title: "No recipients",
+            description: "Please enter at least one phone number or email.",
+        });
+        return;
+    }
     toast({
         title: "Notification Sent",
         description: "Your daily update has been sent successfully."
@@ -56,6 +64,9 @@ export default function ShareDailyUpdatePage() {
                             <CardHeader>
                                 <CardTitle>{latestUpdate.title}</CardTitle>
                             </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{latestUpdate.summary}</p>
+                            </CardContent>
                         </Card>
                     </div>
 
