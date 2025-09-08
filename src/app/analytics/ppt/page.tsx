@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -26,16 +27,16 @@ const presentationTypes = [
     href: "/analytics/ppt/single-topic",
   },
   {
+    title: "Multiple Topics Presentation",
+    icon: <Grid3X3 className="h-10 w-10 mb-4 text-primary" />,
+    description: "Create a presentation that covers multiple topics at once.",
+    href: "/analytics/ppt/multiple-topics",
+  },
+  {
     title: "Customized Topics Presentation",
     icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
     description:
       "Tailor a presentation with specific topics and custom insights.",
-    href: "/analytics/ppt/multiple-topics",
-  },
-  {
-    title: "Multiple Topics Presentation",
-    icon: <Grid3X3 className="h-10 w-10 mb-4 text-primary" />,
-    description: "Create a presentation that covers multiple topics at once.",
     href: "/analytics/ppt/multiple-topics",
   },
 ];
