@@ -24,18 +24,15 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
+import { Download, Video, Wrench, ChevronLeft, Calendar as CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface Slide {
   title: string;
@@ -117,10 +114,9 @@ Slide 10: Q&A
 export default function SalesStrategyPage() {
   const router = useRouter();
   const slides = parsePresentationText(generatedText);
-  const [year, setYear] = useState<string>("2024");
   const [numSlides, setNumSlides] = useState<number>(10);
-
-  const years = Array.from({ length: 25 }, (_, i) => 2025 - i);
+  const [fromDate, setFromDate] = useState<Date | undefined>();
+  const [toDate, setToDate] = useState<Date | undefined>();
 
 
   return (
@@ -209,21 +205,60 @@ export default function SalesStrategyPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="time-period" className="text-right">
-                      Time Period
+                    <Label htmlFor="from-date" className="text-right">
+                      From
                     </Label>
-                    <Select value={year} onValueChange={setYear}>
-                      <SelectTrigger className="col-span-3">
-                        <SelectValue placeholder="Select a year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((y) => (
-                          <SelectItem key={y} value={String(y)}>
-                            {y}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="from-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !fromDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {fromDate ? format(fromDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={fromDate}
+                          onSelect={setFromDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="to-date" className="text-right">
+                      To
+                    </Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="to-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !toDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {toDate ? format(toDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={toDate}
+                          onSelect={setToDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="num-slides" className="text-right">
