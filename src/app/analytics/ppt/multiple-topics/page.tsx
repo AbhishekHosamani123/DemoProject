@@ -189,7 +189,7 @@ export default function MultipleTopicsPage() {
         <div className="mt-8 flex justify-end gap-4">
           <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" variant="outline">
+              <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-500">
                 <Wrench className="mr-2 h-4 w-4" />
                 Customize
               </Button>
