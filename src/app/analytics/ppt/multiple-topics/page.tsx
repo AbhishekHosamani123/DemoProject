@@ -99,9 +99,7 @@ export default function MultipleTopicsPage() {
 
   const handleCustomize = () => {
     toast({
-      title: "Done",
-      description: "Your presentation has been customized.",
-      duration: 2000,
+      title: "Added",
     });
     setIsCustomizeDialogOpen(false);
   };
