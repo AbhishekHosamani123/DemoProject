@@ -40,7 +40,7 @@ export default function PeriodicForecastingPage() {
               key={period}
               variant="outline"
               size="lg"
-              className="w-full h-24 text-xl rounded-lg bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
+              className="w-full h-24 text-xl rounded-lg bg-card/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
             >
               {period}
             </Button>
