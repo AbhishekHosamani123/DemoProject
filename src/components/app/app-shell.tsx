@@ -89,8 +89,8 @@ export function AppShell({ children }: { children: React.Node }) {
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="/analytics">
-                  <SidebarMenuButton tooltip="Database Backup">
+                <Link href="/database-backup">
+                  <SidebarMenuButton tooltip="Database Backup" isActive={pathname === "/database-backup"}>
                     <Database />
                   </SidebarMenuButton>
                 </Link>

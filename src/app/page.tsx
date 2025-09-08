@@ -8,7 +8,7 @@ import { DataPreview } from "@/components/app/data-preview";
 import { ChartGenerator } from "@/components/app/chart-generator";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, Server } from "lucide-react";
+import { ArrowRight, Server, Loader2 } from "lucide-react";
 import { CloudConnect } from "@/components/app/cloud-connect";
 import {
   Dialog,
@@ -26,6 +26,7 @@ export default function Home() {
   const [headers, setHeaders] = useState<string[]>([]);
   const [rawCsv, setRawCsv] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -43,15 +44,19 @@ export default function Home() {
   };
 
   const handleProceed = () => {
-    if (fileName) {
-      router.push('/analytics');
-    } else {
-      toast({
-        variant: "destructive",
-        title: "No file uploaded",
-        description: "Please upload a file to proceed.",
-      });
-    }
+    setIsLoading(true);
+    setTimeout(() => {
+      if (fileName) {
+        router.push('/analytics');
+      } else {
+        toast({
+          variant: "destructive",
+          title: "No file uploaded",
+          description: "Please upload a file to proceed.",
+        });
+      }
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
@@ -83,8 +88,10 @@ export default function Home() {
                   onClick={handleProceed}
                   className="w-full"
                   variant="secondary"
+                  disabled={isLoading}
                 >
-                  Proceed
+                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {isLoading ? 'Analyzing...' : 'Proceed'}
                 </Button>
             </div>
           </div>
@@ -105,9 +112,10 @@ export default function Home() {
               <DataPreview data={data} headers={headers} />
             </div>
             <div className="flex justify-end pt-4">
-              <Button size="lg" onClick={handleProceed} className="w-full sm:w-auto" variant="primary">
-                Proceed to Detailed Analytics
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" onClick={handleProceed} className="w-full sm:w-auto" variant="primary" disabled={isLoading}>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading ? 'Analyzing...' : 'Proceed to Detailed Analytics'}
+                {!isLoading && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
             </div>
           </div>
