@@ -139,7 +139,7 @@ export default function ForecastingAnalystPage() {
         ))}
       </div>
       <div className="mt-8 flex justify-center">
-        <Link href="#" className="w-full max-w-sm">
+        <Link href="/analytics/forecasting-analyst/periodic-forecasting" className="w-full max-w-sm">
           <Button
             size="lg"
             className="w-full text-lg font-bold h-16"
