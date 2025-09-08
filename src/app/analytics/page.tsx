@@ -39,7 +39,7 @@ const analyticsFeatures = [
     title: "Forecasting Analyst",
     icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
     description: "Predict future trends and sales.",
-    href: "#",
+    href: "/analytics/forecasting-analyst",
   },
   {
     title: "Visuals & Dashboards",
