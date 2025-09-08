@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const problems = [
-  { id: "sales-funnel-leakage", title: "Sales Funnel Leakage" },
   { id: "high-customer-churn", title: "High Customer Churn" },
   { id: "inefficient-marketing-spend", title: "Inefficient Marketing Spend" },
   { id: "supply-chain-bottlenecks", title: "Supply Chain Bottlenecks" },
@@ -36,35 +35,8 @@ const problems = [
   { id: "financial-irregularities", title: "Financial Irregularities" },
 ];
 
-const problemDetails: Record<string, { title: string }> = {
-    "sales-funnel-leakage": {
-      title: "Sales Funnel Leakage",
-    },
-    "high-customer-churn": {
-      title: "High Customer Churn",
-    },
-    "inefficient-marketing-spend": {
-      title: "Inefficient Marketing Spend",
-    },
-    "supply-chain-bottlenecks": {
-        title: "Supply Chain Bottlenecks",
-    },
-    "low-user-engagement": {
-        title: "Low User Engagement",
-    },
-    "product-feature-gaps": {
-        title: "Product Feature Gaps",
-    },
-    "financial-irregularities": {
-        title: "Financial Irregularities",
-    }
-};
-
 export default function ProblemSuggestionDetailsPage() {
   const router = useRouter();
-  const [selectedProblem, setSelectedProblem] = useState(problems[0].id);
-
-  const details = problemDetails[selectedProblem as keyof typeof problemDetails];
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -97,7 +69,7 @@ export default function ProblemSuggestionDetailsPage() {
                 {problems.map((problem) => (
                   <DropdownMenuItem
                     key={problem.id}
-                    onSelect={() => setSelectedProblem(problem.id)}
+                    onSelect={() => router.push(`/analytics/problem-and-suggestion/problem/${problem.id}`)}
                   >
                     {problem.title}
                   </DropdownMenuItem>
@@ -105,24 +77,6 @@ export default function ProblemSuggestionDetailsPage() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-
-        <div className="lg:col-span-3">
-          {details && (
-            <Card className="bg-card/60 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl">{details.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="pt-4">
-                  <Button size="lg" variant="secondary">
-                    <Video className="mr-2 h-4 w-4" />
-                    VIDEO
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
       </div>
     </div>
