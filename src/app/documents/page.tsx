@@ -31,7 +31,7 @@ import {
   FileQuestion,
   FileScan,
   FileSearch,
-  FileSync,
+  FileClock,
 } from "lucide-react";
 
 const documentTypes = [
@@ -162,7 +162,7 @@ const documentTypes = [
   },
   {
     title: "Doc 26",
-    icon: <FileSync className="h-8 w-8 mb-4 text-primary" />,
+    icon: <FileClock className="h-8 w-8 mb-4 text-primary" />,
     description: "A document that is being synchronized.",
   },
   {
