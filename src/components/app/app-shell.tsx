@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
-      <TooltipProvider>
+      <TooltipProvider delayDuration={200}>
         <Sidebar>
           <SidebarHeader>
             <SidebarMenu>
