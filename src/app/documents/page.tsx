@@ -18,6 +18,20 @@ import {
   Database,
   Rocket,
   ClipboardList,
+  File,
+  FilePlus,
+  FileCheck,
+  FileArchive,
+  FileCode,
+  FileCog,
+  FileDiff,
+  FileJson,
+  FileKey,
+  FileLock,
+  FileQuestion,
+  FileScan,
+  FileSearch,
+  FileSync,
 } from "lucide-react";
 
 const documentTypes = [
@@ -80,6 +94,81 @@ const documentTypes = [
     title: "Doc 12",
     icon: <ClipboardList className="h-8 w-8 mb-4 text-primary" />,
     description: "Outlines the strategy for testing and quality assurance.",
+  },
+  {
+    title: "Doc 13",
+    icon: <File className="h-8 w-8 mb-4 text-primary" />,
+    description: "A standard document placeholder.",
+  },
+  {
+    title: "Doc 14",
+    icon: <FilePlus className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document with added information.",
+  },
+  {
+    title: "Doc 15",
+    icon: <FileCheck className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document that has been verified.",
+  },
+  {
+    title: "Doc 16",
+    icon: <FileArchive className="h-8 w-8 mb-4 text-primary" />,
+    description: "An archived document.",
+  },
+  {
+    title: "Doc 17",
+    icon: <FileCode className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document containing code.",
+  },
+  {
+    title: "Doc 18",
+    icon: <FileCog className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document with configuration settings.",
+  },
+  {
+    title: "Doc 19",
+    icon: <FileDiff className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document showing differences.",
+  },
+  {
+    title: "Doc 20",
+    icon: <FileJson className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document in JSON format.",
+  },
+  {
+    title: "Doc 21",
+    icon: <FileKey className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document related to security keys.",
+  },
+  {
+    title: "Doc 22",
+    icon: <FileLock className="h-8 w-8 mb-4 text-primary" />,
+    description: "A locked or secure document.",
+  },
+  {
+    title: "Doc 23",
+    icon: <FileQuestion className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document with questions or help.",
+  },
+  {
+    title: "Doc 24",
+    icon: <FileScan className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document that has been scanned.",
+  },
+  {
+    title: "Doc 25",
+    icon: <FileSearch className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document used for search purposes.",
+  },
+  {
+    title: "Doc 26",
+    icon: <FileSync className="h-8 w-8 mb-4 text-primary" />,
+    description: "A document that is being synchronized.",
+  },
+  {
+    title: "Doc 27",
+    icon: <Briefcase className="h-8 w-8 mb-4 text-primary" />,
+    description: "Another business-related document.",
   },
 ];
 
