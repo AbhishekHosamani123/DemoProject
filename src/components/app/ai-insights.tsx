@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -57,19 +58,20 @@ export function AiInsights({ data }: AiInsightsProps) {
             onClick={handleGenerateInsights}
             disabled={isLoading}
             className="w-full"
+            variant="primary"
           >
             {isLoading ? "Analyzing..." : "Generate Insights"}
           </Button>
           {isLoading && (
             <div className="space-y-2 pt-2">
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-full bg-muted-foreground/20" />
+              <Skeleton className="h-4 w-full bg-muted-foreground/20" />
+              <Skeleton className="h-4 w-3/4 bg-muted-foreground/20" />
             </div>
           )}
           {insights && (
-            <div className="p-4 bg-accent/30 rounded-lg border border-accent animate-in fade-in duration-300">
-              <p className="text-sm whitespace-pre-wrap">{insights}</p>
+            <div className="p-4 bg-accent/10 rounded-lg border border-accent animate-in fade-in duration-300">
+              <p className="text-sm whitespace-pre-wrap text-white">{insights}</p>
             </div>
           )}
         </div>

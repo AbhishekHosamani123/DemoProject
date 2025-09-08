@@ -50,6 +50,7 @@ export default function RootLayout({
         >
           <source src={backgroundVideo} type="video/mp4" />
         </video>
+        <div className="fixed inset-0 w-full h-full bg-black/50 -z-40"></div>
         <AppShell>
           <div className="relative flex-1">
             {children}

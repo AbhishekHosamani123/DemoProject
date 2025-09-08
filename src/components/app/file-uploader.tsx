@@ -108,7 +108,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="bg-slate-900/50 border-0 shadow-none w-full">
+    <Card className="bg-transparent border-0 shadow-none w-full">
       <CardContent className="p-0">
         <div
           onDragEnter={handleDragEnter}
@@ -119,7 +119,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
             ${
               isDragging
                 ? "border-primary bg-primary/10"
-                : "border-slate-600 hover:border-primary/50"
+                : "border-slate-400 hover:border-primary"
             }`}
         >
           <input
@@ -130,14 +130,14 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
             onChange={handleFileChange}
           />
           <label htmlFor="file-upload" className="cursor-pointer">
-            <div className="flex flex-col items-center gap-4 text-slate-300">
+            <div className="flex flex-col items-center gap-4 text-slate-100">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                     <UploadCloud className="h-8 w-8 text-primary" />
                 </div>
-              <p className="font-semibold text-primary text-lg">
+              <p className="font-semibold text-primary text-xl">
                 {isDragging ? "Drop it here!" : "Drag and Drop"}
               </p>
-              <p className="text-sm text-primary">
+              <p className="text-base text-white">
                 Upload your business data files to get started with AI analysis
               </p>
               <Button

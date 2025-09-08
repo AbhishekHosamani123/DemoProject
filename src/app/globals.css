@@ -4,69 +4,70 @@
 
 @layer base {
   :root {
-    --background: 222 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222 70% 13%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 79% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 51 100% 50%;
-    --primary-foreground: 218 100% 17%;
-    --secondary: 206 59% 74%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 227 42% 27%;
-    --muted-foreground: 206 33% 66%;
-    --accent: 275 100% 25%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 206 59% 74%;
-    --input: 206 59% 74%;
-    --ring: 51 100% 50%;
-    --radius: 0.5rem;
-    --chart-1: 51 100% 50%;
-    --chart-2: 206 59% 74%;
-    --chart-3: 210 40% 98%;
-    --chart-4: 51 100% 70%;
-    --chart-5: 275 100% 35%;
-    --sidebar-background: 222 84% 4.9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-accent: 51 100% 50%;
-    --sidebar-accent-foreground: 218 100% 17%;
-    --sidebar-border: 227 42% 27%;
-    --sidebar-ring: 51 100% 50%;
-  }
-  .dark {
-    --background: 218 100% 17%;
-    --foreground: 0 0% 100%;
-    --card: 218 100% 22%;
+    --background: 216 100% 33%; /* deep blue #003DA5 */
+    --foreground: 0 0% 100%; /* white */
+    --card: 216 100% 15%; /* darker blue for cards */
     --card-foreground: 0 0% 100%;
-    --popover: 218 100% 12%;
+    --popover: 216 100% 10%;
     --popover-foreground: 0 0% 100%;
-    --primary: 51 100% 50%;
-    --primary-foreground: 218 100% 17%;
-    --secondary: 206 59% 74%;
-    --secondary-foreground: 218 100% 17%;
-    --muted: 227 42% 27%;
-    --muted-foreground: 204 10% 65%;
-    --accent: 275 100% 25%;
+    --primary: 45 100% 50%; /* gold #FFD700 */
+    --primary-foreground: 216 100% 33%; /* deep blue for text on gold */
+    --secondary: 205 56% 74%; /* light blue #A5C8E1 */
+    --secondary-foreground: 216 100% 10%;
+    --muted: 216 100% 15%;
+    --muted-foreground: 205 56% 74%; /* light blue */
+    --accent: 216 100% 40%; /* slightly lighter blue for hover */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 206 59% 74%;
-    --input: 218 100% 22%;
-    --ring: 51 100% 50%;
-    --chart-1: 51 100% 50%;
-    --chart-2: 206 59% 74%;
-    --chart-3: 0 0% 100%;
-    --chart-4: 51 100% 70%;
-    --chart-5: 275 100% 35%;
-    --sidebar-background: 218 100% 17%;
+    --border: 205 56% 74%; /* light blue */
+    --input: 216 100% 20%;
+    --ring: 45 100% 50%; /* gold */
+    --radius: 0.5rem; /* 8px */
+    --chart-1: 45 100% 50%; /* gold */
+    --chart-2: 205 56% 74%; /* light blue */
+    --chart-3: 0 0% 100%; /* white */
+    --chart-4: 45 100% 70%; /* lighter gold */
+    --chart-5: 216 100% 70%; /* lighter blue */
+    --sidebar-background: 216 100% 10%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-accent: 51 100% 50%;
-    --sidebar-accent-foreground: 218 100% 17%;
-    --sidebar-border: 206 59% 74%;
-    --sidebar-ring: 51 100% 50%;
+    --sidebar-accent: 45 100% 50%;
+    --sidebar-accent-foreground: 216 100% 15%;
+    --sidebar-border: 216 100% 20%;
+    --sidebar-ring: 45 100% 50%;
+  }
+
+  .dark {
+    --background: 216 100% 33%; /* deep blue #003DA5 */
+    --foreground: 0 0% 100%; /* white */
+    --card: 216 100% 15%; /* darker blue for cards */
+    --card-foreground: 0 0% 100%;
+    --popover: 216 100% 10%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 45 100% 50%; /* gold #FFD700 */
+    --primary-foreground: 216 100% 33%; /* deep blue for text on gold */
+    --secondary: 205 56% 74%; /* light blue #A5C8E1 */
+    --secondary-foreground: 216 100% 10%;
+    --muted: 216 100% 15%;
+    --muted-foreground: 205 56% 74%; /* light blue */
+    --accent: 216 100% 40%; /* slightly lighter blue for hover */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 205 56% 74%; /* light blue */
+    --input: 216 100% 20%;
+    --ring: 45 100% 50%; /* gold */
+    --chart-1: 45 100% 50%; /* gold */
+    --chart-2: 205 56% 74%; /* light blue */
+    --chart-3: 0 0% 100%; /* white */
+    --chart-4: 45 100% 70%; /* lighter gold */
+    --chart-5: 216 100% 70%; /* lighter blue */
+    --sidebar-background: 216 100% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-accent: 45 100% 50%;
+    --sidebar-accent-foreground: 216 100% 15%;
+    --sidebar-border: 216 100% 20%;
+    --sidebar-ring: 45 100% 50%;
   }
 }
 
@@ -82,14 +83,12 @@
     @apply font-headline text-primary;
   }
 
-  h1 { @apply text-5xl font-bold; }
-  h2 { @apply text-4xl font-bold; }
-  h3 { @apply text-3xl font-medium; }
-  p { @apply text-lg; }
-}
+  h1 { @apply text-5xl font-bold; } /* 48px */
+  h2 { @apply text-4xl font-bold; } /* 36px */
+  h3 { @apply text-3xl font-medium; } /* 28px -> 30px is closest default */
+  p { @apply text-lg; } /* 18px */
 
-@layer components {
-  .glass {
-    @apply bg-white/10 backdrop-blur-sm border border-white/20;
+  .text-secondary {
+    @apply text-slate-400;
   }
 }

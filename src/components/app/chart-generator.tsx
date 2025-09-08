@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo } from "react";
@@ -14,6 +15,7 @@ import {
   Tooltip,
   Legend,
   Cell,
+  ResponsiveContainer
 } from "recharts";
 import {
   Card,
@@ -30,10 +32,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ChartContainer,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
 
 type ParsedData = Record<string, any>[];
@@ -50,6 +48,20 @@ const CHART_COLORS = [
   "hsl(var(--chart-4))",
   "hsl(var(--chart-5))",
 ];
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="p-2 bg-card/90 border border-border rounded-lg shadow-lg">
+        <p className="label text-primary font-bold">{`${label}`}</p>
+        {payload.map((pld: any, index: number) => (
+           <p key={index} style={{ color: pld.fill }}>{`${pld.name}: ${pld.value}`}</p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
   const [barX, setBarX] = useState<string>("");
@@ -69,17 +81,6 @@ export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
   const categoricalHeaders = useMemo(() => {
     return headers.filter((header) => !numericHeaders.includes(header));
   }, [headers, numericHeaders]);
-
-  const chartConfig = useMemo(() => {
-    const config: any = {};
-    headers.forEach((h) => {
-      config[h] = { label: h };
-    });
-    if (pieValue) {
-        config[pieValue] = { label: pieValue };
-    }
-    return config;
-  }, [headers, pieValue]);
 
   const transformedData = useMemo(() => {
     return data.map((row) => {
@@ -151,15 +152,15 @@ export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
               </div>
             </div>
             {barX && barY && (
-              <ChartContainer config={chartConfig} className="h-[250px] w-full">
+              <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={transformedData}>
-                  <CartesianGrid vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey={barX} tickLine={false} axisLine={false} tickMargin={10} />
                   <YAxis />
-                  <Tooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsla(var(--accent), 0.2)' }}/>
                   <Bar dataKey={barY} fill="hsl(var(--chart-1))" radius={4} />
                 </BarChart>
-              </ChartContainer>
+              </ResponsiveContainer>
             )}
           </TabsContent>
           <TabsContent value="line" className="mt-4">
@@ -196,15 +197,15 @@ export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
               </div>
             </div>
             {lineX && lineY && (
-              <ChartContainer config={chartConfig} className="h-[250px] w-full">
+             <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={transformedData}>
-                  <CartesianGrid vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey={lineX} tickLine={false} axisLine={false} tickMargin={10} />
                   <YAxis />
-                  <Tooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
-                  <Line type="monotone" dataKey={lineY} stroke="hsl(var(--chart-1))" strokeWidth={2} dot={true} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}/>
+                  <Line type="monotone" dataKey={lineY} stroke="hsl(var(--chart-1))" strokeWidth={2} dot={{r: 4, fill: 'hsl(var(--chart-1))'}} activeDot={{ r: 8, fill: 'hsl(var(--primary))' }} />
                 </LineChart>
-              </ChartContainer>
+              </ResponsiveContainer>
             )}
           </TabsContent>
           <TabsContent value="pie" className="mt-4">
@@ -241,17 +242,17 @@ export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
               </div>
             </div>
             {pieName && pieValue && pieData.length > 0 && (
-              <ChartContainer config={chartConfig} className="h-[250px] w-full">
+              <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
-                  <Tooltip content={<ChartTooltipContent nameKey="name" />} />
-                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} stroke="hsl(var(--background))" strokeWidth={2}>
                     {pieData.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                     ))}
                   </Pie>
                   <Legend />
                 </PieChart>
-              </ChartContainer>
+              </ResponsiveContainer>
             )}
           </TabsContent>
         </Tabs>

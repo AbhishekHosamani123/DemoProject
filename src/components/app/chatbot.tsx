@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,16 +63,16 @@ export function Chatbot() {
     <div className="fixed bottom-0 right-0 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-lg ml-auto">
       <div
         className={cn(
-          "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out ml-auto mb-2",
+          "w-80 sm:w-96 rounded-lg bg-card/90 backdrop-blur-md border shadow-xl transition-all duration-300 ease-in-out ml-auto mb-4",
           isOpen
-            ? "max-h-[80vh] sm:max-h-[400px] opacity-100"
+            ? "max-h-[80vh] sm:max-h-[500px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
         )}
       >
-        <Card className="h-full flex flex-col border-0">
+        <Card className="h-full flex flex-col border-0 bg-transparent">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-lg">
+              <CardTitle className="text-lg text-primary">
                 AI Assistant
               </CardTitle>
               <CardDescription>Ask me anything</CardDescription>
@@ -87,7 +87,7 @@ export function Chatbot() {
             </Button>
           </CardHeader>
           <CardContent className="flex-1 p-0">
-            <ScrollArea className="h-56 px-6">
+            <ScrollArea className="h-72 px-6">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <div
@@ -101,8 +101,8 @@ export function Chatbot() {
                   >
                      {message.role === 'assistant' && (
                         <Avatar className="h-8 w-8">
-                            <AvatarFallback className="bg-primary/20">
-                                <Bot className="h-5 w-5 text-primary" />
+                            <AvatarFallback className="bg-primary text-primary-foreground">
+                                <Bot className="h-5 w-5" />
                             </AvatarFallback>
                         </Avatar>
                      )}
@@ -111,7 +111,7 @@ export function Chatbot() {
                         "max-w-[80%] rounded-lg px-3 py-2 text-sm",
                         message.role === "user"
                           ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
+                          : "bg-muted text-white"
                       )}
                     >
                       {message.content}
@@ -130,7 +130,7 @@ export function Chatbot() {
                 placeholder="Type a message..."
                 className="flex-1"
               />
-              <Button onClick={handleSendMessage} size="icon">
+              <Button onClick={handleSendMessage} size="icon" variant="secondary">
                 <Send className="h-4 w-4" />
               </Button>
               <Button variant="primary" size="icon">
@@ -145,12 +145,13 @@ export function Chatbot() {
         <Button
             onClick={handleToggle}
             className={cn(
-            "rounded-full w-14 h-14 shadow-lg transition-transform duration-300",
-            isOpen && "scale-0"
+            "rounded-full w-16 h-16 shadow-lg transition-transform duration-300",
+            isOpen ? "scale-0" : "scale-100"
             )}
             size="icon"
+            variant="primary"
         >
-            <Bot className="h-6 w-6" />
+            <Bot className="h-8 w-8" />
         </Button>
       </div>
     </div>

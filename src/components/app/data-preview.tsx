@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -39,18 +40,18 @@ export function DataPreview({ data, headers }: DataPreviewProps) {
       <CardContent>
         <ScrollArea className="h-72 w-full rounded-md border">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-muted/30">
               <TableRow>
                 {headers.map((header) => (
-                  <TableHead key={header}>{header}</TableHead>
+                  <TableHead key={header} className="text-white">{header}</TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
               {previewData.map((row, rowIndex) => (
-                <TableRow key={rowIndex}>
+                <TableRow key={rowIndex} className="border-white/10">
                   {headers.map((header) => (
-                    <TableCell key={`${rowIndex}-${header}`}>
+                    <TableCell key={`${rowIndex}-${header}`} className="text-white/80">
                       {row[header]}
                     </TableCell>
                   ))}

@@ -91,10 +91,10 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {analyticsFeatures.map((feature) => (
           <Link href={feature.href} key={feature.title} className="flex group">
-            <Card className="flex flex-col text-left p-3 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="flex flex-col text-left p-3 w-full bg-card hover:bg-accent border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
               {feature.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-lg font-semibold">
+                <CardTitle className="text-lg font-semibold text-primary">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
