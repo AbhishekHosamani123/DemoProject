@@ -106,16 +106,7 @@ export default function SuggestionDetailPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Column: Suggestion */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
-              <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
-                {data.suggestion}
-              </p>
-               <p className="text-amber-500/80 mt-4 text-sm"># can be viewed only</p>
-            </div>
-
-            {/* Right Column: Hypothesis Report */}
+            {/* Left Column: Hypothesis Report */}
             <div className="space-y-4">
               <Card className="bg-card/60 backdrop-blur-sm h-full">
                 <CardHeader>
@@ -135,6 +126,14 @@ export default function SuggestionDetailPage() {
                   <span className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 text-xs bg-card px-1 rounded">BOT</span>
                 </Button>
               </div>
+            </div>
+            
+            {/* Right Column: Suggestion */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
+                {data.suggestion}
+              </p>
             </div>
           </div>
         </div>
