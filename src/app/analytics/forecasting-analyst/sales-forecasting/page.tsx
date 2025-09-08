@@ -11,12 +11,12 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const suggestions = [
-  { text: "Suggestion 1", percentage: 98 },
-  { text: "Suggestion 2", percentage: 95 },
-  { text: "Suggestion 3", percentage: 92 },
-  { text: "Suggestion 4", percentage: 88 },
-  { text: "Suggestion 5", percentage: 85 },
-  { text: "Suggestion 6", percentage: 80 },
+  { text: "Focus on upsells for 'InsightEngine'", percentage: 98 },
+  { text: "Target healthcare sector in North America", percentage: 95 },
+  { text: "Increase marketing spend for APAC region", percentage: 92 },
+  { text: "Offer promotional discounts for new customers", percentage: 88 },
+  { text: "Bundle 'InsightEngine' with 'DataScribe'", percentage: 85 },
+  { text: "Run a win-back campaign for churned clients", percentage: 80 },
 ];
 
 export default function SalesForecastingPage() {
@@ -54,7 +54,7 @@ export default function SalesForecastingPage() {
                     width={800}
                     height={600}
                     className="object-cover rounded-lg"
-                    data-ai-hint="sales chart"
+                    data-ai-hint="sales forecast chart"
                   />
               </CardContent>
             </Card>
