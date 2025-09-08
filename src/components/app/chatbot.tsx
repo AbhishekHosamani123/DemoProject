@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MessageSquare, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +25,12 @@ export function Chatbot() {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -48,8 +54,12 @@ export function Chatbot() {
     }, 1000);
   };
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <div className="fixed bottom-4 right-[-250px] z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       <div
         className={cn(
           "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out",
