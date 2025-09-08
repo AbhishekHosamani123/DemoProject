@@ -21,10 +21,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  ChevronLeft,
   PlusCircle,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -37,8 +35,7 @@ const initialTopics = [
   { id: "projects", label: "Project Status" },
 ];
 
-export default function ManualDashboardPage() {
-  const router = useRouter();
+export function ManualDashboardCustomization() {
   const [topics, setTopics] = useState(initialTopics);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [newTopic, setNewTopic] = useState("");
@@ -83,34 +80,27 @@ export default function ManualDashboardPage() {
     // Placeholder for generation logic
     toast({
       title: "Generating Dashboard",
-      description: `Creating a dashboard with ${selectedTopics.length} topics.`,
+      description: `Creating a dashboard with ${selectedTopics.length} topics. This might take up to 2 minutes.`,
+      duration: 5000,
     });
   };
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="w-full max-w-2xl mx-auto">
-        <div className="mb-8">
-          <Button onClick={() => router.back()} variant="outline">
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
-        </div>
-
+    <div className="w-full max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">
-            Manual Dashboard Customization
-          </h1>
-          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-            Select the topics you want to include in your custom dashboard.
-          </p>
+            <h1 className="text-4xl font-bold tracking-tight">
+            Dashboard Customization
+            </h1>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+            Select the topics you want to include in your custom dashboard. The AI will pull relevant data for you.
+            </p>
         </div>
 
         <Card className="bg-card/60 backdrop-blur-sm p-6">
           <CardHeader className="p-0 mb-6">
             <CardTitle>Select Topics</CardTitle>
             <CardDescription>
-              Choose from the list below or add your own. The AI will pull relevant data to build your dashboard.
+              Choose from the list below or add your own.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
@@ -167,7 +157,6 @@ export default function ManualDashboardPage() {
                 Generate Dashboard
             </Button>
         </div>
-      </div>
     </div>
   );
 }
