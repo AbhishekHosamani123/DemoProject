@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
-      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col">
+      <main className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
         {data.length === 0 ? (
           <div className="flex-1 flex flex-col items-center text-center">
             <div className="flex-1 flex flex-col justify-center items-center w-full max-w-lg">
@@ -70,7 +70,7 @@ export default function Home() {
                     CONNECT CLOUD SERVER
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] bg-background/80 backdrop-blur-sm">
+                <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
                   <DialogHeader>
                     <DialogTitle>Connect Cloud Source</DialogTitle>
                   </DialogHeader>
@@ -92,19 +92,19 @@ export default function Home() {
             <h2 className="text-3xl font-headline tracking-tight">
               Dashboard for <span className="text-primary">{fileName}</span>
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="md:col-span-2 lg:col-span-1">
                 <AiInsights data={rawCsv} />
               </div>
-              <div className="lg:col-span-2">
+              <div className="md:col-span-2 lg:col-span-2">
                 <ChartGenerator data={data} headers={headers} />
               </div>
             </div>
-            <div>
+            <div className="col-span-1 md:col-span-2 lg:col-span-3">
               <DataPreview data={data} headers={headers} />
             </div>
             <div className="flex justify-end pt-4">
-              <Button size="lg" onClick={handleProceed}>
+              <Button size="lg" onClick={handleProceed} className="w-full sm:w-auto">
                 Proceed to Detailed Analytics
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
