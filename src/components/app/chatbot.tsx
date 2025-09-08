@@ -59,7 +59,7 @@ export function Chatbot() {
   }
 
   return (
-    <div className="fixed bottom-4 right-[-300px] z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       <div
         className={cn(
           "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out",
@@ -133,7 +133,7 @@ export function Chatbot() {
       <Button
         onClick={handleToggle}
         className={cn(
-          "rounded-full w-14 h-14 bg-yellow-400 hover:bg-yellow-500 text-black shadow-lg transition-transform duration-300",
+          "rounded-full w-14 h-14 shadow-lg transition-transform duration-300",
           isOpen && "scale-0"
         )}
         size="icon"

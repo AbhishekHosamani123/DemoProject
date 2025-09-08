@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useCallback, type DragEvent } from "react";
@@ -97,8 +98,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
         e.dataTransfer.clearData();
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onFileUpload]
+    [onFileUpload, processFile]
   );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +108,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="glass bg-transparent border-0 shadow-none">
+    <Card className="bg-transparent border-0 shadow-none">
       <CardContent className="p-8">
         <div
           onDragEnter={handleDragEnter}
@@ -140,7 +140,6 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
               </p>
               <Button
                 asChild
-                className="bg-yellow-400 text-black hover:bg-yellow-500"
               >
                 <span>UPLOAD FILES</span>
               </Button>

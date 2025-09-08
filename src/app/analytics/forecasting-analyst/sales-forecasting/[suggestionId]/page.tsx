@@ -93,47 +93,46 @@ export default function SuggestionDetailPage() {
   };
 
   return (
-    <div className="flex-1 bg-background">
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-        <div className="w-full max-w-6xl mx-auto mb-8">
-          <Button
-            onClick={() => router.back()}
-            className="bg-yellow-400 text-black hover:bg-yellow-500 mb-4"
-          >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+      <div className="w-full max-w-6xl mx-auto mb-8">
+        <Button
+          onClick={() => router.back()}
+          variant="outline"
+          className="mb-4"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
 
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-4 py-2">
-              {data.title.toUpperCase()} - {data.percentage}%
-            </h1>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-4 py-2">
+            {data.title.toUpperCase()} - {data.percentage}%
+          </h1>
+        </div>
+
+        <div className="space-y-8">
+          {/* Hypothesis Report */}
+          <div className="space-y-4">
+            <Card className="bg-card/60 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle>HYPOTHESIS REPORT</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  className="w-full h-64 resize-none border-0 focus:ring-0 text-base bg-transparent p-0"
+                  readOnly
+                  value={data.hypotheses.split('\n\n').map(h => h.trim()).join('\n\n')}
+                />
+              </CardContent>
+            </Card>
           </div>
-
-          <div className="space-y-8">
-            {/* Hypothesis Report */}
-            <div className="space-y-4">
-              <Card className="bg-card/60 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle>HYPOTHESIS REPORT</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Textarea
-                    className="w-full h-64 resize-none border-0 focus:ring-0 text-base bg-transparent p-0"
-                    readOnly
-                    value={data.hypotheses.split('\n\n').map(h => h.trim()).join('\n\n')}
-                  />
-                </CardContent>
-              </Card>
-            </div>
-            
-            {/* Suggestion */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
-              <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
-                {data.suggestion}
-              </p>
-            </div>
+          
+          {/* Suggestion */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
+              {data.suggestion}
+            </p>
           </div>
         </div>
       </div>

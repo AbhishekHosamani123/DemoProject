@@ -133,178 +133,174 @@ export default function SalesStrategyPage() {
   };
 
   return (
-    <div className="relative flex-1 bg-background">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+      <div className="w-full max-w-4xl mb-4 text-center mx-auto">
+        <h1 className="text-4xl font-bold tracking-tight">
+          Sales Strategy Presentation
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Review and take action on your generated presentation.
+        </p>
       </div>
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-        <div className="w-full max-w-4xl mb-4 text-center mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight">
-            Sales Strategy Presentation
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Review and take action on your generated presentation.
-          </p>
-        </div>
 
-        <div className="w-full max-w-4xl mx-auto mb-8">
-          <Button
-            onClick={() => router.back()}
-            className="bg-yellow-400 text-black hover:bg-yellow-500"
-          >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
-        </div>
+      <div className="w-full max-w-4xl mx-auto mb-8">
+        <Button
+          onClick={() => router.back()}
+          variant="outline"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
+      </div>
 
-        <div className="w-full max-w-4xl space-y-8 mx-auto">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {slides.map((slide, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center relative overflow-hidden">
-                      <Image
-                        src="https://picsum.photos/1280/720"
-                        alt="Presentation background"
-                        fill
-                        className="object-cover"
-                        data-ai-hint="business strategy"
-                      />
-                      <div className="absolute inset-0 bg-black/50" />
-                      <div className="relative z-10 text-white w-full">
-                        <CardHeader>
-                          <CardTitle className="text-center">{slide.title.replace('Title: ', '')}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-left w-full max-w-2xl mx-auto">
-                          {slide.content.map((item, i) => {
-                            if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
-                              return <p key={i} className="text-center text-slate-300">{item.split(': ')[1]}</p>
-                            }
-                            return (
-                              <p key={i} className="my-2">{item}</p>
-                            )
-                          })}
-                        </CardContent>
-                      </div>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="ml-12 text-white"/>
-            <CarouselNext className="mr-12 text-white"/>
-          </Carousel>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Button size="lg" className="w-full">
-              <Download className="mr-2" />
-              Download PPT
-            </Button>
-            <Button size="lg" className="w-full">
-              <Video className="mr-2" />
-              Generate Video
-            </Button>
-            <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
-              <DialogTrigger asChild>
-                <Button size="lg" className="w-full">
-                  <Wrench className="mr-2" />
-                  Customize
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                <DialogHeader>
-                  <DialogTitle>Customize Presentation</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="from-date" className="text-right">
-                      From
-                    </Label>
-                    <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          id="from-date"
-                          variant={"outline"}
-                          className={cn(
-                            "col-span-3 justify-start text-left font-normal",
-                            !fromDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {fromDate ? format(fromDate, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={fromDate}
-                          onSelect={(date) => {
-                            setFromDate(date);
-                            setIsFromDatePickerOpen(false);
-                          }}
-                          captionLayout="dropdown-buttons"
-                          fromYear={2001}
-                          toYear={2025}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="to-date" className="text-right">
-                      To
-                    </Label>
-                    <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          id="to-date"
-                          variant={"outline"}
-                          className={cn(
-                            "col-span-3 justify-start text-left font-normal",
-                            !toDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {toDate ? format(toDate, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={toDate}
-                          onSelect={(date) => {
-                            setToDate(date);
-                            setIsToDatePickerOpen(false);
-                          }}
-                          captionLayout="dropdown-buttons"
-                          fromYear={2001}
-                          toYear={2025}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="num-slides" className="text-right">
-                      No. of Slides
-                    </Label>
-                    <Input
-                      id="num-slides"
-                      type="number"
-                      value={numSlides}
-                      onChange={(e) => setNumSlides(Number(e.target.value))}
-                      className="col-span-3"
-                      min="1"
+      <div className="w-full max-w-4xl space-y-8 mx-auto">
+        <Carousel className="w-full">
+          <CarouselContent>
+            {slides.map((slide, index) => (
+              <CarouselItem key={index}>
+                <div className="p-1">
+                  <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center relative overflow-hidden">
+                    <Image
+                      src="https://picsum.photos/1280/720"
+                      alt="Presentation background"
+                      width={1280}
+                      height={720}
+                      className="object-cover absolute inset-0 w-full h-full"
+                      data-ai-hint="business strategy"
                     />
-                  </div>
+                    <div className="absolute inset-0 bg-black/50" />
+                    <div className="relative z-10 text-white w-full">
+                      <CardHeader>
+                        <CardTitle className="text-center">{slide.title.replace('Title: ', '')}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-left w-full max-w-2xl mx-auto">
+                        {slide.content.map((item, i) => {
+                          if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
+                            return <p key={i} className="text-center text-slate-300">{item.split(': ')[1]}</p>
+                          }
+                          return (
+                            <p key={i} className="my-2">{item}</p>
+                          )
+                        })}
+                      </CardContent>
+                    </div>
+                  </Card>
                 </div>
-                <DialogFooter>
-                  <Button type="submit" onClick={handleGenerate}>Generate</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="ml-12 text-white"/>
+          <CarouselNext className="mr-12 text-white"/>
+        </Carousel>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Button size="lg" className="w-full">
+            <Download className="mr-2" />
+            Download PPT
+          </Button>
+          <Button size="lg" className="w-full">
+            <Video className="mr-2" />
+            Generate Video
+          </Button>
+          <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="w-full" variant="secondary">
+                <Wrench className="mr-2" />
+                Customize
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+              <DialogHeader>
+                <DialogTitle>Customize Presentation</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="from-date" className="text-right">
+                    From
+                  </Label>
+                  <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="from-date"
+                        variant={"outline"}
+                        className={cn(
+                          "col-span-3 justify-start text-left font-normal",
+                          !fromDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {fromDate ? format(fromDate, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={fromDate}
+                        onSelect={(date) => {
+                          setFromDate(date);
+                          setIsFromDatePickerOpen(false);
+                        }}
+                        captionLayout="dropdown-buttons"
+                        fromYear={2001}
+                        toYear={2025}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="to-date" className="text-right">
+                    To
+                  </Label>
+                  <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="to-date"
+                        variant={"outline"}
+                        className={cn(
+                          "col-span-3 justify-start text-left font-normal",
+                          !toDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {toDate ? format(toDate, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={toDate}
+                        onSelect={(date) => {
+                          setToDate(date);
+                          setIsToDatePickerOpen(false);
+                        }}
+                        captionLayout="dropdown-buttons"
+                        fromYear={2001}
+                        toYear={2025}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="num-slides" className="text-right">
+                    No. of Slides
+                  </Label>
+                  <Input
+                    id="num-slides"
+                    type="number"
+                    value={numSlides}
+                    onChange={(e) => setNumSlides(Number(e.target.value))}
+                    className="col-span-3"
+                    min="1"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit" onClick={handleGenerate}>Generate</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>

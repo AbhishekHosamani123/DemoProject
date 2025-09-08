@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <SidebarMenuItem>
                 <Link href="/">
                   <SidebarMenuButton tooltip="Home" isActive={pathname === "/"}>
-                    <Home className="group-hover/menu-button:text-black" />
+                    <Home />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -63,14 +63,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     tooltip="Analytics"
                     isActive={pathname.startsWith("/analytics")}
                   >
-                    <BarChart2 className="group-hover/menu-button:text-black" />
+                    <BarChart2 />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="#">
                   <SidebarMenuButton tooltip="Finance">
-                    <DollarSign className="group-hover/menu-button:text-black" />
+                    <DollarSign />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -83,21 +83,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <SidebarMenuButton
                     tooltip="Integration Hub"
                   >
-                    <AppWindow className="group-hover/menu-button:text-black"/>
+                    <AppWindow />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="#">
                   <SidebarMenuButton tooltip="Database Backup">
-                    <Database className="group-hover/menu-button:text-black" />
+                    <Database />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="#">
                   <SidebarMenuButton tooltip="Login">
-                    <User className="group-hover/menu-button:text-black" />
+                    <User />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>

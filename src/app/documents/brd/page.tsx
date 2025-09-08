@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -40,55 +41,50 @@ export default function BrdPage() {
 - IT Department: Responsible for system maintenance and support.`;
 
   return (
-    <div className="relative flex-1 bg-background">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+      <div className="w-full max-w-4xl mb-4 text-center mx-auto">
+        <h1 className="text-4xl font-bold tracking-tight">
+          Business Requirement Document
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Review and take action on your generated BRD.
+        </p>
       </div>
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-        <div className="w-full max-w-4xl mb-4 text-center mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight">
-            Business Requirement Document
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Review and take action on your generated BRD.
-          </p>
-        </div>
 
-        <div className="w-full max-w-4xl mx-auto mb-8">
-          <Button
-            onClick={() => router.back()}
-            className="bg-yellow-400 text-black hover:bg-yellow-500"
-          >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
+      <div className="w-full max-w-4xl mx-auto mb-8">
+        <Button
+          onClick={() => router.back()}
+          variant="outline"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
+      </div>
+
+      <div className="w-full max-w-4xl space-y-8 mx-auto">
+        <Card className="shadow-lg border-border/60">
+          <CardContent className="p-0">
+            <Textarea
+              className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
+              readOnly
+              value={generatedText}
+            />
+          </CardContent>
+        </Card>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Button size="lg" className="w-full">
+            <Download className="mr-2" />
+            Download BRD
           </Button>
-        </div>
-
-        <div className="w-full max-w-4xl space-y-8 mx-auto">
-          <Card className="shadow-lg border-border/60">
-            <CardContent className="p-0">
-              <Textarea
-                className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
-                readOnly
-                value={generatedText}
-              />
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Button size="lg" className="w-full">
-              <Download className="mr-2" />
-              Download BRD
-            </Button>
-            <Button size="lg" className="w-full">
-              <Video className="mr-2" />
-              Generate Video
-            </Button>
-            <Button size="lg" className="w-full">
-              <Wrench className="mr-2" />
-              Customize
-            </Button>
-          </div>
+          <Button size="lg" className="w-full">
+            <Video className="mr-2" />
+            Generate Video
+          </Button>
+          <Button size="lg" variant="secondary" className="w-full">
+            <Wrench className="mr-2" />
+            Customize
+          </Button>
         </div>
       </div>
     </div>

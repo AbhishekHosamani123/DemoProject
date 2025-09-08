@@ -73,10 +73,7 @@ export default function CustomTopicPage() {
   };
 
   return (
-    <div className="relative flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
-      </div>
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight">
           Customized Topics Presentation
@@ -89,7 +86,7 @@ export default function CustomTopicPage() {
         <div className="mb-8">
           <Button
             onClick={() => router.back()}
-            className="bg-yellow-400 text-black hover:bg-yellow-500"
+            variant="outline"
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
@@ -122,7 +119,7 @@ export default function CustomTopicPage() {
             <DialogTrigger asChild>
               <Button
                 size="lg"
-                className="bg-yellow-400 text-black hover:bg-yellow-500"
+                variant="secondary"
               >
                 <Wrench className="mr-2 h-4 w-4" />
                 Customize
