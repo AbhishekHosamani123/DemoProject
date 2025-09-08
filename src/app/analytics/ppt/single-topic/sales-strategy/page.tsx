@@ -118,6 +118,8 @@ export default function SalesStrategyPage() {
   const [numSlides, setNumSlides] = useState<number>(10);
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>();
+  const [isFromDatePickerOpen, setIsFromDatePickerOpen] = useState(false);
+  const [isToDatePickerOpen, setIsToDatePickerOpen] = useState(false);
   const { toast } = useToast();
 
   const handleGenerate = () => {
@@ -217,7 +219,7 @@ export default function SalesStrategyPage() {
                     <Label htmlFor="from-date" className="text-right">
                       From
                     </Label>
-                    <Popover>
+                    <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           id="from-date"
@@ -235,7 +237,10 @@ export default function SalesStrategyPage() {
                         <Calendar
                           mode="single"
                           selected={fromDate}
-                          onSelect={setFromDate}
+                          onSelect={(date) => {
+                            setFromDate(date);
+                            setIsFromDatePickerOpen(false);
+                          }}
                           captionLayout="dropdown-buttons"
                           fromYear={2001}
                           toYear={2025}
@@ -248,7 +253,7 @@ export default function SalesStrategyPage() {
                     <Label htmlFor="to-date" className="text-right">
                       To
                     </Label>
-                    <Popover>
+                    <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           id="to-date"
@@ -266,7 +271,10 @@ export default function SalesStrategyPage() {
                         <Calendar
                           mode="single"
                           selected={toDate}
-                          onSelect={setToDate}
+                          onSelect={(date) => {
+                            setToDate(date);
+                            setIsToDatePickerOpen(false);
+                          }}
                           captionLayout="dropdown-buttons"
                           fromYear={2001}
                           toYear={2025}
