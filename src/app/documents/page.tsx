@@ -219,7 +219,10 @@ export default function DocumentsPage() {
         </p>
       </div>
       <div className="mb-8">
-        <Button variant="ghost" onClick={() => router.back()}>
+        <Button
+          onClick={() => router.back()}
+          className="bg-yellow-400 text-black hover:bg-yellow-500"
+        >
           <ChevronLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
