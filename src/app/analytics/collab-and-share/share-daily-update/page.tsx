@@ -50,7 +50,7 @@ export default function ShareDailyUpdatePage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight inline-flex items-center gap-4 border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
             <BellRing className="h-8 w-8 animate-pulse" />
-            Share Daily Update Notification
+            {latestUpdate.title}
           </h1>
         </div>
 
@@ -72,7 +72,7 @@ export default function ShareDailyUpdatePage() {
 
                     <div className="space-y-2">
                         <Label className="text-lg font-medium">ANALYTICS</Label>
-                        <Button variant="outline" className="w-full justify-start">View Associated Analytics</Button>
+                        <Button variant="outline" className="w-full justify-start">ANALYTICS</Button>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
