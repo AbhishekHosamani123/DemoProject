@@ -29,7 +29,7 @@ const presentationTypes = [
     title: "Multiple Topics Presentation",
     icon: <Files className="h-10 w-10 mb-4 text-primary" />,
     description: "Create a comprehensive presentation covering multiple topics.",
-    href: "#",
+    href: "/analytics/ppt/multiple-topics",
   },
   {
     title: "Customized Topics Presentation",
