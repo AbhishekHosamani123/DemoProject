@@ -5,52 +5,78 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
   ResponsiveContainer,
-  CartesianGrid,
-  Dot,
 } from "recharts";
 import { cn } from "@/lib/utils";
 
 const forecastData = [
-  { name: "Past", period: "(Only View)", value: 8000, isPast: true },
-  { name: "Current", period: "(May)", value: 10000, isCurrent: true },
-  { name: "Next", period: "(June)", value: 11000 },
-  { name: "July", value: 14000 },
-  { name: "Aug", value: 18000 },
+    { name: "Past", period: "(Only View)", isPast: true, value: 0, profit: 0, loss: 0, revenue: 0 },
+    { name: "Current", period: "(May)", value: 10000, profit: 6000, loss: 1000, revenue: 5000, isCurrent: true },
+    { name: "Next", period: "(June)", value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
+    { name: "July", value: 14000, profit: 9000, loss: 2000, revenue: 7000 },
+    { name: "Aug", value: 18000, profit: 12000, loss: 2500, revenue: 8500 },
 ];
 
-const CustomXAxisTick = (props: any) => {
-    const { x, y, payload } = props;
-    const { value } = payload;
-    const dataPoint = forecastData.find(d => d.name === value);
+const COLORS = {
+  profit: 'hsl(var(--chart-2))',
+  loss: 'hsl(var(--chart-5))',
+  revenue: 'hsl(var(--chart-1))',
+};
 
-    if (!dataPoint) return null;
-
+const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
     const isNext = dataPoint.name === 'Next';
 
-    return (
-        <g transform={`translate(${x},${y})`}>
-            <foreignObject x={-50} y={15} width={100} height={100}>
-                <div className="flex flex-col items-center text-center">
-                    <div className={cn("flex flex-col items-center justify-center h-[60px] w-[60px] rounded-full border-2",
-                      isNext ? "border-primary border-4" : "border-border"
-                    )}>
-                        <div className="text-sm font-bold text-foreground">{dataPoint.name}</div>
-                        {dataPoint.period && <div className="text-xs text-muted-foreground">{dataPoint.period}</div>}
-                    </div>
-                    {!dataPoint.isPast &&
-                        <div className="mt-4 text-sm font-semibold text-foreground bg-primary/20 text-primary-foreground px-3 py-1 rounded-md">
-                           {`RS. ${dataPoint.value.toLocaleString()}`}
-                        </div>
-                    }
+    if (dataPoint.isPast) {
+        return (
+             <div className="flex flex-col items-center text-center w-40">
+                <div className="flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 border-dashed border-muted-foreground/50">
+                    <div className="text-lg font-bold text-muted-foreground">{dataPoint.name}</div>
+                    <div className="text-sm text-muted-foreground">{dataPoint.period}</div>
                 </div>
-            </foreignObject>
-        </g>
+            </div>
+        )
+    }
+
+    const pieData = [
+        { name: 'Profit', value: dataPoint.profit },
+        { name: 'Loss', value: dataPoint.loss },
+        { name: 'Revenue', value: dataPoint.revenue },
+    ];
+
+    return (
+        <div className="flex flex-col items-center text-center w-40">
+             <div className={cn("flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 relative transition-all duration-300",
+                isNext ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border"
+            )}>
+                <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                        <Pie
+                            data={pieData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={28}
+                            outerRadius={38}
+                            dataKey="value"
+                            stroke="none"
+                        >
+                            <Cell key={`cell-profit`} fill={COLORS.profit} />
+                            <Cell key={`cell-loss`} fill={COLORS.loss} />
+                            <Cell key={`cell-revenue`} fill={COLORS.revenue} />
+                        </Pie>
+                    </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute flex flex-col items-center justify-center">
+                    <div className="text-lg font-bold text-foreground">{dataPoint.name}</div>
+                    {dataPoint.period && <div className="text-sm text-muted-foreground">{dataPoint.period}</div>}
+                </div>
+            </div>
+             <div className="mt-4 text-base font-semibold text-foreground bg-card/80 border px-4 py-2 rounded-lg shadow-sm">
+                {`₹${dataPoint.value.toLocaleString()}`}
+            </div>
+        </div>
     );
 }
 
@@ -59,7 +85,7 @@ export default function MonthlyForecastingPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="w-full max-w-5xl">
+      <div className="w-full max-w-6xl">
         <div className="mb-8">
           <Button onClick={() => router.back()} variant="outline">
             <ChevronLeft className="mr-2 h-4 w-4" />
@@ -78,22 +104,30 @@ export default function MonthlyForecastingPage() {
             </div>
         </div>
 
-        <div className="w-full h-[250px]">
-           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={forecastData.filter(d => !d.isPast)}
-              margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
-            >
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                axisLine={false}
-                interval={0}
-                tick={<CustomXAxisTick />}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="w-full flex justify-center items-start relative">
+             <div className="w-full h-0.5 bg-border absolute top-12 -z-10" />
+            <div className="flex justify-between w-full max-w-5xl px-4">
+                {forecastData.map((dataPoint) => (
+                    <CustomTimelineNode key={dataPoint.name} dataPoint={dataPoint} />
+                ))}
+            </div>
         </div>
+
+        <div className="flex justify-center mt-16 space-x-8">
+            <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 rounded-full" style={{backgroundColor: COLORS.profit}} />
+                <span className="text-sm font-medium">Profit</span>
+            </div>
+             <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 rounded-full" style={{backgroundColor: COLORS.loss}} />
+                <span className="text-sm font-medium">Loss</span>
+            </div>
+             <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 rounded-full" style={{backgroundColor: COLORS.revenue}} />
+                <span className="text-sm font-medium">Revenue</span>
+            </div>
+        </div>
+
       </div>
     </div>
   );
