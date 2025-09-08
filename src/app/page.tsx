@@ -55,12 +55,14 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col p-4 justify-center">
+    <main className="flex-1 flex flex-col p-4 justify-center items-center">
       {data.length === 0 ? (
-        <div className="w-full max-w-2xl self-center">
-          <div className="flex flex-col items-center gap-8 w-full">
-            <FileUploader onFileUpload={handleFileUpload} />
-            <div className="w-full max-w-sm">
+        <div className="w-full max-w-2xl flex flex-col items-center gap-8">
+            <h1 className="text-8xl font-bold text-center tracking-wider text-white/80">
+                INERA
+            </h1>
+          <FileUploader onFileUpload={handleFileUpload} />
+          <div className="w-full max-w-sm">
               <div className="mb-2">
                 <Dialog>
                   <DialogTrigger asChild>
@@ -85,7 +87,6 @@ export default function Home() {
                 PROCEED TO ANALYTICS
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </div>
           </div>
         </div>
       ) : (
