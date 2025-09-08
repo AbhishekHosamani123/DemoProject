@@ -56,62 +56,66 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col justify-center">
-      {data.length === 0 ? (
-        <div className="relative">
-          <div className="relative right-8 w-full max-w-xl mx-auto flex flex-col items-center gap-8 mt-24">
-            <FileUploader onFileUpload={handleFileUpload} />
-            <div className="w-full max-w-sm">
-                <div className="mb-2">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="secondary" size="lg" className="w-full">
-                        <Server className="mr-2 h-5 w-5" />
-                        CONNECT CLOUD SERVER
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                      <DialogHeader>
-                        <DialogTitle>Connect Cloud Source</DialogTitle>
-                      </DialogHeader>
-                      <CloudConnect />
-                    </DialogContent>
-                  </Dialog>
+      <div className="relative mt-32 w-full max-w-xl mx-auto">
+        <div className="relative right-8">
+          {data.length === 0 ? (
+            <div className="relative">
+              <div className="relative w-full max-w-xl flex flex-col items-center gap-8">
+                <FileUploader onFileUpload={handleFileUpload} />
+                <div className="w-full max-w-sm">
+                    <div className="mb-2">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="secondary" size="lg" className="w-full">
+                            <Server className="mr-2 h-5 w-5" />
+                            CONNECT CLOUD SERVER
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                          <DialogHeader>
+                            <DialogTitle>Connect Cloud Source</DialogTitle>
+                          </DialogHeader>
+                          <CloudConnect />
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                    <Button
+                      size="lg"
+                      onClick={handleProceed}
+                      className="w-full"
+                    >
+                      PROCEED TO ANALYTICS
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
                 </div>
-                <Button
-                  size="lg"
-                  onClick={handleProceed}
-                  className="w-full"
-                >
-                  PROCEED TO ANALYTICS
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-8 animate-in fade-in duration-500 py-8 w-full">
+              <h2 className="text-3xl tracking-tight">
+                Dashboard for <span className="text-primary">{fileName}</span>
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="md:col-span-2 lg:col-span-1">
+                  <AiInsights data={rawCsv} />
+                </div>
+                <div className="md:col-span-2 lg:col-span-2">
+                  <ChartGenerator data={data} headers={headers} />
+                </div>
+              </div>
+              <div className="col-span-1 md:col-span-2 lg:col-span-3">
+                <DataPreview data={data} headers={headers} />
+              </div>
+              <div className="flex justify-end pt-4">
+                <Button size="lg" onClick={handleProceed} className="w-full sm:w-auto">
+                  Proceed to Detailed Analytics
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
-      ) : (
-        <div className="space-y-8 animate-in fade-in duration-500 py-8 w-full">
-          <h2 className="text-3xl tracking-tight">
-            Dashboard for <span className="text-primary">{fileName}</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="md:col-span-2 lg:col-span-1">
-              <AiInsights data={rawCsv} />
-            </div>
-            <div className="md:col-span-2 lg:col-span-2">
-              <ChartGenerator data={data} headers={headers} />
-            </div>
-          </div>
-          <div className="col-span-1 md:col-span-2 lg:col-span-3">
-            <DataPreview data={data} headers={headers} />
-          </div>
-          <div className="flex justify-end pt-4">
-            <Button size="lg" onClick={handleProceed} className="w-full sm:w-auto">
-              Proceed to Detailed Analytics
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      )}
+      </div>
     </main>
   );
 }
