@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,6 +17,9 @@ import {
   Users,
   Lightbulb,
   AlertTriangle,
+  Video,
+  BarChartHorizontal,
+  TrendingUp,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -58,6 +60,24 @@ const problems = [
     title: "Financial Irregularities",
     description: "Detect and investigate financial anomalies.",
     icon: <AlertTriangle className="h-5 w-5 mb-2 text-primary" />,
+  },
+   {
+    id: "sales-forecasting-accuracy",
+    title: "Poor Sales Forecasting",
+    description: "Improve the accuracy of your sales predictions.",
+    icon: <BarChartHorizontal className="h-5 w-5 mb-2 text-primary" />,
+  },
+  {
+    id: "high-operational-costs",
+    title: "High Operational Costs",
+    description: "Identify areas to reduce operational expenses.",
+    icon: <TrendingDown className="h-5 w-5 mb-2 text-primary" />,
+  },
+   {
+    id: "revenue-growth-stagnation",
+    title: "Revenue Growth Stagnation",
+    description: "Uncover new opportunities for revenue growth.",
+    icon: <TrendingUp className="h-5 w-5 mb-2 text-primary" />,
   },
 ];
 
@@ -107,6 +127,12 @@ export default function ProblemSuggestionDetailsPage() {
             </Card>
           </Link>
         ))}
+      </div>
+      <div className="w-full max-w-6xl mx-auto mt-12 flex justify-center">
+        <Button size="lg" className="h-12 text-lg font-semibold">
+            <Video className="mr-2 h-5 w-5"/>
+            VIDEO
+        </Button>
       </div>
     </div>
   );
