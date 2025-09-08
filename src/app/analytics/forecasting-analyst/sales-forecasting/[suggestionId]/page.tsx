@@ -25,51 +25,59 @@ const suggestionData: Record<
     title: "Suggestion 1",
     percentage: 98,
     suggestion:
-      "Focus on upselling 'InsightEngine' to existing customers who have purchased 'DataScribe' in the last 12 months. This segment has shown a 40% higher likelihood of conversion.",
-    hypotheses: `Hypothesis A: Focusing on the top 20% of customers from last quarter will yield a higher conversion rate for new product bundles.
-Hypothesis B: A targeted email campaign to inactive users with a special offer will reactivate at least 15% of them.
-Hypothesis C: Increasing ad spend on social media platforms will lead to a 10% increase in lead generation but with a higher customer acquisition cost.`,
+      "Our analysis strongly indicates a significant opportunity in upselling 'InsightEngine' to your existing customer base. Specifically, customers who have purchased 'DataScribe' within the last 12 months represent a high-potential segment, demonstrating a 40% higher likelihood of conversion compared to other segments. Focusing sales efforts here could lead to a substantial increase in revenue with a lower customer acquisition cost.",
+    hypotheses: `Hypothesis A: Targeting the top 20% of 'DataScribe' customers from the last quarter with a bundled offer for 'InsightEngine' will yield a conversion rate of at least 25%, significantly higher than the typical 5% rate for new acquisitions. This is based on observed purchasing patterns and product synergy.
+
+Hypothesis B: A personalized email campaign aimed at users who have shown high engagement with 'DataScribe' but have not yet adopted 'InsightEngine' will reactivate interest and lead to a 15% uplift in trials for 'InsightEngine' within 30 days.
+
+Hypothesis C: Increasing marketing ad spend on platforms like LinkedIn, targeting professionals in data analysis and business intelligence, will boost lead generation for 'InsightEngine' by 10%. However, this is expected to come with a 5% increase in customer acquisition cost, which should be monitored closely.`,
   },
   "suggestion-2": {
     title: "Suggestion 2",
     percentage: 95,
     suggestion:
-      "Launch a targeted marketing campaign for the APAC region, focusing on the retail sector. Our analysis indicates a significant untapped market potential in this area.",
-    hypotheses: `Hypothesis D: Offering a discount for annual subscriptions will increase customer lifetime value by 25%.
-Hypothesis E: Partnering with influencers in the tech niche will drive a 30% increase in brand awareness and organic traffic.
-Hypothesis F: Improving the onboarding process will reduce churn by 20% in the first 90 days.`,
+      "We recommend launching a targeted marketing campaign for the APAC region, with a primary focus on the retail sector. Our market analysis indicates a significant and untapped potential in this area, driven by rapid digitalization and a growing need for advanced analytics solutions. A localized approach is crucial for success.",
+    hypotheses: `Hypothesis D: Offering a 20% discount for annual subscriptions of our product suite to the first 100 enterprise clients in the APAC region will increase the customer lifetime value by an average of 25% by securing long-term commitments.
+
+Hypothesis E: Partnering with three key technology influencers in the APAC retail niche will drive a 30% increase in brand awareness and generate a 15% increase in organic traffic to our regional landing page within the first quarter.
+
+Hypothesis F: Implementing a more comprehensive and localized onboarding process, including in-language support and region-specific use cases, will reduce customer churn by 20% in the first 90 days for new APAC clients.`,
   },
   "suggestion-3": {
     title: "Suggestion 3",
     percentage: 92,
     suggestion:
-      "Offer bundled discounts for 'InsightEngine' and 'DataScribe' to new enterprise clients. This could increase the average deal size by 25%.",
-    hypotheses: `Hypothesis G: Customers who have purchased 'InsightEngine' are 50% more likely to buy 'DataScribe' within 6 months.
-Hypothesis H: Expanding into the European market will require localized content to achieve similar conversion rates as North America.`,
+      "A strategic opportunity exists in offering bundled discounts for 'InsightEngine' and 'DataScribe' to new enterprise-level clients. This approach not only enhances the value proposition but is also projected to increase the average deal size by a noteworthy 25%, accelerating revenue growth.",
+    hypotheses: `Hypothesis G: Historical data suggests that enterprise clients who purchase 'InsightEngine' are 50% more likely to adopt 'DataScribe' within the subsequent six months. Proactively offering a bundle can capitalize on this trend and shorten the cross-sell cycle.
+
+Hypothesis H: To achieve conversion rates in the European market similar to those in North America, it is essential to develop localized marketing content and case studies. A generic approach is projected to result in a 40% lower conversion rate.`,
   },
   "suggestion-4": {
     title: "Suggestion 4",
     percentage: 88,
     suggestion:
-      "Develop a referral program for existing customers. This could generate a new stream of high-quality leads with a lower acquisition cost.",
-    hypotheses: `Hypothesis I: A referral program could generate 10% of new leads from the existing customer base.
-Hypothesis J: Simplifying the pricing model will shorten the sales cycle by 10-15 days.`,
+      "Developing a structured referral program for existing customers could unlock a new, high-quality stream of leads with a significantly lower acquisition cost. Satisfied customers can become powerful brand advocates, leading to more trusted and faster conversions.",
+    hypotheses: `Hypothesis I: A well-structured referral program, offering a 10% commission on the first year's subscription value, has the potential to generate at least 10% of all new leads from the existing customer base within the next two quarters.
+
+Hypothesis J: Simplifying the current multi-tiered pricing model into three clear packages ('Starter', 'Professional', 'Enterprise') will reduce decision fatigue for potential clients and is projected to shorten the average sales cycle by 10-15 days.`,
   },
   "suggestion-5": {
     title: "Suggestion 5",
     percentage: 85,
     suggestion:
-      "Create more in-depth content marketing materials, such as whitepapers and case studies, to better educate potential leads about the value of our products.",
-    hypotheses: `Hypothesis K: Providing a dedicated account manager for enterprise clients will increase retention by 30%.
-Hypothesis L: A/B testing landing pages for the new marketing campaign will improve conversion rates by up to 5%.`,
+      "To better educate potential leads and establish our brand as a thought leader, we recommend creating more in-depth content marketing materials. High-quality whitepapers, detailed case studies, and comprehensive webinars will help articulate the value of our products and nurture leads through the sales funnel.",
+    hypotheses: `Hypothesis K: Providing a dedicated account manager for all enterprise-level clients will increase customer retention by 30% over a 12-month period, as it fosters a stronger, more personalized relationship and ensures that clients are maximizing the value of our products.
+
+Hypothesis L: A/B testing different landing pages for our upcoming marketing campaign, one focused on technical features and the other on business outcomes, will improve overall conversion rates by up to 5% by identifying the most effective messaging for我们的 target audience.`,
   },
   "suggestion-6": {
     title: "Suggestion 6",
     percentage: 80,
     suggestion:
-      "Run a win-back campaign targeting customers who have churned in the past year. A special offer could reactivate a portion of this valuable segment.",
-    hypotheses: `Hypothesis M: Automating follow-up emails can increase sales team productivity by 15%.
-Hypothesis N: Hosting a webinar on industry trends will position the company as a thought leader and attract high-quality leads.`,
+      "Executing a targeted win-back campaign aimed at customers who have churned within the past 12 months presents a valuable opportunity. A special, limited-time offer, combined with messaging that highlights new features and improvements, could successfully reactivate a portion of this valuable segment.",
+    hypotheses: `Hypothesis M: Automating the initial follow-up emails in our sales process can increase the productivity of our sales team by 15%, freeing them up to focus on more qualified leads and high-value conversations.
+
+Hypothesis N: Hosting a monthly webinar on emerging industry trends, featuring guest experts, will position our company as a thought leader in the space. This is expected to attract high-quality leads and result in a 10% increase in MQLs (Marketing Qualified Leads).`,
   },
 };
 
@@ -80,7 +88,7 @@ export default function SuggestionDetailPage() {
   const data = suggestionData[suggestionId] || {
     title: "Suggestion not found",
     percentage: 0,
-    suggestion: "",
+    suggestion: "No suggestion available.",
     hypotheses: "No hypotheses available.",
   };
 
@@ -116,7 +124,7 @@ export default function SuggestionDetailPage() {
                   <Textarea
                     className="w-full h-64 resize-none border-0 focus:ring-0 text-base bg-transparent p-0"
                     readOnly
-                    value={data.hypotheses}
+                    value={data.hypotheses.split('\n\n').map(h => h.trim()).join('\n\n')}
                   />
                 </CardContent>
               </Card>
@@ -133,7 +141,7 @@ export default function SuggestionDetailPage() {
               <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
               <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
                 {data.suggestion}
-              </p>
+              p>
             </div>
           </div>
         </div>
