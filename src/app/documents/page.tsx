@@ -184,7 +184,7 @@ const documentTypes = [
     title: "Doc 24",
     icon: <FileScan className="h-8 w-8 mb-4 text-primary" />,
     description: "A document that has been scanned.",
-    href: "#",
+href: "#",
   },
   {
     title: "Doc 25",
@@ -227,8 +227,8 @@ export default function DocumentsPage() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {documentTypes.map((doc) => (
-          <Link href={doc.href} key={doc.title} className="flex">
-            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full">
+          <Link href={doc.href} key={doc.title} className="flex group">
+            <Card className="flex flex-col text-left p-6 w-full">
               {doc.icon}
               <CardHeader className="p-0">
                 <CardTitle className="text-xl font-semibold">

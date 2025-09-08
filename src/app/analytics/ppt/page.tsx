@@ -63,8 +63,8 @@ export default function PptPage() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {presentationTypes.map((type) => (
-          <Link href={type.href} key={type.title} className="flex">
-            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1 w-full">
+          <Link href={type.href} key={type.title} className="flex group">
+            <Card className="flex flex-col text-left p-6 w-full">
               {type.icon}
               <CardHeader className="p-0">
                 <CardTitle className="text-xl font-semibold">
