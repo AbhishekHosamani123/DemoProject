@@ -32,7 +32,7 @@
     --sidebar-background: 222 79% 10%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-accent: 43 100% 67%;
-    --sidebar-accent-foreground: 222 79% 10%;
+    --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 227 42% 27%;
     --sidebar-ring: 43 100% 67%;
   }
@@ -64,7 +64,7 @@
     --sidebar-background: 222 79% 10%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-accent: 43 100% 67%;
-    --sidebar-accent-foreground: 222 79% 10%;
+    --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 227 42% 27%;
     --sidebar-ring: 43 100% 67%;
   }
