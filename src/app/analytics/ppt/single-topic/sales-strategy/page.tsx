@@ -33,6 +33,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 interface Slide {
   title: string;
@@ -55,13 +56,12 @@ function parsePresentationText(text: string): Slide[] {
 }
 
 
-const generatedText = `Slide 1: Title
-Title: Q3 2024 Sales Strategy
-Subtitle: Accelerating Growth & Market Leadership
-Date: [Date]
-Presenter: [Your Name/Team Name]
+const generatedText = `Slide 1: Title: Q3 2024 Sales Strategy
+- Subtitle: Accelerating Growth & Market Leadership
+- Date: [Date]
+- Presenter: [Your Name/Team Name]
 
-Slide 2: Agenda
+Slide 2: Title: Agenda
 - Review of Q2 Performance
 - Q3 2024 Strategic Goals
 - Target Segments & Expansion
@@ -70,44 +70,44 @@ Slide 2: Agenda
 - KPIs & Success Measurement
 - Q&A
 
-Slide 3: Q2 2024 Performance Review
+Slide 3: Title: Q2 2024 Performance Review
 - Revenue: $2.5M vs. $2.2M Target (14% Beat)
 - Key Wins: Landed 5 strategic accounts in the finance sector.
 - Growth Areas: 30% increase in pipeline from inbound marketing.
 - Lessons Learned: Long sales cycles in EMEA require more localized assets.
 
-Slide 4: Q3 2024 Strategic Goals
+Slide 4: Title: Q3 2024 Strategic Goals
 - Primary Objective: Achieve $3.0M in new ARR.
 - Secondary Objective: Increase enterprise pipeline by 25%.
 - Tertiary Objective: Reduce sales cycle from 90 to 75 days.
 
-Slide 5: Target Segments & Expansion
+Slide 5: Title: Target Segments & Expansion
 - Core Focus: Deepen penetration in North American finance & healthcare.
 - Expansion Market: Launch targeted outbound campaigns for retail in APAC.
 - Ideal Customer Profile: Companies with 500-5000 employees and complex data needs.
 
-Slide 6: Product Focus & Messaging
+Slide 6: Title: Product Focus & Messaging
 - Lead Product: 'InsightEngine' Advanced Analytics Suite.
 - Core Value Proposition: "Turn your data into predictable revenue."
 - Key Differentiators: Real-time processing, codeless integration, and predictive AI.
 
-Slide 7: Go-to-Market Strategy & Initiatives
+Slide 7: Title: Go-to-Market Strategy & Initiatives
 - Inbound: Launch 'Future of Data' webinar series & 3 new case studies.
 - Outbound: Execute ABM campaigns for 50 target enterprise accounts.
 - Channel: Onboard 2 new strategic partners in the APAC region.
 
-Slide 8: Sales Team & Resources
+Slide 8: Title: Sales Team & Resources
 - Team Structure: 2 Enterprise AEs, 4 Mid-Market AEs, 4 SDRs.
 - Key Hires: Hiring 1 Enterprise AE for EMEA.
 - Resources: New competitor battlecards and ROI calculator.
 
-Slide 9: KPIs & Success Measurement
+Slide 9: Title: KPIs & Success Measurement
 - Pipeline: $12M in qualified pipeline generated.
 - Conversion: Maintain a 25% lead-to-close conversion rate.
 - Deal Size: Increase average deal size by 15% to $75k.
 - Activity: 50 outbound calls and 10 demos booked per SDR per week.
 
-Slide 10: Q&A and Next Steps
+Slide 10: Title: Q&A and Next Steps
 - Open floor for questions.
 - Next Steps: Finalize account lists by EOW.
 `;
@@ -118,7 +118,14 @@ export default function SalesStrategyPage() {
   const [numSlides, setNumSlides] = useState<number>(10);
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>();
+  const { toast } = useToast();
 
+  const handleGenerate = () => {
+    toast({
+      title: "Done",
+      description: "Your presentation has been customized.",
+    });
+  };
 
   return (
     <div className="relative flex-1 bg-background">
@@ -162,11 +169,11 @@ export default function SalesStrategyPage() {
                       <div className="absolute inset-0 bg-black/50" />
                       <div className="relative z-10 text-white w-full">
                         <CardHeader>
-                          <CardTitle className="text-center">{slide.title}</CardTitle>
+                          <CardTitle className="text-center">{slide.title.replace('Title: ', '')}</CardTitle>
                         </CardHeader>
                         <CardContent className="text-left w-full max-w-2xl mx-auto">
                           {slide.content.map((item, i) => {
-                            if (item.startsWith('Subtitle:') || item.startsWith('Date:') || item.startsWith('Presenter:')) {
+                            if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
                               return <p key={i} className="text-center text-slate-300">{item.split(': ')[1]}</p>
                             }
                             return (
@@ -276,7 +283,7 @@ export default function SalesStrategyPage() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Generate</Button>
+                  <Button type="submit" onClick={handleGenerate}>Generate</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
