@@ -13,7 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const forecastData = [
-    { name: "Past", period: "(Only View)", isPast: true, value: 0, profit: 0, loss: 0, revenue: 0 },
+    { name: "Past", period: "(Apr)", isPast: true, value: 8000, profit: 5000, loss: 1000, revenue: 4000 },
     { name: "Current", period: "(May)", value: 10000, profit: 6000, loss: 1000, revenue: 5000, isCurrent: true },
     { name: "Next", period: "(June)", value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
     { name: "July", value: 14000, profit: 9000, loss: 2000, revenue: 7000 },
@@ -41,7 +41,6 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
         <div className="flex flex-col items-center text-center w-40">
              <div className={cn("flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 relative transition-all duration-300",
                 isNext ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border",
-                dataPoint.isPast && "border-dashed border-muted-foreground/50"
             )}>
                 {hasData ? (
                     <ResponsiveContainer width="100%" height="100%">
@@ -74,7 +73,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
                     </div>
                 )}
             </div>
-             <div className={cn("mt-4 text-base font-semibold text-foreground bg-card/80 border px-4 py-2 rounded-lg shadow-sm", dataPoint.isPast && "invisible")}>
+             <div className={cn("mt-4 text-base font-semibold text-foreground bg-card/80 border px-4 py-2 rounded-lg shadow-sm")}>
                 {`₹${dataPoint.value.toLocaleString()}`}
             </div>
         </div>
