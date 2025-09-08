@@ -84,8 +84,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             <SidebarMenuItem>
               <Link href="#">
-                <SidebarMenuButton tooltip="Integration Hub">
-                  <AppWindow className="group-hover/menu-button:text-black" />
+                <SidebarMenuButton
+                  tooltip="Integration Hub"
+                  className="bg-yellow-400 text-black hover:bg-yellow-500"
+                >
+                  <AppWindow />
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
