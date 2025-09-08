@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BarChart2,
-  Database,
   DatabaseZap,
   DollarSign,
   Home,
