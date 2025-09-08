@@ -27,7 +27,12 @@ import {
   Users2,
   LineChart as LineChartIcon,
   BarChart2,
-  PieChart as PieChartIcon
+  PieChart as PieChartIcon,
+  Heart,
+  ClipboardList,
+  Building,
+  Package,
+  Headset
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -156,12 +161,9 @@ const dashboardData: Record<string, any> = {
                 { metric: "Total Sales", value: "₹1.2Cr" }, { metric: "Avg. Sale", value: "₹8,540" }, { metric: "Total Orders", value: "1,405" }, { metric: "Returning Customers", value: "45%" },
             ],
         }
-    }
-};
-
-for (let i = 2; i <= 20; i++) {
-    dashboardData[`suggestion-${i}`] = {
-        title: `Marketing Campaign ${i-1} Dashboard`,
+    },
+    'suggestion-2': {
+        title: `Marketing Campaign Dashboard`,
         kpis: [
             { title: "Impressions", value: `${(Math.random() * 500).toFixed(1)}k`, change: `+${(Math.random() * 10).toFixed(1)}%`, changeType: "increase", icon: <Search className="h-4 w-4 text-muted-foreground" /> },
             { title: "CTR", value: `${(Math.random() * 5).toFixed(2)}%`, change: `+${(Math.random() * 1).toFixed(2)}%`, changeType: "increase", icon: <MousePointerClick className="h-4 w-4 text-muted-foreground" /> },
@@ -249,6 +251,45 @@ for (let i = 2; i <= 20; i++) {
             ],
         }
     }
+};
+
+const diverseTopics = [
+    { title: "Financial Health Overview", kpis: [
+        { title: "Net Profit", value: `₹${(Math.random() * 10).toFixed(1)}Cr`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <DollarSign/> },
+        { title: "Operating Margin", value: `${(Math.random() * 30).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp/> },
+        { title: "Burn Rate", value: `₹${(Math.random() * 50).toFixed(1)}L`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <ArrowDown/> },
+    ]},
+    { title: "Product Performance Metrics", kpis: [
+        { title: "Active Users (MAU)", value: `${(Math.random() * 100).toFixed(1)}k`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", icon: <Users/> },
+        { title: "Feature Adoption", value: `${(Math.random() * 60).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <Target/> },
+        { title: "Churn Rate", value: `${(Math.random() * 5).toFixed(2)}%`, change: `-${(Math.random() * 1).toFixed(2)}%`, changeType: "decrease", icon: <Users2/> },
+    ]},
+    { title: "Customer Support Insights", kpis: [
+        { title: "Avg. Response Time", value: `${(Math.random() * 120).toFixed(0)} mins`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <Headset/> },
+        { title: "CSAT Score", value: `${(Math.random() * 5).toFixed(2)}/5`, change: `+${(Math.random() * 0.5).toFixed(2)}`, changeType: "increase", icon: <Heart/> },
+        { title: "Tickets Solved", value: `${Math.floor(Math.random() * 1000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", icon: <ClipboardList/> },
+    ]},
+    { title: "Operations & Logistics", kpis: [
+        { title: "Inventory Turnover", value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, changeType: "increase", icon: <Package/> },
+        { title: "On-time Delivery", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `+${(Math.random() * 1).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp/> },
+        { title: "Supplier Reliability", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `-${(Math.random() * 1).toFixed(1)}%`, changeType: "decrease", icon: <Building/> },
+    ]},
+    { title: "HR & Employee Engagement", kpis: [
+        { title: "Employee Turnover", value: `${(Math.random() * 15).toFixed(1)}%`, change: `-${(Math.random() * 2).toFixed(1)}%`, changeType: "decrease", icon: <Users2/> },
+        { title: "Avg. Tenure", value: `${(Math.random() * 5).toFixed(1)} yrs`, change: `+${(Math.random() * 0.5).toFixed(1)}`, changeType: "increase", icon: <Users/> },
+        { title: "eNPS Score", value: `${Math.floor(Math.random() * 100)}`, change: `+${Math.floor(Math.random() * 10)}`, changeType: "increase", icon: <Heart/> },
+    ]},
+];
+
+for (let i = 3; i <= 20; i++) {
+    const topicIndex = (i - 3) % diverseTopics.length;
+    const topic = diverseTopics[topicIndex];
+    dashboardData[`suggestion-${i}`] = {
+        title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
+        kpis: topic.kpis.map(kpi => ({...kpi})), // Basic copy for now
+        charts: dashboardData['suggestion-2'].charts, // Reuse marketing charts for simplicity
+        data: dashboardData['suggestion-2'].data
+    };
 }
 
 
