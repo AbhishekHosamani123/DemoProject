@@ -60,7 +60,7 @@ export default function Home() {
         <div className="relative right-8">
           {data.length === 0 ? (
             <div className="relative">
-              <div className="relative w-full max-w-xl mx-auto flex flex-col items-center gap-8">
+              <div className="relative w-full max-w-xl flex flex-col items-center gap-8">
                 <FileUploader onFileUpload={handleFileUpload} />
                 <div className="w-full max-w-sm">
                     <div className="mb-2">
