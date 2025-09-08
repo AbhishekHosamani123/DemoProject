@@ -20,13 +20,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  PlusCircle,
-  ChevronLeft,
-} from "lucide-react";
+import { PlusCircle, ChevronLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -43,6 +41,8 @@ export default function CustomDashboardPage() {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [newTopic, setNewTopic] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [tone, setTone] = useState("formal");
+  const [audience, setAudience] = useState("");
   const { toast } = useToast();
 
   const handleTopicSelect = (topicId: string) => {
@@ -60,6 +60,10 @@ export default function CustomDashboardPage() {
         setTopics([...topics, { id: newTopicId, label: newTopic }]);
         setNewTopic("");
         setIsDialogOpen(false);
+        toast({
+          title: "Topic Added",
+          description: `Successfully added "${newTopic}".`,
+        });
       } else {
         toast({
           variant: "destructive",
@@ -75,98 +79,149 @@ export default function CustomDashboardPage() {
       toast({
         variant: "destructive",
         title: "No topics selected",
-        description:
-          "Please select at least one topic to generate a dashboard.",
+        description: "Please select at least one topic to generate visuals.",
       });
       return;
     }
     // Placeholder for generation logic
     toast({
-      title: "Generating Dashboard",
-      description: `Creating a BI file with ${selectedTopics.length} topics. This might take up to 2 minutes.`,
+      title: "Generating Visuals...",
+      description: `Creating a BI file for: ${selectedTopics.join(", ")}. This might take up to 2 minutes.`,
       duration: 5000,
     });
   };
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="w-full max-w-2xl mx-auto">
+      <div className="w-full max-w-3xl mx-auto">
         <div className="mb-8">
-            <Button onClick={() => router.back()} variant="outline">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              Back
-            </Button>
+          <Button onClick={() => router.back()} variant="outline">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
         </div>
 
         <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold tracking-tight">
+          <h1 className="text-4xl font-bold tracking-tight">
             Custom Visuals & Dashboard
-            </h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-            Select topics for the AI to assemble a logical, branded deck. Preview, reorder, or exclude sections before download.
-            </p>
+          </h1>
+          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+            Tailor your dashboard by selecting topics and defining the tone and
+            audience.
+          </p>
         </div>
 
-        <Card className="bg-card/60 backdrop-blur-sm p-6">
-          <CardHeader className="p-0 mb-6">
-            <CardTitle>Select Topics</CardTitle>
-            <CardDescription>
-              Choose from the list below or add your own. The AI will pull relevant data.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="space-y-4">
-              {topics.map((topic) => (
-                <div key={topic.id} className="flex items-center space-x-3">
-                  <Checkbox
-                    id={topic.id}
-                    checked={selectedTopics.includes(topic.id)}
-                    onCheckedChange={() => handleTopicSelect(topic.id)}
-                  />
-                  <Label
-                    htmlFor={topic.id}
-                    className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                  >
-                    {topic.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
+        <div className="space-y-8">
+          <Card className="bg-card/60 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle>Automated Working Style</CardTitle>
+              <CardDescription>
+                Select topics for the AI to assemble a logical, branded deck.
+                The AI will pull relevant data.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {topics.map((topic) => (
+                  <div key={topic.id} className="flex items-center space-x-3">
+                    <Checkbox
+                      id={topic.id}
+                      checked={selectedTopics.includes(topic.id)}
+                      onCheckedChange={() => handleTopicSelect(topic.id)}
+                    />
+                    <Label
+                      htmlFor={topic.id}
+                      className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    >
+                      {topic.label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
 
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="mt-6 w-full">
-                  <PlusCircle className="mr-2 h-4 w-4" />
-                  Add New Topic
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                <DialogHeader>
-                  <DialogTitle>Add a New Topic</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <Label htmlFor="new-topic">Topic Name</Label>
-                  <Input
-                    id="new-topic"
-                    value={newTopic}
-                    onChange={(e) => setNewTopic(e.target.value)}
-                    placeholder="e.g., Q4 Marketing Strategy"
-                  />
-                </div>
-                <DialogFooter>
-                  <Button type="submit" onClick={handleAddTopic}>
-                    Add Topic
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="mt-6 w-full">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add New Topic
                   </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </CardContent>
-        </Card>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                  <DialogHeader>
+                    <DialogTitle>Add a New Topic</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <Label htmlFor="new-topic">Topic Name</Label>
+                    <Input
+                      id="new-topic"
+                      value={newTopic}
+                      onChange={(e) => setNewTopic(e.target.value)}
+                      placeholder="e.g., Q4 Marketing Strategy"
+                    />
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" onClick={handleAddTopic}>
+                      Add Topic
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card/60 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle>Customizations</CardTitle>
+              <CardDescription>
+                Fine-tune the output by specifying the tone and target
+                audience.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-3">
+                <Label className="text-base">Tone of Voice</Label>
+                <RadioGroup
+                  value={tone}
+                  onValueChange={setTone}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="formal" id="tone-formal" />
+                    <Label htmlFor="tone-formal">Formal</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="creative" id="tone-creative" />
+                    <Label htmlFor="tone-creative">Creative</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="technical" id="tone-technical" />
+                    <Label htmlFor="tone-technical">Technical</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+              <div className="space-y-3">
+                <Label htmlFor="audience" className="text-base">
+                  Target Audience
+                </Label>
+                <Input
+                  id="audience"
+                  value={audience}
+                  onChange={(e) => setAudience(e.target.value)}
+                  placeholder="e.g., Executive Board, Marketing Team"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="mt-8 flex justify-center">
-            <Button size="lg" className="h-14 text-lg font-bold" onClick={handleGenerate}>
-                Generate Dashboard
-            </Button>
+          <Button
+            size="lg"
+            className="h-14 text-lg font-bold"
+            onClick={handleGenerate}
+          >
+            Generate Visuals
+          </Button>
         </div>
       </div>
     </div>
