@@ -21,6 +21,7 @@ import {
   LogIn,
 } from "lucide-react";
 import Image from "next/image";
+import { Chatbot } from "@/components/app/chatbot";
 
 export const metadata: Metadata = {
   title: "INERA Navigator",
@@ -106,6 +107,7 @@ export default function RootLayout({
             <main>
               {children}
               <Toaster />
+              <Chatbot />
             </main>
           </SidebarInset>
         </SidebarProvider>
