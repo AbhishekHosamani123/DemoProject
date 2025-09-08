@@ -58,6 +58,12 @@ const documentTypes = [
     description: "Identifies differences between current and target states.",
     href: "#",
   },
+  ...Array.from({ length: 21 }, (_, i) => ({
+    title: `Doc ${i + 7}`,
+    icon: <FileText className="h-8 w-8 mb-4 text-primary" />,
+    description: `This is a description for Doc ${i + 7}.`,
+    href: "#",
+  })),
 ];
 
 export default function DocumentsPage() {
