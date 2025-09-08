@@ -70,8 +70,7 @@ function Calendar({
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
         Dropdown: (props: DropdownProps) => {
-          const { fromDate, fromMonth, fromYear, toDate, toMonth, toYear } =
-            useDayPicker();
+          const { fromYear, toYear } = useDayPicker();
 
           const options: { label: string; value: string }[] =
             props.name === "months"
@@ -97,18 +96,17 @@ function Calendar({
           return (
             <Select
               onValueChange={(newValue) => {
+                const newDate = new Date();
                 if (props.name === "months") {
-                  const newDate = new Date();
                   newDate.setMonth(parseInt(newValue));
-                  props.onChange?.(
-                    newDate as unknown as React.ChangeEvent<HTMLSelectElement>
-                  );
                 } else {
-                  const newDate = new Date();
                   newDate.setFullYear(parseInt(newValue));
-                  props.onChange?.(
-                    newDate as unknown as React.ChangeEvent<HTMLSelectElement>
-                  );
+                }
+                if (props.onChange) {
+                  const e = {
+                    target: { value: newDate.toISOString() },
+                  } as unknown as React.ChangeEvent<HTMLSelectElement>;
+                  props.onChange(e);
                 }
               }}
               value={defaultSelected}
