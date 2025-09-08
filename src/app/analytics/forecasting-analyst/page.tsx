@@ -15,11 +15,12 @@ import {
   TrendingUp,
   Users,
   Box,
+  Container,
+  PieChart,
   AreaChart,
   LineChart,
   BarChart,
-  PieChart,
-  Container,
+  HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -50,27 +51,45 @@ const forecastTemplates = [
     href: "#",
   },
   {
-    title: "Financial Planning",
+    title: "Forecast 5",
     icon: <PieChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "Forecast financial performance and budgets.",
+    description: "A forecast template for various use cases.",
     href: "#",
   },
   {
-    title: "Demand Forecasting",
+    title: "Forecast 6",
     icon: <AreaChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "Predict demand for products or services.",
+    description: "A forecast template for various use cases.",
     href: "#",
   },
   {
-    title: "Marketing Campaign",
+    title: "Forecast 7",
     icon: <LineChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "Analyze the potential ROI of marketing efforts.",
+    description: "A forecast template for various use cases.",
     href: "#",
   },
   {
-    title: "Resource Allocation",
+    title: "Forecast 8",
     icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "Plan and allocate resources effectively.",
+    description: "A forecast template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "Forecast 9",
+    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
+    description: "A forecast template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "Forecast 10",
+    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
+    description: "A forecast template for various use cases.",
+    href: "#",
+  },
+  {
+    title: "Forecast 11",
+    icon: <HelpCircle className="h-10 w-10 mb-4 text-primary" />,
+    description: "A forecast template for various use cases.",
     href: "#",
   },
 ];
