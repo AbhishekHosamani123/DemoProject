@@ -128,12 +128,6 @@ export default function SuggestionDetailPage() {
                   />
                 </CardContent>
               </Card>
-               <div className="flex justify-end">
-                <Button variant="outline" className="rounded-full h-14 w-14 p-0 border-2">
-                  <MessageSquare className="h-6 w-6"/>
-                  <span className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 text-xs bg-card px-1 rounded">BOT</span>
-                </Button>
-              </div>
             </div>
             
             {/* Suggestion */}
