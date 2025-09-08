@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarProvider
 } from "@/components/ui/sidebar";
 import {
   BarChart2,
@@ -20,12 +21,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AppShellContent } from "./app-shell-content";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <AppShellContent>
+    <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarHeader>
         </SidebarHeader>
@@ -90,6 +90,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>{children}</SidebarInset>
-    </AppShellContent>
+    </SidebarProvider>
   );
 }
+    

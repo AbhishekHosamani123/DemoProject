@@ -11,3 +11,4 @@ export function AppShellContent({ children }: { children: React.ReactNode }) {
         </SidebarProvider>
     )
 }
+    
