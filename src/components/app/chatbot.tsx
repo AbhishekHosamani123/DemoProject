@@ -48,7 +48,7 @@ export function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-[-280px] z-50">
       <div
         className={cn(
           "w-80 sm:w-96 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out",
@@ -60,7 +60,7 @@ export function Chatbot() {
         <Card className="h-full flex flex-col border-0">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="font-headline text-lg">
+              <CardTitle className="text-lg">
                 AI Assistant
               </CardTitle>
               <CardDescription>Ask me anything</CardDescription>

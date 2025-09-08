@@ -51,7 +51,7 @@ export function CloudConnect() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="font-headline">Connect Cloud Source</CardTitle>
+        <CardTitle>Connect Cloud Source</CardTitle>
         <CardDescription>Link your cloud storage</CardDescription>
       </CardHeader>
       <CardContent>

@@ -15,7 +15,6 @@ import {
   Lightbulb,
   ShieldCheck,
   Share2,
-  Users,
 } from "lucide-react";
 
 const analyticsFeatures = [
@@ -59,7 +58,7 @@ const analyticsFeatures = [
 export default function AnalyticsPage() {
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <h1 className="text-3xl font-headline tracking-tight mb-8">Analytics Hub</h1>
+      <h1 className="text-3xl tracking-tight mb-8">Analytics Hub</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {analyticsFeatures.map((feature) => (
           <Card
@@ -69,7 +68,7 @@ export default function AnalyticsPage() {
             <CardHeader>
               <div className="flex items-center gap-4">
                 {feature.icon}
-                <CardTitle className="font-headline">{feature.title}</CardTitle>
+                <CardTitle>{feature.title}</CardTitle>
               </div>
             </CardHeader>
             <CardContent>

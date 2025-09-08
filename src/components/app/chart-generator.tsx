@@ -107,7 +107,7 @@ export function ChartGenerator({ data, headers }: ChartGeneratorProps) {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="font-headline">Chart Generator</CardTitle>
+        <CardTitle>Chart Generator</CardTitle>
         <CardDescription>Visualize your data with custom charts.</CardDescription>
       </CardHeader>
       <CardContent>

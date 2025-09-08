@@ -30,7 +30,7 @@ export function DataPreview({ data, headers }: DataPreviewProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-headline">Data Preview</CardTitle>
+        <CardTitle>Data Preview</CardTitle>
         <CardDescription>
           Showing the first {Math.min(PREVIEW_ROW_COUNT, data.length)} rows of
           your data.

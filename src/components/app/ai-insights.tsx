@@ -43,7 +43,7 @@ export function AiInsights({ data }: AiInsightsProps) {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="font-headline flex items-center justify-between">
+        <CardTitle className="flex items-center justify-between">
           AI-Powered Insights
           <Wand2 className="h-6 w-6 text-primary" />
         </CardTitle>
