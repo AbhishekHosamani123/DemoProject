@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -100,7 +101,7 @@ function Calendar({
               onValueChange={handleValueChange}
             >
               <SelectTrigger>
-                <SelectValue>{children}</SelectValue>
+                <SelectValue>{Array.isArray(children) ? options.find(o => o.value === value?.toString())?.label : children}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <ScrollArea className="h-48">
