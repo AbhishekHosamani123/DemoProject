@@ -69,10 +69,9 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
-        Dropdown: (props: DropdownProps) => {
+        Dropdown: ({ value, onChange, children, ...props }: DropdownProps) => {
           const { fromYear, toYear } = useDayPicker();
-
-          const options: { label: string; value: string }[] =
+          const options =
             props.name === "months"
               ? Array.from({ length: 12 }, (_, i) => ({
                   label: new Date(2024, i).toLocaleString("default", {
@@ -81,40 +80,27 @@ function Calendar({
                   value: i.toString(),
                 }))
               : Array.from(
-                  { length: (toYear ?? 0) - (fromYear ?? 0) + 1 },
+                  { length: (toYear || 0) - (fromYear || 0) + 1 },
                   (_, i) => ({
-                    label: ((fromYear ?? 0) + i).toString(),
-                    value: ((fromYear ?? 0) + i).toString(),
+                    label: ((fromYear || 0) + i).toString(),
+                    value: ((fromYear || 0) + i).toString(),
                   })
                 );
 
-          let defaultSelected =
-            props.name === "months"
-              ? props.value?.toString()
-              : (props.value as number | undefined)?.toString();
+          const handleValueChange = (newValue: string) => {
+            const e = {
+              target: { value: newValue },
+            } as React.ChangeEvent<HTMLSelectElement>;
+            onChange?.(e);
+          };
 
           return (
             <Select
-              onValueChange={(newValue) => {
-                const newDate = new Date();
-                if (props.name === "months") {
-                  newDate.setMonth(parseInt(newValue));
-                } else {
-                  newDate.setFullYear(parseInt(newValue));
-                }
-                if (props.onChange) {
-                  const e = {
-                    target: { value: newDate.toISOString() },
-                  } as unknown as React.ChangeEvent<HTMLSelectElement>;
-                  props.onChange(e);
-                }
-              }}
-              value={defaultSelected}
+              value={value?.toString()}
+              onValueChange={handleValueChange}
             >
               <SelectTrigger>
-                <SelectValue placeholder={props.caption}>
-                  {props.caption}
-                </SelectValue>
+                <SelectValue>{children}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <ScrollArea className="h-48">
@@ -135,7 +121,6 @@ function Calendar({
 }
 Calendar.displayName = "Calendar"
 
-// Add this to your imports
 import { useDayPicker } from "react-day-picker"
 
 export { Calendar }
