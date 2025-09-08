@@ -4,13 +4,17 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const timePeriods = [
-  "DAILY",
-  "WEEKLY",
-  "MONTHLY",
-  "QUARTERLY",
-  "YEARLY",
+  { id: "daily", label: "DAILY", href: "#" },
+  {
+    id: "monthly",
+    label: "MONTHLY",
+    href: "/analytics/forecasting-analyst/periodic-forecasting/monthly",
+  },
+  { id: "quarterly", label: "QUARTERLY", href: "#" },
+  { id: "yearly", label: "YEARLY", href: "#" },
 ];
 
 export default function PeriodicForecastingPage() {
@@ -20,10 +24,7 @@ export default function PeriodicForecastingPage() {
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
         <div className="mb-8">
-          <Button
-            onClick={() => router.back()}
-            variant="outline"
-          >
+          <Button onClick={() => router.back()} variant="outline">
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
@@ -34,16 +35,17 @@ export default function PeriodicForecastingPage() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           {timePeriods.map((period) => (
-            <Button
-              key={period}
-              variant="outline"
-              size="lg"
-              className="w-full h-24 text-xl rounded-lg bg-card/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
-            >
-              {period}
-            </Button>
+            <Link href={period.href} key={period.id}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full h-24 text-xl rounded-lg bg-card/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
+              >
+                {period.label}
+              </Button>
+            </Link>
           ))}
         </div>
       </div>
