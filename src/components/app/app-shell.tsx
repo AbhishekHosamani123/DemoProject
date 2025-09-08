@@ -74,11 +74,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton tooltip="Database">
-                <Database className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Database">
                 <DatabaseZap className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
               </SidebarMenuButton>
             </SidebarMenuItem>
