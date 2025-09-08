@@ -203,7 +203,7 @@ export default function CustomDashboardPage() {
                   id="custom-prompt"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder="e.g., 'Create a dashboard comparing Q3 sales against Q2, focusing on the performance of our top 5 products and regional growth in APAC.'"
+                  placeholder="Describe how you want to customize your visuals and dashboard..."
                   className="h-24"
                 />
               </div>
