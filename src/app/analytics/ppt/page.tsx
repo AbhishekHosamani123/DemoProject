@@ -37,7 +37,7 @@ const presentationTypes = [
     icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
     description:
       "Tailor a presentation with specific topics and custom insights.",
-    href: "/analytics/ppt/multiple-topics",
+    href: "/analytics/ppt/custom-topic",
   },
 ];
 
