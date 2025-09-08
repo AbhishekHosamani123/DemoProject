@@ -26,12 +26,6 @@ const presentationTypes = [
     href: "/analytics/ppt/single-topic",
   },
   {
-    title: "Multiple Topics Presentation",
-    icon: <Files className="h-10 w-10 mb-4 text-primary" />,
-    description: "Create a comprehensive presentation covering multiple topics.",
-    href: "/analytics/ppt/multiple-topics",
-  },
-  {
     title: "Customized Topics Presentation",
     icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
     description:
