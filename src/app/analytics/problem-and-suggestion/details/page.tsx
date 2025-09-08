@@ -27,53 +27,36 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const problems = [
-  { id: "problem-1", title: "Problem 1" },
-  { id: "business-gaps", title: "Business Problem Gaps" },
+  { id: "sales-funnel-leakage", title: "Sales Funnel Leakage" },
+  { id: "high-customer-churn", title: "High Customer Churn" },
+  { id: "inefficient-marketing-spend", title: "Inefficient Marketing Spend" },
+  { id: "supply-chain-bottlenecks", title: "Supply Chain Bottlenecks" },
+  { id: "low-user-engagement", title: "Low User Engagement" },
+  { id: "product-feature-gaps", title: "Product Feature Gaps" },
   { id: "financial-irregularities", title: "Financial Irregularities" },
-  { id: "problem-4", title: "Problem 4" },
-  { id: "problem-n", title: "Problem N" },
 ];
 
-const problemDetails: Record<string, { title: string, details: string[] }> = {
-    "problem-1": {
-      title: "Problem 1",
-      details: [
-        "Detects issues in real time.",
-        "Prioritizes them based on severity.",
-        "Explains underlying causes.",
-        "Suggests 5-6 data-backed, actionable solutions for each problem.",
-        "Provides a confidence score and impact forecast.",
-        "No Manual Scanning required",
-      ]
+const problemDetails: Record<string, { title: string }> = {
+    "sales-funnel-leakage": {
+      title: "Sales Funnel Leakage",
     },
-    "business-gaps": {
-      title: "Business Problem Gaps",
-      details: [
-        "Identifies market opportunities.",
-        "Highlights feature gaps in product.",
-        "Analyzes competitor weaknesses.",
-      ]
+    "high-customer-churn": {
+      title: "High Customer Churn",
+    },
+    "inefficient-marketing-spend": {
+      title: "Inefficient Marketing Spend",
+    },
+    "supply-chain-bottlenecks": {
+        title: "Supply Chain Bottlenecks",
+    },
+    "low-user-engagement": {
+        title: "Low User Engagement",
+    },
+    "product-feature-gaps": {
+        title: "Product Feature Gaps",
     },
     "financial-irregularities": {
-      title: "Financial Irregularities",
-      details: [
-        "Flags unusual spending patterns.",
-        "Detects potential compliance issues.",
-        "Monitors budget deviations in real time.",
-      ]
-    },
-    "problem-4": {
-        title: "Problem 4",
-        details: [
-            "Detail for problem 4.",
-            "Another detail for problem 4.",
-        ]
-    },
-    "problem-n": {
-        title: "Problem N",
-        details: [
-            "Detail for problem N.",
-        ]
+        title: "Financial Irregularities",
     }
 };
 
@@ -130,15 +113,7 @@ export default function ProblemSuggestionDetailsPage() {
               <CardHeader>
                 <CardTitle className="text-2xl">{details.title}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-3">
-                  {details.details.map((item, index) => (
-                    <div key={index} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-1 mr-3 shrink-0" />
-                      <p className="text-muted-foreground">{item}</p>
-                    </div>
-                  ))}
-                </div>
+              <CardContent>
                 <div className="pt-4">
                   <Button size="lg" variant="secondary">
                     <Video className="mr-2 h-4 w-4" />
