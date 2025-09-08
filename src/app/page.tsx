@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Header } from "@/components/app/header";
 import { FileUploader } from "@/components/app/file-uploader";
 import { AiInsights } from "@/components/app/ai-insights";
 import { DataPreview } from "@/components/app/data-preview";
@@ -9,6 +8,7 @@ import { ChartGenerator } from "@/components/app/chart-generator";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Server } from "lucide-react";
+import Image from "next/image";
 
 type ParsedData = Record<string, string>[];
 
@@ -46,6 +46,7 @@ export default function Home() {
         {data.length === 0 ? (
           <div className="flex-1 flex flex-col items-center text-center">
             <div className="flex-1 flex flex-col justify-center items-center w-full max-w-lg">
+                <Image src="/inera-logo.svg" alt="INERA Logo" width={80} height={80} className="mb-4" />
                 <h1 className="text-4xl font-headline tracking-tight mb-2">
                   Welcome to INERA Software
                 </h1>
