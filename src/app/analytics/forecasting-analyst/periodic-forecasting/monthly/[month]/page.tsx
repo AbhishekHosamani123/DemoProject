@@ -95,7 +95,7 @@ export default function MonthlySuggestionPage() {
                     <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="group">
                       <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors cursor-pointer">
                         <span className="font-medium group-hover:text-accent-foreground">{suggestion.text}</span>
-                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
+                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md group-hover:text-black">{suggestion.percentage}%</span>
                       </div>
                     </Link>
                   ))}
