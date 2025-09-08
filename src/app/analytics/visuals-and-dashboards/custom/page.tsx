@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PlusCircle, ChevronLeft } from "lucide-react";
+import { PlusCircle, ChevronLeft, Calendar as CalendarIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
@@ -33,6 +33,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -52,6 +56,10 @@ export default function CustomDashboardPage() {
   const [prompt, setPrompt] = useState("");
   const [tone, setTone] = useState("formal");
   const [audience, setAudience] = useState("");
+  const [fromDate, setFromDate] = useState<Date | undefined>();
+  const [toDate, setToDate] = useState<Date | undefined>();
+  const [isFromDatePickerOpen, setIsFromDatePickerOpen] = useState(false);
+  const [isToDatePickerOpen, setIsToDatePickerOpen] = useState(false);
   const { toast } = useToast();
 
   const handleTopicSelect = (topicId: string) => {
@@ -200,6 +208,67 @@ export default function CustomDashboardPage() {
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="from-date">From</Label>
+                  <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="from-date"
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !fromDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {fromDate ? format(fromDate, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={fromDate}
+                        onSelect={(date) => {
+                          setFromDate(date);
+                          setIsFromDatePickerOpen(false);
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="to-date">To</Label>
+                  <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="to-date"
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !toDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {toDate ? format(toDate, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={toDate}
+                        onSelect={(date) => {
+                          setToDate(date);
+                          setIsToDatePickerOpen(false);
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+              
               <div className="space-y-3">
                 <Label className="text-base">Tone of Voice</Label>
                 <RadioGroup
