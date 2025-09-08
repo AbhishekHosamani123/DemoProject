@@ -21,20 +21,20 @@ import { useRouter } from "next/navigation";
 const presentationTypes = [
   {
     title: "Single Topic Presentation",
-    icon: <File className="h-10 w-10 mb-4 text-primary" />,
+    icon: <File className="h-8 w-8 mb-3 text-primary" />,
     description:
       "Generate a presentation focusing on a single topic from your data.",
     href: "/analytics/ppt/single-topic",
   },
   {
     title: "Multiple Topics Presentation",
-    icon: <Grid3X3 className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Grid3X3 className="h-8 w-8 mb-3 text-primary" />,
     description: "Create a presentation that covers multiple topics at once.",
     href: "/analytics/ppt/multiple-topics",
   },
   {
     title: "Customized Topics Presentation",
-    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Settings className="h-8 w-8 mb-3 text-primary" />,
     description:
       "Tailor a presentation with specific topics and custom insights.",
     href: "/analytics/ppt/custom-topic",
@@ -61,13 +61,13 @@ export default function PptPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {presentationTypes.map((type) => (
           <Link href={type.href} key={type.title} className="flex group">
-            <Card className="flex flex-col text-left p-6 w-full">
+            <Card className="flex flex-col text-left p-4 w-full">
               {type.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {type.title}
                 </CardTitle>
               </CardHeader>

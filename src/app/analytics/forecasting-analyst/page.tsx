@@ -23,31 +23,31 @@ import { useRouter } from "next/navigation";
 const forecastTemplates = [
   {
     title: "Sales Forecasting",
-    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    icon: <TrendingUp className="h-8 w-8 mb-3 text-primary" />,
     description: "Predict future sales and revenue.",
     href: "/analytics/forecasting-analyst/sales-forecasting",
   },
   {
     title: "Customer Behaviour",
-    icon: <Users className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Users className="h-8 w-8 mb-3 text-primary" />,
     description: "Analyze and predict customer actions.",
     href: "#",
   },
   {
     title: "Product Launch",
-    icon: <Box className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Box className="h-8 w-8 mb-3 text-primary" />,
     description: "Forecast the potential success of a new product.",
     href: "#",
   },
   {
     title: "Inventory Management",
-    icon: <Container className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Container className="h-8 w-8 mb-3 text-primary" />,
     description: "Optimize stock levels and reduce costs.",
     href: "#",
   },
   ...Array.from({ length: 7 }, (_, i) => ({
     title: `Forecast ${i + 5}`,
-    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    icon: <TrendingUp className="h-8 w-8 mb-3 text-primary" />,
     description: `This is a description for Forecast ${i + 5}.`,
     href: "#",
   })),
@@ -78,10 +78,10 @@ export default function ForecastingAnalystPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {forecastTemplates.map((template) => (
           <Link href={template.href} key={template.title} className="flex group">
-            <Card className="flex flex-col text-left p-6 w-full">
+            <Card className="flex flex-col text-left p-4 w-full">
               {template.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {template.title}
                 </CardTitle>
               </CardHeader>

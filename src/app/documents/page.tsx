@@ -24,43 +24,43 @@ import { useRouter } from "next/navigation";
 const documentTypes = [
   {
     title: "BRD",
-    icon: <Briefcase className="h-8 w-8 mb-4 text-primary" />,
+    icon: <Briefcase className="h-8 w-8 mb-3 text-primary" />,
     description: "Business Requirements: Outlines project goals and objectives.",
     href: "/documents/brd",
   },
   {
     title: "PRD",
-    icon: <FileText className="h-8 w-8 mb-4 text-primary" />,
+    icon: <FileText className="h-8 w-8 mb-3 text-primary" />,
     description: "Product Requirements: Defines features and user experience.",
     href: "#",
   },
   {
     title: "FRD",
-    icon: <FunctionSquare className="h-8 w-8 mb-4 text-primary" />,
+    icon: <FunctionSquare className="h-8 w-8 mb-3 text-primary" />,
     description: "Functional Requirements: Details specific system behaviors.",
     href: "#",
   },
   {
     title: "TDD",
-    icon: <GitBranchPlus className="h-8 w-8 mb-4 text-primary" />,
+    icon: <GitBranchPlus className="h-8 w-8 mb-3 text-primary" />,
     description: "Technical Design: Describes architecture and solutions.",
     href: "#",
   },
   {
     title: "Business Case",
-    icon: <Lightbulb className="h-8 w-8 mb-4 text-primary" />,
+    icon: <Lightbulb className="h-8 w-8 mb-3 text-primary" />,
     description: "Feasibility: Analyzes project viability, costs, and benefits.",
     href: "#",
   },
   {
     title: "Gap Analysis",
-    icon: <Scaling className="h-8 w-8 mb-4 text-primary" />,
+    icon: <Scaling className="h-8 w-8 mb-3 text-primary" />,
     description: "Identifies differences between current and target states.",
     href: "#",
   },
   ...Array.from({ length: 21 }, (_, i) => ({
     title: `Doc ${i + 7}`,
-    icon: <FileText className="h-8 w-8 mb-4 text-primary" />,
+    icon: <FileText className="h-8 w-8 mb-3 text-primary" />,
     description: `This is a description for Doc ${i + 7}.`,
     href: "#",
   })),
@@ -88,10 +88,10 @@ export default function DocumentsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {documentTypes.map((doc) => (
           <Link href={doc.href} key={doc.title} className="flex group">
-            <Card className="flex flex-col text-left p-6 w-full">
+            <Card className="flex flex-col text-left p-4 w-full">
               {doc.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {doc.title}
                 </CardTitle>
               </CardHeader>

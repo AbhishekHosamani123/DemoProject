@@ -25,28 +25,28 @@ const dashboardItems = [
     id: "kpi",
     label: "KPI & Metric Dashboard",
     description: "Track key performance indicators.",
-    icon: <LayoutDashboard className="h-10 w-10 mb-4 text-primary" />,
+    icon: <LayoutDashboard className="h-8 w-8 mb-3 text-primary" />,
     href: "/analytics/visuals-and-dashboards/kpi-metric",
   },
   {
     id: "customer",
     label: "Customer Segmentation",
     description: "Visualize customer segments.",
-    icon: <Users className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Users className="h-8 w-8 mb-3 text-primary" />,
     href: "#",
   },
   {
     id: "market",
     label: "Market Trend Charts",
     description: "Analyze market trends.",
-    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    icon: <TrendingUp className="h-8 w-8 mb-3 text-primary" />,
     href: "#",
   },
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `dashboard-${i + 4}`,
     label: `Visuals and Dashboards - ${i + 4}`,
     description: `This is a description for Visuals and Dashboards - ${i + 4}.`,
-    icon: <LayoutDashboard className="h-10 w-10 mb-4 text-primary" />,
+    icon: <LayoutDashboard className="h-8 w-8 mb-3 text-primary" />,
     href: "#",
   })),
 ];
@@ -73,13 +73,13 @@ export default function VisualsAndDashboardsPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {dashboardItems.map((item) => (
           <Link href={item.href} key={item.id} className="flex group">
-            <Card className="flex flex-col text-left p-6 w-full">
+            <Card className="flex flex-col text-left p-4 w-full">
               {item.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">{item.label}</CardTitle>
+                <CardTitle className="text-lg font-semibold">{item.label}</CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-2 flex-1">
                 <p className="text-sm text-muted-foreground">
