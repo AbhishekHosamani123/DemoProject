@@ -71,7 +71,6 @@ export default function ShareDailyUpdatePage() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label className="text-lg font-medium">ANALYTICS</Label>
                         <Button variant="outline" className="w-full justify-start">ANALYTICS</Button>
                     </div>
 
