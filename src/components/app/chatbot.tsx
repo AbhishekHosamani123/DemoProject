@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MessageSquare, Send, X } from "lucide-react";
+import { Robot, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -139,7 +139,7 @@ export function Chatbot() {
             )}
             size="icon"
         >
-            <MessageSquare className="h-6 w-6" />
+            <Robot className="h-6 w-6" />
         </Button>
       </div>
     </div>
