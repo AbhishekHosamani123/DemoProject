@@ -342,7 +342,7 @@ export default function KpiMetricDashboardPage() {
                             <div key={suggestion.id} className="group">
                                 <button
                                     onClick={() => setSelectedOption(suggestion.id)}
-                                    className={`w-full text-left flex items-center justify-between p-3 rounded-lg bg-background/80 border transition-colors cursor-pointer ${selectedOption === suggestion.id ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
+                                    className={`w-full text-left flex items-center justify-between p-3 rounded-lg bg-background/80 border transition-colors cursor-pointer ${selectedOption === suggestion.id ? 'bg-accent text-primary' : 'hover:bg-accent'}`}
                                 >
                                     <span className="font-medium">{suggestion.text}</span>
                                     <span className={`font-bold bg-primary/10 px-2 py-1 rounded-md ${selectedOption === suggestion.id ? 'text-black' : 'text-primary group-hover:text-black'}`}>{suggestion.percentage}%</span>
@@ -357,5 +357,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
