@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BarChart2,
+  Database,
   DollarSign,
   Home,
   LayoutGrid,
@@ -83,6 +84,11 @@ export default function RootLayout({
             </SidebarContent>
             <SidebarFooter>
               <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Database">
+                    <Database className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Integration Hub">
                     <LayoutGrid className="text-yellow-400"/>
