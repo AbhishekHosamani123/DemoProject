@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
       </div>
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Analytics Hub</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Analytics</h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
           Unlock the power of your data with our suite of analytics tools.
         </p>
