@@ -39,11 +39,19 @@ export default function Home() {
   };
 
   const handleProceed = () => {
-    toast({
-      title: "Navigation Hint",
-      description:
-        "The full analytics dashboard is in development. Stay tuned!",
-    });
+    if (fileName) {
+      toast({
+        title: "Navigation Hint",
+        description:
+          "The full analytics dashboard is in development. Stay tuned!",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "No file uploaded",
+        description: "Please upload a file to proceed.",
+      });
+    }
   };
 
   return (
@@ -58,7 +66,7 @@ export default function Home() {
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
-                    <Server className="mr-2 h-5 w-5" />
+                    <Server className="mr-2 h-5 w-5 text-black" />
                     CONNECT CLOUD SERVER
                   </Button>
                 </DialogTrigger>
@@ -74,7 +82,6 @@ export default function Home() {
                 onClick={handleProceed}
                 className="w-full"
                 variant="outline"
-                disabled={!fileName}
               >
                 PROCEED TO ANALYTICS
                 <ArrowRight className="ml-2 h-5 w-5" />
