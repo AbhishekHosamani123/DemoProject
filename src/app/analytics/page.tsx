@@ -52,7 +52,7 @@ const analyticsFeatures = [
     title: "Problem & Suggestion",
     icon: <Lightbulb className="h-5 w-5 mb-2 text-primary" />,
     description: "Get AI-powered suggestions.",
-    href: "/analytics/problem-and-suggestion",
+    href: "/analytics/problem-and-suggestion/details",
   },
   {
     title: "Audit Zone",
