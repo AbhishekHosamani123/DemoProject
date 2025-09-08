@@ -49,7 +49,7 @@ export default function SalesForecastingPage() {
             <Card className="shadow-lg border-border/60">
               <CardContent className="p-4">
                  <Image
-                    src="https://picsum.photos/800/600"
+                    src="https://placehold.co/800x600/1e293b/ffffff?text=Sales+Forecast+Chart"
                     alt="Sales Forecast Chart"
                     width={800}
                     height={600}
