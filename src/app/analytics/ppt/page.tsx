@@ -3,71 +3,44 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
-  FileText,
-  Presentation,
-  TrendingUp,
-  BarChart,
-  Lightbulb,
-  ShieldCheck,
-  Share2,
-  ArrowRight,
   ChevronLeft,
+  File,
+  Files,
+  Settings,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const analyticsFeatures = [
+const presentationTypes = [
   {
-    title: "Document",
-    icon: <FileText className="h-10 w-10 mb-4 text-primary" />,
-    description: "Generate and analyze documents.",
-    href: "/documents",
-  },
-  {
-    title: "PPT",
-    icon: <Presentation className="h-10 w-10 mb-4 text-primary" />,
-    description: "Create presentations from your data.",
-    href: "/analytics/ppt",
-  },
-  {
-    title: "Forecasting Analyst",
-    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
-    description: "Predict future trends and sales.",
+    title: "Single Topic Presentation",
+    icon: <File className="h-10 w-10 mb-4 text-primary" />,
+    description:
+      "Generate a presentation focusing on a single topic from your data.",
     href: "#",
   },
   {
-    title: "Visuals & Dashboards",
-    icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
-    description: "Create interactive charts and dashboards.",
+    title: "Multiple Topic Presentation",
+    icon: <Files className="h-10 w-10 mb-4 text-primary" />,
+    description: "Create a comprehensive presentation covering multiple topics.",
     href: "#",
   },
   {
-    title: "Problem & Suggestion",
-    icon: <Lightbulb className="h-10 w-10 mb-4 text-primary" />,
-    description: "Get AI-powered suggestions.",
-    href: "#",
-  },
-  {
-    title: "Audit Zone",
-    icon: <ShieldCheck className="h-10 w-10 mb-4 text-primary" />,
-    description: "Review and audit your data.",
-    href: "#",
-  },
-  {
-    title: "Collab & Share",
-    icon: <Share2 className="h-10 w-10 mb-4 text-primary" />,
-    description: "Collaborate with your team and share insights.",
+    title: "Customized Topics Presentation",
+    icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
+    description:
+      "Tailor a presentation with specific topics and custom insights.",
     href: "#",
   },
 ];
 
-export default function AnalyticsPage() {
+export default function PptPage() {
   const router = useRouter();
 
   return (
@@ -76,9 +49,9 @@ export default function AnalyticsPage() {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
       </div>
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Analytics</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Presentations</h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Unlock the power of your data with our suite of analytics tools.
+          Choose a presentation type to get started.
         </p>
       </div>
       <div className="mb-8">
@@ -91,18 +64,18 @@ export default function AnalyticsPage() {
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {analyticsFeatures.map((feature) => (
-          <Link href={feature.href} key={feature.title} className="flex">
+        {presentationTypes.map((type) => (
+          <Link href={type.href} key={type.title} className="flex">
             <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1 w-full">
-              {feature.icon}
+              {type.icon}
               <CardHeader className="p-0">
                 <CardTitle className="text-xl font-semibold">
-                  {feature.title}
+                  {type.title}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-2 flex-1">
                 <p className="text-sm text-muted-foreground">
-                  {feature.description}
+                  {type.description}
                 </p>
               </CardContent>
               <div className="mt-4 flex justify-end">
