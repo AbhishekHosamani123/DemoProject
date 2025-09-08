@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -26,7 +27,6 @@ const Sidebar = React.forwardRef<
   ) => {
 
     return (
-      <TooltipProvider>
         <div
             ref={ref}
             className={cn(
@@ -37,7 +37,6 @@ const Sidebar = React.forwardRef<
             >
             {children}
         </div>
-    </TooltipProvider>
 
     )
   }
