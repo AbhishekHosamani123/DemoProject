@@ -26,43 +26,43 @@ import { useRouter } from "next/navigation";
 const analyticsFeatures = [
   {
     title: "Document",
-    icon: <FileText className="h-10 w-10 mb-4 text-primary" />,
+    icon: <FileText className="h-8 w-8 mb-3 text-primary" />,
     description: "Generate and analyze documents.",
     href: "/documents",
   },
   {
     title: "PPT",
-    icon: <Presentation className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Presentation className="h-8 w-8 mb-3 text-primary" />,
     description: "Create presentations from your data.",
     href: "/analytics/ppt",
   },
   {
     title: "Forecasting Analyst",
-    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    icon: <TrendingUp className="h-8 w-8 mb-3 text-primary" />,
     description: "Predict future trends and sales.",
     href: "/analytics/forecasting-analyst",
   },
   {
     title: "Visuals & Dashboards",
-    icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
+    icon: <BarChart className="h-8 w-8 mb-3 text-primary" />,
     description: "Create interactive charts and dashboards.",
     href: "/analytics/visuals-and-dashboards",
   },
   {
     title: "Problem & Suggestion",
-    icon: <Lightbulb className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Lightbulb className="h-8 w-8 mb-3 text-primary" />,
     description: "Get AI-powered suggestions.",
     href: "#",
   },
   {
     title: "Audit Zone",
-    icon: <ShieldCheck className="h-10 w-10 mb-4 text-primary" />,
+    icon: <ShieldCheck className="h-8 w-8 mb-3 text-primary" />,
     description: "Review and audit your data.",
     href: "#",
   },
   {
     title: "Collab & Share",
-    icon: <Share2 className="h-10 w-10 mb-4 text-primary" />,
+    icon: <Share2 className="h-8 w-8 mb-3 text-primary" />,
     description: "Collaborate and share your findings.",
     href: "#",
   }
@@ -88,13 +88,13 @@ export default function AnalyticsPage() {
           Back
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {analyticsFeatures.map((feature) => (
           <Link href={feature.href} key={feature.title} className="flex group">
-            <Card className="flex flex-col text-left p-6 w-full">
+            <Card className="flex flex-col text-left p-4 w-full">
               {feature.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
