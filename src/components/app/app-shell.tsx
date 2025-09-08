@@ -32,7 +32,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Link href="/">
                 <SidebarMenuButton
                   tooltip="INERA"
-                  className="bg-yellow-400 text-black hover:bg-yellow-500"
                 >
                   <Image
                     src="/inera-logo.svg"
