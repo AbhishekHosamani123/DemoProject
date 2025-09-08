@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 type ParsedData = Record<string, string>[];
 
@@ -25,6 +26,8 @@ export default function Home() {
   const [rawCsv, setRawCsv] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const { toast } = useToast();
+  const router = useRouter();
+
 
   const handleFileUpload = (
     parsedData: ParsedData,
@@ -40,11 +43,7 @@ export default function Home() {
 
   const handleProceed = () => {
     if (fileName) {
-      toast({
-        title: "Navigation Hint",
-        description:
-          "The full analytics dashboard is in development. Stay tuned!",
-      });
+      router.push('/analytics');
     } else {
       toast({
         variant: "destructive",
