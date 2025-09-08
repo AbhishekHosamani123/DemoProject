@@ -28,31 +28,31 @@ const presentationTemplates = [
     title: "Financial Review Presentation",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Presentations for financial performance reviews.",
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   },
   {
     title: "Product Launch Presentation",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Everything you need to launch a new product.",
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   },
   {
     title: "Marketing Campaign Presentation",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Present your next big marketing campaign.",
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   },
   {
     title: "Business Proposal Presentation",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Propose a new business idea or project.",
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   },
   ...Array.from({ length: 11 }, (_, i) => ({
     title: `PPT-${i + 6}`,
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: `This is a description for PPT-${i + 6}.`,
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   })),
 ];
 

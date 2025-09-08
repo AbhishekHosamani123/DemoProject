@@ -63,7 +63,7 @@ const documentTypes = [
     title: `Doc ${i + 7}`,
     icon: <FileText className="h-5 w-5 mb-2 text-primary" />,
     description: `This is a description for Doc ${i + 7}.`,
-    href: "#",
+    href: "/documents/brd",
   })),
 ];
 

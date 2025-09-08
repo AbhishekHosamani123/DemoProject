@@ -30,25 +30,25 @@ const forecastTemplates = [
     title: "Customer Behaviour",
     icon: <Users className="h-5 w-5 mb-2 text-primary" />,
     description: "Analyze and predict customer actions.",
-    href: "#",
+    href: "/analytics/forecasting-analyst/sales-forecasting",
   },
   {
     title: "Product Launch",
     icon: <Box className="h-5 w-5 mb-2 text-primary" />,
     description: "Forecast the potential success of a new product.",
-    href: "#",
+    href: "/analytics/forecasting-analyst/sales-forecasting",
   },
   {
     title: "Inventory Management",
     icon: <Container className="h-5 w-5 mb-2 text-primary" />,
     description: "Optimize stock levels and reduce costs.",
-    href: "#",
+    href: "/analytics/forecasting-analyst/sales-forecasting",
   },
   ...Array.from({ length: 7 }, (_, i) => ({
     title: `Forecast ${i + 5}`,
     icon: <TrendingUp className="h-5 w-5 mb-2 text-primary" />,
     description: `This is a description for Forecast ${i + 5}.`,
-    href: "#",
+    href: "/analytics/forecasting-analyst/sales-forecasting",
   })),
 ];
 

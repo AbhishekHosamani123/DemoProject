@@ -23,7 +23,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ children }: { children: React.Node }) {
   const pathname = usePathname();
   return (
     <div className="flex">
@@ -68,7 +68,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="#">
+                <Link href="/analytics">
                   <SidebarMenuButton tooltip="Finance">
                     <DollarSign />
                   </SidebarMenuButton>
@@ -79,7 +79,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarFooter>
             <SidebarMenu>
               <SidebarMenuItem>
-                <Link href="#">
+                <Link href="/analytics">
                   <SidebarMenuButton
                     tooltip="Integration Hub"
                     className="hover:bg-secondary"
@@ -89,14 +89,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="#">
+                <Link href="/analytics">
                   <SidebarMenuButton tooltip="Database Backup">
                     <Database />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="#">
+                <Link href="/">
                   <SidebarMenuButton tooltip="Login">
                     <User />
                   </SidebarMenuButton>

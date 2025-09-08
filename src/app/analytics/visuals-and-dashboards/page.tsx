@@ -31,21 +31,21 @@ const dashboardItems = [
     label: "Customer Segmentation",
     description: "Visualize customer segments.",
     icon: <Users className="h-5 w-5 mb-2 text-primary" />,
-    href: "#",
+    href: "/analytics/visuals-and-dashboards/kpi-metric",
   },
   {
     id: "market",
     label: "Market Trend Charts",
     description: "Analyze market trends.",
     icon: <TrendingUp className="h-5 w-5 mb-2 text-primary" />,
-    href: "#",
+    href: "/analytics/visuals-and-dashboards/kpi-metric",
   },
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `dashboard-${i + 4}`,
     label: `Visuals and Dashboards - ${i + 4}`,
     description: `This is a description for Visuals and Dashboards - ${i + 4}.`,
     icon: <LayoutDashboard className="h-5 w-5 mb-2 text-primary" />,
-    href: "#",
+    href: "/analytics/visuals-and-dashboards/kpi-metric",
   })),
 ];
 

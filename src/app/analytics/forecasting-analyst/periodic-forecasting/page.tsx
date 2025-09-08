@@ -7,15 +7,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const timePeriods = [
-  { id: "daily", label: "DAILY", href: "#" },
-  { id: "weekly", label: "WEEKLY", href: "#" },
+  { id: "daily", label: "DAILY", href: "/analytics/forecasting-analyst/periodic-forecasting/monthly" },
+  { id: "weekly", label: "WEEKLY", href: "/analytics/forecasting-analyst/periodic-forecasting/monthly" },
   {
     id: "monthly",
     label: "MONTHLY",
     href: "/analytics/forecasting-analyst/periodic-forecasting/monthly",
   },
-  { id: "quarterly", label: "QUARTERLY", href: "#" },
-  { id: "yearly", label: "YEARLY", href: "#" },
+  { id: "quarterly", label: "QUARTERLY", href: "/analytics/forecasting-analyst/periodic-forecasting/monthly" },
+  { id: "yearly", label: "YEARLY", href: "/analytics/forecasting-analyst/periodic-forecasting/monthly" },
 ];
 
 export default function PeriodicForecastingPage() {
