@@ -56,9 +56,9 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-start p-4">
-      <div className="w-full max-w-7xl mx-auto mt-56">
+      <div className="w-full max-w-7xl mx-auto mt-64">
         {data.length === 0 ? (
-           <div className="relative max-w-xl mx-auto flex flex-col items-center gap-8">
+           <div className="relative max-w-xl mx-auto flex flex-col items-center gap-8 -ml-64">
             <FileUploader onFileUpload={handleFileUpload} />
              <div className="w-full max-w-sm">
                 <Dialog>
