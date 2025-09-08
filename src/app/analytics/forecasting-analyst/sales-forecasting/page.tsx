@@ -98,10 +98,10 @@ export default function SalesForecastingPage() {
                 <CardContent className="p-4">
                     <div className="space-y-3">
                     {suggestions.map((suggestion) => (
-                      <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id}>
+                      <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="group">
                         <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors cursor-pointer">
-                          <span className="font-medium">{suggestion.text}</span>
-                          <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
+                          <span className="font-medium group-hover:text-black">{suggestion.text}</span>
+                          <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md group-hover:text-black">{suggestion.percentage}%</span>
                         </div>
                       </Link>
                     ))}
