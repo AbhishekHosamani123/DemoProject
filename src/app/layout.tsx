@@ -49,17 +49,20 @@ export default function RootLayout({
         <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <div className="flex justify-center p-2">
-                <Image
-                  src="/inera-logo.svg"
-                  alt="INERA Logo"
-                  width={40}
-                  height={40}
-                />
-              </div>
+              
             </SidebarHeader>
             <SidebarContent>
               <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="INERA">
+                    <Image
+                      src="/inera-logo.svg"
+                      alt="INERA Logo"
+                      width={32}
+                      height={32}
+                    />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton isActive tooltip="Home">
                     <Home />
@@ -81,7 +84,7 @@ export default function RootLayout({
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Integration Hub">
-                    <LayoutGrid />
+                    <LayoutGrid className="text-primary"/>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
