@@ -67,11 +67,11 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
             </div>
             <div className="mt-2 text-center">
                 <div className="text-lg font-bold text-foreground">
-                    {dataPoint.isCurrent ? "Current" : dataPoint.name}
+                    {dataPoint.name}
                 </div>
                 {dataPoint.isCurrent && (
                      <div className="text-sm text-muted-foreground">
-                        {dataPoint.name}
+                        Current
                     </div>
                 )}
             </div>
