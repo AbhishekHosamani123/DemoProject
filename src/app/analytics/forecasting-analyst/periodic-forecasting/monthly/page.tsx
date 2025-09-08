@@ -27,8 +27,6 @@ const COLORS = {
 };
 
 const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
-    const isNext = dataPoint.name === 'June';
-
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
         { name: 'Loss', value: dataPoint.loss },
@@ -40,7 +38,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
     return (
         <div className="flex flex-col items-center text-center w-40">
              <div className={cn("flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 relative transition-all duration-300",
-                isNext ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border",
+                dataPoint.isCurrent ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border",
             )}>
                 {hasData && (
                     <ResponsiveContainer width="100%" height="100%">
