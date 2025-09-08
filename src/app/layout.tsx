@@ -37,19 +37,19 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased bg-background text-foreground" suppressHydrationWarning>
+        <video
+          key={backgroundVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="fixed inset-0 w-screen h-screen object-cover -z-50"
+        >
+          <source src={backgroundVideo} type="video/mp4" />
+        </video>
         <AppShell>
           <div className="relative flex-1">
             {children}
-             <video
-              key={backgroundVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover -z-50"
-            >
-              <source src={backgroundVideo} type="video/mp4" />
-            </video>
           </div>
         </AppShell>
         <Toaster />
