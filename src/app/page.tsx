@@ -80,8 +80,7 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={handleProceed}
-                className="w-full"
-                variant="outline"
+                className="w-full bg-stone-200 text-black hover:bg-white"
               >
                 PROCEED TO ANALYTICS
                 <ArrowRight className="ml-2 h-5 w-5" />
