@@ -48,6 +48,12 @@ const presentationTemplates = [
     description: "Propose a new business idea or project.",
     href: "#",
   },
+  ...Array.from({ length: 11 }, (_, i) => ({
+    title: `PPT-${i + 6}`,
+    icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
+    description: `This is a description for PPT-${i + 6}.`,
+    href: "#",
+  })),
 ];
 
 export default function SingleTopicPage() {
