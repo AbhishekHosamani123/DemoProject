@@ -143,6 +143,14 @@ export default function SolutionReportPage() {
         </div>
 
         <div className="space-y-8">
+          {/* Suggestion */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
+              {data.suggestion}
+            </p>
+          </div>
+
           {/* Hypothesis Report */}
           <div className="space-y-4">
             <Card className="bg-card/60 backdrop-blur-sm">
@@ -158,18 +166,8 @@ export default function SolutionReportPage() {
               </CardContent>
             </Card>
           </div>
-          
-          {/* Suggestion */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
-              {data.suggestion}
-            </p>
-          </div>
         </div>
       </div>
     </div>
   );
 }
-
-    
