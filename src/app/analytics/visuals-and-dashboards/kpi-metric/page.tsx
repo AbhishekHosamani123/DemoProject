@@ -17,6 +17,9 @@ import {
   Users,
   Briefcase,
   Target,
+  DollarSign,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -33,10 +36,12 @@ import {
 } from "recharts";
 
 const kpiData = [
-  { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase" },
-  { title: "Profit Margin", value: "24.5%", change: "+2.1%", changeType: "increase" },
-  { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease" },
-  { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase" },
+  { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Profit Margin", value: "24.5%", change: "+2.1%", changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
+  { title: "New Customers", value: "1,250", change: "+15.3%", changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Conversion Rate", value: "3.5%", change: "+0.8%", changeType: "increase", icon: <Target className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase", icon: <Briefcase className="h-4 w-4 text-muted-foreground" /> },
 ];
 
 const revenueData = [
@@ -77,16 +82,17 @@ export default function KpiMetricDashboardPage() {
         </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-8">
         {kpiData.map((kpi) => (
           <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              {kpi.icon}
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{kpi.value}</div>
-              <p className={`text-xs ${kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}>
+              <p className={`text-xs flex items-center ${kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}>
+                {kpi.changeType === 'increase' ? <ArrowUp className="h-3 w-3 mr-1" /> : <ArrowDown className="h-3 w-3 mr-1" />}
                 {kpi.change} vs last month
               </p>
             </CardContent>
@@ -118,7 +124,7 @@ export default function KpiMetricDashboardPage() {
           <CardHeader>
             <CardTitle>Sales by Region</CardTitle>
             <CardDescription>Regional sales distribution.</CardDescription>
-          </CardHeader>
+          CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={salesByRegionData}>
