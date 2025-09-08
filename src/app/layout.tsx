@@ -1,11 +1,14 @@
 
+"use client";
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AppShell } from "@/components/app/app-shell";
 import { Chatbot } from "@/components/app/chatbot";
+import { usePathname } from "next/navigation";
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "INERA Navigator",
   description: "Generate insights from your business data.",
 };
@@ -15,6 +18,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const backgroundVideo = pathname === "/" ? "/background-video.mp4" : "/background-video-2.mp4";
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
@@ -34,9 +40,16 @@ export default function RootLayout({
         <AppShell>
           <div className="relative flex-1">
             {children}
-            <div className="absolute inset-0 -z-50 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-              <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
-            </div>
+             <video
+              key={backgroundVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover -z-50"
+            >
+              <source src={backgroundVideo} type="video/mp4" />
+            </video>
           </div>
         </AppShell>
         <Toaster />
