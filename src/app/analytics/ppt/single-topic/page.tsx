@@ -61,14 +61,6 @@ export default function SingleTopicPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Single Topic Presentation
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Choose a template to generate your presentation.
-        </p>
-      </div>
       <div className="mb-8">
         <Button
           onClick={() => router.back()}
@@ -78,13 +70,21 @@ export default function SingleTopicPage() {
           Back
         </Button>
       </div>
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Single Topic Presentation
+        </h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+          Choose a template to generate your presentation.
+        </p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {presentationTemplates.map((template) => (
           <Link href={template.href} key={template.title} className="flex">
             <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full">
               {template.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {template.title}
                 </CardTitle>
               </CardHeader>

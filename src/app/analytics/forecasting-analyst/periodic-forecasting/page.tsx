@@ -32,7 +32,7 @@ export default function PeriodicForecastingPage() {
         </div>
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-            PERIODICALLY FORECASTING
+            Periodic Forecasting
           </h1>
         </div>
 
@@ -42,7 +42,7 @@ export default function PeriodicForecastingPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full h-24 text-xl rounded-lg bg-card/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-2 border-transparent hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
+                className="w-full h-24 text-lg rounded-lg bg-card/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
               >
                 {period.label}
               </Button>

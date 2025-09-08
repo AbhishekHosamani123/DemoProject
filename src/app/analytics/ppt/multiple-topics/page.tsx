@@ -90,7 +90,6 @@ export default function MultipleTopicsPage() {
       });
       return;
     }
-    // Placeholder for generation logic
     toast({
       title: "Generating Presentation",
       description: `Creating a presentation with ${selectedTopics.length} topics.`,
@@ -99,7 +98,8 @@ export default function MultipleTopicsPage() {
 
   const handleCustomize = () => {
     toast({
-      title: "Added",
+      title: "Settings Applied",
+      description: "Your presentation settings have been saved.",
       duration: 2000,
     });
     setIsCustomizeDialogOpen(false);
@@ -107,8 +107,17 @@ export default function MultipleTopicsPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+       <div className="w-full max-w-2xl mx-auto mb-8">
+        <Button
+          onClick={() => router.back()}
+          variant="outline"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
+      </div>
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
+        <h1 className="text-3xl font-bold tracking-tight">
           Multiple Topics Presentation
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
@@ -116,16 +125,6 @@ export default function MultipleTopicsPage() {
         </p>
       </div>
       <div className="w-full max-w-2xl mx-auto">
-        <div className="mb-8">
-          <Button
-            onClick={() => router.back()}
-            variant="outline"
-          >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
-        </div>
-
         <Card className="bg-card/60 backdrop-blur-sm p-6">
           <CardHeader className="p-0 mb-6">
             <CardTitle>Select Topics</CardTitle>
@@ -278,12 +277,12 @@ export default function MultipleTopicsPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit" onClick={handleCustomize}>Generate</Button>
+                <Button type="submit" onClick={handleCustomize}>Apply</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
           <Button size="lg" onClick={handleGenerate}>
-            Create
+            Generate Presentation
           </Button>
         </div>
       </div>

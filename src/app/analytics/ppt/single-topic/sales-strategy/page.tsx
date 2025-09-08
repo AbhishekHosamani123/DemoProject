@@ -34,83 +34,12 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { generatedText, parsePresentationText } from "@/lib/content/sales-strategy-presentation";
 
 interface Slide {
   title: string;
   content: string[];
 }
-
-function parsePresentationText(text: string): Slide[] {
-  const slides: Slide[] = [];
-  const slideTexts = text.trim().split(/Slide \d+:/).slice(1);
-
-  slideTexts.forEach((slideText) => {
-    const lines = slideText.trim().split('\n');
-    const titleLine = lines.shift() || '';
-    const title = titleLine.replace(/Title: /, '').trim();
-    const content = lines.map(line => line.trim()).filter(line => line);
-    slides.push({ title, content });
-  });
-
-  return slides;
-}
-
-
-const generatedText = `Slide 1: Title: Q3 2024 Sales Strategy
-- Subtitle: Accelerating Growth & Market Leadership
-- Date: [Date]
-- Presenter: [Your Name/Team Name]
-
-Slide 2: Title: Agenda
-- Review of Q2 Performance
-- Q3 2024 Strategic Goals
-- Target Segments & Expansion
-- Product Focus & Messaging
-- Go-to-Market Strategy & Key Initiatives
-- KPIs & Success Measurement
-- Q&A
-
-Slide 3: Title: Q2 2024 Performance Review
-- Revenue: $2.5M vs. $2.2M Target (14% Beat)
-- Key Wins: Landed 5 strategic accounts in the finance sector.
-- Growth Areas: 30% increase in pipeline from inbound marketing.
-- Lessons Learned: Long sales cycles in EMEA require more localized assets.
-
-Slide 4: Title: Q3 2024 Strategic Goals
-- Primary Objective: Achieve $3.0M in new ARR.
-- Secondary Objective: Increase enterprise pipeline by 25%.
-- Tertiary Objective: Reduce sales cycle from 90 to 75 days.
-
-Slide 5: Title: Target Segments & Expansion
-- Core Focus: Deepen penetration in North American finance & healthcare.
-- Expansion Market: Launch targeted outbound campaigns for retail in APAC.
-- Ideal Customer Profile: Companies with 500-5000 employees and complex data needs.
-
-Slide 6: Title: Product Focus & Messaging
-- Lead Product: 'InsightEngine' Advanced Analytics Suite.
-- Core Value Proposition: "Turn your data into predictable revenue."
-- Key Differentiators: Real-time processing, codeless integration, and predictive AI.
-
-Slide 7: Title: Go-to-Market Strategy & Initiatives
-- Inbound: Launch 'Future of Data' webinar series & 3 new case studies.
-- Outbound: Execute ABM campaigns for 50 target enterprise accounts.
-- Channel: Onboard 2 new strategic partners in the APAC region.
-
-Slide 8: Title: Sales Team & Resources
-- Team Structure: 2 Enterprise AEs, 4 Mid-Market AEs, 4 SDRs.
-- Key Hires: Hiring 1 Enterprise AE for EMEA.
-- Resources: New competitor battlecards and ROI calculator.
-
-Slide 9: Title: KPIs & Success Measurement
-- Pipeline: $12M in qualified pipeline generated.
-- Conversion: Maintain a 25% lead-to-close conversion rate.
-- Deal Size: Increase average deal size by 15% to $75k.
-- Activity: 50 outbound calls and 10 demos booked per SDR per week.
-
-Slide 10: Title: Q&A and Next Steps
-- Open floor for questions.
-- Next Steps: Finalize account lists by EOW.
-`;
 
 export default function SalesStrategyPage() {
   const router = useRouter();
@@ -125,7 +54,7 @@ export default function SalesStrategyPage() {
 
   const handleGenerate = () => {
     toast({
-      title: "Done",
+      title: "Settings Applied",
       description: "Your presentation has been customized.",
       duration: 2000,
     });
@@ -134,16 +63,7 @@ export default function SalesStrategyPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <div className="w-full max-w-4xl mb-4 text-center mx-auto">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Sales Strategy Presentation
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          Review and take action on your generated presentation.
-        </p>
-      </div>
-
-      <div className="w-full max-w-4xl mx-auto mb-8">
+       <div className="w-full max-w-4xl mx-auto mb-8">
         <Button
           onClick={() => router.back()}
           variant="outline"
@@ -152,6 +72,14 @@ export default function SalesStrategyPage() {
           Back
         </Button>
       </div>
+      <div className="w-full max-w-4xl mb-8 text-center mx-auto">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Sales Strategy Presentation
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Review and take action on your generated presentation.
+        </p>
+      </div>
 
       <div className="w-full max-w-4xl space-y-8 mx-auto">
         <Carousel className="w-full">
@@ -159,29 +87,30 @@ export default function SalesStrategyPage() {
             {slides.map((slide, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center relative overflow-hidden">
+                  <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center relative overflow-hidden bg-card/60 backdrop-blur-sm">
                     <Image
                       src="https://picsum.photos/1280/720"
                       alt="Presentation background"
                       width={1280}
                       height={720}
-                      className="object-cover absolute inset-0 w-full h-full"
+                      className="object-cover absolute inset-0 w-full h-full opacity-10"
                       data-ai-hint="business strategy"
                     />
-                    <div className="absolute inset-0 bg-black/50" />
-                    <div className="relative z-10 text-white w-full">
+                    <div className="relative z-10 text-foreground w-full p-6">
                       <CardHeader>
-                        <CardTitle className="text-center">{slide.title.replace('Title: ', '')}</CardTitle>
+                        <CardTitle className="text-center text-2xl">{slide.title.replace('Title: ', '')}</CardTitle>
                       </CardHeader>
-                      <CardContent className="text-left w-full max-w-2xl mx-auto">
-                        {slide.content.map((item, i) => {
-                          if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
-                            return <p key={i} className="text-center text-slate-300">{item.split(': ')[1]}</p>
-                          }
-                          return (
-                            <p key={i} className="my-2">{item}</p>
-                          )
-                        })}
+                      <CardContent className="text-left w-full max-w-2xl mx-auto text-sm">
+                        <ul className="list-disc pl-5 space-y-2">
+                          {slide.content.map((item, i) => {
+                            if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
+                              return <li key={i} className="text-center text-muted-foreground list-none">{item.split(': ')[1]}</li>
+                            }
+                            return (
+                              <li key={i}>{item.replace(/^- /, '')}</li>
+                            )
+                          })}
+                        </ul>
                       </CardContent>
                     </div>
                   </Card>
@@ -189,23 +118,23 @@ export default function SalesStrategyPage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="ml-12 text-white"/>
-          <CarouselNext className="mr-12 text-white"/>
+          <CarouselPrevious className="ml-12 text-foreground" />
+          <CarouselNext className="mr-12 text-foreground" />
         </Carousel>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Button size="lg" className="w-full">
-            <Download className="mr-2" />
+            <Download className="mr-2 h-4 w-4" />
             Download PPT
           </Button>
-          <Button size="lg" className="w-full">
-            <Video className="mr-2" />
+          <Button size="lg" className="w-full" variant="secondary">
+            <Video className="mr-2 h-4 w-4" />
             Generate Video
           </Button>
           <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
             <DialogTrigger asChild>
               <Button size="lg" className="w-full" variant="secondary">
-                <Wrench className="mr-2" />
+                <Wrench className="mr-2 h-4 w-4" />
                 Customize
               </Button>
             </DialogTrigger>
@@ -297,7 +226,7 @@ export default function SalesStrategyPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit" onClick={handleGenerate}>Generate</Button>
+                <Button type="submit" onClick={handleGenerate}>Apply</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

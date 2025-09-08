@@ -57,7 +57,6 @@ export default function CustomTopicPage() {
       });
       return;
     }
-    // Placeholder for generation logic
     toast({
       title: "Generating Presentation",
       description: `Creating a presentation based on your prompt.`,
@@ -66,7 +65,8 @@ export default function CustomTopicPage() {
 
   const handleCustomize = () => {
     toast({
-      title: "Added",
+      title: "Settings Applied",
+      description: "Your presentation settings have been saved.",
       duration: 2000,
     });
     setIsCustomizeDialogOpen(false);
@@ -74,16 +74,7 @@ export default function CustomTopicPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Customized Topics Presentation
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Describe the presentation you want to create.
-        </p>
-      </div>
-      <div className="w-full max-w-2xl mx-auto">
-        <div className="mb-8">
+       <div className="w-full max-w-2xl mx-auto mb-8">
           <Button
             onClick={() => router.back()}
             variant="outline"
@@ -92,7 +83,15 @@ export default function CustomTopicPage() {
             Back
           </Button>
         </div>
-
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Customized Topic Presentation
+        </h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+          Describe the presentation you want to create.
+        </p>
+      </div>
+      <div className="w-full max-w-2xl mx-auto">
         <Card className="bg-card/60 backdrop-blur-sm p-6">
           <CardHeader className="p-0 mb-6">
             <CardTitle>Enter Your Prompt</CardTitle>
@@ -105,7 +104,7 @@ export default function CustomTopicPage() {
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Tell us how and what you want to present...."
+              placeholder="e.g., 'Create a 10-slide presentation on Q3 sales performance for the executive team...'"
               className="h-40"
             />
           </CardContent>
@@ -228,7 +227,7 @@ export default function CustomTopicPage() {
               </div>
               <DialogFooter>
                 <Button type="submit" onClick={handleCustomize}>
-                  Generate
+                  Apply
                 </Button>
               </DialogFooter>
             </DialogContent>

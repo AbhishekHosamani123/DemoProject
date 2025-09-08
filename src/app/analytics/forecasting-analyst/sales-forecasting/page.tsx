@@ -10,6 +10,7 @@ import { ChevronLeft, Download, Wrench } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { SuggestionList } from "@/components/app/suggestion-list";
 
 const suggestions = [
   { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
@@ -49,12 +50,6 @@ export default function SalesForecastingPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-      <div className="w-full mb-4 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Sales Forecasting
-        </h1>
-      </div>
-
       <div className="w-full max-w-6xl mx-auto mb-8">
         <Button
           onClick={() => router.back()}
@@ -65,44 +60,40 @@ export default function SalesForecastingPage() {
         </Button>
       </div>
 
+      <div className="w-full mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Sales Forecasting
+        </h1>
+      </div>
+
       <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
-          <Card className="shadow-lg border-border/60">
+        <div className="lg:col-span-2 space-y-6">
+          <Card className="shadow-lg border-border/60 bg-card/60 backdrop-blur-sm">
             <CardContent className="p-0">
                <Textarea
-                  className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
+                  className="w-full h-[500px] resize-none border-0 focus:ring-0 text-base rounded-lg bg-transparent p-6"
                   readOnly
                   value={generatedText}
                 />
             </CardContent>
           </Card>
           <div className="flex gap-4">
-            <Button size="lg" className="w-full">
-              <Download className="mr-2" />
+            <Button size="lg" className="flex-1">
+              <Download className="mr-2 h-4 w-4" />
               Download
             </Button>
-            <Button size="lg" variant="secondary" className="w-full">
-              <Wrench className="mr-2" />
+            <Button size="lg" variant="secondary" className="flex-1">
+              <Wrench className="mr-2 h-4 w-4" />
               Customize
             </Button>
           </div>
         </div>
 
         <div className="space-y-4">
-          <Card className="bg-card/60 backdrop-blur-sm">
-              <CardContent className="p-4">
-                  <div className="space-y-3">
-                  {suggestions.map((suggestion) => (
-                    <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="block group">
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
-                        <span className="font-medium group-hover:text-accent-foreground">{suggestion.text}</span>
-                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
-                      </div>
-                    </Link>
-                  ))}
-                  </div>
-              </CardContent>
-          </Card>
+          <SuggestionList 
+            suggestions={suggestions}
+            basePath="/analytics/forecasting-analyst/sales-forecasting"
+          />
         </div>
       </div>
     </div>

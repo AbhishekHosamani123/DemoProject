@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { SuggestionList } from "@/components/app/suggestion-list";
 
 const initialSuggestions = [
   { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
@@ -60,8 +60,8 @@ export default function MonthlySuggestionPage() {
           </Button>
         </div>
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-            MONTHLY
+          <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm uppercase">
+            {month}
           </h1>
         </div>
 
@@ -72,7 +72,8 @@ export default function MonthlySuggestionPage() {
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full text-lg bg-transparent border-0 focus:ring-0 text-primary h-20"
+                placeholder="What is your profit goal for this month?"
+                className="w-full text-lg bg-transparent border-0 focus:ring-0 text-primary-foreground h-20 placeholder:text-muted-foreground"
                 autoFocus
               />
             </CardContent>
@@ -82,26 +83,18 @@ export default function MonthlySuggestionPage() {
               type="submit"
               size="lg"
             >
-              Submit
+              Generate Suggestions
             </Button>
           </div>
         </form>
 
         {showSuggestions && (
-          <Card className="bg-card/60 backdrop-blur-sm animate-in fade-in duration-500">
-              <CardContent className="p-4">
-                  <div className="space-y-3">
-                  {initialSuggestions.map((suggestion) => (
-                    <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${month}/${suggestion.id}`} key={suggestion.id} className="block group">
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
-                        <span className="font-medium group-hover:text-accent-foreground">{suggestion.text}</span>
-                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md group-hover:text-black">{suggestion.percentage}%</span>
-                      </div>
-                    </Link>
-                  ))}
-                  </div>
-              </CardContent>
-          </Card>
+            <div className="animate-in fade-in duration-500">
+                <SuggestionList 
+                    suggestions={initialSuggestions}
+                    basePath={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${month}`}
+                />
+            </div>
         )}
       </div>
     </div>
