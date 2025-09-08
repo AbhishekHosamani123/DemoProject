@@ -4,23 +4,20 @@ import { Toaster } from "@/components/ui/toaster";
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarInset,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarProvider,
-  SidebarTrigger,
-  SidebarInset,
-  SidebarFooter,
-  SidebarHeader,
 } from "@/components/ui/sidebar";
 import {
   BarChart2,
   DollarSign,
   Home,
   LayoutGrid,
-  User,
+  LogIn,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -49,7 +46,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="icon">
             <SidebarHeader>
               <div className="flex justify-center p-4">
@@ -74,7 +71,7 @@ export default function RootLayout({
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Billing">
+                  <SidebarMenuButton tooltip="Finance">
                     <DollarSign />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -83,13 +80,13 @@ export default function RootLayout({
             <SidebarFooter>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Integrations">
+                  <SidebarMenuButton tooltip="Integration Hub">
                     <LayoutGrid />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Profile">
-                    <User />
+                  <SidebarMenuButton tooltip="Sign In">
+                    <LogIn />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
