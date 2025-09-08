@@ -233,6 +233,9 @@ export default function SalesStrategyPage() {
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
                           selected={fromDate}
                           onSelect={setFromDate}
                           initialFocus
@@ -261,6 +264,9 @@ export default function SalesStrategyPage() {
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
                           selected={toDate}
                           onSelect={setToDate}
                           initialFocus
