@@ -7,58 +7,70 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import { ChevronLeft, ArrowRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ArrowRight,
+  TrendingUp,
+  Users,
+  Box,
+  AreaChart,
+  LineChart,
+  BarChart,
+  PieChart,
+  Container,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const forecastTemplates = [
   {
-    title: "SALES FORECASTING",
+    title: "Sales Forecasting",
+    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    description: "Predict future sales and revenue.",
     href: "#",
   },
   {
-    title: "CUSTOMER BEHAVIOUR PREDICTION",
+    title: "Customer Behaviour",
+    icon: <Users className="h-10 w-10 mb-4 text-primary" />,
+    description: "Analyze and predict customer actions.",
     href: "#",
   },
   {
-    title: "PRODUCT LAUNCH PRESENTATION",
+    title: "Product Launch",
+    icon: <Box className="h-10 w-10 mb-4 text-primary" />,
+    description: "Forecast the potential success of a new product.",
     href: "#",
   },
   {
-    title: "FORECAST 4",
+    title: "Inventory Management",
+    icon: <Container className="h-10 w-10 mb-4 text-primary" />,
+    description: "Optimize stock levels and reduce costs.",
     href: "#",
   },
   {
-    title: "FORECAST 5",
+    title: "Financial Planning",
+    icon: <PieChart className="h-10 w-10 mb-4 text-primary" />,
+    description: "Forecast financial performance and budgets.",
     href: "#",
   },
   {
-    title: "FORECAST 6",
+    title: "Demand Forecasting",
+    icon: <AreaChart className="h-10 w-10 mb-4 text-primary" />,
+    description: "Predict demand for products or services.",
     href: "#",
   },
   {
-    title: "FORECAST 7",
+    title: "Marketing Campaign",
+    icon: <LineChart className="h-10 w-10 mb-4 text-primary" />,
+    description: "Analyze the potential ROI of marketing efforts.",
     href: "#",
   },
   {
-    title: "FORECAST 8",
-    href: "#",
-  },
-  {
-    title: "FORECAST 9",
-    href: "#",
-  },
-  {
-    title: "FORECAST 10",
-    href: "#",
-  },
-  {
-    title: "FORECAST 11",
-    href: "#",
-  },
-  {
-    title: "FORECAST 12",
+    title: "Resource Allocation",
+    icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
+    description: "Plan and allocate resources effectively.",
     href: "#",
   },
 ];
@@ -91,12 +103,21 @@ export default function ForecastingAnalystPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {forecastTemplates.map((template) => (
           <Link href={template.href} key={template.title} className="flex">
-            <Card className="group relative flex flex-col justify-center text-center p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full h-24">
+            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1 w-full">
+              {template.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-base font-semibold">
+                <CardTitle className="text-xl font-semibold">
                   {template.title}
                 </CardTitle>
               </CardHeader>
+              <CardContent className="p-0 mt-2 flex-1">
+                <p className="text-sm text-muted-foreground">
+                  {template.description}
+                </p>
+              </CardContent>
+              <div className="mt-4 flex justify-end">
+                <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
+              </div>
             </Card>
           </Link>
         ))}
