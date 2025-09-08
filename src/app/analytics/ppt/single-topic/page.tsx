@@ -22,7 +22,7 @@ const presentationTemplates = [
     title: "Sales Strategy Presentation",
     icon: <Presentation className="h-8 w-8 mb-4 text-primary" />,
     description: "Decks for outlining sales strategies and targets.",
-    href: "#",
+    href: "/analytics/ppt/single-topic/sales-strategy",
   },
   {
     title: "Financial Review Presentation",
