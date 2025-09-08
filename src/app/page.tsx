@@ -44,20 +44,20 @@ export default function Home() {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 flex flex-col">
         {data.length === 0 ? (
-          <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <div className="w-full max-w-lg">
-              <h1 className="text-4xl font-headline tracking-tight mb-2">
-                Welcome to INERA Software
-              </h1>
-              <p className="text-lg text-muted-foreground mb-1">
-                AI-Powered Business Intelligence Platform
-              </p>
-              <p className="text-sm text-muted-foreground mb-8">
-                INTELLIGENCE AT THE SPEED OF THOUGHT
-              </p>
-              <FileUploader onFileUpload={handleFileUpload} />
+          <div className="flex-1 flex flex-col items-center text-center">
+            <div className="flex-1 flex flex-col justify-center items-center w-full max-w-lg">
+                <h1 className="text-4xl font-headline tracking-tight mb-2">
+                  Welcome to INERA Software
+                </h1>
+                <p className="text-lg text-muted-foreground mb-1">
+                  AI-Powered Business Intelligence Platform
+                </p>
+                <p className="text-sm text-muted-foreground mb-8">
+                  INTELLIGENCE AT THE SPEED OF THOUGHT
+                </p>
+                <FileUploader onFileUpload={handleFileUpload} />
             </div>
-            <div className="mt-auto pt-8 w-full max-w-lg flex flex-col items-center gap-4">
+            <div className="w-full max-w-lg flex flex-col items-center gap-4 py-8">
                <Button variant="outline" className="w-full" disabled>
                   <Server className="mr-2 h-5 w-5" />
                   CONNECT CLOUD SERVER
