@@ -15,7 +15,7 @@ import { ManualDashboardCustomization } from "./manual/page";
 
 export default function CustomDashboardPage() {
   const router = useRouter();
-  const [view, setView] = useState<"cards" | "manual">("cards");
+  const [view, setView] = useState<"cards" | "automated" | "manual">("cards");
 
   const handleBack = () => {
     if (view !== 'cards') {
@@ -48,7 +48,7 @@ export default function CustomDashboardPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <Card 
-                  onClick={() => setView('manual')}
+                  onClick={() => setView('automated')}
                   className="text-center p-8 h-full flex flex-col justify-center items-center hover:bg-primary/5 hover:border-primary/50 transition-all transform hover:-translate-y-1 cursor-pointer">
                     <Wand2 className="h-12 w-12 text-primary mb-4" />
                     <CardHeader>
@@ -59,7 +59,7 @@ export default function CustomDashboardPage() {
                     </CardDescription>
                 </Card>
                 <Card 
-                  onClick={() => setView('manual')}
+                  onClick={() => router.push('/analytics/visuals-and-dashboards/custom/manual')}
                   className="text-center p-8 h-full flex flex-col justify-center items-center hover:bg-primary/5 hover:border-primary/50 transition-all transform hover:-translate-y-1 cursor-pointer">
                     <Settings className="h-12 w-12 text-primary mb-4" />
                     <CardHeader>
@@ -73,7 +73,7 @@ export default function CustomDashboardPage() {
           </div>
         )}
 
-        {view === 'manual' && (
+        {view === 'automated' && (
           <div className="w-full animate-in fade-in duration-300">
              <ManualDashboardCustomization />
           </div>

@@ -89,7 +89,7 @@ export function ManualDashboardCustomization() {
     <div className="w-full max-w-2xl mx-auto">
         <div className="text-center mb-8">
             <h1 className="text-4xl font-bold tracking-tight">
-            Dashboard Customization
+            Automated Dashboard
             </h1>
             <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
             Select the topics you want to include in your custom dashboard. The AI will pull relevant data for you.
