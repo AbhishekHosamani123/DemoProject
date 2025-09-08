@@ -47,40 +47,32 @@ export default function BrdPage() {
             Review and take action on your generated BRD.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
-          <div className="md:col-span-2">
-            <Card className="h-full shadow-lg">
-                <CardContent className="p-6 h-full">
-                <Textarea
-                    className="w-full h-full resize-none border-0 focus:ring-0 text-base"
-                    readOnly
-                    value={generatedText}
-                />
+        
+        <div className="w-full max-w-4xl space-y-8">
+            <Card className="shadow-lg border-border/60">
+                <CardContent className="p-0">
+                    <Textarea
+                        className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
+                        readOnly
+                        value={generatedText}
+                    />
                 </CardContent>
             </Card>
-          </div>
-          <div className="flex flex-col gap-4">
-              <Card className="shadow-lg">
-                <CardHeader>
-                    <CardTitle>Actions</CardTitle>
-                    <CardDescription>What would you like to do next?</CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4">
-                <Button size="lg">
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Button size="lg" className="w-full">
                     <Download className="mr-2" />
                     Download BRD
                 </Button>
-                <Button variant="secondary" size="lg">
+                <Button variant="secondary" size="lg" className="w-full">
                     <Video className="mr-2" />
                     Generate Video
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="lg" className="w-full">
                     <Wrench className="mr-2" />
                     Customize
                 </Button>
-                </CardContent>
-            </Card>
-          </div>
+            </div>
         </div>
       </div>
     </div>
