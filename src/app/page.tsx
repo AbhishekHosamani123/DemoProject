@@ -8,7 +8,7 @@ import { DataPreview } from "@/components/app/data-preview";
 import { ChartGenerator } from "@/components/app/chart-generator";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, Server, Loader2 } from "lucide-react";
+import { ArrowRight, Server, Loader2, ChevronLeft } from "lucide-react";
 import { CloudConnect } from "@/components/app/cloud-connect";
 import {
   Dialog,
@@ -58,6 +58,14 @@ export default function Home() {
       setIsLoading(false);
     }, 3000);
   };
+  
+  const handleGoBack = () => {
+    setData([]);
+    setHeaders([]);
+    setRawCsv("");
+    setFileName("");
+  };
+
 
   return (
     <main className="flex-1 flex flex-col items-center justify-start p-4 pt-48">
@@ -97,9 +105,15 @@ export default function Home() {
           </div>
         ) : (
           <div className="space-y-8 animate-in fade-in duration-500 py-8 w-full">
-            <h2 className="text-4xl tracking-tight font-bold">
-              Dashboard for <span className="text-primary">{fileName}</span>
-            </h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-4xl tracking-tight font-bold">
+                Dashboard for <span className="text-primary">{fileName}</span>
+              </h2>
+              <Button onClick={handleGoBack} variant="outline">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Back to Upload
+              </Button>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-1">
                 <AiInsights data={rawCsv} />
