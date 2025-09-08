@@ -12,6 +12,7 @@ export function useIsMobile() {
       setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
     };
 
+    // Set initial value
     checkDevice();
 
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
@@ -20,5 +21,5 @@ export function useIsMobile() {
     return () => mql.removeEventListener('change', checkDevice);
   }, []);
 
-  return !!isMobile;
+  return isMobile;
 }
