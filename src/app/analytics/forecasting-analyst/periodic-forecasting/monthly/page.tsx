@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "recharts";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const forecastData = [
     { name: "April", period: "Apr", isPast: true, value: 8000, profit: 5000, loss: 1000, revenue: 4000 },
@@ -28,9 +29,9 @@ const COLORS = {
 };
 
 const TEXT_COLORS = {
-  profit: 'hsl(140, 100%, 70%)', // A bright green
-  loss: 'hsl(0, 100%, 70%)',      // A bright red
-  revenue: 'hsl(48, 100%, 70%)',  // A bright yellow
+  profit: 'hsl(140, 100%, 80%)',
+  loss: 'hsl(0, 100%, 80%)',
+  revenue: 'hsl(48, 100%, 80%)',
 };
 
 const CustomTooltip = ({ active, payload }: any) => {
@@ -56,7 +57,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
     
     const hasData = pieData.some(d => d.value > 0);
 
-    return (
+    const nodeContent = (
         <div className="flex flex-col items-center text-center w-40">
              <div className={cn("flex flex-col items-center justify-center h-24 w-24 rounded-full border-2 relative transition-all duration-300",
                 dataPoint.isCurrent ? "border-primary border-4 shadow-lg shadow-primary/20" : "border-border",
@@ -101,6 +102,16 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
             </div>
         </div>
     );
+
+    if (dataPoint.isCurrent) {
+        return (
+            <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${dataPoint.name.toLowerCase()}`}>
+                {nodeContent}
+            </Link>
+        )
+    }
+
+    return nodeContent;
 }
 
 export default function MonthlyForecastingPage() {
