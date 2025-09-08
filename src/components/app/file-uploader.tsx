@@ -108,7 +108,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="bg-accent/30 border-accent">
+    <Card className="glass bg-transparent border-0">
       <CardContent className="p-8">
         <div
           onDragEnter={handleDragEnter}

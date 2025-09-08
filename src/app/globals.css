@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 43 100% 67%;
+    --primary: 220 13% 91%;
     --primary-foreground: 222 79% 10%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -43,7 +43,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 79% 10%;
     --popover-foreground: 210 40% 98%;
-    --primary: 43 100% 67%;
+    --primary: 220 13% 91%;
     --primary-foreground: 222 79% 10%;
     --secondary: 227 42% 27%;
     --secondary-foreground: 43 100% 67%;
@@ -76,5 +76,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-sm border border-white/20;
   }
 }
