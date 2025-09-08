@@ -28,6 +28,7 @@ const COLORS = {
 
 const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
     const isNext = dataPoint.name === 'Next';
+    const isUpcoming = !dataPoint.isPast && !dataPoint.isCurrent && dataPoint.name !== 'Next';
 
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
@@ -66,8 +67,12 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
                 {`₹${dataPoint.value.toLocaleString()}`}
             </div>
             <div className="mt-2 text-center">
-                <div className="text-lg font-bold text-foreground">{dataPoint.name}</div>
-                {dataPoint.period && <div className="text-sm text-muted-foreground">{dataPoint.period}</div>}
+                <div className="text-lg font-bold text-foreground">
+                    {isUpcoming ? "Upcoming" : dataPoint.name}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                    {isUpcoming ? dataPoint.name : dataPoint.period}
+                </div>
             </div>
         </div>
     );
