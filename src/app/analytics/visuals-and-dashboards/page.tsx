@@ -149,6 +149,15 @@ export default function VisualsAndDashboardsPage() {
           </Link>
         ))}
       </div>
+      <div className="mt-8 flex justify-center">
+          <Button
+            size="lg"
+            className="w-full max-w-md text-lg font-bold h-16"
+            onClick={() => router.push('#')}
+          >
+            CUSTOM VISUALS & DASHBOARD
+          </Button>
+      </div>
     </div>
   );
 }
