@@ -32,9 +32,9 @@ export default function RootLayout({
       <body className="font-body antialiased" suppressHydrationWarning>
         <AppShell>
             {children}
-            <Toaster />
-            <Chatbot />
         </AppShell>
+        <Toaster />
+        <Chatbot />
       </body>
     </html>
   );
