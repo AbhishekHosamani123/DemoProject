@@ -12,12 +12,12 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 
 const suggestions = [
-  { text: "Focus on upsells for 'InsightEngine'", percentage: 98 },
-  { text: "Target healthcare sector in North America", percentage: 95 },
-  { text: "Increase marketing spend for APAC region", percentage: 92 },
-  { text: "Offer promotional discounts for new customers", percentage: 88 },
-  { text: "Bundle 'InsightEngine' with 'DataScribe'", percentage: 85 },
-  { text: "Run a win-back campaign for churned clients", percentage: 80 },
+  { text: "Suggestion 1", percentage: 98 },
+  { text: "Suggestion 2", percentage: 95 },
+  { text: "Suggestion 3", percentage: 92 },
+  { text: "Suggestion 4", percentage: 88 },
+  { text: "Suggestion 5", percentage: 85 },
+  { text: "Suggestion 6", percentage: 80 },
 ];
 
 const generatedText = `Q3 2024 Sales Forecast & Analysis
