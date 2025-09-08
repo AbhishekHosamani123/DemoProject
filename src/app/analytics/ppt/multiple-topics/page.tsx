@@ -22,9 +22,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChevronLeft, PlusCircle } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { ChevronLeft, PlusCircle, Wrench, Calendar as CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy Presentation" },
@@ -42,6 +46,15 @@ export default function MultipleTopicsPage() {
   const [newTopic, setNewTopic] = useState("");
   const [isAddTopicOpen, setIsAddTopicOpen] = useState(false);
   const { toast } = useToast();
+
+  // C_P state
+  const [numSlides, setNumSlides] = useState<number>(10);
+  const [fromDate, setFromDate] = useState<Date | undefined>();
+  const [toDate, setToDate] = useState<Date | undefined>();
+  const [isFromDatePickerOpen, setIsFromDatePickerOpen] = useState(false);
+  const [isToDatePickerOpen, setIsToDatePickerOpen] = useState(false);
+  const [isCustomizeDialogOpen, setIsCustomizeDialogOpen] = useState(false);
+
 
   const handleTopicToggle = (topicId: string) => {
     setSelectedTopics((prev) => ({ ...prev, [topicId]: !prev[topicId] }));
@@ -70,7 +83,7 @@ export default function MultipleTopicsPage() {
     setIsAddTopicOpen(false);
   };
 
-  const handleGenerate = () => {
+  const handleMainGenerate = () => {
     const chosenTopics = Object.keys(selectedTopics).filter(
       (key) => selectedTopics[key]
     );
@@ -91,6 +104,15 @@ export default function MultipleTopicsPage() {
         )
         .join(", ")}.`,
     });
+  };
+
+  const handleCustomizeGenerate = () => {
+    toast({
+      title: "Done",
+      description: "Your presentation has been customized.",
+      duration: 2000,
+    });
+    setIsCustomizeDialogOpen(false);
   };
 
   return (
@@ -168,10 +190,111 @@ export default function MultipleTopicsPage() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-            <Button onClick={handleGenerate} className="w-full">
+            <Button onClick={handleMainGenerate} className="w-full">
               Generate Presentation
             </Button>
+            <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full">
+                  <Wrench className="mr-2 h-4 w-4" />
+                  Customize
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                <DialogHeader>
+                  <DialogTitle>Customize Presentation</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="from-date" className="text-right">
+                      From
+                    </Label>
+                    <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="from-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !fromDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {fromDate ? format(fromDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={fromDate}
+                          onSelect={(date) => {
+                            setFromDate(date);
+                            setIsFromDatePickerOpen(false);
+                          }}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="to-date" className="text-right">
+                      To
+                    </Label>
+                    <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="to-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !toDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {toDate ? format(toDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={toDate}
+                          onSelect={(date) => {
+                            setToDate(date);
+                            setIsToDatePickerOpen(false);
+                          }}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="num-slides" className="text-right">
+                      No. of Slides
+                    </Label>
+                    <Input
+                      id="num-slides"
+                      type="number"
+                      value={numSlides}
+                      onChange={(e) => setNumSlides(Number(e.target.value))}
+                      className="col-span-3"
+                      min="1"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" onClick={handleCustomizeGenerate}>Generate</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            </div>
           </CardContent>
         </Card>
       </div>
