@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronLeft, MessageSquare } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 
 const suggestionData: Record<
