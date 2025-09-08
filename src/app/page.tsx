@@ -61,21 +61,23 @@ export default function Home() {
           <div className="w-full max-w-lg">
             <FileUploader onFileUpload={handleFileUpload} />
           </div>
-          <div className="w-full max-w-lg flex flex-col items-center gap-4 py-4">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button>
-                  <Server className="mr-2 h-5 w-5" />
-                  CONNECT CLOUD SERVER
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                <DialogHeader>
-                  <DialogTitle>Connect Cloud Source</DialogTitle>
-                </DialogHeader>
-                <CloudConnect />
-              </DialogContent>
-            </Dialog>
+          <div className="w-full max-w-lg flex flex-col items-center py-4">
+            <div className="mb-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>
+                    <Server className="mr-2 h-5 w-5" />
+                    CONNECT CLOUD SERVER
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                  <DialogHeader>
+                    <DialogTitle>Connect Cloud Source</DialogTitle>
+                  </DialogHeader>
+                  <CloudConnect />
+                </DialogContent>
+              </Dialog>
+            </div>
             <Button
               size="lg"
               onClick={handleProceed}
