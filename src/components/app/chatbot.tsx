@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bot, Send, X } from "lucide-react";
+import { Bot, Mic, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -124,6 +124,9 @@ export function Chatbot() {
               />
               <Button onClick={handleSendMessage} size="icon">
                 <Send className="h-4 w-4" />
+              </Button>
+              <Button variant="secondary" size="icon">
+                <Mic className="h-4 w-4" />
               </Button>
             </div>
           </CardFooter>
