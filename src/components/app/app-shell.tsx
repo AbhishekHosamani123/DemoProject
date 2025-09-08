@@ -84,7 +84,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     tooltip="Integration Hub"
                     className="hover:bg-secondary"
                   >
-                    <AppWindow className="text-sidebar-foreground group-hover:text-primary" />
+                    <AppWindow className="text-primary" />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
