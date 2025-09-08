@@ -24,24 +24,6 @@ const forecastData = [
   { name: "Aug", value: 18000 },
 ];
 
-const CustomDot = (props: any) => {
-  const { cx, cy, payload } = props;
-
-  const isNext = payload.name === 'Next';
-  const isPast = payload.isPast;
-
-  return (
-    <Dot
-      cx={cx}
-      cy={cy}
-      r={30}
-      fill="hsl(var(--card))"
-      stroke={isNext ? "hsl(var(--primary))" : "hsl(var(--border))"}
-      strokeWidth={isNext ? 3 : 2}
-    />
-  );
-};
-
 const CustomXAxisTick = (props: any) => {
     const { x, y, payload } = props;
     const { value } = payload;
@@ -96,36 +78,18 @@ export default function MonthlyForecastingPage() {
             </div>
         </div>
 
-        <div className="w-full h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="w-full h-[250px]">
+           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={forecastData.filter(d => !d.isPast)}
               margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)"/>
               <XAxis
                 dataKey="name"
                 tickLine={false}
                 axisLine={false}
                 interval={0}
                 tick={<CustomXAxisTick />}
-              />
-              <YAxis hide={true} domain={['dataMin - 2000', 'dataMax + 2000']} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'hsl(var(--background))',
-                  borderColor: 'hsl(var(--border))'
-                }}
-                labelStyle={{ color: 'hsl(var(--foreground))' }}
-                formatter={(value: number) => [`RS. ${value.toLocaleString()}`, "Forecast"]}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="hsl(var(--destructive))"
-                strokeWidth={4}
-                dot={<CustomDot/>}
-                connectNulls
               />
             </LineChart>
           </ResponsiveContainer>
