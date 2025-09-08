@@ -72,7 +72,7 @@ export default function MonthlySuggestionPage() {
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full text-center text-lg bg-transparent border-0 focus:ring-0 text-primary h-20"
+                className="w-full text-lg bg-transparent border-0 focus:ring-0 text-primary h-20"
                 autoFocus
               />
             </CardContent>
