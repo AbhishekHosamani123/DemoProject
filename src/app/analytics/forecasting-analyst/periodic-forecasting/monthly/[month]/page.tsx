@@ -15,11 +15,11 @@ import { useToast } from "@/hooks/use-toast";
 
 const initialSuggestions = [
   { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
-  { id: "suggestion-2", text: "Suggestion 2", percentage: 96 },
-  { id: "suggestion-3", text: "Suggestion 3", percentage: 94 },
-  { id: "suggestion-4", text: "Suggestion 4", percentage: 91 },
-  { id: "suggestion-5", text: "Suggestion 5", percentage: 90 },
-  { id: "suggestion-6", text: "Suggestion 6", percentage: 88 },
+  { id: "suggestion-2", text: "Suggestion 2", percentage: 95 },
+  { id: "suggestion-3", text: "Suggestion 3", percentage: 92 },
+  { id: "suggestion-4", text: "Suggestion 4", percentage: 88 },
+  { id: "suggestion-5", text: "Suggestion 5", percentage: 85 },
+  { id: "suggestion-6", text: "Suggestion 6", percentage: 80 },
 ];
 
 export default function MonthlySuggestionPage() {
@@ -88,22 +88,20 @@ export default function MonthlySuggestionPage() {
         </form>
 
         {showSuggestions && (
-          <div className="w-full animate-in fade-in duration-500">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {initialSuggestions.map((suggestion) => (
-                <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="group">
-                  <Card className="text-center bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
-                    <CardContent className="p-6">
-                      <div className="text-lg font-bold text-primary bg-primary/10 px-4 py-2 rounded-md mb-4">
-                        {suggestion.percentage}%
+          <Card className="bg-card/60 backdrop-blur-sm animate-in fade-in duration-500">
+              <CardContent className="p-4">
+                  <div className="space-y-3">
+                  {initialSuggestions.map((suggestion) => (
+                    <Link href={`/analytics/forecasting-analyst/sales-forecasting/${suggestion.id}`} key={suggestion.id} className="group">
+                      <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors cursor-pointer">
+                        <span className="font-medium group-hover:text-accent-foreground">{suggestion.text}</span>
+                        <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{suggestion.percentage}%</span>
                       </div>
-                      <p className="text-base font-semibold">{suggestion.text}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
+                    </Link>
+                  ))}
+                  </div>
+              </CardContent>
+          </Card>
         )}
       </div>
     </div>
