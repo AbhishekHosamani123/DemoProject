@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   ArrowRight,
   ChevronLeft,
+  Share2,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,12 @@ const analyticsFeatures = [
     description: "Review and audit your data.",
     href: "#",
   },
+  {
+    title: "Collab & Share",
+    icon: <Share2 className="h-10 w-10 mb-4 text-primary" />,
+    description: "Collaborate and share your findings.",
+    href: "#",
+  }
 ];
 
 export default function AnalyticsPage() {
