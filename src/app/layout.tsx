@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AppShell } from "@/components/app/app-shell";
-import { Chatbot } from "@/components/app/chatbot";
 
 export const metadata: Metadata = {
   title: "INERA Navigator",
@@ -34,7 +33,6 @@ export default function RootLayout({
             {children}
         </AppShell>
         <Toaster />
-        <Chatbot />
       </body>
     </html>
   );
