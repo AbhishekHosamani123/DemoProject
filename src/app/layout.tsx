@@ -49,7 +49,7 @@ export default function RootLayout({
         <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <div className="flex justify-center p-4">
+              <div className="flex justify-center p-2">
                 <Image
                   src="/inera-logo.svg"
                   alt="INERA Logo"
