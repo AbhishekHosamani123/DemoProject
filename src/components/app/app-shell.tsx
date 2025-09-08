@@ -9,11 +9,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
 } from "@/components/ui/sidebar";
 import {
   BarChart2,
-  DatabaseZap,
   DollarSign,
   Home,
   LayoutGrid,
@@ -22,11 +20,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AppShellContent } from "./app-shell-content";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <SidebarProvider defaultOpen={true}>
+    <AppShellContent>
       <Sidebar collapsible="icon">
         <SidebarHeader>
         </SidebarHeader>
@@ -63,37 +62,34 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Finance">
-                <DollarSign className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
-              </SidebarMenuButton>
+              <Link href="#">
+                <SidebarMenuButton tooltip="Dashboard">
+                  <LayoutGrid className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <Link href="#">
+                <SidebarMenuButton tooltip="Transactions">
+                  <DollarSign className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Database">
-                <DatabaseZap className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Integration Hub">
-                <LayoutGrid className="text-yellow-400" />
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Sign In">
-                <LogIn className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
-              </SidebarMenuButton>
+              <Link href="#">
+                <SidebarMenuButton tooltip="Login">
+                  <LogIn className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset>
-        <main>
-          {children}
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+      <SidebarInset>{children}</SidebarInset>
+    </AppShellContent>
   );
 }
