@@ -100,6 +100,7 @@ export default function MultipleTopicsPage() {
   const handleCustomize = () => {
     toast({
       title: "Added",
+      duration: 2000,
     });
     setIsCustomizeDialogOpen(false);
   };
@@ -285,7 +286,7 @@ export default function MultipleTopicsPage() {
             </DialogContent>
           </Dialog>
           <Button size="lg" onClick={handleGenerate}>
-            Generate Presentation
+            Create
           </Button>
         </div>
       </div>
