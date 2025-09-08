@@ -55,40 +55,37 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col justify-center items-center text-center p-4">
+    <main className="flex-1 flex flex-col p-4">
       {data.length === 0 ? (
-        <div className="flex flex-col items-center gap-8 w-full max-w-2xl">
-           <div className="text-center">
-            <h1 className="text-5xl font-bold text-white">Welcome to INERA Software</h1>
-            <p className="text-lg text-slate-300 mt-2">AI-Powered Business Intelligence Platform</p>
-            <p className="text-sm text-slate-400 tracking-widest mt-1">INTELLIGENCE AT THE SPEED OF THOUGHT</p>
-          </div>
-
-          <FileUploader onFileUpload={handleFileUpload} />
-          
-          <div className="flex flex-col gap-4 w-full max-w-sm">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="secondary" size="lg">
-                  <Server className="mr-2 h-5 w-5" />
-                  CONNECT CLOUD SERVER
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                <DialogHeader>
-                  <DialogTitle>Connect Cloud Source</DialogTitle>
-                </DialogHeader>
-                <CloudConnect />
-              </DialogContent>
-            </Dialog>
-            <Button
-              size="lg"
-              onClick={handleProceed}
-              variant="secondary"
-            >
-              PROCEED TO ANALYTICS
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+        <div className="w-full max-w-2xl mt-48 mr-32 self-center">
+          <div className="flex flex-col items-center gap-8 w-full">
+            <FileUploader onFileUpload={handleFileUpload} />
+            <div className="w-full max-w-sm pt-4">
+              <div className="mb-2">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="secondary" size="lg" className="w-full">
+                      <Server className="mr-2 h-5 w-5" />
+                      CONNECT CLOUD SERVER
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                    <DialogHeader>
+                      <DialogTitle>Connect Cloud Source</DialogTitle>
+                    </DialogHeader>
+                    <CloudConnect />
+                  </DialogContent>
+                </Dialog>
+              </div>
+              <Button
+                size="lg"
+                onClick={handleProceed}
+                className="w-full"
+              >
+                PROCEED TO ANALYTICS
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
       ) : (
