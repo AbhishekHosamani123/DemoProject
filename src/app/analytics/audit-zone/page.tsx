@@ -19,6 +19,8 @@ const auditDetails = [
       "SEBI (Listing Obligations and Disclosure Requirements) (Second Amendment) Regulations, 2023, effective from June 14, 2023.",
       "Introduction of mandatory ESG reporting for the top 1000 listed companies by market capitalization.",
       "Updated FEMA guidelines impacting foreign direct investment in the e-commerce sector.",
+      "RBI Master Direction on IT Outsourcing for regulated entities, effective October 1, 2023.",
+      "Digital Personal Data Protection Act, 2023 - Phased implementation, consent management framework now critical.",
     ],
   },
   {
@@ -27,6 +29,8 @@ const auditDetails = [
       "All new vendor contracts must now include the updated Data Privacy clause (Ref: CP-2024-V4).",
       "Quarterly internal audit reports must be submitted in the new digital format via the compliance portal by the 5th of the following month.",
       "Approval matrix for financial expenditures above ₹5,00,000 has been revised. Refer to the finance policy document.",
+      "Travel & Expense Policy Update (v3.2): International travel now requires pre-approval from the department head.",
+      "Mandatory IT security training on phishing prevention to be completed by all employees by Q3 end.",
     ],
   },
   {
@@ -35,6 +39,8 @@ const auditDetails = [
       "Companies Act, 2013: Section 135 - Corporate Social Responsibility (CSR) compliance requires a 2% net profit contribution.",
       "Income Tax Act, 1961: Section 194R - TDS on benefits or perquisites, compliance for all business transactions.",
       "IGST Act, 2017: Section 16 - Clarifications on zero-rated supply for exports.",
+      "Environment (Protection) Act, 1986: Adherence to new e-waste management rules for all electronic equipment disposal.",
+      "Payment of Gratuity Act, 1972: Ensuring accurate calculation and timely disbursement for all separating employees.",
     ],
   },
   {
@@ -43,6 +49,8 @@ const auditDetails = [
       "Central Government: Plastic Waste Management (Amendment) Rules, 2023, banning specific single-use plastic items.",
       "State Government (Maharashtra): Professional Tax (PT) filing deadline extended to the 30th of each month.",
       "Ministry of Corporate Affairs (MCA): Mandatory filing of Form DPT-3 for all companies regarding loans and deposits.",
+      "Ministry of Labour & Employment: New codes on wages and social security - review of salary structures required.",
+      "Ministry of Commerce and Industry: Updated regulations on country of origin declaration for imported goods.",
     ],
   },
   {
@@ -51,6 +59,8 @@ const auditDetails = [
       "As a listed entity, all SEBI LODR regulations are fully applicable and must be audited quarterly.",
       "Our manufacturing unit in Pune must adhere to the latest Maharashtra Pollution Control Board (MPCB) emission standards.",
       "Data Protection Bill, 2023: While not yet law, proactive measures for data minimization and consent management are advised.",
+      "GDPR: Applicable due to handling of EU customer data; requires regular data protection impact assessments (DPIAs).",
+      "ISO 27001 Certification: Annual surveillance audit scheduled for Q4, all departments must be prepared.",
     ],
   },
 ];
