@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Slide {
   title: string;
@@ -132,27 +132,37 @@ export default function SalesStrategyPage() {
               {slides.map((slide, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center">
-                      <CardHeader>
-                        <CardTitle className="text-center">{slide.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-left w-full max-w-2xl">
-                        {slide.content.map((item, i) => {
-                          if (item.startsWith('Subtitle:') || item.startsWith('Date:') || item.startsWith('Presenter:')) {
-                            return <p key={i} className="text-center text-muted-foreground">{item.split(': ')[1]}</p>
-                          }
-                          return (
-                            <p key={i} className="my-2">{item}</p>
-                          )
-                        })}
-                      </CardContent>
+                    <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center relative overflow-hidden">
+                      <Image
+                        src="https://picsum.photos/1280/720"
+                        alt="Presentation background"
+                        fill
+                        className="object-cover"
+                        data-ai-hint="business strategy"
+                      />
+                      <div className="absolute inset-0 bg-black/50" />
+                      <div className="relative z-10 text-white w-full">
+                        <CardHeader>
+                          <CardTitle className="text-center">{slide.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-left w-full max-w-2xl mx-auto">
+                          {slide.content.map((item, i) => {
+                            if (item.startsWith('Subtitle:') || item.startsWith('Date:') || item.startsWith('Presenter:')) {
+                              return <p key={i} className="text-center text-slate-300">{item.split(': ')[1]}</p>
+                            }
+                            return (
+                              <p key={i} className="my-2">{item}</p>
+                            )
+                          })}
+                        </CardContent>
+                      </div>
                     </Card>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="ml-12"/>
-            <CarouselNext className="mr-12"/>
+            <CarouselPrevious className="ml-12 text-white"/>
+            <CarouselNext className="mr-12 text-white"/>
           </Carousel>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
