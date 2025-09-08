@@ -2,18 +2,45 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function SalesStrategyPage() {
-  const router = useRouter();
+interface Slide {
+  title: string;
+  content: string[];
+}
 
-  const generatedText = `Slide 1: Title Slide
+function parsePresentationText(text: string): Slide[] {
+  const slides: Slide[] = [];
+  const slideTexts = text.trim().split(/Slide \d+:/).slice(1);
+
+  slideTexts.forEach((slideText) => {
+    const lines = slideText.trim().split('\n');
+    const titleLine = lines.shift() || '';
+    const title = titleLine.replace(/Title: /, '').trim();
+    const content = lines.map(line => line.trim()).filter(line => line);
+    slides.push({ title, content });
+  });
+
+  return slides;
+}
+
+
+const generatedText = `Slide 1: Title Slide
 Title: Dominating the Market: A Q3 Sales Strategy
 Subtitle: Driving Growth and Exceeding Targets
 Date: [Date]
@@ -69,6 +96,11 @@ Slide 10: Q&A
 - Open floor for questions and discussion.
 `;
 
+export default function SalesStrategyPage() {
+  const router = useRouter();
+  const slides = parsePresentationText(generatedText);
+
+
   return (
     <div className="relative flex-1 bg-background">
       <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
@@ -95,15 +127,33 @@ Slide 10: Q&A
         </div>
 
         <div className="w-full max-w-4xl space-y-8 mx-auto">
-          <Card className="shadow-lg border-border/60">
-            <CardContent className="p-0">
-              <Textarea
-                className="w-full h-[600px] resize-none border-0 focus:ring-0 text-base rounded-lg"
-                readOnly
-                value={generatedText}
-              />
-            </CardContent>
-          </Card>
+          <Carousel className="w-full">
+            <CarouselContent>
+              {slides.map((slide, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card className="shadow-lg border-border/60 aspect-video flex flex-col justify-center items-center">
+                      <CardHeader>
+                        <CardTitle className="text-center">{slide.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-left w-full max-w-2xl">
+                        {slide.content.map((item, i) => {
+                          if (item.startsWith('Subtitle:') || item.startsWith('Date:') || item.startsWith('Presenter:')) {
+                            return <p key={i} className="text-center text-muted-foreground">{item.split(': ')[1]}</p>
+                          }
+                          return (
+                            <p key={i} className="my-2">{item}</p>
+                          )
+                        })}
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="ml-12"/>
+            <CarouselNext className="mr-12"/>
+          </Carousel>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Button size="lg" className="w-full">
