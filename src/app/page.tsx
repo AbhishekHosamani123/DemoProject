@@ -82,10 +82,9 @@ export default function Home() {
                     <Button
                       size="lg"
                       onClick={handleProceed}
-                      className="w-full"
+                      className="w-full bg-white text-black hover:bg-gray-200"
                     >
-                      PROCEED TO ANALYTICS
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      PROCEED
                     </Button>
                 </div>
               </div>
