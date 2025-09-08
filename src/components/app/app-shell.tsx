@@ -74,7 +74,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
-               <SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarContent>
+          <SidebarFooter>
+            <SidebarMenu>
+              <SidebarMenuItem>
                 <Link href="#">
                   <SidebarMenuButton
                     tooltip="Integration Hub"
@@ -83,10 +87,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarContent>
-          <SidebarFooter>
-            <SidebarMenu>
               <SidebarMenuItem>
                 <Link href="#">
                   <SidebarMenuButton tooltip="Database Backup">
