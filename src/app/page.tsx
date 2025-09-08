@@ -55,12 +55,17 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col p-4">
+    <main className="flex-1 flex flex-col p-4 justify-center">
       {data.length === 0 ? (
-        <div className="w-full max-w-2xl mt-48 mr-32 self-center">
+        <div className="w-full max-w-2xl self-center">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold tracking-tight text-white">
+              INTELLIGENCE AT THE SPEED OF THOUGHT
+            </h2>
+          </div>
           <div className="flex flex-col items-center gap-8 w-full">
             <FileUploader onFileUpload={handleFileUpload} />
-            <div className="w-full max-w-sm pt-4">
+            <div className="w-full max-w-sm">
               <div className="mb-2">
                 <Dialog>
                   <DialogTrigger asChild>
