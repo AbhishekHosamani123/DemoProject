@@ -25,6 +25,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -203,12 +210,24 @@ export default function CustomDashboardPage() {
                 <Label htmlFor="audience" className="text-base">
                   Target Audience
                 </Label>
-                <Input
-                  id="audience"
-                  value={audience}
-                  onChange={(e) => setAudience(e.target.value)}
-                  placeholder="e.g., Executive Board, Marketing Team"
-                />
+                <Select value={audience} onValueChange={setAudience}>
+                  <SelectTrigger id="audience">
+                    <SelectValue placeholder="Select target audience" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="executive-board">
+                      Executive Board
+                    </SelectItem>
+                    <SelectItem value="marketing-team">
+                      Marketing Team
+                    </SelectItem>
+                    <SelectItem value="sales-team">Sales Team</SelectItem>
+                    <SelectItem value="investors">Investors</SelectItem>
+                    <SelectItem value="technical-team">
+                      Technical Team
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
           </Card>
