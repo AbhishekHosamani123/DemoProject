@@ -60,23 +60,23 @@ export default function RootLayout({
                       alt="INERA Logo"
                       width={32}
                       height={32}
-                      className="group-hover/menu-button:brightness-[2]"
+                      className="text-sidebar-foreground group-hover/menu-button:text-sidebar-accent-foreground"
                     />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton isActive tooltip="Home">
-                    <Home className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
+                    <Home className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Analytics">
-                    <BarChart2 className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
+                    <BarChart2 className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Finance">
-                    <DollarSign className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
+                    <DollarSign className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -90,7 +90,7 @@ export default function RootLayout({
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Sign In">
-                    <LogIn className="text-sidebar-foreground/50 group-hover/menu-button:text-primary" />
+                    <LogIn className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
