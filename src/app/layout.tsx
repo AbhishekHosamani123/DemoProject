@@ -1,6 +1,28 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+  SidebarFooter,
+  SidebarHeader,
+} from "@/components/ui/sidebar";
+import {
+  BarChart2,
+  DollarSign,
+  Home,
+  LayoutGrid,
+  User,
+} from "lucide-react";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "INERA Navigator",
@@ -27,8 +49,59 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        {children}
-        <Toaster />
+        <SidebarProvider>
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <div className="flex justify-center p-4">
+                <Image
+                  src="/inera-logo.svg"
+                  alt="INERA Logo"
+                  width={40}
+                  height={40}
+                />
+              </div>
+            </SidebarHeader>
+            <SidebarContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive tooltip="Home">
+                    <Home />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Analytics">
+                    <BarChart2 />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Billing">
+                    <DollarSign />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarContent>
+            <SidebarFooter>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Integrations">
+                    <LayoutGrid />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Profile">
+                    <User />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarFooter>
+          </Sidebar>
+          <SidebarInset>
+            <main>
+              {children}
+              <Toaster />
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
       </body>
     </html>
   );
