@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -269,12 +268,12 @@ const diverseTopics = [
         { title: "CSAT Score", value: `${(Math.random() * 5).toFixed(2)}/5`, change: `+${(Math.random() * 0.5).toFixed(2)}`, changeType: "increase", icon: <Heart/> },
         { title: "Tickets Solved", value: `${Math.floor(Math.random() * 1000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", icon: <ClipboardList/> },
     ]},
-    { title: "Operations & Logistics", kpis: [
+    { title: "Operations &amp; Logistics", kpis: [
         { title: "Inventory Turnover", value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, changeType: "increase", icon: <Package/> },
         { title: "On-time Delivery", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `+${(Math.random() * 1).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp/> },
         { title: "Supplier Reliability", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `-${(Math.random() * 1).toFixed(1)}%`, changeType: "decrease", icon: <Building/> },
     ]},
-    { title: "HR & Employee Engagement", kpis: [
+    { title: "HR &amp; Employee Engagement", kpis: [
         { title: "Employee Turnover", value: `${(Math.random() * 15).toFixed(1)}%`, change: `-${(Math.random() * 2).toFixed(1)}%`, changeType: "decrease", icon: <Users2/> },
         { title: "Avg. Tenure", value: `${(Math.random() * 5).toFixed(1)} yrs`, change: `+${(Math.random() * 0.5).toFixed(1)}`, changeType: "increase", icon: <Users/> },
         { title: "eNPS Score", value: `${Math.floor(Math.random() * 100)}`, change: `+${Math.floor(Math.random() * 10)}`, changeType: "increase", icon: <Heart/> },
@@ -398,5 +397,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
