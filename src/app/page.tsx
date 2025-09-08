@@ -62,7 +62,7 @@ export default function Home() {
             <FileUploader onFileUpload={handleFileUpload} />
           </div>
           <div className="w-full max-w-lg flex flex-col items-center py-4">
-            <div className="mb-4">
+            <div className="mb-2">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button>
