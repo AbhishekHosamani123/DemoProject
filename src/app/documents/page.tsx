@@ -1,21 +1,86 @@
 import {
   Card,
   CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
+import {
+  Briefcase,
+  FileText,
+  FunctionSquare,
+  GitBranchPlus,
+  Lightbulb,
+  Scaling,
+  Users,
+  GitCommit,
+  ArrowRightLeft,
+  Database,
+  Rocket,
+  ClipboardList,
+} from "lucide-react";
 
 const documentTypes = [
-  "BRD",
-  "PRD",
-  "FRD",
-  "TDD",
-  "Business Case & Feasibility",
-  "Gap Analysis Report",
-  "User Stories",
-  "Use Cases",
-  "Requirements Traceability Matrix",
-  "System Design Document",
-  "Release Notes",
-  "Test Plan",
+  {
+    title: "BRD",
+    icon: <Briefcase className="h-8 w-8 mb-4 text-primary" />,
+    description: "Business Requirements: Outlines project goals and objectives.",
+  },
+  {
+    title: "PRD",
+    icon: <FileText className="h-8 w-8 mb-4 text-primary" />,
+    description: "Product Requirements: Defines features and user experience.",
+  },
+  {
+    title: "FRD",
+    icon: <FunctionSquare className="h-8 w-8 mb-4 text-primary" />,
+    description: "Functional Requirements: Details specific system behaviors.",
+  },
+  {
+    title: "TDD",
+    icon: <GitBranchPlus className="h-8 w-8 mb-4 text-primary" />,
+    description: "Technical Design: Describes architecture and solutions.",
+  },
+  {
+    title: "Business Case",
+    icon: <Lightbulb className="h-8 w-8 mb-4 text-primary" />,
+    description: "Feasibility: Analyzes project viability, costs, and benefits.",
+  },
+  {
+    title: "Gap Analysis",
+    icon: <Scaling className="h-8 w-8 mb-4 text-primary" />,
+    description: "Identifies differences between current and target states.",
+  },
+  {
+    title: "User Stories",
+    icon: <Users className="h-8 w-8 mb-4 text-primary" />,
+    description: "Describes features from an end-user perspective.",
+  },
+  {
+    title: "Use Cases",
+    icon: <GitCommit className="h-8 w-8 mb-4 text-primary" />,
+    description: "Details user interactions to achieve a specific goal.",
+  },
+  {
+    title: "Traceability Matrix",
+    icon: <ArrowRightLeft className="h-8 w-8 mb-4 text-primary" />,
+    description: "Maps and traces requirements through the project lifecycle.",
+  },
+  {
+    title: "System Design",
+    icon: <Database className="h-8 w-8 mb-4 text-primary" />,
+    description: "High-level design and architecture of the system.",
+  },
+  {
+    title: "Release Notes",
+    icon: <Rocket className="h-8 w-8 mb-4 text-primary" />,
+    description: "Summarizes new features and fixes in a release.",
+  },
+  {
+    title: "Test Plan",
+    icon: <ClipboardList className="h-8 w-8 mb-4 text-primary" />,
+    description: "Outlines the strategy for testing and quality assurance.",
+  },
 ];
 
 export default function DocumentsPage() {
@@ -25,16 +90,23 @@ export default function DocumentsPage() {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
       </div>
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Documents</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Generate Documents</h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+          Select a document type to begin generating with your data.
+        </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {documentTypes.map((docType, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {documentTypes.map((doc) => (
           <Card
-            key={index}
-            className="group relative flex items-center justify-center text-center p-8 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 aspect-square"
+            key={doc.title}
+            className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
           >
-            <CardContent className="p-0">
-              <p className="font-semibold text-lg">{docType}</p>
+            {doc.icon}
+            <CardHeader className="p-0">
+              <CardTitle className="text-xl font-semibold">{doc.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 mt-2 flex-1">
+              <CardDescription>{doc.description}</CardDescription>
             </CardContent>
           </Card>
         ))}
