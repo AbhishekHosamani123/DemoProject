@@ -153,7 +153,7 @@ export default function VisualsAndDashboardsPage() {
           <Button
             size="lg"
             className="w-full max-w-md text-lg font-bold h-16"
-            onClick={() => router.push('#')}
+            onClick={() => router.push('/analytics/visuals-and-dashboards/custom')}
           >
             CUSTOM VISUALS & DASHBOARD
           </Button>
