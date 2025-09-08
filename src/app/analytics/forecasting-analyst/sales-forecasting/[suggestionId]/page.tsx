@@ -105,10 +105,10 @@ export default function SuggestionDetailPage() {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Column: Hypothesis Report */}
+          <div className="space-y-8">
+            {/* Hypothesis Report */}
             <div className="space-y-4">
-              <Card className="bg-card/60 backdrop-blur-sm h-full">
+              <Card className="bg-card/60 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle>HYPOTHESIS REPORT</CardTitle>
                 </CardHeader>
@@ -122,13 +122,13 @@ export default function SuggestionDetailPage() {
               </Card>
                <div className="flex justify-end">
                 <Button variant="outline" className="rounded-full h-14 w-14 p-0 border-2">
-                  <MessageCircle className="h-6 w-6"/>
+                  <MessageSquare className="h-6 w-6"/>
                   <span className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 text-xs bg-card px-1 rounded">BOT</span>
                 </Button>
               </div>
             </div>
             
-            {/* Right Column: Suggestion */}
+            {/* Suggestion */}
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
               <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
