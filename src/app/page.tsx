@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-start p-4 pt-48">
-       <div className="relative w-full max-w-7xl" style={{ left: '-4rem' }}>
+       <div className="relative w-full max-w-7xl" style={{ left: '-2rem' }}>
         {data.length === 0 ? (
            <div className="relative max-w-xl mx-auto flex flex-col items-center gap-8">
             <FileUploader onFileUpload={handleFileUpload} />
@@ -65,7 +65,7 @@ export default function Home() {
                   <DialogTrigger asChild>
                     <Button
                       size="lg"
-                      className="w-full mb-2 bg-slate-100 text-blue-900 hover:bg-slate-200"
+                      className="w-full mb-2 bg-white text-blue-900 hover:bg-slate-200"
                     >
                       <Server className="mr-2 h-5 w-5" />
                       Connect Cloud Server
