@@ -108,18 +108,18 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="bg-transparent border-0 shadow-none">
-      <CardContent className="p-8">
+    <Card className="bg-slate-900/50 border-0 shadow-none w-full">
+      <CardContent className="p-0">
         <div
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors duration-300
+          className={`border-2 border-dotted rounded-lg p-12 text-center cursor-pointer transition-colors duration-300
             ${
               isDragging
                 ? "border-primary bg-primary/10"
-                : "border-border hover:border-primary/50"
+                : "border-slate-600 hover:border-primary/50"
             }`}
         >
           <input
@@ -130,9 +130,11 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
             onChange={handleFileChange}
           />
           <label htmlFor="file-upload" className="cursor-pointer">
-            <div className="flex flex-col items-center gap-4 text-muted-foreground">
-              <UploadCloud className="h-10 w-10 text-primary" />
-              <p className="font-semibold text-foreground">
+            <div className="flex flex-col items-center gap-4 text-slate-300">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <UploadCloud className="h-8 w-8 text-primary" />
+                </div>
+              <p className="font-semibold text-white text-lg">
                 {isDragging ? "Drop it here!" : "Drag and Drop"}
               </p>
               <p className="text-sm">
@@ -140,6 +142,9 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
               </p>
               <Button
                 asChild
+                variant="secondary"
+                size="sm"
+                className="mt-2"
               >
                 <span>UPLOAD FILES</span>
               </Button>

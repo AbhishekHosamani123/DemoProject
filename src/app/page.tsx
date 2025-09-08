@@ -55,34 +55,36 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col justify-center">
+    <main className="flex-1 flex flex-col justify-center items-center text-center p-4">
       {data.length === 0 ? (
-        <div className="mr-32">
-          <div className="w-full max-w-lg mt-48">
-            <FileUploader onFileUpload={handleFileUpload} />
+        <div className="flex flex-col items-center gap-8 w-full max-w-2xl">
+           <div className="text-center">
+            <h1 className="text-5xl font-bold text-white">Welcome to INERA Software</h1>
+            <p className="text-lg text-slate-300 mt-2">AI-Powered Business Intelligence Platform</p>
+            <p className="text-sm text-slate-400 tracking-widest mt-1">INTELLIGENCE AT THE SPEED OF THOUGHT</p>
           </div>
-          <div className="w-full max-w-lg flex flex-col pt-4">
-            <div className="mb-2">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Server className="mr-2 h-5 w-5" />
-                    CONNECT CLOUD SERVER
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
-                  <DialogHeader>
-                    <DialogTitle>Connect Cloud Source</DialogTitle>
-                  </DialogHeader>
-                  <CloudConnect />
-                </DialogContent>
-              </Dialog>
-            </div>
+
+          <FileUploader onFileUpload={handleFileUpload} />
+          
+          <div className="flex flex-col gap-4 w-full max-w-sm">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="secondary" size="lg">
+                  <Server className="mr-2 h-5 w-5" />
+                  CONNECT CLOUD SERVER
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                <DialogHeader>
+                  <DialogTitle>Connect Cloud Source</DialogTitle>
+                </DialogHeader>
+                <CloudConnect />
+              </DialogContent>
+            </Dialog>
             <Button
               size="lg"
               onClick={handleProceed}
               variant="secondary"
-              className="w-full"
             >
               PROCEED TO ANALYTICS
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -90,7 +92,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="space-y-8 animate-in fade-in duration-500 py-8">
+        <div className="space-y-8 animate-in fade-in duration-500 py-8 w-full">
           <h2 className="text-3xl tracking-tight">
             Dashboard for <span className="text-primary">{fileName}</span>
           </h2>
