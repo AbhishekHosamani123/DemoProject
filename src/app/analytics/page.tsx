@@ -58,7 +58,7 @@ const analyticsFeatures = [
     title: "Audit Zone",
     icon: <ShieldCheck className="h-5 w-5 mb-2 text-primary" />,
     description: "Review and audit your data.",
-    href: "/analytics",
+    href: "/analytics/audit-zone",
   },
   {
     title: "Collab & Share",
