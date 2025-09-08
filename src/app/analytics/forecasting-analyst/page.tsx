@@ -45,6 +45,12 @@ const forecastTemplates = [
     description: "Optimize stock levels and reduce costs.",
     href: "#",
   },
+  ...Array.from({ length: 7 }, (_, i) => ({
+    title: `Forecast ${i + 5}`,
+    icon: <TrendingUp className="h-10 w-10 mb-4 text-primary" />,
+    description: `This is a description for Forecast ${i + 5}.`,
+    href: "#",
+  })),
 ];
 
 export default function ForecastingAnalystPage() {
