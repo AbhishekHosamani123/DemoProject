@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -9,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -20,9 +20,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, PlusCircle, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const initialTopics = [
   { id: "sales", label: "Sales Strategy" },
@@ -39,7 +40,7 @@ export default function MultipleTopicsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const handleCheckboxChange = (topicId: string) => {
+  const handleTopicSelect = (topicId: string) => {
     setSelectedTopics((prev) =>
       prev.includes(topicId)
         ? prev.filter((id) => id !== topicId)
@@ -93,7 +94,7 @@ export default function MultipleTopicsPage() {
           Select the topics you want to include in your presentation.
         </p>
       </div>
-      <div className="w-full max-w-2xl mx-auto">
+      <div className="w-full max-w-4xl mx-auto">
         <div className="mb-8">
           <Button
             onClick={() => router.back()}
@@ -103,33 +104,46 @@ export default function MultipleTopicsPage() {
             Back
           </Button>
         </div>
-        <Card className="bg-card/60 backdrop-blur-sm">
-          <CardHeader>
+        
+        <Card className="bg-card/60 backdrop-blur-sm p-6">
+          <CardHeader className="p-0 mb-6">
             <CardTitle>Select Topics</CardTitle>
             <CardDescription>
-              Choose from the list below or add your own custom topics.
+              Click on the topics to select them, or add your own.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {topics.map((topic) => (
-                  <div key={topic.id} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={topic.id}
-                      onCheckedChange={() => handleCheckboxChange(topic.id)}
-                    />
-                    <Label htmlFor={topic.id} className="text-base">
-                      {topic.label}
-                    </Label>
-                  </div>
-                ))}
-              </div>
+          <CardContent className="p-0">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {topics.map((topic) => (
+                <Card
+                  key={topic.id}
+                  onClick={() => handleTopicSelect(topic.id)}
+                  className={cn(
+                    "cursor-pointer transition-all duration-200 p-4 flex items-center justify-center text-center flex-col aspect-square relative",
+                    "border-2 bg-card/50 hover:bg-card/80",
+                    selectedTopics.includes(topic.id)
+                      ? "border-primary"
+                      : "border-transparent hover:border-primary/50"
+                  )}
+                >
+                  {selectedTopics.includes(topic.id) && (
+                    <CheckCircle2 className="absolute top-2 right-2 h-5 w-5 text-primary" />
+                  )}
+                  <p className="font-semibold">{topic.label}</p>
+                </Card>
+              ))}
+
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full mt-4">
-                    Add Topic
-                  </Button>
+                  <Card
+                    className={cn(
+                      "cursor-pointer transition-all duration-200 p-4 flex items-center justify-center text-center flex-col aspect-square",
+                      "border-2 border-dashed border-border hover:border-primary hover:text-primary"
+                    )}
+                  >
+                    <PlusCircle className="h-8 w-8 mb-2" />
+                    <p className="font-semibold">Add New Topic</p>
+                  </Card>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
                   <DialogHeader>
@@ -154,6 +168,7 @@ export default function MultipleTopicsPage() {
             </div>
           </CardContent>
         </Card>
+
         <div className="mt-8 flex justify-end">
           <Button size="lg" onClick={handleGenerate}>
             Generate Presentation
