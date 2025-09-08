@@ -14,10 +14,10 @@ import { cn } from "@/lib/utils";
 
 const forecastData = [
     { name: "Past", period: "(Apr)", isPast: true, value: 8000, profit: 5000, loss: 1000, revenue: 4000 },
-    { name: "Current", period: "(May)", value: 10000, profit: 6000, loss: 1000, revenue: 5000, isCurrent: true },
-    { name: "Next", period: "(June)", value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
+    { name: "May", period: "Current", value: 10000, profit: 6000, loss: 1000, revenue: 5000, isCurrent: true },
+    { name: "June", period: "(June)", value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
     { name: "July", period: "(July)", value: 14000, profit: 9000, loss: 2000, revenue: 7000 },
-    { name: "Aug", period: "(Aug)", value: 18000, profit: 12000, loss: 2500, revenue: 8500 },
+    { name: "August", period: "(Aug)", value: 18000, profit: 12000, loss: 2500, revenue: 8500 },
 ];
 
 const COLORS = {
@@ -27,7 +27,7 @@ const COLORS = {
 };
 
 const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
-    const isNext = dataPoint.name === 'Next';
+    const isNext = dataPoint.name === 'June';
 
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
@@ -67,11 +67,13 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
             </div>
             <div className="mt-2 text-center">
                 <div className="text-lg font-bold text-foreground">
-                    {dataPoint.name}
+                    {dataPoint.isCurrent ? "Current" : dataPoint.name}
                 </div>
-                <div className="text-sm text-muted-foreground">
-                    {dataPoint.isCurrent ? "Current" : dataPoint.period}
-                </div>
+                {dataPoint.isCurrent && (
+                     <div className="text-sm text-muted-foreground">
+                        {dataPoint.name}
+                    </div>
+                )}
             </div>
         </div>
     );
