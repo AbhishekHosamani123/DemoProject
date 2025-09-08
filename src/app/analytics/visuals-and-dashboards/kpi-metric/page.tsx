@@ -102,8 +102,21 @@ const suggestions = [
   { id: "suggestion-2", text: "Option 3", percentage: 95 },
   { id: "suggestion-3", text: "Option 4", percentage: 93 },
   { id: "suggestion-4", text: "Option 5", percentage: 90 },
-  { id: "suggestion-5", text: "", percentage: 88 },
-  { id: "suggestion-6", text: "Option 20", percentage: 80 },
+  { id: "suggestion-5", text: "Option 6", percentage: 88 },
+  { id: "suggestion-6", text: "Option 7", percentage: 86 },
+  { id: "suggestion-7", text: "Option 8", percentage: 85 },
+  { id: "suggestion-8", text: "Option 9", percentage: 84 },
+  { id: "suggestion-9", text: "Option 10", percentage: 83 },
+  { id: "suggestion-10", text: "Option 11", percentage: 82 },
+  { id: "suggestion-11", text: "Option 12", percentage: 81 },
+  { id: "suggestion-12", text: "Option 13", percentage: 80 },
+  { id: "suggestion-13", text: "Option 14", percentage: 79 },
+  { id: "suggestion-14", text: "Option 15", percentage: 78 },
+  { id: "suggestion-15", text: "Option 16", percentage: 77 },
+  { id: "suggestion-16", text: "Option 17", percentage: 76 },
+  { id: "suggestion-17", text: "Option 18", percentage: 75 },
+  { id: "suggestion-18", text: "Option 19", percentage: 74 },
+  { id: "suggestion-19", text: "Option 20", percentage: 73 },
 ];
 
 export default function KpiMetricDashboardPage() {
@@ -291,3 +304,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
