@@ -44,27 +44,28 @@ export default function BrdPage() {
       <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
       </div>
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
-        <div className="w-full max-w-4xl mb-8">
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+        <div className="w-full max-w-4xl mb-4 text-center mx-auto">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Business Requirement Document
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            Review and take action on your generated BRD.
+          </p>
+        </div>
+
+        <div className="w-full max-w-4xl mx-auto mb-8">
           <Button
             variant="ghost"
             onClick={() => router.back()}
-            className="mb-4 self-start"
+            className="self-start"
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight">
-              Business Requirement Document
-            </h1>
-            <p className="text-muted-foreground mt-2">
-              Review and take action on your generated BRD.
-            </p>
-          </div>
         </div>
 
-        <div className="w-full max-w-4xl space-y-8">
+        <div className="w-full max-w-4xl space-y-8 mx-auto">
           <Card className="shadow-lg border-border/60">
             <CardContent className="p-0">
               <Textarea
