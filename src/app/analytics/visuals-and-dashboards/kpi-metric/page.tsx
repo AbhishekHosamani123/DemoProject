@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -280,7 +281,7 @@ const diverseTopics = [
     ]},
 ];
 
-for (let i = 3; i <= 6; i++) {
+for (let i = 3; i <= 20; i++) {
     const topicIndex = (i - 3) % diverseTopics.length;
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
@@ -292,7 +293,7 @@ for (let i = 3; i <= 6; i++) {
 }
 
 
-const suggestions = Array.from({ length: 6 }, (_, i) => ({
+const suggestions = Array.from({ length: 20 }, (_, i) => ({
     id: `suggestion-${i + 1}`,
     text: `Option ${i + 1}`,
     percentage: 98 - i,
