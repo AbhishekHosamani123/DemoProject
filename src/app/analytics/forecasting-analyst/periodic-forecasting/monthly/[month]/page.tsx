@@ -56,7 +56,10 @@ export default function MonthlySuggestionPage() {
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
         <div className="mb-8">
-          <Button onClick={() => router.back()} variant="outline">
+          <Button
+            onClick={() => router.back()}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+          >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
@@ -69,18 +72,22 @@ export default function MonthlySuggestionPage() {
 
         <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto mb-12">
           <Card className="bg-destructive/10 border-destructive/50">
-            <CardContent className="p-4">
+            <CardContent className="p-0">
               <Input
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
                 placeholder={`I WANT TO CREATE PROFIT OF RS. 13,000 IN MONTH OF ${month.toUpperCase()}`}
-                className="w-full text-center text-lg bg-transparent border-0 focus:ring-0 placeholder:text-destructive/80 text-destructive-foreground"
+                className="w-full text-center text-lg bg-transparent border-0 focus:ring-0 placeholder:text-destructive/80 text-destructive-foreground h-20"
               />
             </CardContent>
           </Card>
           <div className="flex justify-center mt-6">
-            <Button type="submit" size="lg">
+            <Button
+              type="submit"
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               Submit
             </Button>
           </div>
