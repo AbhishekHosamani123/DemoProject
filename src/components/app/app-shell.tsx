@@ -57,7 +57,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Link href="/analytics">
                 <SidebarMenuButton
                   tooltip="Analytics"
-                  isActive={pathname === "/analytics"}
+                  isActive={pathname.startsWith("/analytics")}
                 >
                   <BarChart2 className="group-hover/menu-button:text-black" />
                 </SidebarMenuButton>
@@ -67,7 +67,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Link href="/documents">
                 <SidebarMenuButton
                   tooltip="Documents"
-                  isActive={pathname === "/documents"}
+                  isActive={pathname.startsWith("/documents")}
                 >
                   <FileText className="group-hover/menu-button:text-black" />
                 </SidebarMenuButton>

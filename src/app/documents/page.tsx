@@ -52,32 +52,32 @@ const documentTypes = [
     description: "Identifies differences between current and target states.",
   },
   {
-    title: "User Stories",
+    title: "Doc 7",
     icon: <Users className="h-8 w-8 mb-4 text-primary" />,
     description: "Describes features from an end-user perspective.",
   },
   {
-    title: "Use Cases",
+    title: "Doc 8",
     icon: <GitCommit className="h-8 w-8 mb-4 text-primary" />,
     description: "Details user interactions to achieve a specific goal.",
   },
   {
-    title: "Traceability Matrix",
+    title: "Doc 9",
     icon: <ArrowRightLeft className="h-8 w-8 mb-4 text-primary" />,
     description: "Maps and traces requirements through the project lifecycle.",
   },
   {
-    title: "System Design",
+    title: "Doc 10",
     icon: <Database className="h-8 w-8 mb-4 text-primary" />,
     description: "High-level design and architecture of the system.",
   },
   {
-    title: "Release Notes",
+    title: "Doc 11",
     icon: <Rocket className="h-8 w-8 mb-4 text-primary" />,
     description: "Summarizes new features and fixes in a release.",
   },
   {
-    title: "Test Plan",
+    title: "Doc 12",
     icon: <ClipboardList className="h-8 w-8 mb-4 text-primary" />,
     description: "Outlines the strategy for testing and quality assurance.",
   },
