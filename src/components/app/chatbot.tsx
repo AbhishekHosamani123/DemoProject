@@ -48,7 +48,7 @@ export function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-4 z-50">
       <div
         className={cn(
           "w-80 rounded-lg bg-card border shadow-xl transition-all duration-300 ease-in-out",
