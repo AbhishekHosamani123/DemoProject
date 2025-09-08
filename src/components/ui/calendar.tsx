@@ -2,10 +2,18 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import { DayPicker, DropdownProps } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select"
+import { ScrollArea } from "./scroll-area"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -24,6 +32,7 @@ function Calendar({
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
+        caption_dropdowns: "flex justify-center gap-1",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),
@@ -60,11 +69,75 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
+        Dropdown: (props: DropdownProps) => {
+          const { fromDate, fromMonth, fromYear, toDate, toMonth, toYear } =
+            useDayPicker();
+
+          const options: { label: string; value: string }[] =
+            props.name === "months"
+              ? Array.from({ length: 12 }, (_, i) => ({
+                  label: new Date(2024, i).toLocaleString("default", {
+                    month: "long",
+                  }),
+                  value: i.toString(),
+                }))
+              : Array.from(
+                  { length: (toYear ?? 0) - (fromYear ?? 0) + 1 },
+                  (_, i) => ({
+                    label: ((fromYear ?? 0) + i).toString(),
+                    value: ((fromYear ?? 0) + i).toString(),
+                  })
+                );
+
+          let defaultSelected =
+            props.name === "months"
+              ? props.value?.toString()
+              : (props.value as number | undefined)?.toString();
+
+          return (
+            <Select
+              onValueChange={(newValue) => {
+                if (props.name === "months") {
+                  const newDate = new Date();
+                  newDate.setMonth(parseInt(newValue));
+                  props.onChange?.(
+                    newDate as unknown as React.ChangeEvent<HTMLSelectElement>
+                  );
+                } else {
+                  const newDate = new Date();
+                  newDate.setFullYear(parseInt(newValue));
+                  props.onChange?.(
+                    newDate as unknown as React.ChangeEvent<HTMLSelectElement>
+                  );
+                }
+              }}
+              value={defaultSelected}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={props.caption}>
+                  {props.caption}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <ScrollArea className="h-48">
+                  {options.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </ScrollArea>
+              </SelectContent>
+            </Select>
+          );
+        },
       }}
       {...props}
     />
   )
 }
 Calendar.displayName = "Calendar"
+
+// Add this to your imports
+import { useDayPicker } from "react-day-picker"
 
 export { Calendar }

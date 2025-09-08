@@ -236,6 +236,9 @@ export default function SalesStrategyPage() {
                           mode="single"
                           selected={fromDate}
                           onSelect={setFromDate}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
                           initialFocus
                         />
                       </PopoverContent>
@@ -264,6 +267,9 @@ export default function SalesStrategyPage() {
                           mode="single"
                           selected={toDate}
                           onSelect={setToDate}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
                           initialFocus
                         />
                       </PopoverContent>
