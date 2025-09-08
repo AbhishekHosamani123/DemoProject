@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
   File,
-  Files,
   Settings,
   ArrowRight,
 } from "lucide-react";
@@ -30,7 +29,7 @@ const presentationTypes = [
     icon: <Settings className="h-10 w-10 mb-4 text-primary" />,
     description:
       "Tailor a presentation with specific topics and custom insights.",
-    href: "#",
+    href: "/analytics/ppt/multiple-topics",
   },
 ];
 
