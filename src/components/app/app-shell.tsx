@@ -38,7 +38,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     className="bg-transparent"
                   >
                     <Image
-                      src="/logo.svg"
+                      src="/logo.png"
                       alt="Company Logo"
                       width={32}
                       height={32}
