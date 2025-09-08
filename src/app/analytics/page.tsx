@@ -16,8 +16,11 @@ import {
   ShieldCheck,
   Share2,
   ArrowRight,
+  ChevronLeft,
 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const analyticsFeatures = [
   {
@@ -65,12 +68,18 @@ const analyticsFeatures = [
 ];
 
 export default function AnalyticsPage() {
+  const router = useRouter();
+
   return (
     <div className="relative flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-       <div
-        className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
-      >
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
+      </div>
+      <div className="flex justify-start mb-4">
+        <Button variant="ghost" onClick={() => router.back()}>
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
       </div>
       <div className="mb-12 text-center">
         <h1 className="text-4xl font-bold tracking-tight">Analytics</h1>
@@ -81,12 +90,12 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {analyticsFeatures.map((feature) => (
           <Link href={feature.href} key={feature.title} className="flex">
-            <Card
-              className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1 w-full"
-            >
+            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-transparent hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1 w-full">
               {feature.icon}
               <CardHeader className="p-0">
-                  <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                <CardTitle className="text-xl font-semibold">
+                  {feature.title}
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-2 flex-1">
                 <p className="text-sm text-muted-foreground">
@@ -94,7 +103,7 @@ export default function AnalyticsPage() {
                 </p>
               </CardContent>
               <div className="mt-4 flex justify-end">
-                  <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
+                <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
               </div>
             </Card>
           </Link>

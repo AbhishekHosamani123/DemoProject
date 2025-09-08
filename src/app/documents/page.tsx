@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -32,8 +34,11 @@ import {
   FileScan,
   FileSearch,
   FileClock,
+  ChevronLeft,
 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const documentTypes = [
   {
@@ -201,10 +206,17 @@ const documentTypes = [
 ];
 
 export default function DocumentsPage() {
+  const router = useRouter();
   return (
     <div className="relative flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
       <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/10 blur-[100px]"></div>
+      </div>
+      <div className="flex justify-start mb-4">
+        <Button variant="ghost" onClick={() => router.back()}>
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </Button>
       </div>
       <div className="mb-12 text-center">
         <h1 className="text-4xl font-bold tracking-tight">Generate Documents</h1>
@@ -215,12 +227,12 @@ export default function DocumentsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {documentTypes.map((doc) => (
           <Link href={doc.href} key={doc.title} className="flex">
-            <Card
-              className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full"
-            >
+            <Card className="group relative flex flex-col text-left p-6 bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full">
               {doc.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-xl font-semibold">{doc.title}</CardTitle>
+                <CardTitle className="text-xl font-semibold">
+                  {doc.title}
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-2 flex-1">
                 <CardDescription>{doc.description}</CardDescription>
