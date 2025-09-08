@@ -26,7 +26,7 @@ const dashboardItems = [
     label: "KPI & Metric Dashboard",
     description: "Track key performance indicators.",
     icon: <LayoutDashboard className="h-10 w-10 mb-4 text-primary" />,
-    href: "#",
+    href: "/analytics/visuals-and-dashboards/kpi-metric",
   },
   {
     id: "customer",
