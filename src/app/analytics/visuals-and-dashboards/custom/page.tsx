@@ -233,6 +233,9 @@ export default function CustomDashboardPage() {
                           setFromDate(date);
                           setIsFromDatePickerOpen(false);
                         }}
+                        captionLayout="dropdown-buttons"
+                        fromYear={2001}
+                        toYear={2025}
                         initialFocus
                       />
                     </PopoverContent>
@@ -262,6 +265,9 @@ export default function CustomDashboardPage() {
                           setToDate(date);
                           setIsToDatePickerOpen(false);
                         }}
+                        captionLayout="dropdown-buttons"
+                        fromYear={2001}
+                        toYear={2025}
                         initialFocus
                       />
                     </PopoverContent>
