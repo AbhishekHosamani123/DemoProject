@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +16,23 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -99,6 +117,10 @@ Slide 10: Q&A
 export default function SalesStrategyPage() {
   const router = useRouter();
   const slides = parsePresentationText(generatedText);
+  const [year, setYear] = useState<string>("2024");
+  const [numSlides, setNumSlides] = useState<number>(10);
+
+  const years = Array.from({ length: 25 }, (_, i) => 2025 - i);
 
 
   return (
@@ -174,10 +196,54 @@ export default function SalesStrategyPage() {
               <Video className="mr-2" />
               Generate Video
             </Button>
-            <Button size="lg" className="w-full">
-              <Wrench className="mr-2" />
-              Customize
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" className="w-full">
+                  <Wrench className="mr-2" />
+                  Customize
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                <DialogHeader>
+                  <DialogTitle>Customize Presentation</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="time-period" className="text-right">
+                      Time Period
+                    </Label>
+                    <Select value={year} onValueChange={setYear}>
+                      <SelectTrigger className="col-span-3">
+                        <SelectValue placeholder="Select a year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {years.map((y) => (
+                          <SelectItem key={y} value={String(y)}>
+                            {y}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="num-slides" className="text-right">
+                      No. of Slides
+                    </Label>
+                    <Input
+                      id="num-slides"
+                      type="number"
+                      value={numSlides}
+                      onChange={(e) => setNumSlides(Number(e.target.value))}
+                      className="col-span-3"
+                      min="1"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Generate</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
