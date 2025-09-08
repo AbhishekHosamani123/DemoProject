@@ -7,11 +7,24 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppShell } from "@/components/app/app-shell";
 import { Chatbot } from "@/components/app/chatbot";
 import { usePathname } from "next/navigation";
+import { Montserrat, Roboto } from "next/font/google";
 
 const metadata: Metadata = {
   title: "INERA Navigator",
   description: "Generate insights from your business data.",
 };
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "700"],
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  weight: ["400", "500", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -25,18 +38,8 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body className="font-body antialiased bg-background text-foreground" suppressHydrationWarning>
+      <body className={`${montserrat.variable} ${roboto.variable} font-body antialiased bg-background text-foreground`} suppressHydrationWarning>
         <video
           key={backgroundVideo}
           autoPlay

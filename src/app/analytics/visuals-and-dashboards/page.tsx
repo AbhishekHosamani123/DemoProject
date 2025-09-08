@@ -23,28 +23,28 @@ const dashboardItems = [
     id: "kpi",
     label: "KPI & Metric Dashboard",
     description: "Track key performance indicators.",
-    icon: <LayoutDashboard className="h-6 w-6 mb-2 text-primary" />,
+    icon: <LayoutDashboard className="h-5 w-5 mb-2 text-primary" />,
     href: "/analytics/visuals-and-dashboards/kpi-metric",
   },
   {
     id: "customer",
     label: "Customer Segmentation",
     description: "Visualize customer segments.",
-    icon: <Users className="h-6 w-6 mb-2 text-primary" />,
+    icon: <Users className="h-5 w-5 mb-2 text-primary" />,
     href: "#",
   },
   {
     id: "market",
     label: "Market Trend Charts",
     description: "Analyze market trends.",
-    icon: <TrendingUp className="h-6 w-6 mb-2 text-primary" />,
+    icon: <TrendingUp className="h-5 w-5 mb-2 text-primary" />,
     href: "#",
   },
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `dashboard-${i + 4}`,
     label: `Visuals and Dashboards - ${i + 4}`,
     description: `This is a description for Visuals and Dashboards - ${i + 4}.`,
-    icon: <LayoutDashboard className="h-6 w-6 mb-2 text-primary" />,
+    icon: <LayoutDashboard className="h-5 w-5 mb-2 text-primary" />,
     href: "#",
   })),
 ];
@@ -64,7 +64,7 @@ export default function VisualsAndDashboardsPage() {
         </Button>
       </div>
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-4xl font-bold tracking-tight">
           Visuals & Dashboards
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
@@ -74,13 +74,13 @@ export default function VisualsAndDashboardsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {dashboardItems.map((item) => (
           <Link href={item.href} key={item.id} className="flex group">
-            <Card className="flex flex-col text-left p-4 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="flex flex-col text-left p-3 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
               {item.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-base font-semibold">{item.label}</CardTitle>
+                <CardTitle className="text-lg font-semibold">{item.label}</CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-1 flex-1">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {item.description}
                 </p>
               </CardContent>

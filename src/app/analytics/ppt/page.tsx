@@ -21,20 +21,20 @@ import { useRouter } from "next/navigation";
 const presentationTypes = [
   {
     title: "Single Topic Presentation",
-    icon: <File className="h-6 w-6 mb-2 text-primary" />,
+    icon: <File className="h-5 w-5 mb-2 text-primary" />,
     description:
       "Generate a presentation focusing on a single topic from your data.",
     href: "/analytics/ppt/single-topic",
   },
   {
     title: "Multiple Topics Presentation",
-    icon: <Grid3X3 className="h-6 w-6 mb-2 text-primary" />,
+    icon: <Grid3X3 className="h-5 w-5 mb-2 text-primary" />,
     description: "Create a presentation that covers multiple topics at once.",
     href: "/analytics/ppt/multiple-topics",
   },
   {
     title: "Customized Topics Presentation",
-    icon: <Settings className="h-6 w-6 mb-2 text-primary" />,
+    icon: <Settings className="h-5 w-5 mb-2 text-primary" />,
     description:
       "Tailor a presentation with specific topics and custom insights.",
     href: "/analytics/ppt/custom-topic",
@@ -56,7 +56,7 @@ export default function PptPage() {
         </Button>
       </div>
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">Presentations</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Presentations</h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
           Choose a presentation type to get started.
         </p>
@@ -64,15 +64,15 @@ export default function PptPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {presentationTypes.map((type) => (
           <Link href={type.href} key={type.title} className="flex group">
-            <Card className="flex flex-col text-left p-4 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="flex flex-col text-left p-3 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
               {type.icon}
               <CardHeader className="p-0">
-                <CardTitle className="text-base font-semibold">
+                <CardTitle className="text-lg font-semibold">
                   {type.title}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0 mt-1 flex-1">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {type.description}
                 </p>
               </CardContent>

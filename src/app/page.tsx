@@ -82,7 +82,7 @@ export default function Home() {
                     <Button
                       size="lg"
                       onClick={handleProceed}
-                      className="w-full bg-white text-black hover:bg-gray-200"
+                      className="w-full text-primary-foreground bg-gray-200 hover:bg-gray-300"
                     >
                       PROCEED
                     </Button>
@@ -91,7 +91,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in duration-500 py-8 w-full">
-              <h2 className="text-3xl tracking-tight">
+              <h2 className="text-4xl tracking-tight">
                 Dashboard for <span className="text-primary">{fileName}</span>
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
