@@ -27,10 +27,17 @@ const COLORS = {
   revenue: 'hsl(var(--chart-1))',
 };
 
+const LIGHTER_COLORS = {
+    profit: 'hsl(var(--chart-2) / 0.8)',
+    loss: 'hsl(var(--chart-5) / 0.8)',
+    revenue: 'hsl(var(--chart-1) / 0.8)',
+}
+
 const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         const data = payload[0];
-        const color = data.payload.fill;
+        const colorKey = data.name.toLowerCase() as keyof typeof LIGHTER_COLORS;
+        const color = LIGHTER_COLORS[colorKey] || data.payload.fill;
         return (
             <div className="p-2 bg-background/80 backdrop-blur-sm border border-border rounded-lg shadow-lg">
                 <p style={{ color }}>{`${data.name}: ${data.value.toLocaleString()}`}</p>
