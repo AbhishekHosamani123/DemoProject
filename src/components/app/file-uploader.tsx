@@ -108,7 +108,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
   };
 
   return (
-    <Card className="glass bg-transparent border-0">
+    <Card className="glass bg-transparent border-0 shadow-none">
       <CardContent className="p-8">
         <div
           onDragEnter={handleDragEnter}
@@ -138,7 +138,10 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
               <p className="text-sm">
                 Upload your business data files to get started with AI analysis
               </p>
-              <Button asChild>
+              <Button
+                asChild
+                className="bg-yellow-400 text-black hover:bg-yellow-500"
+              >
                 <span>UPLOAD FILES</span>
               </Button>
             </div>

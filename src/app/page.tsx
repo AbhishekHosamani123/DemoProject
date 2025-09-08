@@ -8,6 +8,14 @@ import { ChartGenerator } from "@/components/app/chart-generator";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Server } from "lucide-react";
+import { CloudConnect } from "@/components/app/cloud-connect";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ParsedData = Record<string, string>[];
 
@@ -39,20 +47,35 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      
+    <div className="flex flex-col min-h-screen bg-transparent text-foreground">
       <main className="flex-1 container mx-auto px-4 py-8 flex flex-col">
         {data.length === 0 ? (
           <div className="flex-1 flex flex-col items-center text-center">
             <div className="flex-1 flex flex-col justify-center items-center w-full max-w-lg">
-                <FileUploader onFileUpload={handleFileUpload} />
+              <FileUploader onFileUpload={handleFileUpload} />
             </div>
             <div className="w-full max-w-lg flex flex-col items-center gap-4 py-8">
-               <Button variant="outline" className="w-full" disabled>
-                  <Server className="mr-2 h-5 w-5" />
-                  CONNECT CLOUD SERVER
-                </Button>
-              <Button size="lg" onClick={handleProceed} className="w-full" disabled={!fileName}>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
+                    <Server className="mr-2 h-5 w-5" />
+                    CONNECT CLOUD SERVER
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px] bg-background/80 backdrop-blur-sm">
+                  <DialogHeader>
+                    <DialogTitle>Connect Cloud Source</DialogTitle>
+                  </DialogHeader>
+                  <CloudConnect />
+                </DialogContent>
+              </Dialog>
+              <Button
+                size="lg"
+                onClick={handleProceed}
+                className="w-full"
+                variant="outline"
+                disabled={!fileName}
+              >
                 PROCEED TO ANALYTICS
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
