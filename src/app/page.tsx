@@ -58,9 +58,6 @@ export default function Home() {
     <main className="flex-1 flex flex-col p-4 justify-center items-center">
       {data.length === 0 ? (
         <div className="w-full max-w-2xl flex flex-col items-center gap-8 mt-16">
-            <h1 className="text-8xl font-bold text-center tracking-wider text-white/80">
-                INERA
-            </h1>
           <FileUploader onFileUpload={handleFileUpload} />
           <div className="w-full max-w-sm">
               <div className="mb-2">
