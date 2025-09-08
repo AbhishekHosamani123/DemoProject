@@ -92,8 +92,8 @@ export default function MonthlySuggestionPage() {
               <CardContent className="p-4">
                   <div className="space-y-3">
                   {initialSuggestions.map((suggestion) => (
-                    <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${month}/${suggestion.id}`} key={suggestion.id} className="group">
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors cursor-pointer">
+                    <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${month}/${suggestion.id}`} key={suggestion.id} className="block group">
+                      <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
                         <span className="font-medium group-hover:text-accent-foreground">{suggestion.text}</span>
                         <span className="text-primary font-bold bg-primary/10 px-2 py-1 rounded-md group-hover:text-black">{suggestion.percentage}%</span>
                       </div>
