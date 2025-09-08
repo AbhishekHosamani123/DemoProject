@@ -60,23 +60,23 @@ export default function RootLayout({
                       alt="INERA Logo"
                       width={32}
                       height={32}
-                      className="text-sidebar-foreground group-hover/menu-button:text-sidebar-accent-foreground"
+                      className="text-sidebar-foreground group-hover/menu-button:text-black"
                     />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton isActive tooltip="Home">
-                    <Home className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
+                    <Home className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Analytics">
-                    <BarChart2 className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
+                    <BarChart2 className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Finance">
-                    <DollarSign className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
+                    <DollarSign className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -85,12 +85,12 @@ export default function RootLayout({
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Integration Hub">
-                    <LayoutGrid className="text-primary"/>
+                    <LayoutGrid className="text-yellow-400"/>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Sign In">
-                    <LogIn className="text-sidebar-foreground/80 group-hover/menu-button:text-sidebar-accent-foreground" />
+                    <LogIn className="text-sidebar-foreground/80 group-hover/menu-button:text-black" />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
