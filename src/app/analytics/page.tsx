@@ -46,7 +46,7 @@ const analyticsFeatures = [
     title: "Visuals & Dashboards",
     icon: <BarChart className="h-10 w-10 mb-4 text-primary" />,
     description: "Create interactive charts and dashboards.",
-    href: "#",
+    href: "/analytics/visuals-and-dashboards",
   },
   {
     title: "Problem & Suggestion",
