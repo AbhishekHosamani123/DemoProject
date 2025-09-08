@@ -226,6 +226,7 @@ export default function CustomDashboardPage() {
                     <SelectItem value="technical-team">
                       Technical Team
                     </SelectItem>
+                    <SelectItem value="customers">Customers</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
