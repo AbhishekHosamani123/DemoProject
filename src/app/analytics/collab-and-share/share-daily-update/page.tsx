@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft, BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
@@ -56,9 +56,6 @@ export default function ShareDailyUpdatePage() {
                             <CardHeader>
                                 <CardTitle>{latestUpdate.title}</CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">{latestUpdate.summary}</p>
-                            </CardContent>
                         </Card>
                     </div>
 
