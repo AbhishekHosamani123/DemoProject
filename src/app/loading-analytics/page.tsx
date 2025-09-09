@@ -10,14 +10,22 @@ import { cn } from "@/lib/utils";
 
 export default function LoadingAnalyticsPage() {
   const router = useRouter();
+  const [hideLoader, setHideLoader] = useState(false);
   const [showContinue, setShowContinue] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer1 = setTimeout(() => {
+      setHideLoader(true);
+    }, 4000); 
+
+    const timer2 = setTimeout(() => {
       setShowContinue(true);
     }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+        clearTimeout(timer1)
+        clearTimeout(timer2)
+    };
   }, []);
 
   return (
@@ -25,7 +33,7 @@ export default function LoadingAnalyticsPage() {
       <div
         className={cn(
           "space-y-8 transition-opacity duration-500 ease-in-out",
-          showContinue ? "opacity-0" : "opacity-100"
+          hideLoader ? "opacity-0" : "opacity-100"
         )}
       >
         <div className="flex justify-center animate-pulse">
