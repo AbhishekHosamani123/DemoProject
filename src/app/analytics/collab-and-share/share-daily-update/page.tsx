@@ -50,7 +50,7 @@ export default function ShareDailyUpdatePage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight inline-flex items-center gap-4 border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
             <BellRing className="h-8 w-8 animate-pulse" />
-            {latestUpdate.title}
+            ALERT: {latestUpdate.title}
           </h1>
         </div>
 
