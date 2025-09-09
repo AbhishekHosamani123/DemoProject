@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const problems = [
   {
@@ -30,56 +31,71 @@ const problems = [
     title: "High Customer Churn",
     description: "Identify and address the root causes of customer attrition.",
     icon: <TrendingDown className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 92,
   },
   {
     id: "inefficient-marketing-spend",
     title: "Inefficient Marketing Spend",
     description: "Optimize your marketing budget for better ROI.",
     icon: <Filter className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 88,
   },
   {
     id: "supply-chain-bottlenecks",
     title: "Supply Chain Bottlenecks",
     description: "Find and resolve delays in your supply chain.",
     icon: <PackageX className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 75,
   },
   {
     id: "low-user-engagement",
     title: "Low User Engagement",
     description: "Discover why users aren't interacting with your product.",
     icon: <Users className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 81,
   },
   {
     id: "product-feature-gaps",
     title: "Product Feature Gaps",
     description: "Identify missing features that customers need.",
     icon: <Lightbulb className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 65,
   },
   {
     id: "financial-irregularities",
     title: "Financial Irregularities",
     description: "Detect and investigate financial anomalies.",
     icon: <AlertTriangle className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 95,
   },
    {
     id: "sales-forecasting-accuracy",
     title: "Poor Sales Forecasting",
     description: "Improve the accuracy of your sales predictions.",
     icon: <BarChartHorizontal className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 55,
   },
   {
     id: "high-operational-costs",
     title: "High Operational Costs",
     description: "Identify areas to reduce operational expenses.",
     icon: <TrendingDown className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 78,
   },
    {
     id: "revenue-growth-stagnation",
     title: "Revenue Growth Stagnation",
     description: "Uncover new opportunities for revenue growth.",
     icon: <TrendingUp className="h-5 w-5 mb-2 text-primary" />,
+    confidence: 45,
   },
 ];
+
+const getConfidenceColor = (score: number) => {
+  if (score >= 85) return "text-red-400"; // High confidence -> light red
+  if (score >= 60) return "text-yellow-400"; // Medium confidence -> yellow
+  return "text-green-400"; // Low confidence -> green
+};
 
 export default function ProblemSuggestionDetailsPage() {
   const router = useRouter();
@@ -109,7 +125,12 @@ export default function ProblemSuggestionDetailsPage() {
             key={problem.id}
             className="flex group"
           >
-            <Card className="flex flex-col text-left p-4 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="relative flex flex-col text-left p-4 w-full bg-card/60 backdrop-blur-sm hover:bg-card/80 border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
+              <div className="absolute top-2 right-2 px-2 py-1 bg-background/50 rounded-md text-xs font-bold">
+                  <span className={getConfidenceColor(problem.confidence)}>
+                      {problem.confidence}%
+                  </span>
+              </div>
               {problem.icon}
               <CardHeader className="p-0">
                 <CardTitle className="text-lg font-semibold text-primary">
