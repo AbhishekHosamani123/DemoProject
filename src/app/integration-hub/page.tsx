@@ -72,7 +72,7 @@ export default function IntegrationHubPage() {
           {integrations.map((integration) => (
             <Card
               key={integration.name}
-              className="bg-card/60 backdrop-blur-sm p-6 text-center border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
+              className="group bg-card/60 backdrop-blur-sm p-6 text-center border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
             >
               <CardHeader className="flex-1 flex flex-col items-center p-0">
                 <div className="mb-4 transition-transform duration-300 group-hover:scale-110">
