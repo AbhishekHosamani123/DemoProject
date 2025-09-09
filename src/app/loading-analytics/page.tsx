@@ -14,7 +14,7 @@ export default function LoadingAnalyticsPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContinue(true);
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
