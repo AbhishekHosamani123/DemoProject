@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { Metadata } from "next";
@@ -50,7 +49,6 @@ export default function RootLayout({
         >
           <source src={backgroundVideo} type="video/mp4" />
         </video>
-        <div className="fixed inset-0 w-full h-full bg-black/40 -z-40"></div>
         <AppShell>
           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
             {children}
