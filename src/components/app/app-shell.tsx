@@ -88,9 +88,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarFooter>
             <SidebarMenu>
               <SidebarMenuItem>
-                <Link href="/analytics">
+                <Link href="/integration-hub">
                   <SidebarMenuButton
                     tooltip="Integration Hub"
+                    isActive={pathname === "/integration-hub"}
                     className="hover:bg-secondary"
                   >
                     <AppWindow className="text-primary" />
