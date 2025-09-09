@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const backgroundVideo = pathname === "/" ? "/background-video-3.mp4" : "/background-video-2.mp4";
+  const backgroundVideo = pathname === "/" ? "/background-video.mp4" : "/background-video-2.mp4";
 
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
