@@ -20,7 +20,7 @@ const collabFeatures = [
 
 const shareFeatures = [
   {
-    title: "Secure share ( Via media )",
+    title: "Secure share ( Via password )",
     icon: <Share className="h-8 w-8 text-primary" />,
     href: "#",
   },
@@ -55,7 +55,7 @@ export default function CollabAndSharePage() {
             {collabFeatures.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-card/60 backdrop-blur-sm p-6 text-center border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-card/60 backdrop-blur-sm p-6 text-center border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full"
               >
                 <CardContent className="flex flex-col items-center justify-center p-0">
                   {feature.icon}
