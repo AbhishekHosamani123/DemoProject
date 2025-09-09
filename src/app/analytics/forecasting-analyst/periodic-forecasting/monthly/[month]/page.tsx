@@ -40,6 +40,27 @@ export default function MonthlySuggestionPage() {
       });
       return;
     }
+
+    const numericGoal = parseFloat(goal.replace(/,/g, ''));
+    if (isNaN(numericGoal)) {
+        toast({
+            variant: "destructive",
+            title: "Invalid number",
+            description: "Please enter a valid profit goal.",
+        });
+        return;
+    }
+
+    if (numericGoal > 1500000) {
+        toast({
+            variant: "destructive",
+            title: "Ambitious Goal!",
+            description: "That's a great target! For now, let's focus on a more achievable goal to build momentum. Try a value under 15,00,000.",
+            duration: 5000,
+        });
+        return;
+    }
+
     setShowSuggestions(true);
     toast({
       title: "Generating Suggestions",
@@ -72,7 +93,7 @@ export default function MonthlySuggestionPage() {
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                placeholder="What is your profit goal for this month?"
+                placeholder="What is your profit goal for this month? (e.g., 500000)"
                 className="w-full text-lg bg-transparent border-0 focus:ring-0 text-cyan-100 h-20 placeholder:text-cyan-200/70"
                 autoFocus
               />
