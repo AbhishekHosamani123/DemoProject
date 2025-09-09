@@ -65,7 +65,8 @@ export default function Home() {
                   <DialogTrigger asChild>
                     <Button
                       size="lg"
-                      className="w-full mb-2 bg-white text-blue-900 hover:bg-slate-200"
+                      variant="primary"
+                      className="w-full mb-2 text-black hover:bg-primary/90"
                     >
                       <Server className="mr-2 h-5 w-5" />
                       Connect Cloud Server
@@ -81,10 +82,9 @@ export default function Home() {
                 <Button
                   size="lg"
                   onClick={handleProceed}
-                  className="w-full"
-                  variant="secondary"
+                  className="w-full text-black bg-white hover:bg-slate-200"
                 >
-                  Proceed
+                  Proceed <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
             </div>
           </div>
