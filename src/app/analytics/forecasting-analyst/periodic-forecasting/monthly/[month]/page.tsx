@@ -51,10 +51,10 @@ export default function MonthlySuggestionPage() {
         return;
     }
 
-    if (numericGoal <= 15000) {
+    if (numericGoal > 15000) {
         toast({
-            title: "Aim Higher!",
-            description: "That's a solid goal! For this forecast, let's aim a bit higher to unlock more powerful AI suggestions. Try a value above 15,000.",
+            title: "Let's start smaller!",
+            description: "That's an ambitious goal! For now, let's focus on a more immediate target. Please enter a value of 15,000 or less to see suggestions.",
             duration: 5000,
         });
         return;
