@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const backgroundVideo = pathname === "/" ? "/background-video.mp4" : "/background-video-2.mp4";
+  const backgroundVideo = pathname === "/" ? "/background-video-3.mp4" : "/background-video-2.mp4";
 
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
@@ -50,7 +50,7 @@ export default function RootLayout({
         >
           <source src={backgroundVideo} type="video/mp4" />
         </video>
-        <div className="fixed inset-0 w-full h-full bg-black/60 -z-40"></div>
+        <div className="fixed inset-0 w-full h-full bg-black/40 -z-40"></div>
         <AppShell>
           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
             {children}
