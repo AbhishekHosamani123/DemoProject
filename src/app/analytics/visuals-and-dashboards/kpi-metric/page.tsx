@@ -66,6 +66,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const defaultKpiData = [
   { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
@@ -295,8 +296,8 @@ for (let i = 3; i <= 20; i++) {
             ...kpi,
             icon: React.cloneElement(kpi.icon, { className: "h-4 w-4 text-muted-foreground" }),
         })),
-        charts: dashboardData['suggestion-2'].charts.map((c:any) => ({...c})), // copy
-        data: dashboardData['suggestion-2'].data
+        charts: dashboardData['suggestion-2'].charts.map((c:any) => ({...c})),
+        data: dashboardData['suggestion-2'].data,
     };
 }
 
@@ -307,8 +308,6 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 const chartCycle: (keyof typeof chartComponents)[] = ['bar', 'line', 'area', 'pie'];
-
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
@@ -484,5 +483,7 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
 
     
