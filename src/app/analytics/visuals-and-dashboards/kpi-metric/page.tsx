@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -151,7 +152,6 @@ const renderChart = (chart: any) => {
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
-             {chart.title === "Secondary Distribution" && <Legend iconType="square" />}
             {chart.dataKeys.map((key: any, i: number) => (
                  <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
             ))}
@@ -170,7 +170,7 @@ const renderChart = (chart: any) => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={"80%"}
+              outerRadius={"70%"}
               stroke="hsl(var(--background))"
               strokeWidth={2}
               labelLine={false}
@@ -297,11 +297,11 @@ export default function KpiMetricDashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-            <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[300px]">
+            <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[250px]">
                 <CardHeader>
                     <CardTitle>{mainChart.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="h-full pb-10">
+                <CardContent className="h-[calc(100%-4rem)] pb-4">
                     {renderChart(mainChart)}
                 </CardContent>
             </Card>
@@ -312,7 +312,7 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-full pb-6">
+                    <CardContent className="h-[calc(100%-4rem)] pb-4">
                         {renderChart(chart)}
                     </CardContent>
                 </Card>
