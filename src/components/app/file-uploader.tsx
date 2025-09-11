@@ -34,7 +34,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
               <p className="font-semibold text-primary text-xl">
                 Drag and Drop
               </p>
-              <p className="text-base text-white">
+              <p className="text-base text-yellow-300">
                 Upload your business data files to get started with AI analysis
               </p>
               <Button
