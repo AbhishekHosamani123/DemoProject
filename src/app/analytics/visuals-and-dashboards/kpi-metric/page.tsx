@@ -263,28 +263,26 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="space-y-6">
-            <Card className="bg-card/60 backdrop-blur-sm h-[350px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="lg:col-span-3 bg-card/60 backdrop-blur-sm h-[300px]">
                 <CardHeader>
                     <CardTitle>{mainChart.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="h-full pb-12">
+                <CardContent className="h-full pb-10">
                     {renderChart(mainChart)}
                 </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {smallCharts.map((chart:any, index: number) => (
-                   <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
-                      <CardHeader>
-                          <CardTitle>{chart.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="h-full pb-6">
-                          {renderChart(chart)}
-                      </CardContent>
-                  </Card>
-              ))}
-            </div>
+            {smallCharts.map((chart:any, index: number) => (
+                 <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
+                    <CardHeader>
+                        <CardTitle>{chart.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="h-full pb-6">
+                        {renderChart(chart)}
+                    </CardContent>
+                </Card>
+            ))}
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
