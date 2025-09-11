@@ -222,9 +222,6 @@ const chartComponents: Record<string, React.FC<any>> = {
         data={chart.data}
         dataKey="value"
         nameKey="name"
-        cx="50%"
-        cy="50%"
-        outerRadius={"70%"}
         stroke="hsl(var(--background))"
         strokeWidth={2}
         labelLine={false}
@@ -237,7 +234,7 @@ const chartComponents: Record<string, React.FC<any>> = {
     </PieChart>
   ),
   radar: ({chart}) => (
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chart.data}>
+      <RadarChart data={chart.data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis />
@@ -425,12 +422,14 @@ export default function KpiMetricDashboardPage() {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <ChartCard chart={allCharts[0]} index={0} className="lg:col-span-3"/>
-          <ChartCard chart={allCharts[1]} index={1} />
-          <ChartCard chart={allCharts[2]} index={2} />
-          <ChartCard chart={allCharts[3]} index={3} />
-          <ChartCard chart={allCharts[4]} index={4} className="lg:col-span-1" />
-          <ChartCard chart={allCharts[5]} index={5} className="lg:col-span-2" />
+            <ChartCard chart={allCharts[0]} index={0} className="lg:col-span-3"/>
+            <ChartCard chart={allCharts[1]} index={1} />
+            <ChartCard chart={allCharts[2]} index={2} />
+            <ChartCard chart={allCharts[3]} index={3} />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <ChartCard chart={allCharts[4]} index={4}/>
+            <ChartCard chart={allCharts[5]} index={5}/>
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -451,5 +450,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
