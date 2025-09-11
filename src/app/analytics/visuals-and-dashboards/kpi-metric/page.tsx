@@ -31,7 +31,6 @@ import {
   Building,
   Package,
   Headset,
-  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -61,12 +60,6 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const kpiIcons: Record<string, React.ReactNode> = {
     dollar: <DollarSign className="h-4 w-4 text-muted-foreground" />,
@@ -213,16 +206,14 @@ const initialDashboardData: Record<string, any> = {
         kpis: kpiConfigurations.default,
         charts: [
             {
-                type: 'table',
-                originalType: 'line',
+                type: 'line',
                 title: 'Sales Growth Analysis',
                 dataKey: 'revenueData',
                 height: 250,
                 colSpan: 'lg:col-span-2',
             },
             {
-                type: 'table',
-                originalType: 'bar',
+                type: 'bar',
                 title: 'Business Overview',
                 dataKey: 'businessOverviewData',
                 nameKey: 'Metric',
@@ -231,8 +222,7 @@ const initialDashboardData: Record<string, any> = {
                 height: 250,
             },
             {
-                type: 'table',
-                originalType: 'bar',
+                type: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
                 nameKey: 'name',
@@ -241,8 +231,7 @@ const initialDashboardData: Record<string, any> = {
                 colSpan: 'lg:col-span-2',
             },
             {
-                type: 'table',
-                originalType: 'pie',
+                type: 'pie',
                 title: 'Top Sale Categories',
                 dataKey: 'topProductsData',
                 height: 150,
@@ -269,8 +258,7 @@ const initialDashboardData: Record<string, any> = {
         kpis: kpiConfigurations.marketing,
         charts: [
             {
-                type: 'table',
-                originalType: 'bar',
+                type: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
                 nameKey: 'name',
@@ -279,16 +267,14 @@ const initialDashboardData: Record<string, any> = {
                 colSpan: 'lg:col-span-2',
             },
             {
-                type: 'table',
-                originalType: 'pie',
+                type: 'pie',
                 title: 'Traffic Sources',
                 dataKey: 'trafficData',
                 colSpan: 'lg:col-span-1',
                 height: 250,
             },
              {
-                type: 'table',
-                originalType: 'area',
+                type: 'area',
                 title: 'SEO Keyword Funnel',
                 dataKey: 'seoData',
                 height: 150,
@@ -346,25 +332,8 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
-  const [isCustomizeMode, setIsCustomizeMode] = useState(false);
-  const [dynamicDashboard, setDynamicDashboard] = useState(initialDashboardData[selectedOption]);
 
-  useEffect(() => {
-    setDynamicDashboard(JSON.parse(JSON.stringify(initialDashboardData[selectedOption])));
-  }, [selectedOption]);
-
-  const handleConvertToGraph = (chartIndex: number) => {
-    setDynamicDashboard(prevDashboard => {
-        const newCharts = [...prevDashboard.charts];
-        const chartToUpdate = newCharts[chartIndex];
-        if (chartToUpdate) {
-            chartToUpdate.type = chartToUpdate.originalType;
-        }
-        return { ...prevDashboard, charts: newCharts };
-    });
-  };
-
-  const currentDashboard = dynamicDashboard;
+  const currentDashboard = initialDashboardData[selectedOption];
 
   if (!currentDashboard) {
     return <div>Loading...</div>;
@@ -432,22 +401,8 @@ export default function KpiMetricDashboardPage() {
                         
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
-                            <CardHeader className="flex flex-row justify-between items-center">
+                            <CardHeader>
                                 <CardTitle>{chart.title}</CardTitle>
-                                {isCustomizeMode && (
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                <MoreVertical className="h-4 w-4" />
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end">
-                                            <DropdownMenuItem onClick={() => handleConvertToGraph(index)}>
-                                                Convert to Graph
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                )}
                             </CardHeader>
                             <CardContent className={heightClass}>
                                 <ResponsiveContainer width="100%" height="100%">
@@ -467,9 +422,9 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2" />
                         Generate Video
                     </Button>
-                    <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
+                    <Button size="lg" variant="secondary">
                         <Wrench className="mr-2" />
-                        {isCustomizeMode ? 'Finish' : 'Customize'}
+                        Customize
                     </Button>
                 </div>
             </div>
