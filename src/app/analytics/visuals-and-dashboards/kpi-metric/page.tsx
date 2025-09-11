@@ -37,6 +37,11 @@ import {
   PieChart,
   Pie,
   Cell,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
 } from "recharts";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -102,6 +107,25 @@ const generateDashboardData = () => {
                     data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2400) + 600 })),
                     dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
                 },
+                 { 
+                    title: "Performance Metrics", 
+                    type: "stacked-bar", 
+                    data: Array.from({ length: 6 }, (_, j) => ({ name: `Metric ${j+1}`, teamA: Math.floor(Math.random() * 2000) + 500, teamB: Math.floor(Math.random() * 2000) + 500 })),
+                    dataKeys: [{name: "teamA", color: "hsl(var(--chart-1))"}, {name: "teamB", color: "hsl(var(--chart-2))"}]
+                },
+                {
+                    title: "Capability Analysis",
+                    type: "radar",
+                    data: [
+                        { subject: 'Marketing', A: Math.floor(Math.random() * 100) + 20, fullMark: 150 },
+                        { subject: 'Sales', A: Math.floor(Math.random() * 100) + 50, fullMark: 150 },
+                        { subject: 'Support', A: Math.floor(Math.random() * 100) + 30, fullMark: 150 },
+                        { subject: 'Development', A: Math.floor(Math.random() * 100) + 40, fullMark: 150 },
+                        { subject: 'Finance', A: Math.floor(Math.random() * 100) + 60, fullMark: 150 },
+                        { subject: 'HR', A: Math.floor(Math.random() * 100) + 10, fullMark: 150 },
+                    ],
+                    dataKeys: [{name: "A", color: "hsl(var(--chart-1))"}]
+                }
             ]
         };
     }
@@ -158,6 +182,21 @@ const renderChart = (chart: any) => {
           </BarChart>
         </ResponsiveContainer>
       );
+    case 'stacked-bar':
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={chart.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            {chart.dataKeys.map((key: any, i: number) => (
+                 <Bar key={key.name} dataKey={key.name} stackId="a" fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]}/>
+            ))}
+          </BarChart>
+        </ResponsiveContainer>
+      );
     case 'pie':
       return (
         <ResponsiveContainer width="100%" height="100%">
@@ -183,6 +222,20 @@ const renderChart = (chart: any) => {
           </PieChart>
         </ResponsiveContainer>
       );
+    case 'radar':
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chart.data}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="subject" />
+                <PolarRadiusAxis />
+                <Tooltip content={<CustomTooltip />} />
+                {chart.dataKeys.map((key: any, i: number) => (
+                    <Radar key={key.name} name="Mike" dataKey={key.name} stroke={key.color} fill={key.color} fillOpacity={0.6} />
+                ))}
+            </RadarChart>
+        </ResponsiveContainer>
+      )
     default:
       return <div>Invalid chart type</div>;
   }
@@ -208,8 +261,12 @@ export default function KpiMetricDashboardPage() {
                 {Array.from({length: 6}).map((_, i) => <Skeleton key={i} className="h-28" />)}
             </div>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                 <Skeleton className="lg:col-span-3 h-[300px]" />
+                 <Skeleton className="lg:col-span-3 h-[250px]" />
                  <Skeleton className="h-[300px]" />
+                 <Skeleton className="h-[300px]" />
+                 <Skeleton className="h-[300px]" />
+            </div>
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                  <Skeleton className="h-[300px]" />
                  <Skeleton className="h-[300px]" />
             </div>
@@ -225,7 +282,8 @@ export default function KpiMetricDashboardPage() {
   const currentDashboard = dashboardData[selectedDashboard];
 
   const mainChart = currentDashboard.charts[0];
-  const smallCharts = currentDashboard.charts.slice(1);
+  const smallCharts = currentDashboard.charts.slice(1, 4);
+  const newCharts = currentDashboard.charts.slice(4);
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -312,7 +370,19 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] pb-4">
+                    <CardContent className="h-[calc(100%-4rem)] p-4">
+                        {renderChart(chart)}
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {newCharts.map((chart:any, index: number) => (
+                    <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
+                    <CardHeader>
+                        <CardTitle>{chart.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="h-[calc(100%-4rem)] p-4">
                         {renderChart(chart)}
                     </CardContent>
                 </Card>
