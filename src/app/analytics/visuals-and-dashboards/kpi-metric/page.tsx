@@ -348,7 +348,9 @@ export default function KpiMetricDashboardPage() {
 
   const currentDashboard = dashboardData[selectedDashboard];
 
-  const allCharts = currentDashboard.charts;
+  const mainChart = currentDashboard.charts[0];
+  const smallCharts = currentDashboard.charts.slice(1, 4);
+  const bottomCharts = currentDashboard.charts.slice(4);
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -359,14 +361,14 @@ export default function KpiMetricDashboardPage() {
                 <ScrollArea className="h-[calc(100vh-14rem)]">
                     <div className="space-y-2">
                     {Object.keys(dashboardData).map((key, index) => (
-                        <div 
-                            key={key} 
+                        <div
+                            key={key}
                             onClick={() => setSelectedDashboard(key)}
-                             className="block group cursor-pointer"
+                            className="block group cursor-pointer"
                         >
                            <div className={cn(
                                 "flex items-center justify-between p-3 rounded-lg border transition-colors",
-                                selectedDashboard === key 
+                                selectedDashboard === key
                                 ? "bg-primary border-primary text-primary-foreground"
                                 : "bg-background/80 border-border hover:bg-accent"
                             )}>
@@ -419,20 +421,37 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {allCharts.map((chart:any, index: number) => {
-                 const isNumerical = chartDisplayModes[chart.title] === 'numerical';
-                 const showMenu = isCustomizeMode && !isNumerical;
-                 return (
-                    <ChartCard 
-                        key={index} 
-                        chart={chart} 
-                        showMenu={showMenu}
+        <div className="grid grid-cols-1 gap-6">
+            <div className="lg:col-span-3">
+                <ChartCard
+                    chart={mainChart}
+                    showMenu={isCustomizeMode}
+                    onConvertToNumerical={() => handleConvertToNumerical(mainChart.title)}
+                    isNumerical={chartDisplayModes[mainChart.title] === 'numerical'}
+                />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {smallCharts.map((chart: any, index: number) => (
+                    <ChartCard
+                        key={index}
+                        chart={chart}
+                        showMenu={isCustomizeMode}
                         onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
-                        isNumerical={isNumerical}
+                        isNumerical={chartDisplayModes[chart.title] === 'numerical'}
                     />
-                )
-            })}
+                ))}
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {bottomCharts.map((chart:any, index: number) => (
+                    <ChartCard
+                        key={index}
+                        chart={chart}
+                        showMenu={isCustomizeMode}
+                        onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
+                        isNumerical={chartDisplayModes[chart.title] === 'numerical'}
+                    />
+                ))}
+            </div>
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -447,8 +466,8 @@ export default function KpiMetricDashboardPage() {
           <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => {
             setIsCustomizeMode(!isCustomizeMode);
             if(isCustomizeMode) {
-                // When exiting customize mode, reset all charts to chart view
-                setChartDisplayModes({});
+                // When exiting customize mode, chart states are preserved.
+                // setChartDisplayModes({}); // This would reset the view
             }
           }}>
             <Wrench className="mr-2" />
@@ -459,5 +478,4 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
 
