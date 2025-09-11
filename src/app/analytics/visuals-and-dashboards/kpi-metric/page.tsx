@@ -273,7 +273,13 @@ const NumericalDataView = ({ data }: { data: any[] }) => {
 };
 
 
-const ChartCard = ({chart, showMenu, onConvertToNumerical, isNumerical}: {chart: any, showMenu: boolean, onConvertToNumerical: () => void, isNumerical: boolean}) => (
+const ChartCard = ({chart, showMenu, onConvertToNumerical, onConvertToChart, isNumerical}: {
+    chart: any, 
+    showMenu: boolean, 
+    onConvertToNumerical: () => void, 
+    onConvertToChart: () => void,
+    isNumerical: boolean
+}) => (
     <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>{chart.title}</CardTitle>
@@ -285,8 +291,14 @@ const ChartCard = ({chart, showMenu, onConvertToNumerical, isNumerical}: {chart:
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
-                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                        {isNumerical ? (
+                            <DropdownMenuItem onClick={onConvertToChart}>Change to graphical representation</DropdownMenuItem>
+                        ) : (
+                            <>
+                                <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
+                                <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                            </>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}
@@ -317,6 +329,13 @@ export default function KpiMetricDashboardPage() {
     setChartDisplayModes(prev => ({
         ...prev,
         [chartTitle]: 'numerical'
+    }));
+  }
+
+  const handleConvertToChart = (chartTitle: string) => {
+    setChartDisplayModes(prev => ({
+        ...prev,
+        [chartTitle]: 'chart'
     }));
   }
 
@@ -427,6 +446,7 @@ export default function KpiMetricDashboardPage() {
                     chart={mainChart}
                     showMenu={isCustomizeMode}
                     onConvertToNumerical={() => handleConvertToNumerical(mainChart.title)}
+                    onConvertToChart={() => handleConvertToChart(mainChart.title)}
                     isNumerical={chartDisplayModes[mainChart.title] === 'numerical'}
                 />
             </div>
@@ -436,6 +456,7 @@ export default function KpiMetricDashboardPage() {
                         chart={chart}
                         showMenu={isCustomizeMode}
                         onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
+                        onConvertToChart={() => handleConvertToChart(chart.title)}
                         isNumerical={chartDisplayModes[chart.title] === 'numerical'}
                     />
                 </div>
@@ -447,6 +468,7 @@ export default function KpiMetricDashboardPage() {
                             chart={chart}
                             showMenu={isCustomizeMode}
                             onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
+                            onConvertToChart={() => handleConvertToChart(chart.title)}
                             isNumerical={chartDisplayModes[chart.title] === 'numerical'}
                         />
                     </div>
@@ -478,3 +500,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
