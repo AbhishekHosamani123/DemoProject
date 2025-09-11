@@ -92,7 +92,7 @@ export default function MonthlySuggestionPage() {
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                placeholder="What is your profit goal for this month? (e.g., 500000)"
+                placeholder="What is your profit goal for this month?"
                 className="w-full text-lg bg-transparent border-0 focus:ring-0 text-cyan-100 h-20 placeholder:text-cyan-200/70"
                 autoFocus
               />
