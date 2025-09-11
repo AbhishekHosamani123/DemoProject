@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { ChevronLeft, BellRing, Video } from "lucide-react";
+import { ChevronLeft, BellRing, Video, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -60,18 +60,37 @@ export default function ShareDailyUpdatePage() {
   const [phoneNumbers, setPhoneNumbers] = useState("");
   const [emailIds, setEmailIds] = useState("");
   const [activeAlertId, setActiveAlertId] = useState<string | null>(null);
+  const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
+  const [selectedAlerts, setSelectedAlerts] = useState<string[]>([]);
 
   const handleAlertClick = (alertId: string) => {
-    setActiveAlertId(prevId => prevId === alertId ? null : alertId);
+    if (isMultiSelectMode) {
+      setSelectedAlerts(prev => 
+        prev.includes(alertId) 
+        ? prev.filter(id => id !== alertId)
+        : [...prev, alertId]
+      );
+    } else {
+      setActiveAlertId(prevId => prevId === alertId ? null : alertId);
+    }
+  }
+
+  const toggleMultiSelectMode = () => {
+    setIsMultiSelectMode(!isMultiSelectMode);
+    setActiveAlertId(null);
+    setSelectedAlerts([]);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!activeAlertId) {
+    
+    const sendingAlerts = isMultiSelectMode ? selectedAlerts : (activeAlertId ? [activeAlertId] : []);
+    
+    if (sendingAlerts.length === 0) {
         toast({
             variant: "destructive",
             title: "No alert selected",
-            description: "Please select an alert to share.",
+            description: "Please select at least one alert to share.",
         });
         return;
     }
@@ -83,10 +102,25 @@ export default function ShareDailyUpdatePage() {
         });
         return;
     }
+    
+    let description;
+    if (sendingAlerts.length > 1) {
+        description = `Your ${sendingAlerts.length} selected updates have been sent.`;
+    } else {
+        const title = latestUpdates.find(u => u.id === sendingAlerts[0])?.title;
+        description = `Your update on "${title}" has been sent.`;
+    }
+
     toast({
         title: "Notification Sent",
-        description: `Your update on "${latestUpdates.find(u => u.id === activeAlertId)?.title}" has been sent.`,
+        description: description,
     })
+
+    if (isMultiSelectMode) {
+      setSelectedAlerts([]);
+      setPhoneNumbers("");
+      setEmailIds("");
+    }
   }
   
   const activeUpdate = latestUpdates.find(update => update.id === activeAlertId);
@@ -94,95 +128,142 @@ export default function ShareDailyUpdatePage() {
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-2xl">
-        <div className="mb-8">
+        <div className="mb-8 flex justify-between items-center">
           <Button onClick={() => router.back()} variant="outline">
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
+           <Button onClick={toggleMultiSelectMode} variant={isMultiSelectMode ? "primary" : "secondary"}>
+                {isMultiSelectMode ? "Cancel" : "Select Multiple"}
+          </Button>
         </div>
 
         <div className="text-center mb-8 space-y-4">
-            {latestUpdates.map(update => (
+            {latestUpdates.map(update => {
+                const isSelected = isMultiSelectMode ? selectedAlerts.includes(update.id) : activeAlertId === update.id;
+                return (
                  <div 
                     key={update.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer relative"
                     onClick={() => handleAlertClick(update.id)}
                 >
                     <div className={cn(
                         "text-xl font-bold tracking-tight inline-flex items-center gap-4 border-2 rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm shadow-lg transition-all w-full",
-                        activeAlertId === update.id ? "border-primary text-primary" : "border-input text-foreground"
+                         isSelected ? "border-primary text-primary" : "border-input text-foreground"
                         )}>
-                        <BellRing className={cn("h-6 w-6", activeAlertId === update.id && "animate-pulse")} />
+                        <BellRing className={cn("h-6 w-6", !isMultiSelectMode && isSelected && "animate-pulse")} />
                         <span className="font-normal text-muted-foreground">ALERT:</span> {update.title}
                     </div>
+                     {isMultiSelectMode && isSelected && (
+                        <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1">
+                            <CheckCircle2 className="h-5 w-5" />
+                        </div>
+                    )}
                 </div>
-            ))}
+                )
+            })}
         </div>
-
-        <form onSubmit={handleSubmit}>
-            <Card className={cn(
-                "bg-card/60 backdrop-blur-sm transition-all duration-500 ease-in-out",
-                activeAlertId ? "max-h-[1000px] opacity-100 p-6" : "max-h-0 opacity-0 !p-0 !m-0 border-0"
-                )}
-            >
-                {activeUpdate && (
-                    <>
-                        <CardContent className="space-y-6 p-0">
-                            <div className="space-y-4">
-                                <Label htmlFor="summary" className="text-xl font-semibold">MAIN SUMMARY BASED UPDATE</Label>
-                                
-                                <Card className="bg-background/50">
-                                    <CardHeader>
-                                        <CardTitle>{activeUpdate.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-muted-foreground">{activeUpdate.summary}</p>
-                                    </CardContent>
-                                </Card>
-                            </div>
-
+        
+        {isMultiSelectMode ? (
+            <form onSubmit={handleSubmit}>
+                <Card className="bg-card/60 backdrop-blur-sm p-6">
+                    <CardContent className="space-y-6 p-0">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <h2 className="text-xl font-semibold border-b pb-2">ANALYTICS</h2>
+                                <Label htmlFor="phone">ADD PHONE NUMBERS</Label>
+                                <Input 
+                                    id="phone" 
+                                    type="text"
+                                    value={phoneNumbers}
+                                    onChange={e => setPhoneNumbers(e.target.value)}
+                                    placeholder="e.g., +919876543210, +11234567890" 
+                                />
                             </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="email">ADD EMAIL ID</Label>
+                                <Input 
+                                    id="email" 
+                                    type="email"
+                                    value={emailIds}
+                                    onChange={e => setEmailIds(e.target.value)}
+                                    placeholder="e.g., user1@example.com, user2@example.com" 
+                                />
+                            </div>
+                        </div>
+                    </CardContent>
+                    <CardFooter className="justify-center pt-8 p-0">
+                        <Button type="submit" className="w-full max-w-sm">
+                            SEND NOTIFICATION
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </form>
+        ) : (
+            <form onSubmit={handleSubmit}>
+                <Card className={cn(
+                    "bg-card/60 backdrop-blur-sm transition-all duration-500 ease-in-out",
+                    activeAlertId ? "max-h-[1000px] opacity-100 p-6" : "max-h-0 opacity-0 !p-0 !m-0 border-0"
+                    )}
+                >
+                    {activeUpdate && (
+                        <>
+                            <CardContent className="space-y-6 p-0">
+                                <div className="space-y-4">
+                                    <Label htmlFor="summary" className="text-xl font-semibold">MAIN SUMMARY BASED UPDATE</Label>
+                                    
+                                    <Card className="bg-background/50">
+                                        <CardHeader>
+                                            <CardTitle>{activeUpdate.title}</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-muted-foreground">{activeUpdate.summary}</p>
+                                        </CardContent>
+                                    </Card>
+                                </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="phone">ADD PHONE NUMBERS</Label>
-                                    <Input 
-                                        id="phone" 
-                                        type="text"
-                                        value={phoneNumbers}
-                                        onChange={e => setPhoneNumbers(e.target.value)}
-                                        placeholder="e.g., +919876543210, +11234567890" 
-                                    />
+                                    <h2 className="text-xl font-semibold border-b pb-2">ANALYTICS</h2>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="email">ADD EMAIL ID</Label>
-                                    <Input 
-                                        id="email" 
-                                        type="email"
-                                        value={emailIds}
-                                        onChange={e => setEmailIds(e.target.value)}
-                                        placeholder="e.g., user1@example.com, user2@example.com" 
-                                    />
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="phone-single">ADD PHONE NUMBERS</Label>
+                                        <Input 
+                                            id="phone-single" 
+                                            type="text"
+                                            value={phoneNumbers}
+                                            onChange={e => setPhoneNumbers(e.target.value)}
+                                            placeholder="e.g., +919876543210, +11234567890" 
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="email-single">ADD EMAIL ID</Label>
+                                        <Input 
+                                            id="email-single" 
+                                            type="email"
+                                            value={emailIds}
+                                            onChange={e => setEmailIds(e.target.value)}
+                                            placeholder="e.g., user1@example.com, user2@example.com" 
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="justify-center pt-8 p-0">
-                            <div className="flex gap-4 w-full max-w-sm">
-                                <Button type="submit" className="flex-1">
-                                    SEND NOTIFICATION
-                                </Button>
-                                <Button type="button" variant="secondary" className="flex-1">
-                                    <Video className="mr-2 h-5 w-5" />
-                                    Generate Video
-                                </Button>
-                            </div>
-                        </CardFooter>
-                    </>
-                )}
-            </Card>
-        </form>
+                            </CardContent>
+                            <CardFooter className="justify-center pt-8 p-0">
+                                <div className="flex gap-4 w-full max-w-sm">
+                                    <Button type="submit" className="flex-1">
+                                        SEND NOTIFICATION
+                                    </Button>
+                                    <Button type="button" variant="secondary" className="flex-1">
+                                        <Video className="mr-2 h-5 w-5" />
+                                        Generate Video
+                                    </Button>
+                                </div>
+                            </CardFooter>
+                        </>
+                    )}
+                </Card>
+            </form>
+        )}
       </div>
     </div>
   );
