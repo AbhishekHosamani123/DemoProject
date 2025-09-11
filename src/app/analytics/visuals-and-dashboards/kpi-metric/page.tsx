@@ -83,7 +83,7 @@ for (let i = 0; i < titles.length; i++) {
                 title: "Distribution by Category", 
                 type: "bar", 
                 data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 4000) + 1000 })),
-                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
+                dataKeys: [{name: "value", color: "hsl(var(--chart-2))"}]
             },
             { 
                 title: "Source Breakdown", 
@@ -94,7 +94,13 @@ for (let i = 0; i < titles.length; i++) {
                     { name: 'Direct', value: Math.floor(Math.random() * 300) + 100 },
                     { name: 'Referral', value: Math.floor(Math.random() * 200) + 50 },
                 ],
-                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
+                dataKeys: [{name: "value"}]
+            },
+            { 
+                title: "Secondary Distribution", 
+                type: "bar", 
+                data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2000) + 500 })),
+                dataKeys: [{name: "value", color: "hsl(var(--chart-4))"}]
             },
         ]
     };
@@ -126,8 +132,8 @@ const renderChart = (chart: any) => {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chart.data}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
             <Legend />
             {chart.dataKeys.map((key: any, i: number) => (
@@ -141,10 +147,10 @@ const renderChart = (chart: any) => {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chart.data}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend wrapperStyle={{paddingTop: "20px"}}/>
             {chart.dataKeys.map((key: any, i: number) => (
                  <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
             ))}
@@ -185,6 +191,9 @@ export default function KpiMetricDashboardPage() {
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const currentDashboard = dashboardData[selectedDashboard];
 
+  const mainChart = currentDashboard.charts[0];
+  const smallCharts = currentDashboard.charts.slice(1);
+
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start gap-8">
       <main className="flex-1 space-y-8">
@@ -200,7 +209,7 @@ export default function KpiMetricDashboardPage() {
           </h1>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
           {currentDashboard.kpis.map((kpi: any) => (
             <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -222,9 +231,18 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {currentDashboard.charts.map((chart:any, index: number) => (
-                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3 h-[300px]' : 'h-[300px]')}>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="lg:col-span-3 bg-card/60 backdrop-blur-sm h-[350px]">
+                <CardHeader>
+                    <CardTitle>{mainChart.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="h-full pb-12">
+                    {renderChart(mainChart)}
+                </CardContent>
+            </Card>
+
+            {smallCharts.map((chart:any, index: number) => (
+                 <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
@@ -260,17 +278,17 @@ export default function KpiMetricDashboardPage() {
                         <div 
                             key={key} 
                             onClick={() => setSelectedDashboard(key)}
-                            className={cn(
-                                "block group cursor-pointer p-3 rounded-lg border transition-colors",
+                             className="block group cursor-pointer"
+                        >
+                           <div className={cn(
+                                "flex items-center justify-between p-3 rounded-lg border transition-colors",
                                 selectedDashboard === key 
                                 ? "bg-primary border-primary text-primary-foreground"
                                 : "bg-background/80 border-border hover:bg-accent"
-                            )}
-                        >
-                            <div className="flex items-center justify-between">
+                            )}>
                                 <span className={cn(
                                     "font-medium",
-                                    selectedDashboard === key ? "text-primary-foreground" : "group-hover:text-accent-foreground"
+                                     selectedDashboard === key ? "text-primary-foreground" : "group-hover:text-accent-foreground"
                                 )}>
                                     {`Option ${index + 1}`}
                                 </span>
