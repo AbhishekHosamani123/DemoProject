@@ -28,7 +28,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
-      <TooltipProvider>
         <Sidebar>
           <SidebarHeader>
             <SidebarMenu>
@@ -114,7 +113,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
-      </TooltipProvider>
       <main className="flex-1">{children}</main>
     </div>
   );
