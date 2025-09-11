@@ -25,14 +25,12 @@ import {
   MousePointerClick,
   Filter,
   Users2,
-  LineChart as LineChartIcon,
-  BarChart2,
-  PieChart as PieChartIcon,
+  MoreVertical,
   Heart,
   ClipboardList,
   Building,
   Package,
-  Headset
+  Headset,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -58,6 +56,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const defaultKpiData = [
   { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
@@ -302,6 +306,7 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
+  const [isCustomizeMode, setIsCustomizeMode] = useState(false);
 
   const currentDashboard = dashboardData[selectedOption] || dashboardData['suggestion-1'];
 
@@ -346,8 +351,22 @@ export default function KpiMetricDashboardPage() {
                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
                     {currentDashboard.charts.map((chart:any, index: number) => (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
-                            <CardHeader>
+                            <CardHeader className="flex flex-row items-center justify-between">
                                 <CardTitle>{chart.title}</CardTitle>
+                                {isCustomizeMode && (
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                                <MoreVertical className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem>Convert numerics to graphs</DropdownMenuItem>
+                                            <DropdownMenuItem>Change graph styles</DropdownMenuItem>
+                                            <DropdownMenuItem>Convert graphs to numerics</DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                )}
                             </CardHeader>
                             <CardContent>
                                 <ResponsiveContainer width="100%" height={chart.height}>
@@ -367,7 +386,7 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2" />
                         Generate Video
                     </Button>
-                    <Button size="lg" variant="secondary">
+                    <Button size="lg" variant={isCustomizeMode ? "default" : "secondary"} onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
                         <Wrench className="mr-2" />
                         Customize
                     </Button>
@@ -398,3 +417,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
