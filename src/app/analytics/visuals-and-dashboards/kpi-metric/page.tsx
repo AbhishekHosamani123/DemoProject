@@ -157,8 +157,17 @@ type ChartDisplayMode = 'chart' | 'numeric';
 type ChartCardId = 'revenueTrend' | 'salesByRegion' | 'monthlySales' | 'salesFunnel' | 'quarterlyPerformance';
 type ChartType = 'Area' | 'Pie' | 'Bar' | 'Line' | 'Composed' | 'Funnel' | 'Radar' | 'Scatter' | 'Bubble' | 'Heatmap' | 'Waterfall';
 
-const chartDisplayOptions = [
-    'Pie Chart', 'Bar Graph', 'Line Graph', 'Area Chart', 'Funnel Chart', 'Radar Chart', 'Scatter Plot', 'Bubble Chart', 'Heatmap', 'Waterfall Chart'
+const chartDisplayOptions: {name: string, type: ChartType}[] = [
+    { name: 'Pie Chart', type: 'Pie'}, 
+    { name: 'Bar Graph', type: 'Bar' },
+    { name: 'Line Graph', type: 'Line' },
+    { name: 'Area Chart', type: 'Area' },
+    { name: 'Funnel Chart', type: 'Funnel' },
+    { name: 'Radar Chart', type: 'Radar' },
+    { name: 'Scatter Plot', type: 'Scatter' },
+    { name: 'Bubble Chart', type: 'Bubble' },
+    { name: 'Heatmap', type: 'Heatmap' },
+    { name: 'Waterfall Chart', type: 'Waterfall' }
 ];
 
 const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?: string) => {
@@ -295,10 +304,10 @@ const ChartCard = ({
                                         <DropdownMenuSubContent>
                                             {chartDisplayOptions.map(option => (
                                                 <DropdownMenuItem 
-                                                    key={option} 
-                                                    onClick={() => onChartTypeChange(chartId, option.replace(' ', '') as ChartType)}
+                                                    key={option.name} 
+                                                    onClick={() => onChartTypeChange(chartId, option.type)}
                                                 >
-                                                    {option}
+                                                    {option.name}
                                                 </DropdownMenuItem>
                                             ))}
                                         </DropdownMenuSubContent>
