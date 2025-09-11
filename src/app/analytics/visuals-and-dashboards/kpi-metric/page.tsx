@@ -45,7 +45,7 @@ import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 
-const kpiIcons = {
+const kpiIcons: Record<string, React.ReactNode> = {
     DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
     TrendingUp: <TrendingUp className="h-4 w-4 text-muted-foreground" />,
     Users: <Users className="h-4 w-4 text-muted-foreground" />,
@@ -65,7 +65,6 @@ const titles = [
   "Manufacturing", "Retail", "Travel & Hospitality", "Energy Sector", "Automotive"
 ];
 
-const chartTypes = ["line", "bar", "pie"];
 
 for (let i = 0; i < titles.length; i++) {
     const key = titles[i].toLowerCase().replace(/\s+/g, '-');
@@ -170,7 +169,7 @@ const renderChart = (chart: any) => {
               nameKey="name"
               cx="50%"
               cy="45%"
-              outerRadius={80}
+              outerRadius={"80%"}
               stroke="hsl(var(--background))"
               strokeWidth={2}
             >
@@ -194,31 +193,13 @@ export default function KpiMetricDashboardPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex">
-      <aside className="w-64 pr-8">
-          <div className="mb-4">
-            <Button onClick={() => router.back()} variant="outline" className="w-full justify-start">
+      <main className="flex-1 space-y-8">
+        <div className="flex justify-between items-center">
+            <Button onClick={() => router.back()} variant="outline">
               <ChevronLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
-          </div>
-          <h2 className="text-lg font-semibold mb-4 text-primary">Dashboards</h2>
-          <ScrollArea className="h-[calc(100vh-12rem)]">
-            <nav className="space-y-2 pr-4">
-                {Object.keys(dashboardData).map((key) => (
-                    <Button
-                        key={key}
-                        variant={selectedDashboard === key ? "secondary" : "ghost"}
-                        className="w-full justify-start text-left h-auto py-2"
-                        onClick={() => setSelectedDashboard(key)}
-                    >
-                        {dashboardData[key].title.replace(' Dashboard', '')}
-                    </Button>
-                ))}
-            </nav>
-        </ScrollArea>
-      </aside>
-
-      <main className="flex-1 space-y-8">
+        </div>
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
             {currentDashboard.title}
@@ -249,11 +230,11 @@ export default function KpiMetricDashboardPage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {currentDashboard.charts.map((chart:any, index: number) => (
-                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3' : 'lg:col-span-1')}>
+                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3 h-[300px]' : 'lg:col-span-1 h-[300px]')}>
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[300px]">
+                    <CardContent className="h-full pb-6">
                         {renderChart(chart)}
                     </CardContent>
                 </Card>
@@ -275,6 +256,23 @@ export default function KpiMetricDashboardPage() {
           </Button>
         </div>
       </main>
+      <aside className="w-64 pl-8">
+          <h2 className="text-lg font-semibold mb-4 text-primary">Dashboards</h2>
+          <ScrollArea className="h-[calc(100vh-8rem)]">
+            <nav className="space-y-2 pr-4">
+                {Object.keys(dashboardData).map((key, index) => (
+                    <Button
+                        key={key}
+                        variant={selectedDashboard === key ? "secondary" : "ghost"}
+                        className="w-full justify-start text-left h-auto py-2"
+                        onClick={() => setSelectedDashboard(key)}
+                    >
+                        {`Option ${index + 1}`}
+                    </Button>
+                ))}
+            </nav>
+        </ScrollArea>
+      </aside>
     </div>
   );
 }
