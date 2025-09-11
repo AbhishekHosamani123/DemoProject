@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as React from "react";
 import {
   Card,
@@ -141,7 +141,7 @@ const dashboardData: Record<string, any> = {
         title: 'Sales Performance Dashboard',
         kpis: defaultKpiData,
         charts: [
-            { 
+            {
                 type: 'line',
                 title: 'Sales Growth Analysis',
                 dataKey: 'revenueData',
@@ -155,14 +155,14 @@ const dashboardData: Record<string, any> = {
                 colSpan: 'lg:col-span-1',
                 height: 250,
             },
-            { 
+            {
                 type: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
                 height: 150,
                 colSpan: 'lg:col-span-2',
             },
-            { 
+            {
                 type: 'pie',
                 title: 'Top Sale Categories',
                 dataKey: 'topProductsData',
@@ -196,7 +196,7 @@ const dashboardData: Record<string, any> = {
             { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
         ],
         charts: [
-            { 
+            {
                 type: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
@@ -210,7 +210,7 @@ const dashboardData: Record<string, any> = {
                 colSpan: 'lg:col-span-1',
                 height: 250,
             },
-             { 
+             {
                 type: 'line',
                 title: 'SEO Keyword Funnel',
                 dataKey: 'seoData',
@@ -295,9 +295,9 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
-  
+
   const currentDashboard = dashboardData[selectedOption] || dashboardData['suggestion-1'];
-  
+
   if (!currentDashboard) {
     return <div>Loading...</div>;
   }
@@ -329,7 +329,7 @@ export default function KpiMetricDashboardPage() {
                             </CardHeader>
                             <CardContent>
                                 <div className="text-2xl font-bold">{kpi.value}</div>
-                                <p className={cn("text-xs text-muted-foreground flex items-center", 
+                                <p className={cn("text-xs text-muted-foreground flex items-center",
                                     kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'
                                 )}>
                                     <span className={`mr-1`}>
@@ -341,7 +341,7 @@ export default function KpiMetricDashboardPage() {
                         </Card>
                     ))}
                 </div>
-                
+
                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
                     {currentDashboard.charts.map((chart:any, index: number) => {
                         const ChartComponent = chartComponents[chart.type] || (() => <div>Unsupported chart type</div>);
@@ -377,7 +377,7 @@ export default function KpiMetricDashboardPage() {
                     </Button>
                 </div>
             </div>
-            
+
             {/* Sidebar */}
             <div className="space-y-4">
                 <Card className="bg-card/60 backdrop-blur-sm">
@@ -402,7 +402,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
-
-    
