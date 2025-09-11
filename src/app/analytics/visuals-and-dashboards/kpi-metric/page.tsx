@@ -14,10 +14,6 @@ import {
   Download,
   Video,
   Wrench,
-  DollarSign,
-  TrendingUp,
-  Users,
-  Target,
   ArrowUp,
   MoreVertical,
 } from "lucide-react";
@@ -58,75 +54,8 @@ import {
   ScatterChart,
   Scatter,
 } from "recharts";
-
-const salesData = [
-    { month: "Jan", sales: 4000, goal: 5000 },
-    { month: "Feb", sales: 3000, goal: 5000 },
-    { month: "Mar", sales: 5000, goal: 5000 },
-    { month: "Apr", sales: 4500, goal: 6000 },
-    { month: "May", sales: 6000, goal: 6000 },
-    { month: "Jun", sales: 5500, goal: 7000 },
-];
-
-const revenueData = [
-    { date: "2024-01", revenue: 2400 },
-    { date: "2024-02", revenue: 1398 },
-    { date: "2024-03", revenue: 9800 },
-    { date: "2024-04", revenue: 3908 },
-    { date: "2024-05", revenue: 4800 },
-    { date: "2024-06", revenue: 3800 },
-    { date: "2024-07", revenue: 4300 },
-];
-
-const funnelData = [
-    { name: "Leads", value: 100, fill: "hsl(var(--chart-5))" },
-    { name: "Contacts", value: 80, fill: "hsl(var(--chart-4))" },
-    { name: "Qualified", value: 50, fill: "hsl(var(--chart-3))" },
-    { name: "Proposal", value: 30, fill: "hsl(var(--chart-2))" },
-    { name: "Closed", value: 20, fill: "hsl(var(--chart-1))" },
-]
-
-const regionData = [
-  { name: 'North America', value: 400 },
-  { name: 'Europe', value: 300 },
-  { name: 'APAC', value: 200 },
-  { name: 'LATAM', value: 100 },
-];
-
-const quarterlyPerformanceData = [
-  { subject: 'Q1', A: 120, B: 110, fullMark: 150 },
-  { subject: 'Q2', A: 98, B: 130, fullMark: 150 },
-  { subject: 'Q3', A: 86, B: 130, fullMark: 150 },
-  { subject: 'Q4', A: 99, B: 100, fullMark: 150 },
-];
-
-
-const kpiData = [
-  {
-    title: "Total Revenue",
-    value: "₹45.2Cr",
-    change: "+12.1% vs last period",
-    icon: <DollarSign className="h-5 w-5 text-primary" />
-  },
-  {
-    title: "Profit Margin",
-    value: "24.5%",
-    change: "+2.3% vs last period",
-    icon: <TrendingUp className="h-5 w-5 text-primary" />
-  },
-  {
-    title: "New Customers",
-    value: "1,254",
-    change: "+8.5% vs last period",
-    icon: <Users className="h-5 w-5 text-primary" />
-  },
-  {
-    title: "Conversion Rate",
-    value: "3.2%",
-    change: "+0.5% vs last period",
-    icon: <Target className="h-5 w-5 text-primary" />
-  },
-];
+import { allDashboardData, type KpiDashboardData } from "@/lib/content/kpi-dashboard-data";
+import { cn } from "@/lib/utils";
 
 const PIE_COLORS = [
     "hsl(var(--chart-1))",
@@ -154,7 +83,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 type ChartDisplayMode = 'chart' | 'numeric';
-type ChartCardId = 'revenueTrend' | 'salesByRegion' | 'monthlySales' | 'salesFunnel' | 'quarterlyPerformance';
+type ChartCardId = keyof KpiDashboardData['charts'];
 type ChartType = 'Area' | 'Pie' | 'Bar' | 'Line' | 'Composed' | 'Funnel' | 'Radar' | 'Scatter';
 
 const chartDisplayOptions: {name: string, type: ChartType}[] = [
@@ -167,13 +96,13 @@ const chartDisplayOptions: {name: string, type: ChartType}[] = [
     { name: 'Scatter Plot', type: 'Scatter' },
 ];
 
-const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?: string) => {
+const getChartComponent = (type: ChartType, data: any[], dataKey: string, nameKey?: string, secondaryDataKey?: string) => {
     switch(type) {
         case 'Pie':
             return (
                 <PieChart>
                     <Tooltip content={<CustomTooltip />} />
-                    <Pie data={data} dataKey={dataKey} nameKey={nameKey} cx="50%" cy="50%" outerRadius={80} label>
+                    <Pie data={data} dataKey={dataKey} nameKey={nameKey || 'name'} cx="50%" cy="50%" outerRadius={80} label>
                         {data.map((_: any, index: number) => (
                             <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
@@ -185,7 +114,7 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
             return (
                 <ComposedChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                    <XAxis dataKey={nameKey} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <XAxis dataKey={nameKey || 'name'} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
                     <Legend />
@@ -196,7 +125,7 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
             return (
                 <ComposedChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                    <XAxis dataKey={nameKey} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <XAxis dataKey={nameKey || 'name'} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
                     <Legend />
@@ -207,16 +136,16 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
              return (
                 <AreaChart data={data}>
                      <defs>
-                        <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                        <linearGradient id={`color-${dataKey}`} x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8}/>
                         <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0}/>
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                    <XAxis dataKey={nameKey} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <XAxis dataKey={nameKey || 'name'} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} />
-                    <Area type="monotone" dataKey={dataKey} stroke="hsl(var(--chart-1))" fillOpacity={1} fill="url(#colorRevenue)" />
+                    <Area type="monotone" dataKey={dataKey} stroke="hsl(var(--chart-1))" fillOpacity={1} fill={`url(#color-${dataKey})`} />
                 </AreaChart>
             );
         case 'Funnel':
@@ -228,7 +157,7 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
                         data={data}
                         isAnimationActive
                     >
-                        <LabelList position="right" fill="hsl(var(--foreground))" dataKey={nameKey} />
+                        <LabelList position="right" fill="hsl(var(--foreground))" dataKey={nameKey || 'name'} />
                     </Funnel>
                 </FunnelChart>
             );
@@ -236,10 +165,10 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
              return (
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                     <PolarGrid stroke="hsl(var(--border) / 0.2)" />
-                    <PolarAngleAxis dataKey={nameKey} />
+                    <PolarAngleAxis dataKey={nameKey || 'name'} />
                     <PolarRadiusAxis />
-                    <Radar name="Product A" dataKey="A" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
-                    <Radar name="Product B" dataKey="B" stroke="hsl(var(--chart-2))" fill="hsl(var(--chart-2))" fillOpacity={0.6} />
+                    <Radar name="Product A" dataKey={dataKey} stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
+                    {secondaryDataKey && <Radar name="Product B" dataKey={secondaryDataKey} stroke="hsl(var(--chart-2))" fill="hsl(var(--chart-2))" fillOpacity={0.6} />}
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
                 </RadarChart>
@@ -248,11 +177,23 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
              return (
                 <ScatterChart>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-                    <XAxis type="category" dataKey={nameKey} name={nameKey} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <XAxis type="category" dataKey={nameKey || 'name'} name={nameKey || 'name'} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <YAxis type="number" dataKey={dataKey} name={dataKey} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
                     <Scatter name="Sales Data" data={data} fill="hsl(var(--chart-1))" />
                 </ScatterChart>
+            );
+         case 'Composed':
+            return (
+                <ComposedChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
+                    <XAxis dataKey={nameKey || 'name'} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
+                    <Legend />
+                    <Bar dataKey={dataKey} fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+                    {secondaryDataKey && <Line type="monotone" dataKey={secondaryDataKey} stroke="hsl(var(--chart-1))" strokeWidth={2} />}
+                </ComposedChart>
             );
         default:
              return <p className="text-center text-muted-foreground p-4">Unsupported chart type. Select another from the menu.</p>;
@@ -299,7 +240,7 @@ const ChartCard = ({
                                         <DropdownMenuSubContent>
                                             {chartDisplayOptions.map(option => (
                                                 <DropdownMenuItem 
-                                                    key={option.name} 
+                                                    key={option.type} 
                                                     onClick={() => onChartTypeChange(chartId, option.type)}
                                                 >
                                                     {option.name}
@@ -360,28 +301,43 @@ type ChartTypes = Record<ChartCardId, ChartType>;
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
+  const [activeOption, setActiveOption] = React.useState('option-1');
 
-  const initialDisplayModes: ChartDisplayModes = {
-    revenueTrend: 'chart',
-    salesByRegion: 'chart',
-    monthlySales: 'chart',
-    salesFunnel: 'chart',
-    quarterlyPerformance: 'chart',
-  }
+  const activeData = allDashboardData[activeOption as keyof typeof allDashboardData];
+  const chartIds = Object.keys(activeData.charts) as ChartCardId[];
+
+  const initialDisplayModes = chartIds.reduce((acc, id) => {
+    acc[id] = 'chart';
+    return acc;
+  }, {} as ChartDisplayModes);
   
-  const initialChartTypes: ChartTypes = {
-    revenueTrend: 'Area',
-    salesByRegion: 'Pie',
-    monthlySales: 'Composed',
-    salesFunnel: 'Funnel',
-    quarterlyPerformance: 'Radar',
-  };
+  const initialChartTypes = chartIds.reduce((acc, id) => {
+    acc[id] = allDashboardData[activeOption as keyof typeof allDashboardData].charts[id].defaultChart;
+    return acc;
+  }, {} as ChartTypes);
 
   const [displayModes, setDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
   const [tempDisplayModes, setTempDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
 
   const [chartTypes, setChartTypes] = React.useState<ChartTypes>(initialChartTypes);
   const [tempChartTypes, setTempChartTypes] = React.useState<ChartTypes>(initialChartTypes);
+
+  React.useEffect(() => {
+    const newInitialTypes = chartIds.reduce((acc, id) => {
+        acc[id] = allDashboardData[activeOption as keyof typeof allDashboardData].charts[id].defaultChart;
+        return acc;
+    }, {} as ChartTypes);
+    setChartTypes(newInitialTypes);
+    setTempChartTypes(newInitialTypes);
+
+    const newInitialDisplayModes = chartIds.reduce((acc, id) => {
+        acc[id] = 'chart';
+        return acc;
+    }, {} as ChartDisplayModes);
+    setDisplayModes(newInitialDisplayModes);
+    setTempDisplayModes(newInitialDisplayModes);
+
+  }, [activeOption]);
 
 
   const handleCustomizeClick = () => {
@@ -407,33 +363,14 @@ export default function KpiMetricDashboardPage() {
 
   const renderChart = (chartId: ChartCardId) => {
     const chartType = isCustomizeMode ? tempChartTypes[chartId] : chartTypes[chartId];
-    switch (chartId) {
-        case 'revenueTrend':
-            return getChartComponent(chartType, revenueData, 'revenue', 'date');
-        case 'salesByRegion':
-            return getChartComponent(chartType, regionData, 'value', 'name');
-        case 'monthlySales':
-            if (chartType === 'Composed') {
-                return (
-                    <ComposedChart data={salesData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
-                        <Legend />
-                        <Bar dataKey="sales" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
-                        <Line type="monotone" dataKey="goal" stroke="hsl(var(--chart-1))" strokeWidth={2} />
-                    </ComposedChart>
-                );
-            }
-            return getChartComponent(chartType, salesData, 'sales', 'month');
-        case 'salesFunnel':
-            return getChartComponent(chartType, funnelData, 'value', 'name');
-        case 'quarterlyPerformance':
-            return getChartComponent(chartType, quarterlyPerformanceData, 'A', 'subject');
-        default:
-            return null;
-    }
+    const chartConfig = activeData.charts[chartId];
+    return getChartComponent(
+        chartType, 
+        chartConfig.data, 
+        chartConfig.dataKey, 
+        chartConfig.nameKey, 
+        chartConfig.secondaryDataKey
+    );
   };
 
 
@@ -447,73 +384,34 @@ export default function KpiMetricDashboardPage() {
         </div>
         <div className="text-center mb-8">
             <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-                Sales Performance Dashboard
+                {activeData.title}
             </h1>
         </div>
         <main className="flex-1 overflow-y-auto pt-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {kpiData.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
+                {activeData.kpis.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
             </div>
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-12 lg:col-span-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <ChartCard 
-                            title="Revenue Trend" 
-                            isCustomizeMode={isCustomizeMode}
-                            onDisplayChange={handleDisplayChange}
-                            onChartTypeChange={handleChartTypeChange}
-                            displayMode={isCustomizeMode ? tempDisplayModes.revenueTrend : displayModes.revenueTrend}
-                            numericData={revenueData.map(d => ({label: d.date, value: d.revenue}))}
-                            chartId="revenueTrend"
-                        >
-                            {renderChart('revenueTrend')}
-                       </ChartCard>
-                       <ChartCard 
-                            title="Sales by Region" 
-                            isCustomizeMode={isCustomizeMode}
-                            onDisplayChange={handleDisplayChange}
-                            onChartTypeChange={handleChartTypeChange}
-                            displayMode={isCustomizeMode ? tempDisplayModes.salesByRegion : displayModes.salesByRegion}
-                            numericData={regionData.map(d => ({label: d.name, value: d.value}))}
-                            chartId="salesByRegion"
-                        >
-                            {renderChart('salesByRegion')}
-                        </ChartCard>
-                        <ChartCard 
-                            title="Monthly Sales vs Goal" 
-                            isCustomizeMode={isCustomizeMode}
-                            onDisplayChange={handleDisplayChange}
-                            onChartTypeChange={handleChartTypeChange}
-                            displayMode={isCustomizeMode ? tempDisplayModes.monthlySales : displayModes.monthlySales}
-                            numericData={salesData.map(d => ({label: `${d.month} (Goal: ${d.goal})`, value: d.sales}))}
-                            chartId="monthlySales"
-                        >
-                            {renderChart('monthlySales')}
-                        </ChartCard>
-                        <ChartCard 
-                            title="Sales Conversion Funnel" 
-                            isCustomizeMode={isCustomizeMode}
-                            onDisplayChange={handleDisplayChange}
-                            onChartTypeChange={handleChartTypeChange}
-                            displayMode={isCustomizeMode ? tempDisplayModes.salesFunnel : displayModes.salesFunnel}
-                            numericData={funnelData.map(d => ({label: d.name, value: d.value}))}
-                            chartId="salesFunnel"
-                        >
-                             {renderChart('salesFunnel')}
-                        </ChartCard>
-                         <div className="md:col-span-2">
-                             <ChartCard 
-                                title="Quarterly Performance" 
-                                isCustomizeMode={isCustomizeMode}
-                                onDisplayChange={handleDisplayChange}
-                                onChartTypeChange={handleChartTypeChange}
-                                displayMode={isCustomizeMode ? tempDisplayModes.quarterlyPerformance : displayModes.quarterlyPerformance}
-                                numericData={quarterlyPerformanceData.flatMap(d => ([{label: `${d.subject} - Prod A`, value: d.A}, {label: `${d.subject} - Prod B`, value: d.B}]))}
-                                chartId="quarterlyPerformance"
-                            >
-                                {renderChart('quarterlyPerformance')}
-                            </ChartCard>
-                        </div>
+                         {chartIds.map(chartId => {
+                            const chartConfig = activeData.charts[chartId];
+                            return (
+                                <div key={chartId} className={cn(chartConfig.colSpan === 2 ? 'md:col-span-2' : '')}>
+                                    <ChartCard 
+                                        title={chartConfig.title}
+                                        isCustomizeMode={isCustomizeMode}
+                                        onDisplayChange={handleDisplayChange}
+                                        onChartTypeChange={handleChartTypeChange}
+                                        displayMode={isCustomizeMode ? tempDisplayModes[chartId] : displayModes[chartId]}
+                                        numericData={chartConfig.data.map(d => ({label: d[chartConfig.nameKey], value: d[chartConfig.dataKey]}))}
+                                        chartId={chartId}
+                                    >
+                                        {renderChart(chartId)}
+                                </ChartCard>
+                                </div>
+                            )
+                         })}
                     </div>
                 </div>
                 <div className="col-span-12 lg:col-span-4">
@@ -523,10 +421,13 @@ export default function KpiMetricDashboardPage() {
                       </CardHeader>
                       <CardContent className="p-4">
                           <div className="space-y-3">
-                              {Array.from({ length: 20 }, (_, i) => (
-                                  <div key={i + 1} className="block group cursor-pointer">
-                                    <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
-                                        <span className="font-medium group-hover:text-accent-foreground">Option {i + 1}</span>
+                              {Object.keys(allDashboardData).map((optionKey, i) => (
+                                  <div key={optionKey} className="block group cursor-pointer" onClick={() => setActiveOption(optionKey)}>
+                                    <div className={cn(
+                                        "flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors",
+                                        activeOption === optionKey && "bg-accent border-primary"
+                                    )}>
+                                        <span className="font-medium group-hover:text-accent-foreground">{`Option ${i + 1}`}</span>
                                     </div>
                                   </div>
                               ))}
@@ -553,3 +454,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
