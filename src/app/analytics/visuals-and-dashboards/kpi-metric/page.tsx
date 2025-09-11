@@ -27,6 +27,10 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu"
 import {
   ResponsiveContainer,
@@ -182,7 +186,23 @@ const ChartCard = ({
                         {displayMode === 'chart' ? (
                             <>
                                 <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'numeric')}>Change to numerics</DropdownMenuItem>
-                                <DropdownMenuItem>Change graph style</DropdownMenuItem>
+                                <DropdownMenuSub>
+                                    <DropdownMenuSubTrigger>Change graph style</DropdownMenuSubTrigger>
+                                    <DropdownMenuPortal>
+                                        <DropdownMenuSubContent>
+                                            <DropdownMenuItem>Pie Chart</DropdownMenuItem>
+                                            <DropdownMenuItem>Bar Graph</DropdownMenuItem>
+                                            <DropdownMenuItem>Line Graph</DropdownMenuItem>
+                                            <DropdownMenuItem>Area Chart</DropdownMenuItem>
+                                            <DropdownMenuItem>Funnel Chart</DropdownMenuItem>
+                                            <DropdownMenuItem>Radar Chart</DropdownMenuItem>
+                                            <DropdownMenuItem>Scatter Plot</DropdownMenuItem>
+                                            <DropdownMenuItem>Bubble Chart</DropdownMenuItem>
+                                            <DropdownMenuItem>Heatmap</DropdownMenuItem>
+                                            <DropdownMenuItem>Waterfall Chart</DropdownMenuItem>
+                                        </DropdownMenuSubContent>
+                                    </DropdownMenuPortal>
+                                </DropdownMenuSub>
                             </>
                         ) : (
                             <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'chart')}>Change to Graphical representation</DropdownMenuItem>
@@ -262,31 +282,31 @@ export default function KpiMetricDashboardPage() {
   return (
     <div className="flex flex-1">
       <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-4">
-            <Button
-              onClick={() => router.back()}
-              variant="outline"
-            >
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              Back
-            </Button>
-            <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button size="lg">
-              <Download className="mr-2 h-4 w-4" />
-              Download
-            </Button>
-            <Button size="lg" variant="secondary">
-              <Video className="mr-2 h-4 w-4" />
-              Generate Video
-            </Button>
-            <Button size="lg" variant="secondary" onClick={handleCustomizeClick}>
-              <Wrench className="mr-2 h-4 w-4" />
-              {isCustomizeMode ? "Apply" : "Customize"}
-            </Button>
-          </div>
+        <div className="flex items-start justify-between">
+            <div className="space-y-4">
+                <Button
+                    onClick={() => router.back()}
+                    variant="outline"
+                >
+                    <ChevronLeft className="mr-2 h-4 w-4" />
+                    Back
+                </Button>
+                <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
+            </div>
+            <div className="flex items-center gap-4">
+                <Button>
+                <Download className="mr-2 h-4 w-4" />
+                Download
+                </Button>
+                <Button variant="secondary">
+                <Video className="mr-2 h-4 w-4" />
+                Generate Video
+                </Button>
+                <Button variant="secondary" onClick={handleCustomizeClick}>
+                <Wrench className="mr-2 h-4 w-4" />
+                {isCustomizeMode ? "Apply" : "Customize"}
+                </Button>
+            </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -410,8 +430,8 @@ export default function KpiMetricDashboardPage() {
             </div>
         </div>
       </main>
-      <aside className="w-64 py-6 bg-transparent border-l border-border/20 overflow-y-auto hidden lg:block">
-           <Card className="bg-card/60 backdrop-blur-sm shadow-none border-none">
+      <aside className="w-64 py-6 pr-4 pl-0 bg-transparent border-l border-border/20 overflow-y-auto hidden lg:block">
+           <Card className="bg-transparent shadow-none border-none">
               <CardHeader>
                   <CardTitle className="text-lg text-primary text-center">OPTIONS</CardTitle>
               </CardHeader>
