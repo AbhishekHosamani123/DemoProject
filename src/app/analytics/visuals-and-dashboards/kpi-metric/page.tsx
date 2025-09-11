@@ -71,8 +71,8 @@ const defaultKpiData = [
 ];
 
 const chartComponents: Record<string, React.FC<any>> = {
-  bar: (props) => (
-    <BarChart {...props}>
+  bar: ({ data }) => (
+    <BarChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
@@ -81,8 +81,8 @@ const chartComponents: Record<string, React.FC<any>> = {
       <Bar dataKey="value" fill="hsl(var(--primary))" />
     </BarChart>
   ),
-  line: (props) => (
-    <LineChart {...props}>
+  line: ({ data }) => (
+    <LineChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
@@ -92,7 +92,7 @@ const chartComponents: Record<string, React.FC<any>> = {
       <Line type="monotone" dataKey="profit" stroke="hsl(var(--chart-2))" strokeWidth={2} />
     </LineChart>
   ),
-  pie: ({data}) => {
+  pie: ({ data }) => {
     const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
     return (
       <PieChart>
@@ -106,8 +106,8 @@ const chartComponents: Record<string, React.FC<any>> = {
       </PieChart>
     )
   },
-  area: (props) => (
-    <AreaChart {...props}>
+  area: ({ data }) => (
+    <AreaChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
@@ -121,7 +121,7 @@ const chartComponents: Record<string, React.FC<any>> = {
       <Table>
           <TableHeader>
               <TableRow>
-                  {Object.keys(data[0] || {}).map(key => <TableHead key={key}>{key}</TableHead>)}
+                  {Object.keys(data[0] || {}).map(key => <TableHead key={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</TableHead>)}
               </TableRow>
           </TableHeader>
           <TableBody>
@@ -135,6 +135,7 @@ const chartComponents: Record<string, React.FC<any>> = {
     </ScrollArea>
   )
 };
+
 
 const dashboardData: Record<string, any> = {
     'suggestion-1': {
@@ -278,7 +279,7 @@ for (let i = 3; i <= 20; i++) {
             const { icon, ...rest } = kpi;
             return {
                 ...rest,
-                icon: React.cloneElement(icon, { className: "h-4 w-4 text-muted-foreground" }),
+                icon: React.cloneElement(icon as React.ReactElement, { className: "h-4 w-4 text-muted-foreground" }),
             };
         }),
         charts: topic.charts.map((c:any) => ({...c})),
@@ -346,8 +347,7 @@ export default function KpiMetricDashboardPage() {
                     {currentDashboard.charts.map((chart:any, index: number) => {
                         const ChartComponent = chartComponents[chart.type] || (() => <div>Unsupported chart type</div>);
                         const chartData = currentDashboard.data[chart.dataKey];
-                        const isTable = chart.type === 'table';
-                        const heightClass = isTable ? "h-[300px]" : `h-[${chart.height}px]`;
+                        const heightClass = `h-[${chart.height}px]`;
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
                             <CardHeader>
@@ -402,3 +402,4 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
