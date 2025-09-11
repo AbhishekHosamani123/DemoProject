@@ -416,16 +416,13 @@ export default function KpiMetricDashboardPage() {
                   <CardTitle className="text-lg text-primary text-center">OPTIONS</CardTitle>
               </CardHeader>
               <CardContent className="p-2">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                       {Array.from({ length: 20 }, (_, i) => (
-                           <Card
-                              key={i + 1}
-                              className="bg-background/80 border border-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer group"
-                          >
-                              <CardContent className="p-3">
-                                  <span className="font-medium text-foreground group-hover:text-accent-foreground">Option {i + 1}</span>
-                              </CardContent>
-                          </Card>
+                          <div key={i + 1} className="block group cursor-pointer">
+                            <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
+                                <span className="font-medium group-hover:text-accent-foreground">Option {i + 1}</span>
+                            </div>
+                          </div>
                       ))}
                   </div>
               </CardContent>
@@ -434,3 +431,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
