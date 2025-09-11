@@ -1,5 +1,5 @@
 
-import { DollarSign, TrendingUp, Users, Target, TrendingDown, Package, Activity, BarChart } from "lucide-react";
+import { DollarSign, TrendingUp, Users, Target, TrendingDown, Package, Activity, BarChart, type LucideIcon } from "lucide-react";
 
 type ChartType = 'Area' | 'Pie' | 'Bar' | 'Line' | 'Composed' | 'Funnel' | 'Radar' | 'Scatter';
 
@@ -7,7 +7,7 @@ export interface Kpi {
     title: string;
     value: string;
     change: string;
-    icon: React.ReactNode;
+    icon: LucideIcon;
 }
 
 export interface ChartConfig {
@@ -44,10 +44,10 @@ const generateRandomData = (numPoints: number, keys: string[], valueRanges: [num
 const option1Data: KpiDashboardData = {
     title: "Sales Performance Dashboard",
     kpis: [
-        { title: "Total Revenue", value: "₹45.2Cr", change: "+12.1% vs last period", icon: <DollarSign className="h-5 w-5 text-primary" /> },
-        { title: "Profit Margin", value: "24.5%", change: "+2.3% vs last period", icon: <TrendingUp className="h-5 w-5 text-primary" /> },
-        { title: "New Customers", value: "1,254", change: "+8.5% vs last period", icon: <Users className="h-5 w-5 text-primary" /> },
-        { title: "Conversion Rate", value: "3.2%", change: "+0.5% vs last period", icon: <Target className="h-5 w-5 text-primary" /> },
+        { title: "Total Revenue", value: "₹45.2Cr", change: "+12.1% vs last period", icon: DollarSign },
+        { title: "Profit Margin", value: "24.5%", change: "+2.3% vs last period", icon: TrendingUp },
+        { title: "New Customers", value: "1,254", change: "+8.5% vs last period", icon: Users },
+        { title: "Conversion Rate", value: "3.2%", change: "+0.5% vs last period", icon: Target },
     ],
     charts: {
         revenueTrend: {
@@ -110,10 +110,10 @@ const option1Data: KpiDashboardData = {
 const option2Data: KpiDashboardData = {
     title: "Marketing Campaign Analysis",
     kpis: [
-        { title: "Total Spend", value: "₹5.1Cr", change: "+5% vs last campaign", icon: <DollarSign className="h-5 w-5 text-primary" /> },
-        { title: "Cost Per Acquisition", value: "₹12,500", change: "-8% vs last campaign", icon: <TrendingDown className="h-5 w-5 text-primary" /> },
-        { title: "Total Leads", value: "4,080", change: "+15% vs last campaign", icon: <Users className="h-5 w-5 text-primary" /> },
-        { title: "Lead Conversion", value: "18%", change: "+2% vs last campaign", icon: <Activity className="h-5 w-5 text-primary" /> },
+        { title: "Total Spend", value: "₹5.1Cr", change: "+5% vs last campaign", icon: DollarSign },
+        { title: "Cost Per Acquisition", value: "₹12,500", change: "-8% vs last campaign", icon: TrendingDown },
+        { title: "Total Leads", value: "4,080", change: "+15% vs last campaign", icon: Users },
+        { title: "Lead Conversion", value: "18%", change: "+2% vs last campaign", icon: Activity },
     ],
     charts: {
         spendVsLeads: {
@@ -151,10 +151,10 @@ const option2Data: KpiDashboardData = {
 const option3Data: KpiDashboardData = {
     title: "Inventory Management Overview",
     kpis: [
-        { title: "Items in Stock", value: "1.2M", change: "-2% vs last week", icon: <Package className="h-5 w-5 text-primary" /> },
-        { title: "Stock Turn Rate", value: "4.8", change: "+0.2 vs last month", icon: <TrendingUp className="h-5 w-5 text-primary" /> },
-        { title: "Out of Stock Items", value: "89", change: "+10 vs last week", icon: <TrendingDown className="h-5 w-5 text-primary" /> },
-        { title: "Inventory Value", value: "₹8.2Cr", change: "-1.5% vs last month", icon: <BarChart className="h-5 w-5 text-primary" /> },
+        { title: "Items in Stock", value: "1.2M", change: "-2% vs last week", icon: Package },
+        { title: "Stock Turn Rate", value: "4.8", change: "+0.2 vs last month", icon: TrendingUp },
+        { title: "Out of Stock Items", value: "89", change: "+10 vs last week", icon: TrendingDown },
+        { title: "Inventory Value", value: "₹8.2Cr", change: "-1.5% vs last month", icon: BarChart },
     ],
     charts: {
         stockLevels: {
@@ -217,13 +217,11 @@ for (let i = 4; i <= 20; i++) {
     allDashboardData[`option-${i}`] = {
         title: `Dashboard View ${i}`,
         kpis: [
-            { title: `KPI ${i}-1`, value: `₹${(Math.random() * 100).toFixed(1)}Cr`, change: `+${(Math.random() * 10).toFixed(1)}%`, icon: <TrendingUp className="h-5 w-5 text-primary" /> },
-            { title: `KPI ${i}-2`, value: `${(Math.random() * 50).toFixed(1)}%`, change: `-${(Math.random() * 5).toFixed(1)}%`, icon: <TrendingDown className="h-5 w-5 text-primary" /> },
-            { title: `KPI ${i}-3`, value: `${Math.floor(Math.random() * 5000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, icon: <Users className="h-5 w-5 text-primary" /> },
-            { title: `KPI ${i}-4`, value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, icon: <Activity className="h-5 w-5 text-primary" /> },
+            { title: `KPI ${i}-1`, value: `₹${(Math.random() * 100).toFixed(1)}Cr`, change: `+${(Math.random() * 10).toFixed(1)}%`, icon: TrendingUp },
+            { title: `KPI ${i}-2`, value: `${(Math.random() * 50).toFixed(1)}%`, change: `-${(Math.random() * 5).toFixed(1)}%`, icon: TrendingDown },
+            { title: `KPI ${i}-3`, value: `${Math.floor(Math.random() * 5000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, icon: Users },
+            { title: `KPI ${i}-4`, value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, icon: Activity },
         ],
         charts
     };
 }
-
-    

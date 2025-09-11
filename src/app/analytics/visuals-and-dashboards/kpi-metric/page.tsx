@@ -56,6 +56,7 @@ import {
 } from "recharts";
 import { allDashboardData, type KpiDashboardData } from "@/lib/content/kpi-dashboard-data";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const PIE_COLORS = [
     "hsl(var(--chart-1))",
@@ -279,11 +280,11 @@ const ChartCard = ({
     );
 }
 
-const KpiCard = ({ title, value, change, icon }: { title: string, value: string, change: string, icon: React.ReactNode }) => (
+const KpiCard = ({ title, value, change, icon: Icon }: { title: string, value: string, change: string, icon: React.ElementType }) => (
   <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg shadow-black/20 p-4">
     <CardHeader className="flex flex-row items-center justify-between p-0 pb-2">
       <CardTitle className="text-sm font-medium text-primary">{title}</CardTitle>
-      {icon}
+      <Icon className="h-5 w-5 text-primary" />
     </CardHeader>
     <CardContent className="p-0">
       <div className="text-3xl font-bold text-foreground">{value}</div>
@@ -311,22 +312,22 @@ export default function KpiMetricDashboardPage() {
     return acc;
   }, {} as ChartDisplayModes);
   
-  const initialChartTypes = chartIds.reduce((acc, id) => {
-    acc[id] = allDashboardData[activeOption as keyof typeof allDashboardData].charts[id].defaultChart;
-    return acc;
-  }, {} as ChartTypes);
+  const getInitialChartTypes = React.useCallback(() => {
+    return chartIds.reduce((acc, id) => {
+        acc[id] = allDashboardData[activeOption as keyof typeof allDashboardData].charts[id].defaultChart;
+        return acc;
+    }, {} as ChartTypes);
+  }, [chartIds, activeOption]);
+
 
   const [displayModes, setDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
   const [tempDisplayModes, setTempDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
 
-  const [chartTypes, setChartTypes] = React.useState<ChartTypes>(initialChartTypes);
-  const [tempChartTypes, setTempChartTypes] = React.useState<ChartTypes>(initialChartTypes);
+  const [chartTypes, setChartTypes] = React.useState<ChartTypes>(getInitialChartTypes());
+  const [tempChartTypes, setTempChartTypes] = React.useState<ChartTypes>(getInitialChartTypes());
 
   React.useEffect(() => {
-    const newInitialTypes = chartIds.reduce((acc, id) => {
-        acc[id] = allDashboardData[activeOption as keyof typeof allDashboardData].charts[id].defaultChart;
-        return acc;
-    }, {} as ChartTypes);
+    const newInitialTypes = getInitialChartTypes();
     setChartTypes(newInitialTypes);
     setTempChartTypes(newInitialTypes);
 
@@ -337,7 +338,7 @@ export default function KpiMetricDashboardPage() {
     setDisplayModes(newInitialDisplayModes);
     setTempDisplayModes(newInitialDisplayModes);
 
-  }, [activeOption]);
+  }, [activeOption, chartIds, getInitialChartTypes]);
 
 
   const handleCustomizeClick = () => {
@@ -423,12 +424,16 @@ export default function KpiMetricDashboardPage() {
                           <div className="space-y-3">
                               {Object.keys(allDashboardData).map((optionKey, i) => (
                                   <div key={optionKey} className="block group cursor-pointer" onClick={() => setActiveOption(optionKey)}>
-                                    <div className={cn(
-                                        "flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors",
-                                        activeOption === optionKey && "bg-accent border-primary"
-                                    )}>
-                                        <span className="font-medium group-hover:text-accent-foreground">{`Option ${i + 1}`}</span>
-                                    </div>
+                                     <Card className={cn(
+                                          "group bg-card/60 backdrop-blur-sm p-3 text-center border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1",
+                                          activeOption === optionKey && "bg-accent border-primary"
+                                      )}>
+                                          <CardContent className="flex flex-col items-center justify-center p-0">
+                                              <p className="mt-2 text-lg font-semibold text-foreground group-hover:text-accent-foreground">
+                                                  {`Option ${i + 1}`}
+                                              </p>
+                                          </CardContent>
+                                      </Card>
                                   </div>
                               ))}
                           </div>
@@ -454,5 +459,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
