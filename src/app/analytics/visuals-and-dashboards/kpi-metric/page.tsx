@@ -179,8 +179,14 @@ const ChartCard = ({
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'numeric')}>Change to numerics</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'chart')}>Change graph style</DropdownMenuItem>
+                        {displayMode === 'chart' ? (
+                            <>
+                                <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'numeric')}>Change to numerics</DropdownMenuItem>
+                                <DropdownMenuItem>Change graph style</DropdownMenuItem>
+                            </>
+                        ) : (
+                            <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'chart')}>Change to Graphical representation</DropdownMenuItem>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}
