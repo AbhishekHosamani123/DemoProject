@@ -104,14 +104,14 @@ const TableComponent = ({ data }: { data: any[] }) => {
 
 
 const chartComponents: Record<string, React.FC<any>> = {
-  bar: ({ data }) => (
+  bar: ({ data, dataKey, nameKey }) => (
     <BarChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey={nameKey} />
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="value" fill="hsl(var(--primary))" />
+      <Bar dataKey={dataKey} fill="hsl(var(--primary))" />
     </BarChart>
   ),
   line: ({ data }) => (
@@ -168,9 +168,11 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
-                originalType: 'table',
+                originalType: 'bar',
                 title: 'Business Overview',
                 dataKey: 'businessOverviewData',
+                nameKey: 'Metric',
+                valueKey: 'Value',
                 colSpan: 'lg:col-span-1',
                 height: 250,
             },
@@ -179,6 +181,8 @@ const dashboardData: Record<string, any> = {
                 originalType: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
+                nameKey: 'name',
+                valueKey: 'value',
                 height: 150,
                 colSpan: 'lg:col-span-2',
             },
@@ -202,7 +206,7 @@ const dashboardData: Record<string, any> = {
                 { name: 'Product A', value: 400 }, { name: 'Product B', value: 300 }, { name: 'Product C', value: 300 }, { name: 'Product D', value: 200 },
             ],
             businessOverviewData: [
-                { "Metric": "Total Sales", "Value": "12,000,000" }, { "Metric": "Avg. Sale", "Value": "8,540" }, { "Metric": "Total Orders", "Value": "1,405" }, { "Metric": "Returning Customers", "Value": "45%" },
+                { "Metric": "Total Sales", "Value": "12000000" }, { "Metric": "Avg. Sale", "Value": "8540" }, { "Metric": "Total Orders", "Value": "1405" }, { "Metric": "Returning Customers", "Value": "45" },
             ],
         }
     },
@@ -222,6 +226,8 @@ const dashboardData: Record<string, any> = {
                 originalType: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
+                nameKey: 'name',
+                valueKey: 'value',
                 height: 250,
                 colSpan: 'lg:col-span-2',
             },
@@ -298,9 +304,9 @@ for (let i = 3; i <= 20; i++) {
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
         title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
-        kpis: topic.kpis,
+        kpis: topic.kpis.map(kpi => ({...kpi})), // Deep copy
         charts: topic.charts.map(c => ({ ...c, type: 'table' })), // Default all to table
-        data: topic.data,
+        data: JSON.parse(JSON.stringify(topic.data)), // Deep copy
     };
 }
 
@@ -317,7 +323,8 @@ export default function KpiMetricDashboardPage() {
   const [dynamicDashboard, setDynamicDashboard] = useState(dashboardData[selectedOption]);
 
   useEffect(() => {
-    setDynamicDashboard(dashboardData[selectedOption]);
+    // Deep copy to prevent state mutation issues
+    setDynamicDashboard(JSON.parse(JSON.stringify(dashboardData[selectedOption])));
   }, [selectedOption]);
 
   const handleConvertToGraph = (chartIndex: number) => {
@@ -378,13 +385,24 @@ export default function KpiMetricDashboardPage() {
                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
                     {currentDashboard.charts.map((chart:any, index: number) => {
                         const ChartComponent = chartComponents[chart.type] || (() => <div>Unsupported chart type</div>);
-                        const chartData = currentDashboard.data[chart.dataKey];
+                        
+                        let chartData = currentDashboard.data[chart.dataKey];
+                        
+                        // Transform data for bar chart if needed
+                        if (chart.type === 'bar' && chart.valueKey) {
+                            chartData = chartData.map((item: any) => ({
+                                ...item,
+                                [chart.valueKey]: parseFloat(item[chart.valueKey]) || 0
+                            }));
+                        }
+
                         const heightClass = `h-[${chart.height}px]`;
+                        
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
                             <CardHeader className="flex flex-row justify-between items-center">
                                 <CardTitle>{chart.title}</CardTitle>
-                                {isCustomizeMode && (
+                                {isCustomizeMode && chart.type === 'table' && (
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Button variant="ghost" size="icon" className="h-6 w-6">
@@ -401,7 +419,7 @@ export default function KpiMetricDashboardPage() {
                             </CardHeader>
                             <CardContent className={heightClass}>
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <ChartComponent data={chartData} />
+                                     <ChartComponent data={chartData} dataKey={chart.valueKey} nameKey={chart.nameKey} />
                                 </ResponsiveContainer>
                             </CardContent>
                         </Card>
@@ -428,19 +446,21 @@ export default function KpiMetricDashboardPage() {
             <div className="space-y-4">
                 <Card className="bg-card/60 backdrop-blur-sm">
                     <CardContent className="p-4">
-                        <div className="space-y-3">
-                        {suggestions.map((suggestion) => (
-                            <div key={suggestion.id} className="group">
-                                <button
-                                    onClick={() => setSelectedOption(suggestion.id)}
-                                    className={`w-full text-left flex items-center justify-between p-3 rounded-lg bg-background/80 border transition-colors cursor-pointer ${selectedOption === suggestion.id ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
-                                >
-                                    <span className="font-medium">{suggestion.text}</span>
-                                    <span className={`font-bold bg-primary/10 px-2 py-1 rounded-md ${selectedOption === suggestion.id ? 'text-primary-foreground bg-primary' : 'text-primary group-hover:text-primary-foreground group-hover:bg-primary'}`}>{suggestion.percentage}%</span>
-                                </button>
+                         <ScrollArea className="h-[calc(100vh-200px)]">
+                            <div className="space-y-3">
+                            {suggestions.map((suggestion) => (
+                                <div key={suggestion.id} className="group">
+                                    <button
+                                        onClick={() => setSelectedOption(suggestion.id)}
+                                        className={`w-full text-left flex items-center justify-between p-3 rounded-lg bg-background/80 border transition-colors cursor-pointer ${selectedOption === suggestion.id ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
+                                    >
+                                        <span className="font-medium">{suggestion.text}</span>
+                                        <span className={`font-bold bg-primary/10 px-2 py-1 rounded-md ${selectedOption === suggestion.id ? 'text-primary-foreground bg-primary' : 'text-primary group-hover:text-primary-foreground group-hover:bg-primary'}`}>{suggestion.percentage}%</span>
+                                    </button>
+                                </div>
+                            ))}
                             </div>
-                        ))}
-                        </div>
+                        </ScrollArea>
                     </CardContent>
                 </Card>
             </div>
