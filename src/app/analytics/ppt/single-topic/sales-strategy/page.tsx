@@ -1,6 +1,7 @@
 
 "use client";
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,14 +16,36 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Download, Video, ChevronLeft } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Download, Video, ChevronLeft, Wrench } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { generatedText, parsePresentationText } from "@/lib/content/sales-strategy-presentation";
+import { useToast } from "@/hooks/use-toast";
+
 
 export default function SalesStrategyPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const slides = parsePresentationText(generatedText);
+  const [isCustomizeOpen, setIsCustomizeOpen] = React.useState(false);
+
+  const handleCustomize = () => {
+    toast({
+      title: "Customization Applied",
+      description: "Your presentation settings have been updated.",
+    });
+    setIsCustomizeOpen(false);
+  }
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -45,6 +68,51 @@ export default function SalesStrategyPage() {
       </div>
 
       <div className="w-full max-w-4xl space-y-8 mx-auto">
+        <div className="flex justify-end">
+            <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
+              <DialogTrigger asChild>
+                <Button size="icon" variant="primary" className="rounded-full w-12 h-12">
+                  <Wrench className="h-6 w-6" />
+                  <span className="sr-only">Customize</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
+                <DialogHeader>
+                  <DialogTitle>Customize Slides</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="num-slides" className="text-right">
+                      No. of Slides
+                    </Label>
+                    <Input
+                      id="num-slides"
+                      type="number"
+                      defaultValue={slides.length}
+                      className="col-span-3"
+                      min="1"
+                    />
+                  </div>
+                   <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="tone" className="text-right">
+                      Tone
+                    </Label>
+                    <Input
+                      id="tone"
+                      defaultValue="Professional"
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" onClick={handleCustomize}>
+                    Apply
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+        </div>
+
         <Carousel className="w-full">
           <CarouselContent>
             {slides.map((slide, index) => (
