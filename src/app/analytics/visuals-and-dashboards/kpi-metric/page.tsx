@@ -292,10 +292,13 @@ for (let i = 3; i <= 20; i++) {
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
         title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
-        kpis: topic.kpis.map(kpi => ({
-            ...kpi,
-            icon: React.cloneElement(kpi.icon, { className: "h-4 w-4 text-muted-foreground" }),
-        })),
+        kpis: topic.kpis.map(kpi => {
+            const { icon, ...rest } = kpi;
+            return {
+                ...rest,
+                icon: React.cloneElement(icon, { className: "h-4 w-4 text-muted-foreground" }),
+            };
+        }),
         charts: dashboardData['suggestion-2'].charts.map((c:any) => ({...c})),
         data: dashboardData['suggestion-2'].data,
     };
@@ -483,7 +486,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
 
     
