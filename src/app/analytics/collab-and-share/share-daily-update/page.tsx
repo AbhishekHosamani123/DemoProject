@@ -26,6 +26,31 @@ const latestUpdates = [
       id: 'gst-update',
       title: "GST Council Recommends New E-Invoicing Threshold",
       summary: "The GST Council has recommended lowering the e-invoicing threshold to ₹5 crore from the current ₹10 crore, effective from the next financial year. This move aims to curb tax evasion and broaden the tax base. Businesses within this turnover bracket should begin preparing their ERP systems for compliance."
+    },
+    {
+      id: 'fdi-ecommerce',
+      title: "Updated FEMA Guidelines on E-commerce FDI",
+      summary: "The Foreign Exchange Management Act (FEMA) guidelines for foreign direct investment in the e-commerce sector have been updated. The new rules clarify inventory-based models and marketplace regulations, impacting how foreign-invested e-commerce platforms operate in India."
+    },
+    {
+      id: 'it-outsourcing-rbi',
+      title: "RBI Master Direction on IT Outsourcing",
+      summary: "The Reserve Bank of India has issued a Master Direction on IT Outsourcing for regulated entities, effective October 1, 2023. This directive establishes a comprehensive framework for managing risks associated with outsourcing IT services, requiring stricter due diligence and continuous monitoring of third-party vendors."
+    },
+    {
+      id: 'faceless-assessment',
+      title: "Faceless Assessment Scheme for Tax Audits",
+      summary: "The government has rolled out the Faceless Assessment Scheme for all income tax audits. This initiative aims to increase transparency and reduce physical interaction between taxpayers and tax authorities, with all communication now happening electronically."
+    },
+    {
+      id: 'plastic-waste-rules',
+      title: "Plastic Waste Management (Amendment) Rules, 2023",
+      summary: "The Central Government has amended the Plastic Waste Management Rules, banning specific single-use plastic items to curb pollution. The amendment specifies a list of prohibited items and outlines extended producer responsibility (EPR) targets for plastic packaging."
+    },
+    {
+      id: 'new-labour-codes',
+      title: "New Codes on Wages and Social Security",
+      summary: "The Ministry of Labour & Employment is implementing new codes on wages and social security. These codes will require a comprehensive review of salary structures, including changes to the definition of 'wages', which will impact provident fund contributions and gratuity calculations."
     }
 ];
 
