@@ -21,7 +21,6 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
-  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -44,16 +43,9 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 
 const kpiIcons: Record<string, React.ReactNode> = {
@@ -227,93 +219,18 @@ const renderChart = (chart: any) => {
   )
 };
 
-const NumericalDataView = ({ data }: { data: any[] }) => {
-    if (!data || data.length === 0) return null;
-    const headers = Object.keys(data[0]);
-    return (
-        <ScrollArea className="h-full">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        {headers.map(header => <TableHead key={header}>{header}</TableHead>)}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.map((row, index) => (
-                        <TableRow key={index}>
-                            {headers.map(header => <TableCell key={header}>{row[header]}</TableCell>)}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </ScrollArea>
-    );
-};
-
-const ChartCard = ({chart, showMenu, onConvertToNumerical, onConvertToChart, isNumerical}: {
-    chart: any, 
-    showMenu: boolean, 
-    onConvertToNumerical: () => void, 
-    onConvertToChart: () => void,
-    isNumerical: boolean
-}) => {
-    return (
-    <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle>{chart.title}</CardTitle>
-            {showMenu && (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {isNumerical ? (
-                            <DropdownMenuItem onClick={onConvertToChart}>Change to graphical representation</DropdownMenuItem>
-                        ) : (
-                            <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
-                        )}
-                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )}
-        </CardHeader>
-        <CardContent className="h-[calc(100%-3rem)] p-4 pt-2">
-            {isNumerical ? <NumericalDataView data={chart.data} /> : renderChart(chart)}
-        </CardContent>
-    </Card>
-)}
-
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const [loading, setLoading] = React.useState(true);
-  const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
-  const [chartDisplayModes, setChartDisplayModes] = React.useState<Record<string, 'chart' | 'numerical'>>({});
-
 
   React.useEffect(() => {
     const data = generateDashboardData();
     setDashboardData(data);
     setLoading(false);
   }, []);
-
-  const handleConvertToNumerical = (chartTitle: string) => {
-    setChartDisplayModes(prev => ({
-        ...prev,
-        [chartTitle]: 'numerical'
-    }));
-  }
-
-  const handleConvertToChart = (chartTitle: string) => {
-    setChartDisplayModes(prev => ({
-        ...prev,
-        [chartTitle]: 'chart'
-    }));
-  }
 
   if (loading || !dashboardData) {
     return (
@@ -418,37 +335,34 @@ export default function KpiMetricDashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-3">
-                <ChartCard
-                    chart={mainChart}
-                    showMenu={isCustomizeMode}
-                    onConvertToNumerical={() => handleConvertToNumerical(mainChart.title)}
-                    onConvertToChart={() => handleConvertToChart(mainChart.title)}
-                    isNumerical={chartDisplayModes[mainChart.title] === 'numerical'}
-                />
-            </div>
+            <Card className="bg-card/60 backdrop-blur-sm lg:col-span-3 h-[250px]">
+                <CardHeader>
+                    <CardTitle>{mainChart.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
+                    {renderChart(mainChart)}
+                </CardContent>
+            </Card>
             {smallCharts.map((chart: any, index: number) => (
-                <div key={index} className="lg:col-span-1">
-                    <ChartCard
-                        chart={chart}
-                        showMenu={isCustomizeMode}
-                        onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
-                        onConvertToChart={() => handleConvertToChart(chart.title)}
-                        isNumerical={chartDisplayModes[chart.title] === 'numerical'}
-                    />
-                </div>
+                <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
+                    <CardHeader>
+                        <CardTitle>{chart.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
+                        {renderChart(chart)}
+                    </CardContent>
+                </Card>
             ))}
             <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {bottomCharts.map((chart:any, index: number) => (
-                     <div key={index} className="lg:col-span-1">
-                        <ChartCard
-                            chart={chart}
-                            showMenu={isCustomizeMode}
-                            onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
-                            onConvertToChart={() => handleConvertToChart(chart.title)}
-                            isNumerical={chartDisplayModes[chart.title] === 'numerical'}
-                        />
-                    </div>
+                     <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
+                        <CardHeader>
+                            <CardTitle>{chart.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
+                            {renderChart(chart)}
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
         </div>
@@ -462,16 +376,12 @@ export default function KpiMetricDashboardPage() {
             <Video className="mr-2" />
             Generate Video
           </Button>
-          <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => {
-            setIsCustomizeMode(!isCustomizeMode);
-          }}>
+          <Button size="lg" variant="secondary">
             <Wrench className="mr-2" />
-            {isCustomizeMode ? "Done" : "Customize"}
+            Customize
           </Button>
         </div>
       </main>
     </div>
   );
 }
-
-    
