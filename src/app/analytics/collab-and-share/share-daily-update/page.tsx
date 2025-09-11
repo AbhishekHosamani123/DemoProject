@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft, BellRing } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { ChevronLeft, BellRing, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -97,12 +97,18 @@ export default function ShareDailyUpdatePage() {
                         </div>
                     </div>
                 </CardContent>
+                 <CardFooter className="justify-center pt-8 p-0">
+                    <div className="flex gap-4 w-full max-w-sm">
+                        <Button type="submit" size="lg" className="flex-1">
+                            SEND NOTIFICATION
+                        </Button>
+                        <Button type="button" size="lg" variant="secondary" className="flex-1">
+                            <Video className="mr-2 h-5 w-5" />
+                            Generate Video
+                        </Button>
+                    </div>
+                </CardFooter>
             </Card>
-             <div className="mt-8 flex justify-center">
-                <Button type="submit" size="lg" className="w-full max-w-xs">
-                    SEND NOTIFICATION
-                </Button>
-            </div>
         </form>
       </div>
     </div>
