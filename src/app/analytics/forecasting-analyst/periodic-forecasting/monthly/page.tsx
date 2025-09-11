@@ -103,7 +103,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: (typeof forecastData)[0]
         </div>
     );
 
-    if (dataPoint.isCurrent || dataPoint.isClickable) {
+    if (dataPoint.isClickable) {
         return (
             <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${dataPoint.name.toLowerCase()}`}>
                 {nodeContent}
