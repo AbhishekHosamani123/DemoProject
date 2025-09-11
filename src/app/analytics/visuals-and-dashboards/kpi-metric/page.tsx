@@ -188,9 +188,14 @@ const ChartCard = ({
             {displayMode === 'chart' ? (
                 children
             ) : (
-                <div className="text-sm text-foreground p-4">
-                    <ul>
-                        {numericData.map((d, i) => <li key={i}>{d.label}: <strong>{d.value}</strong></li>)}
+                <div className="w-full h-full p-4 overflow-auto">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                        {numericData.map((d, i) => (
+                           <React.Fragment key={i}>
+                                <div className="text-muted-foreground truncate">{d.label}:</div>
+                                <div className="font-bold text-right text-foreground">{d.value.toLocaleString()}</div>
+                           </React.Fragment>
+                        ))}
                     </ul>
                 </div>
             )}
