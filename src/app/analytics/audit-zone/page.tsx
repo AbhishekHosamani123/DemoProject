@@ -1,9 +1,10 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Accordion,
@@ -11,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 
 const auditDetails = [
   {
@@ -77,6 +79,15 @@ const auditDetails = [
 
 export default function AuditZonePage() {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredAuditDetails = auditDetails.filter((category) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      category.title.toLowerCase().includes(term) ||
+      category.content.some((point) => point.toLowerCase().includes(term))
+    );
+  });
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -94,6 +105,17 @@ export default function AuditZonePage() {
           </h1>
         </div>
 
+        <div className="mb-8 relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search compliance topics..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10"
+          />
+        </div>
+
         <Card className="bg-card/60 backdrop-blur-sm p-6">
           <CardContent className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
@@ -102,8 +124,8 @@ export default function AuditZonePage() {
               compliance needs.
             </p>
 
-            <Accordion type="single" collapsible className="w-full">
-              {auditDetails.map((category) => (
+            <Accordion type="single" collapsible className="w-full" defaultValue={filteredAuditDetails.length > 0 ? filteredAuditDetails[0].title : undefined}>
+              {filteredAuditDetails.map((category) => (
                 <AccordionItem
                   key={category.title}
                   value={category.title}
@@ -126,6 +148,11 @@ export default function AuditZonePage() {
                 </AccordionItem>
               ))}
             </Accordion>
+             {filteredAuditDetails.length === 0 && (
+                <div className="text-center py-10">
+                    <p className="text-lg text-muted-foreground">No results found for "{searchTerm}".</p>
+                </div>
+            )}
           </CardContent>
         </Card>
       </div>
