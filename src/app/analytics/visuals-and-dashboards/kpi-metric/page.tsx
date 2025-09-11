@@ -50,6 +50,7 @@ import {
   ComposedChart,
 } from "recharts";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const kpiIcons: Record<string, React.ReactNode> = {
   DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
@@ -152,7 +153,30 @@ export default function KpiMetricDashboardPage() {
   const router = useRouter();
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <div className="flex flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <aside className="w-56 pr-6">
+        <Card className="bg-card/60 backdrop-blur-sm h-full">
+            <CardHeader>
+                <CardTitle>Options</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ScrollArea className="h-[calc(100vh-12rem)]">
+                    <div className="space-y-2">
+                    {Array.from({ length: 20 }, (_, i) => (
+                        <Button
+                            key={i}
+                            variant="ghost"
+                            className="w-full justify-start"
+                        >
+                            Option {i + 1}
+                        </Button>
+                    ))}
+                    </div>
+                </ScrollArea>
+            </CardContent>
+        </Card>
+      </aside>
+      
       <main className="flex-1 space-y-8">
         <div className="flex justify-between items-center">
             <Button onClick={() => router.back()} variant="outline">
@@ -313,4 +337,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
