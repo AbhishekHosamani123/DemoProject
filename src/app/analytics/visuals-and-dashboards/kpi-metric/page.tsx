@@ -305,12 +305,12 @@ export default function KpiMetricDashboardPage() {
   const [activeOption, setActiveOption] = React.useState('option-1');
 
   const activeData = allDashboardData[activeOption as keyof typeof allDashboardData];
-  const chartIds = Object.keys(activeData.charts) as ChartCardId[];
+  const chartIds = React.useMemo(() => Object.keys(activeData.charts) as ChartCardId[], [activeData]);
 
-  const initialDisplayModes = chartIds.reduce((acc, id) => {
+  const initialDisplayModes = React.useMemo(() => chartIds.reduce((acc, id) => {
     acc[id] = 'chart';
     return acc;
-  }, {} as ChartDisplayModes);
+  }, {} as ChartDisplayModes), [chartIds]);
   
   const getInitialChartTypes = React.useCallback(() => {
     return chartIds.reduce((acc, id) => {
@@ -459,3 +459,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
