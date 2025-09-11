@@ -16,8 +16,8 @@ import Link from "next/link";
 
 const forecastData = [
     { name: "April", period: "Apr", isPast: true, value: 8000, profit: 5000, loss: 1000, revenue: 4000 },
-    { name: "May", period: "May", isPast: true, value: 10000, profit: 6000, loss: 1000, revenue: 5000 },
-    { name: "June", period: "June", isCurrent: true, value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
+    { name: "May", period: "May", isCurrent: true, value: 10000, profit: 6000, loss: 1000, revenue: 5000 },
+    { name: "June", period: "June", isClickable: true, value: 11000, profit: 7000, loss: 1500, revenue: 5500 },
     { name: "July", period: "July", value: 14000, profit: 9000, loss: 2000, revenue: 7000 },
     { name: "August", period: "Aug", value: 18000, profit: 12000, loss: 2500, revenue: 8500 },
 ];
@@ -48,7 +48,7 @@ const CustomTooltip = ({ active, payload }: any) => {
     return null;
 };
 
-const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }) => {
+const CustomTimelineNode = ({ dataPoint }: { dataPoint: (typeof forecastData)[0] & { isClickable?: boolean } }) => {
     const pieData = [
         { name: 'Profit', value: dataPoint.profit },
         { name: 'Loss', value: dataPoint.loss },
@@ -103,7 +103,7 @@ const CustomTimelineNode = ({ dataPoint }: { dataPoint: typeof forecastData[0] }
         </div>
     );
 
-    if (dataPoint.isCurrent) {
+    if (dataPoint.isCurrent || dataPoint.isClickable) {
         return (
             <Link href={`/analytics/forecasting-analyst/periodic-forecasting/monthly/${dataPoint.name.toLowerCase()}`}>
                 {nodeContent}
