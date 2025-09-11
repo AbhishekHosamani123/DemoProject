@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -377,11 +378,25 @@ export default function KpiMetricDashboardPage() {
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col h-screen">
       <div className="flex-shrink-0">
-        <div className="mb-8">
-            <Button onClick={() => router.back()} variant="outline">
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Back
-            </Button>
+        <div className="flex justify-between items-center mb-8">
+          <Button onClick={() => router.back()} variant="outline">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+           <div className="flex items-center gap-4">
+              <Button>
+                <Download className="mr-2 h-4 w-4" />
+                Download
+              </Button>
+              <Button variant="secondary">
+                <Video className="mr-2 h-4 w-4" />
+                Generate Video
+              </Button>
+              <Button variant="secondary" onClick={handleCustomizeClick}>
+                <Wrench className="mr-2 h-4 w-4" />
+                {isCustomizeMode ? "Apply" : "Customize"}
+              </Button>
+            </div>
         </div>
         <div className="text-center mb-8">
             <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
@@ -390,7 +405,7 @@ export default function KpiMetricDashboardPage() {
         </div>
       </div>
 
-      <main className="flex-1 overflow-y-auto pt-6 space-y-6 pb-24">
+      <main className="flex-1 overflow-y-auto pt-6 space-y-6 pb-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {activeData.kpis.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
           </div>
@@ -444,21 +459,6 @@ export default function KpiMetricDashboardPage() {
               </div>
           </div>
       </main>
-
-      <div className="flex-shrink-0 flex items-center justify-center gap-4 py-4 mt-auto">
-          <Button>
-          <Download className="mr-2 h-4 w-4" />
-          Download
-          </Button>
-          <Button variant="secondary">
-          <Video className="mr-2 h-4 w-4" />
-          Generate Video
-          </Button>
-          <Button variant="secondary" onClick={handleCustomizeClick}>
-          <Wrench className="mr-2 h-4 w-4" />
-          {isCustomizeMode ? "Apply" : "Customize"}
-          </Button>
-      </div>
     </div>
   );
 }
