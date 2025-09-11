@@ -68,7 +68,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const kpiIcons = {
+const kpiIcons: Record<string, React.ReactNode> = {
     dollar: <DollarSign className="h-4 w-4 text-muted-foreground" />,
     trendingUp: <TrendingUp className="h-4 w-4 text-muted-foreground" />,
     users: <Users className="h-4 w-4 text-muted-foreground" />,
@@ -88,45 +88,45 @@ const kpiIcons = {
 
 const kpiConfigurations = {
     default: [
-      { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: kpiIcons.dollar },
-      { title: "Profit Margin", value: "24.5%", change: "+2.1%", changeType: "increase", icon: kpiIcons.trendingUp },
-      { title: "New Customers", value: "1,250", change: "+15.3%", changeType: "increase", icon: kpiIcons.users },
-      { title: "Conversion Rate", value: "3.5%", change: "+0.8%", changeType: "increase", icon: kpiIcons.target },
-      { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease", icon: kpiIcons.dollar },
-      { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase", icon: kpiIcons.briefcase },
+      { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: 'dollar' },
+      { title: "Profit Margin", value: "24.5%", change: "+2.1%", changeType: "increase", icon: 'trendingUp' },
+      { title: "New Customers", value: "1,250", change: "+15.3%", changeType: "increase", icon: 'users' },
+      { title: "Conversion Rate", value: "3.5%", change: "+0.8%", changeType: "increase", icon: 'target' },
+      { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease", icon: 'dollar' },
+      { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase", icon: 'briefcase' },
     ],
     marketing: [
-      { title: "Impressions", value: `523.1k`, change: `+12.1%`, changeType: "increase", icon: kpiIcons.search },
-      { title: "CTR", value: `2.87%`, change: `+0.5%`, changeType: "increase", icon: kpiIcons.mousePointer },
-      { title: "CPC", value: `₹75.50`, change: `-3.2%`, changeType: "decrease", icon: kpiIcons.dollar },
-      { title: "Conversions", value: `432`, change: `+18.9%`, changeType: "increase", icon: kpiIcons.filter },
-      { title: "Organic Traffic", value: `15.2k`, change: `+7.8%`, changeType: "increase", icon: kpiIcons.users2 },
-      { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: kpiIcons.trendingUp },
+      { title: "Impressions", value: `523.1k`, change: `+12.1%`, changeType: "increase", icon: 'search' },
+      { title: "CTR", value: `2.87%`, change: `+0.5%`, changeType: "increase", icon: 'mousePointer' },
+      { title: "CPC", value: `₹75.50`, change: `-3.2%`, changeType: "decrease", icon: 'dollar' },
+      { title: "Conversions", value: `432`, change: `+18.9%`, changeType: "increase", icon: 'filter' },
+      { title: "Organic Traffic", value: `15.2k`, change: `+7.8%`, changeType: "increase", icon: 'users2' },
+      { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: 'trendingUp' },
     ],
     financial: [
-        { title: "Net Profit", value: `₹8.2Cr`, change: `+4.1%`, changeType: "increase", icon: kpiIcons.dollar },
-        { title: "Operating Margin", value: `18.7%`, change: `+1.8%`, changeType: "increase", icon: kpiIcons.trendingUp },
-        { title: "Burn Rate", value: `₹35L`, change: `-8.2%`, changeType: "decrease", icon: kpiIcons.arrowDown },
+        { title: "Net Profit", value: `₹8.2Cr`, change: `+4.1%`, changeType: "increase", icon: 'dollar' },
+        { title: "Operating Margin", value: `18.7%`, change: `+1.8%`, changeType: "increase", icon: 'trendingUp' },
+        { title: "Burn Rate", value: `₹35L`, change: `-8.2%`, changeType: "decrease", icon: 'arrowDown' },
     ],
     product: [
-        { title: "Active Users (MAU)", value: `88.2k`, change: `+12.5%`, changeType: "increase", icon: kpiIcons.users },
-        { title: "Feature Adoption", value: `45%`, change: `+4.2%`, changeType: "increase", icon: kpiIcons.target },
-        { title: "Churn Rate", value: `2.1%`, change: `-0.8%`, changeType: "decrease", icon: kpiIcons.users2 },
+        { title: "Active Users (MAU)", value: `88.2k`, change: `+12.5%`, changeType: "increase", icon: 'users' },
+        { title: "Feature Adoption", value: `45%`, change: `+4.2%`, changeType: "increase", icon: 'target' },
+        { title: "Churn Rate", value: `2.1%`, change: `-0.8%`, changeType: "decrease", icon: 'users2' },
     ],
     support: [
-        { title: "Avg. Response Time", value: `45 mins`, change: `-8.1%`, changeType: "decrease", icon: kpiIcons.headset },
-        { title: "CSAT Score", value: `4.6/5`, change: `+0.2`, changeType: "increase", icon: kpiIcons.heart },
-        { title: "Tickets Solved", value: `850`, change: `+15.3%`, changeType: "increase", icon: kpiIcons.clipboard },
+        { title: "Avg. Response Time", value: `45 mins`, change: `-8.1%`, changeType: "decrease", icon: 'headset' },
+        { title: "CSAT Score", value: `4.6/5`, change: `+0.2`, changeType: "increase", icon: 'heart' },
+        { title: "Tickets Solved", value: `850`, change: `+15.3%`, changeType: "increase", icon: 'clipboard' },
     ],
     operations: [
-        { title: "Inventory Turnover", value: `6.2`, change: `+0.8`, changeType: "increase", icon: kpiIcons.package },
-        { title: "On-time Delivery", value: `96.5%`, change: `+0.9%`, changeType: "increase", icon: kpiIcons.trendingUp },
-        { title: "Supplier Reliability", value: `98.2%`, change: `-0.5%`, changeType: "decrease", icon: kpiIcons.building },
+        { title: "Inventory Turnover", value: `6.2`, change: `+0.8`, changeType: "increase", icon: 'package' },
+        { title: "On-time Delivery", value: `96.5%`, change: `+0.9%`, changeType: "increase", icon: 'trendingUp' },
+        { title: "Supplier Reliability", value: `98.2%`, change: `-0.5%`, changeType: "decrease", icon: 'building' },
     ],
     hr: [
-        { title: "Employee Turnover", value: `8.5%`, change: `-1.2%`, changeType: "decrease", icon: kpiIcons.users2 },
-        { title: "Avg. Tenure", value: `3.2 yrs`, change: `+0.3`, changeType: "increase", icon: kpiIcons.users },
-        { title: "eNPS Score", value: `55`, change: `+8`, changeType: "increase", icon: kpiIcons.heart },
+        { title: "Employee Turnover", value: `8.5%`, change: `-1.2%`, changeType: "decrease", icon: 'users2' },
+        { title: "Avg. Tenure", value: `3.2 yrs`, change: `+0.3`, changeType: "increase", icon: 'users' },
+        { title: "eNPS Score", value: `55`, change: `+8`, changeType: "increase", icon: 'heart' },
     ],
 };
 
@@ -354,12 +354,14 @@ export default function KpiMetricDashboardPage() {
   }, [selectedOption]);
 
   const handleConvertToGraph = (chartIndex: number) => {
-    const newCharts = [...dynamicDashboard.charts];
-    const chartToUpdate = newCharts[chartIndex];
-    if (chartToUpdate) {
-      chartToUpdate.type = chartToUpdate.originalType;
-      setDynamicDashboard({ ...dynamicDashboard, charts: newCharts });
-    }
+    setDynamicDashboard(prevDashboard => {
+        const newCharts = [...prevDashboard.charts];
+        const chartToUpdate = newCharts[chartIndex];
+        if (chartToUpdate) {
+            chartToUpdate.type = chartToUpdate.originalType;
+        }
+        return { ...prevDashboard, charts: newCharts };
+    });
   };
 
   const currentDashboard = dynamicDashboard;
@@ -391,7 +393,7 @@ export default function KpiMetricDashboardPage() {
                         <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                                {kpi.icon ? kpi.icon : null}
+                                {kpi.icon && kpiIcons[kpi.icon] ? kpiIcons[kpi.icon] : null}
                             </CardHeader>
                             <CardContent>
                                 <div className="text-2xl font-bold">{kpi.value}</div>
@@ -498,3 +500,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
