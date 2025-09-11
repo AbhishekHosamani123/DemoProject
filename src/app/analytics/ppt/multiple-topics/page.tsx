@@ -25,6 +25,7 @@ import {
   PlusCircle,
   Wrench,
   Calendar as CalendarIcon,
+  Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -182,10 +183,10 @@ export default function MultipleTopicsPage() {
           </CardContent>
         </Card>
 
-        <div className="mt-8 flex justify-end gap-4">
+        <div className="mt-8 flex flex-col-reverse sm:flex-row items-center justify-center gap-4">
           <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
                 <Wrench className="mr-2 h-4 w-4" />
                 Customize
               </Button>
@@ -282,7 +283,12 @@ export default function MultipleTopicsPage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <Button size="lg" onClick={handleGenerate}>
+          <Button 
+            size="lg" 
+            onClick={handleGenerate}
+            className="w-full sm:w-auto rounded-full h-14 px-10 text-lg font-bold shadow-lg shadow-primary/20 transform hover:scale-105"
+          >
+            <Sparkles className="mr-3 h-5 w-5" />
             Generate Presentation
           </Button>
         </div>
