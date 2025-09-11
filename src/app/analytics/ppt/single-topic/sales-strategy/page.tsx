@@ -1,7 +1,6 @@
 
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,37 +15,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
+import { Download, Video, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useToast } from "@/hooks/use-toast";
 import { generatedText, parsePresentationText } from "@/lib/content/sales-strategy-presentation";
-
-interface Slide {
-  title: string;
-  content: string[];
-}
 
 export default function SalesStrategyPage() {
   const router = useRouter();
   const slides = parsePresentationText(generatedText);
-  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
-  const { toast } = useToast();
-  
-  const handleApplyCustomization = () => {
-    toast({
-        title: "Customization Applied",
-        description: "Your presentation settings have been updated.",
-    });
-    setIsCustomizeOpen(false);
-  }
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -109,7 +85,7 @@ export default function SalesStrategyPage() {
           <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-black" />
         </Carousel>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Button size="lg" className="w-full">
             <Download className="mr-2 h-4 w-4" />
             Download PPT
@@ -118,28 +94,6 @@ export default function SalesStrategyPage() {
             <Video className="mr-2 h-4 w-4" />
             Generate Video
           </Button>
-            <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
-              <Button
-                size="lg"
-                variant="secondary"
-                className="w-full"
-                onClick={() => setIsCustomizeOpen(true)}
-              >
-                <Wrench className="mr-2 h-4 w-4" />
-                Customize
-              </Button>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Customize Presentation</DialogTitle>
-                </DialogHeader>
-                <div className="py-4 space-y-4">
-                  <p>Customization options will go here.</p>
-                </div>
-                <DialogFooter>
-                  <Button onClick={handleApplyCustomization}>Apply</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
         </div>
       </div>
     </div>
