@@ -16,7 +16,7 @@ export function ClientTooltipProvider({
   }, []);
 
   if (!isMounted) {
-    return <>{children}</>;
+    return null;
   }
 
   return <TooltipProvider>{children}</TooltipProvider>;
