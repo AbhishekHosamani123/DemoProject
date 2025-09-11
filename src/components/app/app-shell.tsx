@@ -93,7 +93,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     tooltip="Integration Hub"
                     isActive={pathname === "/integration-hub"}
                   >
-                    <AppWindow className="text-primary group-hover:text-sidebar-accent-foreground" />
+                    <AppWindow className="text-primary" />
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
