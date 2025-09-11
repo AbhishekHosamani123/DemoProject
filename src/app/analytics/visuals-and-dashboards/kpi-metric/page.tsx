@@ -192,12 +192,14 @@ export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     setDashboardData(generateDashboardData());
+    setLoading(false);
   }, []);
 
-  if (!dashboardData) {
+  if (loading || !dashboardData) {
     return (
       <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start gap-8">
         <main className="flex-1 space-y-8">
@@ -261,8 +263,8 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="lg:col-span-3 bg-card/60 backdrop-blur-sm h-[350px]">
+        <div className="space-y-6">
+            <Card className="bg-card/60 backdrop-blur-sm h-[350px]">
                 <CardHeader>
                     <CardTitle>{mainChart.title}</CardTitle>
                 </CardHeader>
@@ -271,19 +273,21 @@ export default function KpiMetricDashboardPage() {
                 </CardContent>
             </Card>
 
-            {smallCharts.map((chart:any, index: number) => (
-                 <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
-                    <CardHeader>
-                        <CardTitle>{chart.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-full pb-6">
-                        {renderChart(chart)}
-                    </CardContent>
-                </Card>
-            ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {smallCharts.map((chart:any, index: number) => (
+                   <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
+                      <CardHeader>
+                          <CardTitle>{chart.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="h-full pb-6">
+                          {renderChart(chart)}
+                      </CardContent>
+                  </Card>
+              ))}
+            </div>
         </div>
 
-        <div className="flex justify-start gap-4 mt-auto">
+        <div className="flex justify-start gap-4 pt-4">
           <Button size="lg">
             <Download className="mr-2" />
             Download
@@ -333,5 +337,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
