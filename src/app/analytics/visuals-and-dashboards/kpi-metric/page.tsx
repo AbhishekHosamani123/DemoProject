@@ -166,7 +166,8 @@ const ChartCard = ({
     displayMode: ChartDisplayMode,
     numericData: { label: string, value: string | number }[],
     chartId: ChartCardId
-}) => (
+}) => {
+    return (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
@@ -196,12 +197,13 @@ const ChartCard = ({
                                 <div className="font-bold text-right text-foreground">{d.value.toLocaleString()}</div>
                            </React.Fragment>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             )}
         </CardContent>
     </Card>
-)
+    );
+}
 
 const KpiCard = ({ title, value, change, icon }: { title: string, value: string, change: string, icon: React.ReactNode }) => (
   <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg shadow-black/20 p-4">
