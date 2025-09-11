@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import * as React from "react";
 import {
   Card,
   CardContent,
@@ -290,8 +291,11 @@ for (let i = 3; i <= 20; i++) {
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
         title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
-        kpis: topic.kpis.map(kpi => ({...kpi})), // Basic copy for now
-        charts: dashboardData['suggestion-2'].charts.map(c => ({...c})), // copy
+        kpis: topic.kpis.map(kpi => ({
+            ...kpi,
+            icon: React.cloneElement(kpi.icon, { className: "h-4 w-4 text-muted-foreground" }),
+        })),
+        charts: dashboardData['suggestion-2'].charts.map((c:any) => ({...c})), // copy
         data: dashboardData['suggestion-2'].data
     };
 }
@@ -355,6 +359,10 @@ export default function KpiMetricDashboardPage() {
   if (!dynamicDashboard) {
     return <div>Loading...</div>;
   }
+  
+  // Re-instantiate JSX elements on each render
+  const currentKpis = dashboardData[selectedOption].kpis;
+
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -375,7 +383,7 @@ export default function KpiMetricDashboardPage() {
             {/* Main content */}
             <div className="lg:col-span-3 space-y-8">
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {dynamicDashboard.kpis.map((kpi: any) => (
+                    {currentKpis.map((kpi: any) => (
                         <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
@@ -476,3 +484,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
