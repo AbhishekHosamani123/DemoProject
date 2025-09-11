@@ -25,7 +25,7 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
     <Card className="bg-transparent border-0 shadow-none w-full">
       <CardContent className="p-0">
         <div
-          className="border-2 border-dotted rounded-lg p-12 text-center transition-colors duration-300 border-slate-400 hover:border-primary"
+          className="bg-card/60 backdrop-blur-sm border-2 border-dotted rounded-lg p-12 text-center transition-colors duration-300 border-slate-400 hover:border-primary"
         >
             <div className="flex flex-col items-center gap-4 text-slate-100">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
