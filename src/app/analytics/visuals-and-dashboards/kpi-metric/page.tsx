@@ -149,11 +149,13 @@ export default function KpiMetricDashboardPage() {
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
-                <Card className="bg-card/60 backdrop-blur-sm lg:col-span-3">
+            </div>
+            <div className="grid gap-6 md:grid-cols-1">
+                <Card className="bg-card/60 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Top Sale Categories</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[300px]">
+                    <CardContent className="h-[150px]">
                         <ResponsiveContainer width="100%" height="100%">
                              <PieChart>
                                 <Pie 
@@ -162,7 +164,7 @@ export default function KpiMetricDashboardPage() {
                                     nameKey="name" 
                                     cx="50%" 
                                     cy="50%" 
-                                    outerRadius={80} 
+                                    outerRadius={60} 
                                     stroke="hsl(var(--background))" 
                                     strokeWidth={2}
                                 >
