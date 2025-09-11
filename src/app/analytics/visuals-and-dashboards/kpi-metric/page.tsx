@@ -19,15 +19,8 @@ import {
   Users,
   Target,
   ArrowUp,
-  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -116,23 +109,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, showMenu }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
+const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
-            {showMenu && (
-                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                           <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center p-2">
             {children}
@@ -171,7 +151,7 @@ export default function KpiMetricDashboardPage() {
                         <ChevronLeft className="mr-2 h-4 w-4" />
                         Back
                     </Button>
-                    <h1 className="text-2xl font-bold tracking-tight text-primary">Title</h1>
+                    <h1 className="text-2xl font-bold tracking-tight text-primary">KPI &amp; Metric Dashboard</h1>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -213,7 +193,7 @@ export default function KpiMetricDashboardPage() {
                        </ChartCard>
                     </div>
                      <div className="col-span-12">
-                        <ChartCard title="Sales Conversion Funnel" showMenu>
+                        <ChartCard title="Sales Conversion Funnel">
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
                                     <Tooltip content={<CustomTooltip />} />
