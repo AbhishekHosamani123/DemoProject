@@ -318,14 +318,16 @@ export default function KpiMetricDashboardPage() {
                 <CardTitle>Options</CardTitle>
             </CardHeader>
             <CardContent>
-                <ScrollArea className="h-[calc(100vh-12rem)]">
+                <ScrollArea className="h-[calc(100vh-12rem)] pr-3">
                     <div className="space-y-3">
                     {Array.from({ length: 20 }, (_, i) => (
                         <button
                             key={i}
-                            className="w-full text-left p-3 rounded-lg bg-background/80 border hover:bg-accent hover:text-accent-foreground transition-colors group"
+                            className="block group w-full"
                         >
-                            <span className="font-medium group-hover:text-accent-foreground">Option {i + 1}</span>
+                            <div className="flex items-center justify-between p-3 rounded-lg bg-background/80 border hover:bg-accent transition-colors">
+                                <span className="font-medium group-hover:text-accent-foreground text-sm">Option {i + 1}</span>
+                            </div>
                         </button>
                     ))}
                     </div>
@@ -336,3 +338,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
