@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ export function ClientTooltipProvider({
   }, []);
 
   if (!isMounted) {
-    return null;
+    return <>{children}</>;
   }
 
   return <TooltipProvider>{children}</TooltipProvider>;

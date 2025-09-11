@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -7,7 +8,6 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import {
   AppWindow,
@@ -22,6 +22,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { ClientTooltipProvider } from "./client-tooltip-provider";
+import { SidebarMenuButton } from "../ui/sidebar-menu-button";
 
 
 export function AppShell({ children }: { children: React.ReactNode }) {
