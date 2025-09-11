@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
   Download,
-  Wrench,
   TrendingUp,
   Users,
   Briefcase,
@@ -21,14 +20,7 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
-  MoreVertical,
 } from "lucide-react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import {
   ResponsiveContainer,
@@ -53,7 +45,6 @@ import {
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 
 const kpiIcons: Record<string, React.ReactNode> = {
@@ -152,36 +143,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-const NumericalDataView = ({ data }: { data: any[] }) => {
-    if (!data || data.length === 0) {
-        return (
-            <Card className="h-full flex items-center justify-center bg-card/60 backdrop-blur-sm">
-                <p className="text-muted-foreground">No data to display.</p>
-            </Card>
-        );
-    }
-    const headers = Object.keys(data[0]);
-
-    return (
-        <ScrollArea className="h-full">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        {headers.map(header => <TableHead key={header}>{header}</TableHead>)}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.map((row, rowIndex) => (
-                        <TableRow key={rowIndex}>
-                            {headers.map(header => <TableCell key={header}>{row[header]}</TableCell>)}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </ScrollArea>
-    );
-};
-
 const chartComponents: Record<string, React.FC<any>> = {
   line: ({chart}) => (
     <LineChart data={chart.data}>
@@ -226,9 +187,6 @@ const chartComponents: Record<string, React.FC<any>> = {
         strokeWidth={2}
         labelLine={false}
         label={false}
-        cx="50%"
-        cy="50%"
-        outerRadius={80}
       >
         {chart.data.map((_: any, index: number) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -237,7 +195,7 @@ const chartComponents: Record<string, React.FC<any>> = {
     </PieChart>
   ),
   radar: ({chart}) => (
-      <RadarChart data={chart.data} cx="50%" cy="50%" outerRadius="80%">
+      <RadarChart data={chart.data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis />
@@ -257,23 +215,24 @@ const renderChart = (chart: any) => {
   )
 };
 
-type DisplayMode = "chart" | "numerical";
+const ChartCard = ({ chart, index, className }: { chart: any, index: number, className?: string }) => {
+    return (
+        <Card className={cn("bg-card/60 backdrop-blur-sm h-[300px]", className)}>
+            <CardHeader className="flex flex-row items-start justify-between">
+                <CardTitle>{chart.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="h-[calc(100%-4rem)] p-2">
+              {renderChart(chart)}
+            </CardContent>
+        </Card>
+    );
+  };
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const [loading, setLoading] = React.useState(true);
-  const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
-  const [chartDisplayModes, setChartDisplayModes] = React.useState<Record<number, DisplayMode>>({});
-
-  const handleConvertToNumerical = (chartIndex: number) => {
-    setChartDisplayModes(prev => ({ ...prev, [chartIndex]: 'numerical' }));
-  };
-  
-  const handleConvertToChart = (chartIndex: number) => {
-    setChartDisplayModes(prev => ({ ...prev, [chartIndex]: 'chart' }));
-  };
 
   React.useEffect(() => {
     const data = generateDashboardData();
@@ -310,50 +269,6 @@ export default function KpiMetricDashboardPage() {
   const currentDashboard = dashboardData[selectedDashboard];
   
   const allCharts = currentDashboard.charts;
-
-  const renderCardContent = (chart: any, index: number) => {
-    const displayMode = chartDisplayModes[index] || 'chart';
-
-    if (displayMode === 'numerical') {
-      return <NumericalDataView data={chart.data} />;
-    }
-    return renderChart(chart);
-  };
-  
-  const ChartCard = ({ chart, index, className }: { chart: any, index: number, className?: string }) => {
-    const displayMode = chartDisplayModes[index] || 'chart';
-
-    return (
-        <Card className={cn("bg-card/60 backdrop-blur-sm h-[300px]", className)}>
-            <CardHeader className="flex flex-row items-start justify-between">
-                <CardTitle>{chart.title}</CardTitle>
-                {isCustomizeMode && (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            {displayMode === 'chart' ? (
-                                <DropdownMenuItem onClick={() => handleConvertToNumerical(index)}>
-                                    Change to numerical
-                                </DropdownMenuItem>
-                            ) : (
-                                <DropdownMenuItem onClick={() => handleConvertToChart(index)}>
-                                    Change to graphical representation
-                                </DropdownMenuItem>
-                            )}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                )}
-            </CardHeader>
-            <CardContent className="h-[calc(100%-4rem)] p-2">
-              {renderCardContent(chart, index)}
-            </CardContent>
-        </Card>
-    );
-  };
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -429,9 +344,12 @@ export default function KpiMetricDashboardPage() {
             <ChartCard chart={allCharts[1]} index={1} />
             <ChartCard chart={allCharts[2]} index={2} />
             <ChartCard chart={allCharts[3]} index={3} />
-            <ChartCard chart={allCharts[4]} index={4} className="lg:col-span-2"/>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <ChartCard chart={allCharts[4]} index={4} />
             <ChartCard chart={allCharts[5]} index={5} />
         </div>
+
 
         <div className="flex justify-start gap-4 pt-4">
           <Button size="lg">
@@ -442,14 +360,8 @@ export default function KpiMetricDashboardPage() {
             <Video className="mr-2" />
             Generate Video
           </Button>
-          <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
-            <Wrench className="mr-2" />
-            {isCustomizeMode ? "Done" : "Customize"}
-          </Button>
         </div>
       </main>
     </div>
   );
 }
-
-    
