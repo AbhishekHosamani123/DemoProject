@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Video } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 import { suggestionData } from "@/lib/content/suggestion-data";
 
@@ -63,6 +63,13 @@ export default function SuggestionSolutionPage() {
                 />
               </CardContent>
             </Card>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <Button size="lg" className="h-12 text-lg font-semibold">
+                <Video className="mr-2 h-5 w-5"/>
+                Generate Video
+            </Button>
           </div>
         </div>
       </div>
