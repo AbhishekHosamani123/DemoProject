@@ -111,7 +111,7 @@ export default function CustomTopicPage() {
           </CardContent>
         </Card>
 
-        <div className="mt-8 flex justify-between items-center">
+        <div className="mt-8 flex flex-col-reverse sm:flex-row items-center justify-center gap-4">
           <Dialog
             open={isCustomizeDialogOpen}
             onOpenChange={setIsCustomizeDialogOpen}
@@ -120,6 +120,7 @@ export default function CustomTopicPage() {
               <Button
                 size="lg"
                 variant="secondary"
+                className="w-full sm:w-auto"
               >
                 <Wrench className="mr-2 h-4 w-4" />
                 Customize
@@ -236,7 +237,7 @@ export default function CustomTopicPage() {
            <Button 
             size="lg" 
             onClick={handleGenerate} 
-            className="rounded-full h-14 px-10 text-lg font-bold shadow-lg shadow-primary/20 transform hover:scale-105"
+            className="w-full sm:w-auto rounded-full h-14 px-10 text-lg font-bold shadow-lg shadow-primary/20 transform hover:scale-105"
           >
             <Sparkles className="mr-3 h-5 w-5" />
             Generate Presentation
