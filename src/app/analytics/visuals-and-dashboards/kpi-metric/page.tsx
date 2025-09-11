@@ -32,9 +32,6 @@ import {
   Package,
   Headset,
   MoreVertical,
-  BarChart,
-  LineChart as LineChartIcon,
-  PieChart as PieChartIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -79,6 +76,46 @@ const defaultKpiData = [
   { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
   { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase", icon: <Briefcase className="h-4 w-4 text-muted-foreground" /> },
 ];
+
+const marketingKpiData = [
+  { title: "Impressions", value: `523.1k`, change: `+12.1%`, changeType: "increase", icon: <Search className="h-4 w-4 text-muted-foreground" /> },
+  { title: "CTR", value: `2.87%`, change: `+0.5%`, changeType: "increase", icon: <MousePointerClick className="h-4 w-4 text-muted-foreground" /> },
+  { title: "CPC", value: `₹75.50`, change: `-3.2%`, changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Conversions", value: `432`, change: `+18.9%`, changeType: "increase", icon: <Filter className="h-4 w-4 text-muted-foreground" /> },
+  { title: "Organic Traffic", value: `15.2k`, change: `+7.8%`, changeType: "increase", icon: <Users2 className="h-4 w-4 text-muted-foreground" /> },
+  { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
+];
+
+const financialKpiData = [
+    { title: "Net Profit", value: `₹8.2Cr`, change: `+4.1%`, changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Operating Margin", value: `18.7%`, change: `+1.8%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Burn Rate", value: `₹35L`, change: `-8.2%`, changeType: "decrease", icon: <ArrowDown className="h-4 w-4 text-muted-foreground"/> },
+];
+
+const productKpiData = [
+    { title: "Active Users (MAU)", value: `88.2k`, change: `+12.5%`, changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Feature Adoption", value: `45%`, change: `+4.2%`, changeType: "increase", icon: <Target className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Churn Rate", value: `2.1%`, change: `-0.8%`, changeType: "decrease", icon: <Users2 className="h-4 w-4 text-muted-foreground"/> },
+];
+
+const supportKpiData = [
+    { title: "Avg. Response Time", value: `45 mins`, change: `-8.1%`, changeType: "decrease", icon: <Headset className="h-4 w-4 text-muted-foreground"/> },
+    { title: "CSAT Score", value: `4.6/5`, change: `+0.2`, changeType: "increase", icon: <Heart className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Tickets Solved", value: `850`, change: `+15.3%`, changeType: "increase", icon: <ClipboardList className="h-4 w-4 text-muted-foreground"/> },
+];
+
+const operationsKpiData = [
+    { title: "Inventory Turnover", value: `6.2`, change: `+0.8`, changeType: "increase", icon: <Package className="h-4 w-4 text-muted-foreground"/> },
+    { title: "On-time Delivery", value: `96.5%`, change: `+0.9%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Supplier Reliability", value: `98.2%`, change: `-0.5%`, changeType: "decrease", icon: <Building className="h-4 w-4 text-muted-foreground"/> },
+];
+
+const hrKpiData = [
+    { title: "Employee Turnover", value: `8.5%`, change: `-1.2%`, changeType: "decrease", icon: <Users2 className="h-4 w-4 text-muted-foreground"/> },
+    { title: "Avg. Tenure", value: `3.2 yrs`, change: `+0.3`, changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground"/> },
+    { title: "eNPS Score", value: `55`, change: `+8`, changeType: "increase", icon: <Heart className="h-4 w-4 text-muted-foreground"/> },
+];
+
 
 const TableComponent = ({ data }: { data: any[] }) => {
     if (!data || data.length === 0) {
@@ -215,14 +252,7 @@ const dashboardData: Record<string, any> = {
     },
     'suggestion-2': {
         title: `Marketing Campaign Dashboard`,
-        kpis: [
-            { title: "Impressions", value: `523.1k`, change: `+12.1%`, changeType: "increase", icon: <Search className="h-4 w-4 text-muted-foreground" /> },
-            { title: "CTR", value: `2.87%`, change: `+0.5%`, changeType: "increase", icon: <MousePointerClick className="h-4 w-4 text-muted-foreground" /> },
-            { title: "CPC", value: `₹75.50`, change: `-3.2%`, changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
-            { title: "Conversions", value: `432`, change: `+18.9%`, changeType: "increase", icon: <Filter className="h-4 w-4 text-muted-foreground" /> },
-            { title: "Organic Traffic", value: `15.2k`, change: `+7.8%`, changeType: "increase", icon: <Users2 className="h-4 w-4 text-muted-foreground" /> },
-            { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
-        ],
+        kpis: marketingKpiData,
         charts: [
             {
                 type: 'table',
@@ -275,31 +305,11 @@ const dashboardData: Record<string, any> = {
 };
 
 const diverseTopics = [
-    { title: "Financial Health Overview", kpis: [
-        { title: "Net Profit", value: `₹8.2Cr`, change: `+4.1%`, changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Operating Margin", value: `18.7%`, change: `+1.8%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Burn Rate", value: `₹35L`, change: `-8.2%`, changeType: "decrease", icon: <ArrowDown className="h-4 w-4 text-muted-foreground"/> },
-    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
-    { title: "Product Performance Metrics", kpis: [
-        { title: "Active Users (MAU)", value: `88.2k`, change: `+12.5%`, changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Feature Adoption", value: `45%`, change: `+4.2%`, changeType: "increase", icon: <Target className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Churn Rate", value: `2.1%`, change: `-0.8%`, changeType: "decrease", icon: <Users2 className="h-4 w-4 text-muted-foreground"/> },
-    ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
-    { title: "Customer Support Insights", kpis: [
-        { title: "Avg. Response Time", value: `45 mins`, change: `-8.1%`, changeType: "decrease", icon: <Headset className="h-4 w-4 text-muted-foreground"/> },
-        { title: "CSAT Score", value: `4.6/5`, change: `+0.2`, changeType: "increase", icon: <Heart className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Tickets Solved", value: `850`, change: `+15.3%`, changeType: "increase", icon: <ClipboardList className="h-4 w-4 text-muted-foreground"/> },
-    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
-    { title: "Operations & Logistics", kpis: [
-        { title: "Inventory Turnover", value: `6.2`, change: `+0.8`, changeType: "increase", icon: <Package className="h-4 w-4 text-muted-foreground"/> },
-        { title: "On-time Delivery", value: `96.5%`, change: `+0.9%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Supplier Reliability", value: `98.2%`, change: `-0.5%`, changeType: "decrease", icon: <Building className="h-4 w-4 text-muted-foreground"/> },
-    ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
-    { title: "HR & Employee Engagement", kpis: [
-        { title: "Employee Turnover", value: `8.5%`, change: `-1.2%`, changeType: "decrease", icon: <Users2 className="h-4 w-4 text-muted-foreground"/> },
-        { title: "Avg. Tenure", value: `3.2 yrs`, change: `+0.3`, changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground"/> },
-        { title: "eNPS Score", value: `55`, change: `+8`, changeType: "increase", icon: <Heart className="h-4 w-4 text-muted-foreground"/> },
-    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
+    { title: "Financial Health Overview", kpis: financialKpiData, charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
+    { title: "Product Performance Metrics", kpis: productKpiData, charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
+    { title: "Customer Support Insights", kpis: supportKpiData, charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
+    { title: "Operations & Logistics", kpis: operationsKpiData, charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
+    { title: "HR & Employee Engagement", kpis: hrKpiData, charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
 ];
 
 for (let i = 3; i <= 20; i++) {
@@ -307,9 +317,9 @@ for (let i = 3; i <= 20; i++) {
     const topic = diverseTopics[topicIndex];
     dashboardData[`suggestion-${i}`] = {
         title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
-        kpis: topic.kpis.map(kpi => ({...kpi})), // Deep copy
-        charts: topic.charts.map(c => ({ ...c, type: 'table' })), // Default all to table
-        data: JSON.parse(JSON.stringify(topic.data)), // Deep copy
+        kpis: topic.kpis, // Reference the kpi data
+        charts: JSON.parse(JSON.stringify(topic.charts)), // Deep copy charts to avoid mutation
+        data: JSON.parse(JSON.stringify(topic.data)), // Deep copy data
     };
 }
 
@@ -476,3 +486,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
