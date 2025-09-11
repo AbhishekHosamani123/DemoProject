@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -82,7 +81,7 @@ const generateDashboardData = () => {
                 { 
                     title: "Distribution by Category", 
                     type: "bar", 
-                    data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 4000) + 1000 })),
+                    data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 6000) + 1000 })),
                     dataKeys: [{name: "value", color: "hsl(var(--chart-2))"}]
                 },
                 { 
@@ -99,8 +98,8 @@ const generateDashboardData = () => {
                 { 
                     title: "Secondary Distribution", 
                     type: "bar", 
-                    data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2000) + 500 })),
-                    dataKeys: [{name: "value", color: "hsl(var(--chart-4))"}]
+                    data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2400) + 600 })),
+                    dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
                 },
             ]
         };
@@ -137,9 +136,9 @@ const renderChart = (chart: any) => {
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend iconType="plainline"/>
             {chart.dataKeys.map((key: any, i: number) => (
-                <Line key={key.name} type="monotone" dataKey={key.name} stroke={key.color || COLORS[i % COLORS.length]} strokeWidth={2} />
+                <Line key={key.name} type="monotone" dataKey={key.name} stroke={key.color || COLORS[i % COLORS.length]} strokeWidth={2} dot={false} />
             ))}
           </LineChart>
         </ResponsiveContainer>
@@ -152,9 +151,9 @@ const renderChart = (chart: any) => {
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend wrapperStyle={{paddingTop: "20px"}}/>
+             {chart.title === "Secondary Distribution" && <Legend iconType="square" />}
             {chart.dataKeys.map((key: any, i: number) => (
-                 <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+                 <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
             ))}
           </BarChart>
         </ResponsiveContainer>
@@ -164,16 +163,18 @@ const renderChart = (chart: any) => {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Tooltip content={<CustomTooltip />} />
-            <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{paddingTop: "20px"}}/>
+            <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
             <Pie
               data={chart.data}
               dataKey="value"
               nameKey="name"
               cx="50%"
-              cy="45%"
+              cy="50%"
               outerRadius={"80%"}
               stroke="hsl(var(--background))"
               strokeWidth={2}
+              labelLine={false}
+              label={false}
             >
               {chart.data.map((_: any, index: number) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -207,7 +208,7 @@ export default function KpiMetricDashboardPage() {
                 {Array.from({length: 6}).map((_, i) => <Skeleton key={i} className="h-28" />)}
             </div>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                 <Skeleton className="lg:col-span-3 h-[350px]" />
+                 <Skeleton className="lg:col-span-3 h-[300px]" />
                  <Skeleton className="h-[300px]" />
                  <Skeleton className="h-[300px]" />
                  <Skeleton className="h-[300px]" />
@@ -227,7 +228,39 @@ export default function KpiMetricDashboardPage() {
   const smallCharts = currentDashboard.charts.slice(1);
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start gap-8">
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
+      <aside className="w-64 space-y-4 sticky top-8">
+          <h2 className="text-lg font-semibold text-primary pl-4">Dashboards</h2>
+          <Card className="bg-card/60 backdrop-blur-sm">
+              <CardContent className="p-2">
+                <ScrollArea className="h-[calc(100vh-14rem)]">
+                    <div className="space-y-2">
+                    {Object.keys(dashboardData).map((key, index) => (
+                        <div 
+                            key={key} 
+                            onClick={() => setSelectedDashboard(key)}
+                             className="block group cursor-pointer"
+                        >
+                           <div className={cn(
+                                "flex items-center justify-between p-3 rounded-lg border transition-colors",
+                                selectedDashboard === key 
+                                ? "bg-primary border-primary text-primary-foreground"
+                                : "bg-background/80 border-border hover:bg-accent"
+                            )}>
+                                <span className={cn(
+                                    "font-medium",
+                                     selectedDashboard === key ? "text-primary-foreground" : "group-hover:text-accent-foreground"
+                                )}>
+                                    {`Option ${index + 1}`}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                </ScrollArea>
+              </CardContent>
+          </Card>
+      </aside>
       <main className="flex-1 space-y-8">
         <div className="flex justify-between items-center">
             <Button onClick={() => router.back()} variant="outline">
@@ -263,8 +296,8 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="lg:col-span-3 bg-card/60 backdrop-blur-sm h-[300px]">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+            <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[300px]">
                 <CardHeader>
                     <CardTitle>{mainChart.title}</CardTitle>
                 </CardHeader>
@@ -272,7 +305,8 @@ export default function KpiMetricDashboardPage() {
                     {renderChart(mainChart)}
                 </CardContent>
             </Card>
-
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {smallCharts.map((chart:any, index: number) => (
                  <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
                     <CardHeader>
@@ -300,38 +334,6 @@ export default function KpiMetricDashboardPage() {
           </Button>
         </div>
       </main>
-      <aside className="w-64 space-y-4 sticky top-8">
-          <h2 className="text-lg font-semibold text-primary pl-4">Dashboards</h2>
-          <Card className="bg-card/60 backdrop-blur-sm">
-              <CardContent className="p-2">
-                <ScrollArea className="h-[calc(100vh-14rem)]">
-                    <div className="space-y-2">
-                    {Object.keys(dashboardData).map((key, index) => (
-                        <div 
-                            key={key} 
-                            onClick={() => setSelectedDashboard(key)}
-                             className="block group cursor-pointer"
-                        >
-                           <div className={cn(
-                                "flex items-center justify-between p-3 rounded-lg border transition-colors",
-                                selectedDashboard === key 
-                                ? "bg-primary border-primary text-primary-foreground"
-                                : "bg-background/80 border-border hover:bg-accent"
-                            )}>
-                                <span className={cn(
-                                    "font-medium",
-                                     selectedDashboard === key ? "text-primary-foreground" : "group-hover:text-accent-foreground"
-                                )}>
-                                    {`Option ${index + 1}`}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-                    </div>
-                </ScrollArea>
-              </CardContent>
-          </Card>
-      </aside>
     </div>
   );
 }
