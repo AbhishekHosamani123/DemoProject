@@ -1,14 +1,18 @@
+
 "use client"
 
 import {
-    SidebarProvider,
-} from "@/components/ui/sidebar";
+    TooltipProvider,
+} from "@/components/ui/tooltip";
+import { AppShell } from "./app-shell";
 
 export function AppShellContent({ children }: { children: React.ReactNode }) {
     return (
-        <SidebarProvider>
-            {children}
-        </SidebarProvider>
+        <TooltipProvider>
+            <AppShell>
+                {children}
+            </AppShell>
+        </TooltipProvider>
     )
 }
     

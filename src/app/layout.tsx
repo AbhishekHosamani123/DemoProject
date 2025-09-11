@@ -1,9 +1,10 @@
+
 "use client";
 
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { AppShell } from "@/components/app/app-shell";
+import { AppShellContent } from "@/components/app/app-shell-content";
 import { Chatbot } from "@/components/app/chatbot";
 import { usePathname } from "next/navigation";
 import { Montserrat, Roboto } from "next/font/google";
@@ -49,11 +50,11 @@ export default function RootLayout({
         >
           <source src={backgroundVideo} type="video/mp4" />
         </video>
-        <AppShell>
+        <AppShellContent>
           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
             {children}
           </div>
-        </AppShell>
+        </AppShellContent>
         <Toaster />
         <Chatbot />
       </body>

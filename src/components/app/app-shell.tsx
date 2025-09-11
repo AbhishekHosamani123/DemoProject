@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -20,7 +21,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { ClientTooltipProvider } from "./client-tooltip-provider";
 import { SidebarMenuButton } from "../ui/sidebar-menu-button";
 
 
@@ -28,7 +28,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
-      <ClientTooltipProvider>
         <Sidebar>
           <SidebarHeader>
             <SidebarMenu>
@@ -114,7 +113,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
-      </ClientTooltipProvider>
       <main className="flex-1">{children}</main>
     </div>
   );
