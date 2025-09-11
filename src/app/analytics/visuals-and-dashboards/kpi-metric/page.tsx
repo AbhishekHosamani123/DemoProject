@@ -109,7 +109,7 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>Sales Growth Analysis</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[250px]">
+                    <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                              <LineChart data={revenueData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
@@ -132,7 +132,7 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>Sales By Region</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[250px]">
+                    <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <RechartsBarChart data={salesByRegionData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
@@ -153,10 +153,19 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>Top Sale Categories</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[150px]">
+                    <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                              <PieChart>
-                                <Pie data={topProductsData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} stroke="hsl(var(--background))" strokeWidth={2} label>
+                                <Pie 
+                                    data={topProductsData} 
+                                    dataKey="value" 
+                                    nameKey="name" 
+                                    cx="50%" 
+                                    cy="50%" 
+                                    outerRadius={80} 
+                                    stroke="hsl(var(--background))" 
+                                    strokeWidth={2}
+                                >
                                     {topProductsData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
@@ -167,7 +176,7 @@ export default function KpiMetricDashboardPage() {
                                         borderColor: 'hsl(var(--border) / 0.5)',
                                     }}
                                 />
-                                <Legend />
+                                <Legend wrapperStyle={{paddingTop: '20px'}}/>
                             </PieChart>
                         </ResponsiveContainer>
                     </CardContent>
@@ -192,5 +201,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
