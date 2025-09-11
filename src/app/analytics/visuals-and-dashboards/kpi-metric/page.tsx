@@ -21,7 +21,7 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
-  BarChart,
+  BarChart as BarChartIcon,
   LineChart as LineChartIcon,
   PieChart as PieChartIcon,
 } from "lucide-react";
@@ -35,7 +35,7 @@ import {
   Tooltip,
   Legend,
   CartesianGrid,
-  BarChart as RechartsBarChart,
+  BarChart,
   Bar,
   PieChart,
   Pie,
@@ -51,9 +51,6 @@ const kpiIcons: Record<string, React.ReactNode> = {
     Users: <Users className="h-4 w-4 text-muted-foreground" />,
     Target: <Target className="h-4 w-4 text-muted-foreground" />,
     Briefcase: <Briefcase className="h-4 w-4 text-muted-foreground" />,
-    BarChart: <BarChart className="h-4 w-4 text-muted-foreground" />,
-    LineChartIcon: <LineChartIcon className="h-4 w-4 text-muted-foreground" />,
-    PieChartIcon: <PieChartIcon className="h-4 w-4 text-muted-foreground" />,
 };
 
 const dashboardData: Record<string, any> = {};
@@ -145,7 +142,7 @@ const renderChart = (chart: any) => {
     case 'bar':
       return (
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBarChart data={chart.data}>
+          <BarChart data={chart.data}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
@@ -154,7 +151,7 @@ const renderChart = (chart: any) => {
             {chart.dataKeys.map((key: any, i: number) => (
                  <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
             ))}
-          </RechartsBarChart>
+          </BarChart>
         </ResponsiveContainer>
       );
     case 'pie':
@@ -192,7 +189,7 @@ export default function KpiMetricDashboardPage() {
   const currentDashboard = dashboardData[selectedDashboard];
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex">
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start gap-8">
       <main className="flex-1 space-y-8">
         <div className="flex justify-between items-center">
             <Button onClick={() => router.back()} variant="outline">
@@ -201,7 +198,7 @@ export default function KpiMetricDashboardPage() {
             </Button>
         </div>
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
+          <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
             {currentDashboard.title}
           </h1>
         </div>
@@ -256,15 +253,15 @@ export default function KpiMetricDashboardPage() {
           </Button>
         </div>
       </main>
-      <aside className="w-64 pl-8">
-          <h2 className="text-lg font-semibold mb-4 text-primary">Dashboards</h2>
-          <ScrollArea className="h-[calc(100vh-8rem)]">
-            <nav className="space-y-2 pr-4">
+      <aside className="w-64 space-y-4 sticky top-8">
+          <h2 className="text-lg font-semibold text-primary pl-4">Dashboards</h2>
+          <ScrollArea className="h-[calc(100vh-12rem)] rounded-lg border bg-card/50">
+            <nav className="p-2 space-y-1">
                 {Object.keys(dashboardData).map((key, index) => (
                     <Button
                         key={key}
                         variant={selectedDashboard === key ? "secondary" : "ghost"}
-                        className="w-full justify-start text-left h-auto py-2"
+                        className="w-full justify-start text-left h-auto py-2 px-4"
                         onClick={() => setSelectedDashboard(key)}
                     >
                         {`Option ${index + 1}`}
@@ -276,3 +273,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
