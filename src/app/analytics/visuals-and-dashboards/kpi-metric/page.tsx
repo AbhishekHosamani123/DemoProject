@@ -31,6 +31,7 @@ import {
   Building,
   Package,
   Headset,
+  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -60,6 +61,12 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const defaultKpiData = [
   { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
@@ -74,18 +81,19 @@ const TableComponent = ({ data }: { data: any[] }) => {
     if (!data || data.length === 0) {
         return <div className="text-center text-muted-foreground">No data available.</div>;
     }
+    const headers = Object.keys(data[0] || {});
     return (
         <ScrollArea className="h-full">
         <Table>
             <TableHeader>
                 <TableRow>
-                    {Object.keys(data[0] || {}).map(key => <TableHead key={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</TableHead>)}
+                    {headers.map(key => <TableHead key={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</TableHead>)}
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {data.map((row:any, index: number) => (
                     <TableRow key={index}>
-                        {Object.values(row).map((val: any, i: number) => <TableCell key={i}>{val}</TableCell>)}
+                        {headers.map((header) => <TableCell key={header}>{row[header]}</TableCell>)}
                     </TableRow>
                 ))}
             </TableBody>
@@ -298,6 +306,7 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
+  const [isCustomizeMode, setIsCustomizeMode] = useState(false);
 
   const currentDashboard = dashboardData[selectedOption] || dashboardData['suggestion-1'];
 
@@ -352,8 +361,28 @@ export default function KpiMetricDashboardPage() {
                         const heightClass = `h-[${chart.height}px]`;
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
-                            <CardHeader>
+                            <CardHeader className="flex justify-between items-center">
                                 <CardTitle>{chart.title}</CardTitle>
+                                {isCustomizeMode && (
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                                <MoreVertical className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem>
+                                                Convert to Numeric
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                Convert to Graph
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                Change Chart Type
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                )}
                             </CardHeader>
                             <CardContent className={heightClass}>
                                 <ResponsiveContainer width="100%" height="100%">
@@ -373,9 +402,9 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2" />
                         Generate Video
                     </Button>
-                    <Button size="lg" variant="secondary">
+                    <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
                         <Wrench className="mr-2" />
-                        Customize
+                        {isCustomizeMode ? 'Finish' : 'Customize'}
                     </Button>
                 </div>
             </div>
@@ -404,4 +433,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
