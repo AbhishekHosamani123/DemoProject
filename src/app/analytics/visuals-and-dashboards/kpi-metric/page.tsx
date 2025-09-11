@@ -143,15 +143,18 @@ export default function KpiMetricDashboardPage() {
     <div className="flex flex-1 flex-col h-screen overflow-hidden">
         <div className="flex-1 flex overflow-hidden p-4 sm:p-6 lg:p-8">
             <main className="flex-1 overflow-y-auto pr-6 space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="space-y-4">
                     <Button
                         onClick={() => router.back()}
                         variant="outline"
+                        className="max-w-min"
                         >
                         <ChevronLeft className="mr-2 h-4 w-4" />
                         Back
                     </Button>
-                    <h1 className="text-2xl font-bold tracking-tight text-primary">KPI &amp; Metric Dashboard</h1>
+                     <div className="text-left">
+                        <h1 className="text-3xl font-bold tracking-tight text-primary">Sales Performance Dashboard</h1>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
