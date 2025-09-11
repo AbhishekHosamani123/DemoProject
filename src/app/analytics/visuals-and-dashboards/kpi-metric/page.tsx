@@ -43,7 +43,21 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
+  AreaChart,
+  Area,
+  ComposedChart,
+  FunnelChart,
+  Funnel,
+  LabelList,
+  Treemap,
 } from "recharts";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -140,7 +154,6 @@ const generateDashboardData = () => {
     return data;
 }
 
-
 const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -159,94 +172,168 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-const renderChart = (chart: any) => {
-  switch (chart.type) {
-    case 'line':
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chart.data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend iconType="plainline"/>
-            {chart.dataKeys.map((key: any, i: number) => (
-                <Line key={key.name} type="monotone" dataKey={key.name} stroke={key.color || COLORS[i % COLORS.length]} strokeWidth={2} dot={false} />
-            ))}
-          </LineChart>
-        </ResponsiveContainer>
-      );
-    case 'bar':
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chart.data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip content={<CustomTooltip />} />
-            {chart.dataKeys.map((key: any, i: number) => (
-                 <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
-            ))}
-          </BarChart>
-        </ResponsiveContainer>
-      );
-    case 'stacked-bar':
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chart.data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            {chart.dataKeys.map((key: any, i: number) => (
-                 <Bar key={key.name} dataKey={key.name} stackId="a" fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]}/>
-            ))}
-          </BarChart>
-        </ResponsiveContainer>
-      );
-    case 'pie':
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Tooltip content={<CustomTooltip />} />
-            <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
-            <Pie
-              data={chart.data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={"70%"}
-              stroke="hsl(var(--background))"
-              strokeWidth={2}
-              labelLine={false}
-              label={false}
-            >
-              {chart.data.map((_: any, index: number) => (
+const chartComponents: Record<string, React.FC<any>> = {
+  line: ({chart}) => (
+    <LineChart data={chart.data}>
+      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <Tooltip content={<CustomTooltip />} />
+      <Legend iconType="plainline"/>
+      {chart.dataKeys.map((key: any, i: number) => (
+          <Line key={key.name} type="monotone" dataKey={key.name} stroke={key.color || COLORS[i % COLORS.length]} strokeWidth={2} dot={false} />
+      ))}
+    </LineChart>
+  ),
+  bar: ({chart}) => (
+    <BarChart data={chart.data}>
+      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <Tooltip content={<CustomTooltip />} />
+      {chart.dataKeys.map((key: any, i: number) => (
+           <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
+      ))}
+    </BarChart>
+  ),
+  "stacked-bar": ({chart}) => (
+    <BarChart data={chart.data}>
+      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+      <Tooltip content={<CustomTooltip />} />
+      <Legend />
+      {chart.dataKeys.map((key: any, i: number) => (
+           <Bar key={key.name} dataKey={key.name} stackId="a" fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]}/>
+      ))}
+    </BarChart>
+  ),
+  pie: ({chart}) => (
+    <PieChart>
+      <Tooltip content={<CustomTooltip />} />
+      <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
+      <Pie
+        data={chart.data}
+        dataKey="value"
+        nameKey="name"
+        cx="50%"
+        cy="50%"
+        outerRadius={"70%"}
+        stroke="hsl(var(--background))"
+        strokeWidth={2}
+        labelLine={false}
+        label={false}
+      >
+        {chart.data.map((_: any, index: number) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  ),
+  radar: ({chart}) => (
+      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chart.data}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="subject" />
+          <PolarRadiusAxis />
+          <Tooltip content={<CustomTooltip />} />
+          {chart.dataKeys.map((key: any, i: number) => (
+              <Radar key={key.name} name="Mike" dataKey={key.name} stroke={key.color} fill={key.color} fillOpacity={0.6} />
+          ))}
+      </RadarChart>
+  ),
+  area: ({chart}) => (
+    <AreaChart data={chart.data}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend />
+        {chart.dataKeys.map((key: any, i: number) => (
+            <Area key={key.name} type="monotone" dataKey={key.name} stroke={key.color} fill={key.color} fillOpacity={0.4} />
+        ))}
+    </AreaChart>
+  ),
+  composed: ({chart}) => (
+    <ComposedChart data={chart.data}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend />
+        <Bar dataKey="pv" barSize={20} fill="hsl(var(--chart-4))" />
+        <Line type="monotone" dataKey="value" stroke="hsl(var(--chart-1))" />
+    </ComposedChart>
+  ),
+  funnel: ({chart}) => (
+     <FunnelChart>
+        <Tooltip />
+        <Funnel dataKey="value" data={chart.data} isAnimationActive>
+           {chart.data.map((_:any, index:number) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-      );
-    case 'radar':
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chart.data}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis />
-                <Tooltip content={<CustomTooltip />} />
-                {chart.dataKeys.map((key: any, i: number) => (
-                    <Radar key={key.name} name="Mike" dataKey={key.name} stroke={key.color} fill={key.color} fillOpacity={0.6} />
-                ))}
-            </RadarChart>
-        </ResponsiveContainer>
-      )
-    default:
-      return <div>Invalid chart type</div>;
-  }
+            ))}
+          <LabelList position="right" fill="#fff" stroke="none" dataKey="name" />
+        </Funnel>
+      </FunnelChart>
+  ),
+  treemap: ({chart}) => (
+    <Treemap
+        data={chart.data}
+        dataKey="value"
+        ratio={4 / 3}
+        stroke="#fff"
+        fill="hsl(var(--chart-2))"
+        content={<CustomizedContent colors={COLORS} />}
+    >
+        <Tooltip content={<CustomTooltip />} />
+    </Treemap>
+  ),
+};
+
+const CustomizedContent = (props: any) => {
+    const { root, depth, x, y, width, height, index, payload, rank, name, colors } = props;
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          style={{
+            fill: colors[index % colors.length],
+            stroke: '#fff',
+            strokeWidth: 2 / (depth + 1e-10),
+            strokeOpacity: 1 / (depth + 1e-10),
+          }}
+        />
+        <text x={x + width / 2} y={y + height / 2 + 7} textAnchor="middle" fill="#fff" fontSize={14}>
+          {name}
+        </text>
+      </g>
+    );
+};
+
+
+const chartTypesList = [
+    { label: "Line Chart", type: "line" },
+    { label: "Bar Chart", type: "bar" },
+    { label: "Stacked Bar Chart", type: "stacked-bar" },
+    { label: "Area Chart", type: "area" },
+    { label: "Pie Chart", type: "pie" },
+    { label: "Radar Chart", type: "radar" },
+    { label: "Composed Chart", type: "composed" },
+    { label: "Funnel Chart", type: "funnel" },
+    { label: "Treemap", type: "treemap" },
+];
+
+
+const renderChart = (chart: any, type: string) => {
+  const ChartComponent = chartComponents[type] || chartComponents[chart.type];
+  if (!ChartComponent) return <div>Invalid chart type</div>;
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+        <ChartComponent chart={chart} />
+    </ResponsiveContainer>
+  )
 };
 
 const NumericalDataView = ({ data }: { data: any[] }) => {
@@ -272,42 +359,64 @@ const NumericalDataView = ({ data }: { data: any[] }) => {
     );
 };
 
-
-const ChartCard = ({chart, showMenu, onConvertToNumerical, onConvertToChart, isNumerical}: {
+const ChartCard = ({chart, showMenu, onConvertToNumerical, onConvertToChart, isNumerical, onChartTypeChange}: {
     chart: any, 
     showMenu: boolean, 
     onConvertToNumerical: () => void, 
     onConvertToChart: () => void,
-    isNumerical: boolean
-}) => (
+    isNumerical: boolean,
+    onChartTypeChange: (type: string) => void;
+}) => {
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    
+    return (
     <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>{chart.title}</CardTitle>
             {showMenu && (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {isNumerical ? (
-                            <DropdownMenuItem onClick={onConvertToChart}>Change to graphical representation</DropdownMenuItem>
-                        ) : (
-                            <>
-                                <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
-                                <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                            </>
-                        )}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            {isNumerical ? (
+                                <DropdownMenuItem onClick={onConvertToChart}>Change to graphical representation</DropdownMenuItem>
+                            ) : (
+                                <>
+                                    <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
+                                     <DialogTrigger asChild>
+                                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                                    </DialogTrigger>
+                                </>
+                            )}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    <DialogContent className="bg-card/80 backdrop-blur-sm">
+                        <DialogHeader>
+                            <DialogTitle>Change Chart Style</DialogTitle>
+                        </DialogHeader>
+                        <div className="grid grid-cols-2 gap-4 py-4">
+                            {chartTypesList.map(item => (
+                                <Button key={item.type} variant="outline" onClick={() => {
+                                    onChartTypeChange(item.type);
+                                    setIsDialogOpen(false);
+                                }}>
+                                    {item.label}
+                                </Button>
+                            ))}
+                        </div>
+                    </DialogContent>
+                 </Dialog>
             )}
         </CardHeader>
         <CardContent className="h-[calc(100%-3rem)] p-4 pt-2">
-            {isNumerical ? <NumericalDataView data={chart.data} /> : renderChart(chart)}
+            {isNumerical ? <NumericalDataView data={chart.data} /> : renderChart(chart, chart.type)}
         </CardContent>
     </Card>
-)
+)}
 
 
 export default function KpiMetricDashboardPage() {
@@ -317,11 +426,19 @@ export default function KpiMetricDashboardPage() {
   const [loading, setLoading] = React.useState(true);
   const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
   const [chartDisplayModes, setChartDisplayModes] = React.useState<Record<string, 'chart' | 'numerical'>>({});
+  const [chartTypes, setChartTypes] = React.useState<Record<string, string>>({});
 
 
   React.useEffect(() => {
     const data = generateDashboardData();
     setDashboardData(data);
+    const initialTypes: Record<string, string> = {};
+    Object.values(data).forEach(dashboard => {
+        dashboard.charts.forEach((chart: any) => {
+            initialTypes[chart.title] = chart.type;
+        })
+    })
+    setChartTypes(initialTypes);
     setLoading(false);
   }, []);
 
@@ -337,6 +454,13 @@ export default function KpiMetricDashboardPage() {
         ...prev,
         [chartTitle]: 'chart'
     }));
+  }
+
+  const handleChartTypeChange = (chartTitle: string, newType: string) => {
+      setChartTypes(prev => ({
+          ...prev,
+          [chartTitle]: newType,
+      }));
   }
 
   if (loading || !dashboardData) {
@@ -366,10 +490,15 @@ export default function KpiMetricDashboardPage() {
   }
 
   const currentDashboard = dashboardData[selectedDashboard];
+  
+  const allCharts = currentDashboard.charts.map((chart: any) => ({
+      ...chart,
+      type: chartTypes[chart.title] || chart.type,
+  }));
 
-  const mainChart = currentDashboard.charts[0];
-  const smallCharts = currentDashboard.charts.slice(1, 4);
-  const bottomCharts = currentDashboard.charts.slice(4);
+  const mainChart = allCharts[0];
+  const smallCharts = allCharts.slice(1, 4);
+  const bottomCharts = allCharts.slice(4);
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -448,6 +577,7 @@ export default function KpiMetricDashboardPage() {
                     onConvertToNumerical={() => handleConvertToNumerical(mainChart.title)}
                     onConvertToChart={() => handleConvertToChart(mainChart.title)}
                     isNumerical={chartDisplayModes[mainChart.title] === 'numerical'}
+                    onChartTypeChange={(newType) => handleChartTypeChange(mainChart.title, newType)}
                 />
             </div>
             {smallCharts.map((chart: any, index: number) => (
@@ -458,6 +588,7 @@ export default function KpiMetricDashboardPage() {
                         onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
                         onConvertToChart={() => handleConvertToChart(chart.title)}
                         isNumerical={chartDisplayModes[chart.title] === 'numerical'}
+                        onChartTypeChange={(newType) => handleChartTypeChange(chart.title, newType)}
                     />
                 </div>
             ))}
@@ -470,6 +601,7 @@ export default function KpiMetricDashboardPage() {
                             onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
                             onConvertToChart={() => handleConvertToChart(chart.title)}
                             isNumerical={chartDisplayModes[chart.title] === 'numerical'}
+                            onChartTypeChange={(newType) => handleChartTypeChange(chart.title, newType)}
                         />
                     </div>
                 ))}
@@ -487,10 +619,6 @@ export default function KpiMetricDashboardPage() {
           </Button>
           <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => {
             setIsCustomizeMode(!isCustomizeMode);
-            if(isCustomizeMode) {
-                // When exiting customize mode, chart states are preserved.
-                // setChartDisplayModes({}); // This would reset the view
-            }
           }}>
             <Wrench className="mr-2" />
             {isCustomizeMode ? "Done" : "Customize"}
@@ -500,5 +628,7 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
 
     
