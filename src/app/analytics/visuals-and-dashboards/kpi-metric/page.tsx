@@ -260,20 +260,19 @@ export default function KpiMetricDashboardPage() {
   };
 
   return (
-    <div className="flex flex-1 flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden p-4 sm:p-6 lg:p-8">
-            <main className="flex-1 overflow-y-auto pr-6 space-y-6">
-                <div className="space-y-4">
+    <div className="flex flex-1">
+        <div className="flex-1 flex flex-col">
+            <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+                 <div className="space-y-4">
                     <Button
                         onClick={() => router.back()}
                         variant="outline"
-                        className="max-w-min"
                         >
                         <ChevronLeft className="mr-2 h-4 w-4" />
                         Back
                     </Button>
                      <div className="text-left">
-                        <h1 className="text-3xl font-bold tracking-tight text-primary">Sales Performance Dashboard</h1>
+                        <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
                     </div>
                 </div>
 
@@ -398,7 +397,7 @@ export default function KpiMetricDashboardPage() {
                     </div>
                 </div>
                 <div className="flex justify-start gap-4 mt-8 pb-8">
-                    <Button size="lg" variant="primary">
+                    <Button size="lg">
                         <Download className="mr-2 h-4 w-4" />
                         Download
                     </Button>
@@ -412,8 +411,8 @@ export default function KpiMetricDashboardPage() {
                     </Button>
                 </div>
             </main>
-            <aside className="w-64 py-6 bg-transparent border-l-0 overflow-y-auto">
-                 <Card className="bg-card/60 backdrop-blur-sm">
+            <aside className="w-64 py-6 bg-transparent border-l border-border/20 overflow-y-auto hidden lg:block">
+                 <Card className="bg-card/60 backdrop-blur-sm shadow-none border-none">
                     <CardHeader>
                         <CardTitle className="text-lg text-primary text-center">OPTIONS</CardTitle>
                     </CardHeader>
@@ -437,3 +436,6 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+
+    
