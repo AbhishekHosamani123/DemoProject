@@ -70,25 +70,25 @@ const kpiData = [
     title: "Total Revenue",
     value: "₹45.2Cr",
     change: "+12.1% vs last period",
-    icon: <DollarSign className="h-5 w-5 text-yellow-400" />
+    icon: <DollarSign className="h-5 w-5 text-primary" />
   },
   {
     title: "Profit Margin",
     value: "24.5%",
     change: "+2.3% vs last period",
-    icon: <TrendingUp className="h-5 w-5 text-yellow-400" />
+    icon: <TrendingUp className="h-5 w-5 text-primary" />
   },
   {
     title: "New Customers",
     value: "1,254",
     change: "+8.5% vs last period",
-    icon: <Users className="h-5 w-5 text-yellow-400" />
+    icon: <Users className="h-5 w-5 text-primary" />
   },
   {
     title: "Conversion Rate",
     value: "3.2%",
     change: "+0.5% vs last period",
-    icon: <Target className="h-5 w-5 text-yellow-400" />
+    icon: <Target className="h-5 w-5 text-primary" />
   },
 ];
 
@@ -194,7 +194,7 @@ export default function KpiMetricDashboardPage() {
                             </ResponsiveContainer>
                        </ChartCard>
                     </div>
-                     <div className="col-span-12 lg:col-span-7">
+                     <div className="col-span-12">
                         <ChartCard title="Sales Conversion Funnel">
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
@@ -210,16 +210,9 @@ export default function KpiMetricDashboardPage() {
                             </ResponsiveContainer>
                         </ChartCard>
                     </div>
-                    <div className="col-span-12 lg:col-span-5">
-                       <ChartCard title="Some Other Metric">
-                            <div className="flex items-center justify-center h-full text-muted-foreground">
-                                Placeholder for another chart
-                            </div>
-                       </ChartCard>
-                    </div>
                 </div>
                 <div className="flex justify-start gap-4 mt-8 pb-8">
-                    <Button size="lg">
+                    <Button size="lg" variant="primary">
                         <Download className="mr-2 h-4 w-4" />
                         Download
                     </Button>
@@ -256,5 +249,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
