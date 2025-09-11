@@ -24,15 +24,9 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Download, Video, Wrench, ChevronLeft, Calendar as CalendarIcon } from "lucide-react";
+import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { generatedText, parsePresentationText } from "@/lib/content/sales-strategy-presentation";
 
@@ -46,10 +40,6 @@ export default function SalesStrategyPage() {
   const slides = parsePresentationText(generatedText);
   const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
   const { toast } = useToast();
-
-  const handleCustomizeClick = () => {
-    setIsCustomizeOpen(true);
-  };
   
   const handleApplyCustomization = () => {
     toast({
@@ -131,25 +121,26 @@ export default function SalesStrategyPage() {
           </Button>
             <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
               <DialogTrigger asChild>
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    className="w-full"
-                  >
-                    <Wrench className="mr-2 h-4 w-4" />
-                    Customize
-                  </Button>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => setIsCustomizeOpen(true)}
+                >
+                  <Wrench className="mr-2 h-4 w-4" />
+                  Customize
+                </Button>
               </DialogTrigger>
               <DialogContent>
-                  <DialogHeader>
-                      <DialogTitle>Customize Presentation</DialogTitle>
-                  </DialogHeader>
-                  <div className="py-4 space-y-4">
-                      <p>Customization options will go here.</p>
-                  </div>
-                  <DialogFooter>
-                      <Button onClick={handleApplyCustomization}>Apply</Button>
-                  </DialogFooter>
+                <DialogHeader>
+                  <DialogTitle>Customize Presentation</DialogTitle>
+                </DialogHeader>
+                <div className="py-4 space-y-4">
+                  <p>Customization options will go here.</p>
+                </div>
+                <DialogFooter>
+                  <Button onClick={handleApplyCustomization}>Apply</Button>
+                </DialogFooter>
               </DialogContent>
             </Dialog>
         </div>
