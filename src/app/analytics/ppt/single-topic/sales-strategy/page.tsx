@@ -26,18 +26,27 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, Video, ChevronLeft, Wrench } from "lucide-react";
+import { Download, Video, ChevronLeft, Wrench, Calendar as CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { generatedText, parsePresentationText } from "@/lib/content/sales-strategy-presentation";
 import { useToast } from "@/hooks/use-toast";
-
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 export default function SalesStrategyPage() {
   const router = useRouter();
   const { toast } = useToast();
   const slides = parsePresentationText(generatedText);
   const [isCustomizeOpen, setIsCustomizeOpen] = React.useState(false);
+  const [numSlides, setNumSlides] = React.useState<number>(slides.length);
+  const [fromDate, setFromDate] = React.useState<Date | undefined>();
+  const [toDate, setToDate] = React.useState<Date | undefined>();
+  const [isFromDatePickerOpen, setIsFromDatePickerOpen] = React.useState(false);
+  const [isToDatePickerOpen, setIsToDatePickerOpen] = React.useState(false);
+
 
   const handleCustomize = () => {
     toast({
@@ -71,16 +80,98 @@ export default function SalesStrategyPage() {
         <div className="flex justify-end">
             <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
               <DialogTrigger asChild>
-                <Button size="icon" variant="primary" className="rounded-full w-12 h-12">
+                <Button size="icon" variant="primary" className="rounded-full w-12 h-12 bg-yellow-500 hover:bg-yellow-600 text-black">
                   <Wrench className="h-6 w-6" />
                   <span className="sr-only">Customize</span>
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md bg-background/80 backdrop-blur-sm">
                 <DialogHeader>
-                  <DialogTitle>Customize Slides</DialogTitle>
+                  <DialogTitle>Customize Presentation</DialogTitle>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                 <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="from-date" className="text-right">
+                      From
+                    </Label>
+                    <Popover
+                      open={isFromDatePickerOpen}
+                      onOpenChange={setIsFromDatePickerOpen}
+                    >
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="from-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !fromDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {fromDate ? (
+                            format(fromDate, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={fromDate}
+                          onSelect={(date) => {
+                            setFromDate(date);
+                            setIsFromDatePickerOpen(false);
+                          }}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="to-date" className="text-right">
+                      To
+                    </Label>
+                    <Popover
+                      open={isToDatePickerOpen}
+                      onOpenChange={setIsToDatePickerOpen}
+                    >
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="to-date"
+                          variant={"outline"}
+                          className={cn(
+                            "col-span-3 justify-start text-left font-normal",
+                            !toDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {toDate ? (
+                            format(toDate, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={toDate}
+                          onSelect={(date) => {
+                            setToDate(date);
+                            setIsToDatePickerOpen(false);
+                          }}
+                          captionLayout="dropdown-buttons"
+                          fromYear={2001}
+                          toYear={2025}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="num-slides" className="text-right">
                       No. of Slides
@@ -88,19 +179,10 @@ export default function SalesStrategyPage() {
                     <Input
                       id="num-slides"
                       type="number"
-                      defaultValue={slides.length}
+                      value={numSlides}
+                      onChange={(e) => setNumSlides(Number(e.target.value))}
                       className="col-span-3"
                       min="1"
-                    />
-                  </div>
-                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="tone" className="text-right">
-                      Tone
-                    </Label>
-                    <Input
-                      id="tone"
-                      defaultValue="Professional"
-                      className="col-span-3"
                     />
                   </div>
                 </div>
