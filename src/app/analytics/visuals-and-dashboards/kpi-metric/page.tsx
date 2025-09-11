@@ -275,7 +275,7 @@ const NumericalDataView = ({ data }: { data: any[] }) => {
 
 const ChartCard = ({chart, showMenu, onConvertToNumerical, isNumerical}: {chart: any, showMenu: boolean, onConvertToNumerical: () => void, isNumerical: boolean}) => (
     <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>{chart.title}</CardTitle>
             {showMenu && (
                 <DropdownMenu>
@@ -291,7 +291,7 @@ const ChartCard = ({chart, showMenu, onConvertToNumerical, isNumerical}: {chart:
                 </DropdownMenu>
             )}
         </CardHeader>
-        <CardContent className="h-[calc(100%-4rem)] p-4">
+        <CardContent className="h-[calc(100%-3rem)] p-4 pt-2">
             {isNumerical ? <NumericalDataView data={chart.data} /> : renderChart(chart)}
         </CardContent>
     </Card>
@@ -421,7 +421,7 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-3">
                 <ChartCard
                     chart={mainChart}
@@ -430,26 +430,26 @@ export default function KpiMetricDashboardPage() {
                     isNumerical={chartDisplayModes[mainChart.title] === 'numerical'}
                 />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {smallCharts.map((chart: any, index: number) => (
+            {smallCharts.map((chart: any, index: number) => (
+                <div key={index} className="lg:col-span-1">
                     <ChartCard
-                        key={index}
                         chart={chart}
                         showMenu={isCustomizeMode}
                         onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
                         isNumerical={chartDisplayModes[chart.title] === 'numerical'}
                     />
-                ))}
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                </div>
+            ))}
+            <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {bottomCharts.map((chart:any, index: number) => (
-                    <ChartCard
-                        key={index}
-                        chart={chart}
-                        showMenu={isCustomizeMode}
-                        onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
-                        isNumerical={chartDisplayModes[chart.title] === 'numerical'}
-                    />
+                     <div key={index} className="lg:col-span-1">
+                        <ChartCard
+                            chart={chart}
+                            showMenu={isCustomizeMode}
+                            onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
+                            isNumerical={chartDisplayModes[chart.title] === 'numerical'}
+                        />
+                    </div>
                 ))}
             </div>
         </div>
@@ -478,4 +478,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
