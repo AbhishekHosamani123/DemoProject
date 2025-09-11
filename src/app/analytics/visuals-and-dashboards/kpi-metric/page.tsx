@@ -15,6 +15,11 @@ import {
   Video,
   Wrench,
   MoreVertical,
+  DollarSign,
+  TrendingUp,
+  Users,
+  Target,
+  ArrowUp,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -68,6 +73,33 @@ const funnelData = [
     { name: "Closed", value: 20, fill: "hsl(var(--chart-1))" },
 ]
 
+const kpiData = [
+  {
+    title: "Total Revenue",
+    value: "₹45.2Cr",
+    change: "+12.1% vs last period",
+    icon: <DollarSign className="h-5 w-5 text-yellow-400" />
+  },
+  {
+    title: "Profit Margin",
+    value: "24.5%",
+    change: "+2.3% vs last period",
+    icon: <TrendingUp className="h-5 w-5 text-yellow-400" />
+  },
+  {
+    title: "New Customers",
+    value: "1,254",
+    change: "+8.5% vs last period",
+    icon: <Users className="h-5 w-5 text-yellow-400" />
+  },
+  {
+    title: "Conversion Rate",
+    value: "3.2%",
+    change: "+0.5% vs last period",
+    icon: <Target className="h-5 w-5 text-yellow-400" />
+  },
+];
+
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -85,7 +117,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, showMenu = true }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
+const ChartCard = ({ title, children, showMenu = false }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
@@ -109,6 +141,22 @@ const ChartCard = ({ title, children, showMenu = true }: { title: string, childr
     </Card>
 )
 
+const KpiCard = ({ title, value, change, icon }: { title: string, value: string, change: string, icon: React.ReactNode }) => (
+  <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg shadow-black/20 p-4">
+    <CardHeader className="flex flex-row items-center justify-between p-0 pb-2">
+      <CardTitle className="text-sm font-medium text-yellow-400">{title}</CardTitle>
+      {icon}
+    </CardHeader>
+    <CardContent className="p-0">
+      <div className="text-3xl font-bold text-white">{value}</div>
+      <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+        <ArrowUp className="h-3 w-3"/>
+        {change}
+      </p>
+    </CardContent>
+  </Card>
+)
+
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
 
@@ -123,9 +171,15 @@ export default function KpiMetricDashboardPage() {
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Back
             </Button>
+             <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold tracking-tight text-primary">Sales Performance Dashboard</h1>
+             </div>
         </div>
-        <div className="flex-1 flex overflow-hidden">
-            <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+        <div className="flex-1 flex overflow-hidden px-4 sm:px-6 lg:px-8">
+            <main className="flex-1 overflow-y-auto pr-6 space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {kpiData.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
+                </div>
                 <div className="grid grid-cols-12 gap-6">
                     <div className="col-span-12 lg:col-span-4">
                         <ChartCard title="Monthly Sales vs Goal">
@@ -185,7 +239,7 @@ export default function KpiMetricDashboardPage() {
                        </ChartCard>
                     </div>
                 </div>
-                <div className="flex justify-start gap-4 mt-8">
+                <div className="flex justify-start gap-4 mt-8 pb-8">
                     <Button size="lg">
                         <Download className="mr-2 h-4 w-4" />
                         Download
@@ -200,7 +254,7 @@ export default function KpiMetricDashboardPage() {
                     </Button>
                 </div>
             </main>
-            <aside className="w-64 p-6 bg-card/40 border-l border-border/30 overflow-y-auto">
+            <aside className="w-64 py-6 bg-transparent border-l-0 overflow-y-auto">
                  <Card className="bg-card/60 backdrop-blur-sm">
                     <CardContent className="p-2">
                         <div className="space-y-2">
@@ -220,3 +274,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
