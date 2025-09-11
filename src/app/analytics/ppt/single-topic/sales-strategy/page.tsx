@@ -130,7 +130,7 @@ export default function SalesStrategyPage() {
             onClick={handleCustomizeClick}
           >
             <Wrench className="mr-2 h-4 w-4" />
-            Customize
+            New Customize
           </Button>
         </div>
       </div>
