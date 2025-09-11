@@ -14,7 +14,6 @@ import {
   Download,
   Video,
   Wrench,
-  MoreVertical,
   DollarSign,
   TrendingUp,
   Users,
@@ -24,27 +23,20 @@ import {
 import { useRouter } from "next/navigation";
 import {
   ResponsiveContainer,
-  BarChart,
+  ComposedChart,
+  Line,
   Bar,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
   CartesianGrid,
-  ComposedChart,
-  Line,
   AreaChart,
   Area,
   FunnelChart,
   Funnel,
   LabelList,
 } from "recharts";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const salesData = [
     { month: "Jan", sales: 4000, goal: 5000 },
@@ -117,23 +109,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, showMenu = false }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
+const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
-             {showMenu && (
-                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm">
-                       <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-                       <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center p-2">
             {children}
@@ -144,11 +123,11 @@ const ChartCard = ({ title, children, showMenu = false }: { title: string, child
 const KpiCard = ({ title, value, change, icon }: { title: string, value: string, change: string, icon: React.ReactNode }) => (
   <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg shadow-black/20 p-4">
     <CardHeader className="flex flex-row items-center justify-between p-0 pb-2">
-      <CardTitle className="text-sm font-medium text-yellow-400">{title}</CardTitle>
+      <CardTitle className="text-sm font-medium text-primary">{title}</CardTitle>
       {icon}
     </CardHeader>
     <CardContent className="p-0">
-      <div className="text-3xl font-bold text-white">{value}</div>
+      <div className="text-3xl font-bold text-foreground">{value}</div>
       <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
         <ArrowUp className="h-3 w-3"/>
         {change}
@@ -172,7 +151,7 @@ export default function KpiMetricDashboardPage() {
                 Back
             </Button>
              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold tracking-tight text-primary">Sales Performance Dashboard</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
              </div>
         </div>
         <div className="flex-1 flex overflow-hidden px-4 sm:px-6 lg:px-8">
@@ -266,7 +245,7 @@ export default function KpiMetricDashboardPage() {
                                     key={i + 1}
                                     className="flex items-center justify-between p-3 rounded-lg bg-background/80 border border-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer group"
                                 >
-                                    <span className="font-medium">Option {i + 1}</span>
+                                    <span className="font-medium text-foreground group-hover:text-accent-foreground">Option {i + 1}</span>
                                 </div>
                             ))}
                         </div>
