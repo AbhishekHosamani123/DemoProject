@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card";
-import { ChevronLeft, Download, Wrench } from "lucide-react";
+import { ChevronLeft, Download, Wrench, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
@@ -77,12 +77,16 @@ export default function SalesForecastingPage() {
                 />
             </CardContent>
           </Card>
-          <div className="flex gap-4">
-            <Button size="lg" className="flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Button size="lg" className="w-full">
               <Download className="mr-2 h-4 w-4" />
               Download
             </Button>
-            <Button size="lg" variant="secondary" className="flex-1">
+             <Button size="lg" variant="secondary" className="w-full">
+              <Video className="mr-2 h-4 w-4" />
+              Generate Video
+            </Button>
+            <Button size="lg" variant="secondary" className="w-full">
               <Wrench className="mr-2 h-4 w-4" />
               Customize
             </Button>
