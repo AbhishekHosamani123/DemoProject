@@ -40,6 +40,7 @@ import {
 } from "recharts";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const kpiIcons: Record<string, React.ReactNode> = {
@@ -50,60 +51,61 @@ const kpiIcons: Record<string, React.ReactNode> = {
     Briefcase: <Briefcase className="h-4 w-4 text-muted-foreground" />,
 };
 
-const dashboardData: Record<string, any> = {};
+const generateDashboardData = () => {
+    const data: Record<string, any> = {};
+    const titles = [
+      "Sales Performance", "Marketing Funnel", "Customer Service", "Financial Health", "Product Usage", 
+      "Website Analytics", "E-commerce", "Supply Chain", "HR Dashboard", "Social Media",
+      "Project Management", "IT Operations", "Healthcare", "Real Estate", "Education",
+      "Manufacturing", "Retail", "Travel & Hospitality", "Energy Sector", "Automotive"
+    ];
 
-const titles = [
-  "Sales Performance", "Marketing Funnel", "Customer Service", "Financial Health", "Product Usage", 
-  "Website Analytics", "E-commerce", "Supply Chain", "HR Dashboard", "Social Media",
-  "Project Management", "IT Operations", "Healthcare", "Real Estate", "Education",
-  "Manufacturing", "Retail", "Travel & Hospitality", "Energy Sector", "Automotive"
-];
-
-
-for (let i = 0; i < titles.length; i++) {
-    const key = titles[i].toLowerCase().replace(/\s+/g, '-');
-    dashboardData[key] = {
-        title: `${titles[i]} Dashboard`,
-        kpis: [
-            { title: "Total Revenue", value: `₹${(Math.random() * 50 + 10).toFixed(1)}Cr`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", iconName: "DollarSign" },
-            { title: "Profit Margin", value: `${(Math.random() * 30 + 10).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", iconName: "TrendingUp" },
-            { title: "New Customers", value: (Math.floor(Math.random() * 2000) + 500).toLocaleString(), change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
-            { title: "Conversion Rate", value: `${(Math.random() * 5 + 1).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", iconName: "Target" },
-            { title: "Avg. Order Value", value: `₹${(Math.floor(Math.random() * 5000) + 1000).toLocaleString()}`, change: `-${(Math.random() * 5).toFixed(1)}%`, changeType: "decrease", iconName: "Briefcase" },
-            { title: "Active Users", value: (Math.floor(Math.random() * 10000) + 2000).toLocaleString(), change: `+${(Math.random() * 8).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
-        ],
-        charts: [
-            { 
-                title: "Metric Over Time", 
-                type: "line", 
-                data: Array.from({ length: 7 }, (_, j) => ({ name: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][j], value: Math.floor(Math.random() * 3000) + 1000, pv: Math.floor(Math.random() * 2000) + 1000 })),
-                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}, {name: "pv", color: "hsl(var(--chart-2))"}]
-            },
-            { 
-                title: "Distribution by Category", 
-                type: "bar", 
-                data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 4000) + 1000 })),
-                dataKeys: [{name: "value", color: "hsl(var(--chart-2))"}]
-            },
-            { 
-                title: "Source Breakdown", 
-                type: "pie", 
-                data: [
-                    { name: 'Organic', value: Math.floor(Math.random() * 500) + 200 },
-                    { name: 'Paid', value: Math.floor(Math.random() * 400) + 100 },
-                    { name: 'Direct', value: Math.floor(Math.random() * 300) + 100 },
-                    { name: 'Referral', value: Math.floor(Math.random() * 200) + 50 },
-                ],
-                dataKeys: [{name: "value"}]
-            },
-            { 
-                title: "Secondary Distribution", 
-                type: "bar", 
-                data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2000) + 500 })),
-                dataKeys: [{name: "value", color: "hsl(var(--chart-4))"}]
-            },
-        ]
-    };
+    for (let i = 0; i < titles.length; i++) {
+        const key = titles[i].toLowerCase().replace(/\s+/g, '-');
+        data[key] = {
+            title: `${titles[i]} Dashboard`,
+            kpis: [
+                { title: "Total Revenue", value: `₹${(Math.random() * 50 + 10).toFixed(1)}Cr`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", iconName: "DollarSign" },
+                { title: "Profit Margin", value: `${(Math.random() * 30 + 10).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", iconName: "TrendingUp" },
+                { title: "New Customers", value: (Math.floor(Math.random() * 2000) + 500).toLocaleString(), change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
+                { title: "Conversion Rate", value: `${(Math.random() * 5 + 1).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", iconName: "Target" },
+                { title: "Avg. Order Value", value: `₹${(Math.floor(Math.random() * 5000) + 1000).toLocaleString()}`, change: `-${(Math.random() * 5).toFixed(1)}%`, changeType: "decrease", iconName: "Briefcase" },
+                { title: "Active Users", value: (Math.floor(Math.random() * 10000) + 2000).toLocaleString(), change: `+${(Math.random() * 8).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
+            ],
+            charts: [
+                { 
+                    title: "Metric Over Time", 
+                    type: "line", 
+                    data: Array.from({ length: 7 }, (_, j) => ({ name: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][j], value: Math.floor(Math.random() * 3000) + 1000, pv: Math.floor(Math.random() * 2000) + 1000 })),
+                    dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}, {name: "pv", color: "hsl(var(--chart-2))"}]
+                },
+                { 
+                    title: "Distribution by Category", 
+                    type: "bar", 
+                    data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 4000) + 1000 })),
+                    dataKeys: [{name: "value", color: "hsl(var(--chart-2))"}]
+                },
+                { 
+                    title: "Source Breakdown", 
+                    type: "pie", 
+                    data: [
+                        { name: 'Organic', value: Math.floor(Math.random() * 500) + 200 },
+                        { name: 'Paid', value: Math.floor(Math.random() * 400) + 100 },
+                        { name: 'Direct', value: Math.floor(Math.random() * 300) + 100 },
+                        { name: 'Referral', value: Math.floor(Math.random() * 200) + 50 },
+                    ],
+                    dataKeys: [{name: "value"}]
+                },
+                { 
+                    title: "Secondary Distribution", 
+                    type: "bar", 
+                    data: Array.from({ length: 5 }, (_, j) => ({ name: ["A", "B", "C", "D", "E"][j], value: Math.floor(Math.random() * 2000) + 500 })),
+                    dataKeys: [{name: "value", color: "hsl(var(--chart-4))"}]
+                },
+            ]
+        };
+    }
+    return data;
 }
 
 
@@ -188,7 +190,35 @@ const renderChart = (chart: any) => {
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
+  const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
+
+  React.useEffect(() => {
+    setDashboardData(generateDashboardData());
+  }, []);
+
+  if (!dashboardData) {
+    return (
+      <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start gap-8">
+        <main className="flex-1 space-y-8">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+                {Array.from({length: 6}).map((_, i) => <Skeleton key={i} className="h-28" />)}
+            </div>
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                 <Skeleton className="lg:col-span-3 h-[350px]" />
+                 <Skeleton className="h-[300px]" />
+                 <Skeleton className="h-[300px]" />
+                 <Skeleton className="h-[300px]" />
+            </div>
+        </main>
+        <aside className="w-64 space-y-4 sticky top-8">
+            <Skeleton className="h-8 w-32" />
+            <Skeleton className="h-[calc(100vh-14rem)]" />
+        </aside>
+      </div>
+    );
+  }
+
   const currentDashboard = dashboardData[selectedDashboard];
 
   const mainChart = currentDashboard.charts[0];
