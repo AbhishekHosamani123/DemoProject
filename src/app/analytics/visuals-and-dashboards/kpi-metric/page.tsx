@@ -19,8 +19,15 @@ import {
   Users,
   Target,
   ArrowUp,
+  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -140,10 +147,23 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
+const ChartCard = ({ title, children, isCustomizeMode }: { title: string, children: React.ReactNode, isCustomizeMode: boolean }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
+             {isCustomizeMode && (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-6 w-6">
+                            <MoreVertical className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem>Change to numerics</DropdownMenuItem>
+                        <DropdownMenuItem>Change graph style</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center p-2">
             {children}
@@ -169,6 +189,7 @@ const KpiCard = ({ title, value, change, icon }: { title: string, value: string,
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
+  const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
 
   return (
     <div className="flex flex-1 flex-col h-screen overflow-hidden">
@@ -193,7 +214,7 @@ export default function KpiMetricDashboardPage() {
                 </div>
                 <div className="grid grid-cols-12 gap-6">
                     <div className="col-span-12 lg:col-span-7">
-                       <ChartCard title="Revenue Trend">
+                       <ChartCard title="Revenue Trend" isCustomizeMode={isCustomizeMode}>
                             <ResponsiveContainer width="100%" height={250}>
                                 <AreaChart data={revenueData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                      <defs>
@@ -212,7 +233,7 @@ export default function KpiMetricDashboardPage() {
                        </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-5">
-                         <ChartCard title="Sales by Region">
+                         <ChartCard title="Sales by Region" isCustomizeMode={isCustomizeMode}>
                             <ResponsiveContainer width="100%" height={250}>
                                 <PieChart>
                                     <Tooltip content={<CustomTooltip />} />
@@ -227,7 +248,7 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Monthly Sales vs Goal">
+                        <ChartCard title="Monthly Sales vs Goal" isCustomizeMode={isCustomizeMode}>
                             <ResponsiveContainer width="100%" height={250}>
                                 <ComposedChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
@@ -242,7 +263,7 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                      <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Sales Conversion Funnel">
+                        <ChartCard title="Sales Conversion Funnel" isCustomizeMode={isCustomizeMode}>
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
                                     <Tooltip content={<CustomTooltip />} />
@@ -258,7 +279,7 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Quarterly Performance">
+                        <ChartCard title="Quarterly Performance" isCustomizeMode={isCustomizeMode}>
                             <ResponsiveContainer width="100%" height={250}>
                                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={quarterlyPerformanceData}>
                                     <PolarGrid stroke="hsl(var(--border) / 0.2)" />
@@ -282,9 +303,9 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2 h-4 w-4" />
                         Generate Video
                     </Button>
-                     <Button size="lg" variant="secondary">
+                     <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
                         <Wrench className="mr-2 h-4 w-4" />
-                        Customize
+                        {isCustomizeMode ? "Done" : "Customize"}
                     </Button>
                 </div>
             </main>
@@ -313,5 +334,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
