@@ -13,8 +13,8 @@ import {
   ChevronLeft,
   Download,
   Video,
-  MoreVertical,
   Wrench,
+  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -26,12 +26,13 @@ import {
   Tooltip,
   Legend,
   CartesianGrid,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
   ComposedChart,
+  Line,
+  AreaChart,
+  Area,
+  FunnelChart,
+  Funnel,
+  LabelList,
 } from "recharts";
 import {
   DropdownMenu,
@@ -39,46 +40,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-
-const distributionData = [
-  { name: "North", value: 3200 },
-  { name: "South", value: 2200 },
-  { name: "East", value: 3400 },
-  { name: "West", value: 2500 },
+const salesData = [
+    { month: "Jan", sales: 4000, goal: 5000 },
+    { month: "Feb", sales: 3000, goal: 5000 },
+    { month: "Mar", sales: 5000, goal: 5000 },
+    { month: "Apr", sales: 4500, goal: 6000 },
+    { month: "May", sales: 6000, goal: 6000 },
+    { month: "Jun", sales: 5500, goal: 7000 },
 ];
 
-const secondaryDistributionData = [
-    { name: "A", value: 1900 },
-    { name: "B", value: 2100 },
-    { name: "C", value: 1500 },
-    { name: "D", value: 2400 },
-    { name: "E", value: 1300 },
+const revenueData = [
+    { date: "2024-01", revenue: 2400 },
+    { date: "2024-02", revenue: 1398 },
+    { date: "2024-03", revenue: 9800 },
+    { date: "2024-04", revenue: 3908 },
+    { date: "2024-05", revenue: 4800 },
+    { date: "2024-06", revenue: 3800 },
+    { date: "2024-07", revenue: 4300 },
 ];
 
-const performanceData = [
-  { name: 'Metric 1', teamA: 1000, teamB: 2400 },
-  { name: 'Metric 2', teamA: 2200, teamB: 1398 },
-  { name: 'Metric 3', teamA: 900, teamB: 2800 },
-  { name: 'Metric 4', teamA: 2100, teamB: 1908 },
-  { name: 'Metric 5', teamA: 1200, teamB: 2800 },
-  { name: 'Metric 6', teamA: 1400, teamB: 2300 },
-];
-
-const capabilityData = [
-  { subject: 'Marketing', A: 120, fullMark: 150 },
-  { subject: 'Sales', A: 98, fullMark: 150 },
-  { subject: 'Support', A: 86, fullMark: 150 },
-  { subject: 'Development', A: 99, fullMark: 150 },
-  { subject: 'Finance', A: 85, fullMark: 150 },
-  { subject: 'HR', A: 65, fullMark: 150 },
-];
-
-const sourceData = [
-    { name: 'Organic', value: 250 },
-    { name: 'Paid', value: 210 },
-    { name: 'Direct', value: 234 },
+const funnelData = [
+    { name: "Leads", value: 100, fill: "hsl(var(--chart-5))" },
+    { name: "Contacts", value: 80, fill: "hsl(var(--chart-4))" },
+    { name: "Qualified", value: 50, fill: "hsl(var(--chart-3))" },
+    { name: "Proposal", value: 30, fill: "hsl(var(--chart-2))" },
+    { name: "Closed", value: 20, fill: "hsl(var(--chart-1))" },
 ]
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -87,7 +74,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
       <div className="p-2 bg-card/90 border border-border rounded-lg shadow-lg text-sm">
         <p className="label text-primary font-bold">{label}</p>
         {payload.map((pld: any, index: number) => (
-          <div key={index} className="flex justify-between gap-4" style={{ color: pld.fill }}>
+          <div key={index} className="flex justify-between gap-4" style={{ color: pld.color || pld.fill }}>
             <span>{pld.name}:</span>
             <span className="font-bold">{pld.value.toLocaleString()}</span>
           </div>
@@ -98,18 +85,21 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, showMenu = true, menuContent }: { title: string, children: React.ReactNode, showMenu?: boolean, menuContent?: React.ReactNode }) => (
-    <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20">
-        <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-primary">{title}</CardTitle>
-            {showMenu && (
+const ChartCard = ({ title, children, showMenu = true }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
+    <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
+        <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
+            <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
+             {showMenu && (
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-6 w-6">
                             <MoreVertical className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    {menuContent && <DropdownMenuContent align="end">{menuContent}</DropdownMenuContent>}
+                    <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm">
+                       <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                       <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                    </DropdownMenuContent>
                 </DropdownMenu>
             )}
         </CardHeader>
@@ -122,106 +112,111 @@ const ChartCard = ({ title, children, showMenu = true, menuContent }: { title: s
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
 
-  const performanceMenu = (
-    <>
-        <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-        <DropdownMenuItem>Change chart style</DropdownMenuItem>
-    </>
-  )
-
   return (
-    <div className="flex flex-1 flex-col container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 h-full">
-            <div className="md:col-span-1">
-                <ChartCard title="Distribution by Category">
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={distributionData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} domain={[0, 3400]}/>
-                            <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
-                            <Bar dataKey="value" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} barSize={40} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </ChartCard>
-            </div>
-             <div className="md:col-span-1">
-                <ChartCard title="Source Breakdown">
-                     <Table>
-                        <TableHeader>
-                            <TableRow className="border-b-primary/30">
-                                <TableHead className="text-primary">name</TableHead>
-                                <TableHead className="text-right text-primary">value</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {sourceData.map((row) => (
-                                <TableRow key={row.name} className="border-b-primary/10">
-                                    <TableCell>{row.name}</TableCell>
-                                    <TableCell className="text-right">{row.value}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </ChartCard>
-            </div>
-            <div className="md:col-span-1">
-                <ChartCard title="Secondary Distribution">
-                    <ResponsiveContainer width="100%" height={300}>
-                         <BarChart data={secondaryDistributionData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} domain={[0, 2400]}/>
-                            <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
-                            <Bar dataKey="value" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} barSize={40} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </ChartCard>
-            </div>
-             <div className="md:col-span-2">
-                <ChartCard title="Performance Metrics" menuContent={performanceMenu}>
-                     <ResponsiveContainer width="100%" height={300}>
-                        <ComposedChart data={performanceData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} domain={[0, 3800]}/>
-                            <Tooltip content={<CustomTooltip />}/>
-                             <Legend />
-                            <Bar dataKey="teamA" barSize={30} stackId="a" fill="hsl(var(--chart-1))" />
-                            <Bar dataKey="teamB" barSize={30} stackId="a" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
-                        </ComposedChart>
-                    </ResponsiveContainer>
-                </ChartCard>
-            </div>
-            <div className="md:col-span-1">
-                <ChartCard title="Capability Analysis">
-                    <ResponsiveContainer width="100%" height={300}>
-                        <RadarChart data={capabilityData} cx="50%" cy="50%" outerRadius="80%">
-                            <PolarGrid stroke="hsl(var(--border) / 0.2)" />
-                            <PolarAngleAxis dataKey="subject" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                            <PolarRadiusAxis angle={30} domain={[0, 150]} stroke="hsl(var(--muted-foreground))" fontSize={10} axisLine={false} tick={false} />
-                            <Radar name="Performance" dataKey="A" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
-                        </RadarChart>
-                    </ResponsiveContainer>
-                </ChartCard>
-            </div>
+    <div className="flex flex-1 flex-col h-screen overflow-hidden">
+        <div className="p-4 sm:p-6 lg:p-8">
+             <Button
+                onClick={() => router.back()}
+                variant="outline"
+                className="mb-4"
+                >
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Back
+            </Button>
         </div>
-        <div className="flex justify-start gap-4 mt-8">
-            <Button size="lg">
-                <Download className="mr-2 h-4 w-4" />
-                Download
-            </Button>
-            <Button size="lg" variant="secondary">
-                <Video className="mr-2 h-4 w-4" />
-                Generate Video
-            </Button>
-            <Button size="lg" variant="default">
-                <Wrench className="mr-2 h-4 w-4" />
-                Done
-            </Button>
+        <div className="flex-1 flex overflow-hidden">
+            <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+                <div className="grid grid-cols-12 gap-6">
+                    <div className="col-span-12 lg:col-span-4">
+                        <ChartCard title="Monthly Sales vs Goal">
+                            <ResponsiveContainer width="100%" height={250}>
+                                <ComposedChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
+                                    <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
+                                    <Legend />
+                                    <Bar dataKey="sales" name="Sales" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+                                    <Line type="monotone" dataKey="goal" name="Goal" stroke="hsl(var(--chart-1))" strokeWidth={2} />
+                                </ComposedChart>
+                            </ResponsiveContainer>
+                        </ChartCard>
+                    </div>
+                    <div className="col-span-12 lg:col-span-8">
+                       <ChartCard title="Revenue Trend">
+                            <ResponsiveContainer width="100%" height={250}>
+                                <AreaChart data={revenueData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                     <defs>
+                                        <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8}/>
+                                        <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0}/>
+                                        </linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
+                                    <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <Tooltip content={<CustomTooltip />} />
+                                    <Area type="monotone" dataKey="revenue" stroke="hsl(var(--chart-1))" fillOpacity={1} fill="url(#colorRevenue)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                       </ChartCard>
+                    </div>
+                     <div className="col-span-12 lg:col-span-7">
+                        <ChartCard title="Sales Conversion Funnel">
+                             <ResponsiveContainer width="100%" height={250}>
+                                <FunnelChart>
+                                    <Tooltip content={<CustomTooltip />} />
+                                    <Funnel
+                                        dataKey="value"
+                                        data={funnelData}
+                                        isAnimationActive
+                                    >
+                                        <LabelList position="right" fill="hsl(var(--foreground))" dataKey="name" />
+                                    </Funnel>
+                                </FunnelChart>
+                            </ResponsiveContainer>
+                        </ChartCard>
+                    </div>
+                    <div className="col-span-12 lg:col-span-5">
+                       <ChartCard title="Some Other Metric">
+                            <div className="flex items-center justify-center h-full text-muted-foreground">
+                                Placeholder for another chart
+                            </div>
+                       </ChartCard>
+                    </div>
+                </div>
+                <div className="flex justify-start gap-4 mt-8">
+                    <Button size="lg">
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                    </Button>
+                    <Button size="lg" variant="secondary">
+                        <Video className="mr-2 h-4 w-4" />
+                        Generate Video
+                    </Button>
+                     <Button size="lg" variant="secondary">
+                        <Wrench className="mr-2 h-4 w-4" />
+                        Customize
+                    </Button>
+                </div>
+            </main>
+            <aside className="w-64 p-6 bg-card/40 border-l border-border/30 overflow-y-auto">
+                 <Card className="bg-card/60 backdrop-blur-sm">
+                    <CardContent className="p-2">
+                        <div className="space-y-2">
+                            {Array.from({ length: 20 }, (_, i) => (
+                                <div
+                                    key={i + 1}
+                                    className="flex items-center justify-between p-3 rounded-lg bg-background/80 border border-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer group"
+                                >
+                                    <span className="font-medium">Option {i + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </aside>
         </div>
     </div>
   );
 }
-
-    
