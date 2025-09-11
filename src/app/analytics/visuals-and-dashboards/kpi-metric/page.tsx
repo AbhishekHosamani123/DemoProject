@@ -53,6 +53,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 
 const kpiIcons: Record<string, React.ReactNode> = {
@@ -183,7 +184,6 @@ const renderChart = (chart: any) => {
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
             {chart.dataKeys.map((key: any, i: number) => (
                  <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
             ))}
@@ -249,7 +249,31 @@ const renderChart = (chart: any) => {
   }
 };
 
-const ChartCard = ({chart, showMenu}: {chart: any, showMenu: boolean}) => (
+const NumericalDataView = ({ data }: { data: any[] }) => {
+    if (!data || data.length === 0) return null;
+    const headers = Object.keys(data[0]);
+    return (
+        <ScrollArea className="h-full">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        {headers.map(header => <TableHead key={header}>{header}</TableHead>)}
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {data.map((row, index) => (
+                        <TableRow key={index}>
+                            {headers.map(header => <TableCell key={header}>{row[header]}</TableCell>)}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </ScrollArea>
+    );
+};
+
+
+const ChartCard = ({chart, showMenu, onConvertToNumerical, isNumerical}: {chart: any, showMenu: boolean, onConvertToNumerical: () => void, isNumerical: boolean}) => (
     <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
         <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{chart.title}</CardTitle>
@@ -261,14 +285,14 @@ const ChartCard = ({chart, showMenu}: {chart: any, showMenu: boolean}) => (
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                        <DropdownMenuItem onClick={onConvertToNumerical}>Change to numerical</DropdownMenuItem>
                         <DropdownMenuItem>Change chart style</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}
         </CardHeader>
         <CardContent className="h-[calc(100%-4rem)] p-4">
-            {renderChart(chart)}
+            {isNumerical ? <NumericalDataView data={chart.data} /> : renderChart(chart)}
         </CardContent>
     </Card>
 )
@@ -280,6 +304,7 @@ export default function KpiMetricDashboardPage() {
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const [loading, setLoading] = React.useState(true);
   const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
+  const [chartDisplayModes, setChartDisplayModes] = React.useState<Record<string, 'chart' | 'numerical'>>({});
 
 
   React.useEffect(() => {
@@ -287,6 +312,13 @@ export default function KpiMetricDashboardPage() {
     setDashboardData(data);
     setLoading(false);
   }, []);
+
+  const handleConvertToNumerical = (chartTitle: string) => {
+    setChartDisplayModes(prev => ({
+        ...prev,
+        [chartTitle]: 'numerical'
+    }));
+  }
 
   if (loading || !dashboardData) {
     return (
@@ -316,9 +348,7 @@ export default function KpiMetricDashboardPage() {
 
   const currentDashboard = dashboardData[selectedDashboard];
 
-  const mainChart = currentDashboard.charts[0];
-  const smallCharts = currentDashboard.charts.slice(1, 4);
-  const newCharts = currentDashboard.charts.slice(4);
+  const allCharts = currentDashboard.charts;
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -367,7 +397,7 @@ export default function KpiMetricDashboardPage() {
           </h1>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {currentDashboard.kpis.map((kpi: any) => (
             <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -389,38 +419,20 @@ export default function KpiMetricDashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-            <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[250px]">
-                <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle>{mainChart.title}</CardTitle>
-                    {isCustomizeMode && (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <MoreVertical className="h-4 w-4" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-                                <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    )}
-                </CardHeader>
-                <CardContent className="h-[calc(100%-4rem)] pb-4">
-                    {renderChart(mainChart)}
-                </CardContent>
-            </Card>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {smallCharts.map((chart:any, index: number) => (
-                 <ChartCard key={index} chart={chart} showMenu={isCustomizeMode} />
-            ))}
-        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {newCharts.map((chart:any, index: number) => (
-                <ChartCard key={index} chart={chart} showMenu={isCustomizeMode} />
-            ))}
+            {allCharts.map((chart:any, index: number) => {
+                 const isNumerical = chartDisplayModes[chart.title] === 'numerical';
+                 const showMenu = isCustomizeMode && !isNumerical;
+                 return (
+                    <ChartCard 
+                        key={index} 
+                        chart={chart} 
+                        showMenu={showMenu}
+                        onConvertToNumerical={() => handleConvertToNumerical(chart.title)}
+                        isNumerical={isNumerical}
+                    />
+                )
+            })}
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -432,7 +444,13 @@ export default function KpiMetricDashboardPage() {
             <Video className="mr-2" />
             Generate Video
           </Button>
-          <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
+          <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => {
+            setIsCustomizeMode(!isCustomizeMode);
+            if(isCustomizeMode) {
+                // When exiting customize mode, reset all charts to chart view
+                setChartDisplayModes({});
+            }
+          }}>
             <Wrench className="mr-2" />
             {isCustomizeMode ? "Done" : "Customize"}
           </Button>
@@ -441,3 +459,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+
