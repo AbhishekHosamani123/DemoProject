@@ -19,8 +19,15 @@ import {
   Users,
   Target,
   ArrowUp,
+  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -109,10 +116,23 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
+const ChartCard = ({ title, children, showMenu }: { title: string, children: React.ReactNode, showMenu?: boolean }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
+            {showMenu && (
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-6 w-6">
+                           <MoreVertical className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center p-2">
             {children}
@@ -141,21 +161,19 @@ export default function KpiMetricDashboardPage() {
 
   return (
     <div className="flex flex-1 flex-col h-screen overflow-hidden">
-        <div className="p-4 sm:p-6 lg:p-8">
-             <Button
-                onClick={() => router.back()}
-                variant="outline"
-                className="mb-4"
-                >
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Back
-            </Button>
-             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
-             </div>
-        </div>
-        <div className="flex-1 flex overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div className="flex-1 flex overflow-hidden p-4 sm:p-6 lg:p-8">
             <main className="flex-1 overflow-y-auto pr-6 space-y-6">
+                <div className="flex items-center justify-between">
+                    <Button
+                        onClick={() => router.back()}
+                        variant="outline"
+                        >
+                        <ChevronLeft className="mr-2 h-4 w-4" />
+                        Back
+                    </Button>
+                    <h1 className="text-2xl font-bold tracking-tight text-primary">Title</h1>
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {kpiData.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
                 </div>
@@ -195,7 +213,7 @@ export default function KpiMetricDashboardPage() {
                        </ChartCard>
                     </div>
                      <div className="col-span-12">
-                        <ChartCard title="Sales Conversion Funnel">
+                        <ChartCard title="Sales Conversion Funnel" showMenu>
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
                                     <Tooltip content={<CustomTooltip />} />
@@ -234,12 +252,14 @@ export default function KpiMetricDashboardPage() {
                     <CardContent className="p-2">
                         <div className="space-y-2">
                             {Array.from({ length: 20 }, (_, i) => (
-                                <div
+                                 <Card
                                     key={i + 1}
-                                    className="flex items-center justify-between p-3 rounded-lg bg-background/80 border border-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer group"
+                                    className="bg-background/80 border border-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer group"
                                 >
-                                    <span className="font-medium text-foreground group-hover:text-accent-foreground">Option {i + 1}</span>
-                                </div>
+                                    <CardContent className="p-3">
+                                        <span className="font-medium text-foreground group-hover:text-accent-foreground">Option {i + 1}</span>
+                                    </CardContent>
+                                </Card>
                             ))}
                         </div>
                     </CardContent>
