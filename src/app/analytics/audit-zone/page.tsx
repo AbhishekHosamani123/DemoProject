@@ -109,7 +109,7 @@ export default function AuditZonePage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search compliance topics..."
+            placeholder="Search topics..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10"
