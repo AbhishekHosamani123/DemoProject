@@ -118,8 +118,8 @@ export default function SalesStrategyPage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="ml-12 text-foreground" />
-          <CarouselNext className="mr-12 text-foreground" />
+          <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-black" />
+          <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-black" />
         </Carousel>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
