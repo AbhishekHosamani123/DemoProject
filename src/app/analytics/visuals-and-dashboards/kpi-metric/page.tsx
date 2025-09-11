@@ -63,6 +63,22 @@ const topProductsData = [
 
 const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="p-2 bg-card/90 border border-border rounded-lg shadow-lg">
+                <p className="label text-primary font-bold">{label || payload[0].name}</p>
+                {payload.map((pld: any, index: number) => (
+                    <p key={index} style={{ color: pld.fill || pld.stroke }}>
+                        {`${pld.name}: ${pld.value.toLocaleString()}`}
+                    </p>
+                ))}
+            </div>
+        );
+    }
+    return null;
+};
+
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
 
@@ -104,8 +120,8 @@ export default function KpiMetricDashboardPage() {
                 ))}
             </div>
 
-            <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-                <Card className="bg-card/60 backdrop-blur-sm lg:col-span-2">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <Card className="bg-card/60 backdrop-blur-sm col-span-1 lg:col-span-3">
                     <CardHeader>
                         <CardTitle>Sales Growth Analysis</CardTitle>
                     </CardHeader>
@@ -115,12 +131,7 @@ export default function KpiMetricDashboardPage() {
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
                                 <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
                                 <YAxis stroke="hsl(var(--muted-foreground))" />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: 'hsl(var(--background) / 0.9)',
-                                        borderColor: 'hsl(var(--border) / 0.5)',
-                                    }}
-                                />
+                                <Tooltip content={<CustomTooltip />}/>
                                 <Legend />
                                 <Line type="monotone" dataKey="revenue" stroke="hsl(var(--chart-1))" strokeWidth={2} />
                                 <Line type="monotone" dataKey="profit" stroke="hsl(var(--chart-2))" strokeWidth={2} />
@@ -128,7 +139,7 @@ export default function KpiMetricDashboardPage() {
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
-                 <Card className="bg-card/60 backdrop-blur-sm">
+                <Card className="bg-card/60 backdrop-blur-sm lg:col-span-2">
                     <CardHeader>
                         <CardTitle>Sales By Region</CardTitle>
                     </CardHeader>
@@ -138,33 +149,27 @@ export default function KpiMetricDashboardPage() {
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
                                 <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
                                 <YAxis stroke="hsl(var(--muted-foreground))" />
-                                 <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: 'hsl(var(--background) / 0.9)',
-                                        borderColor: 'hsl(var(--border) / 0.5)',
-                                    }}
-                                />
+                                <Tooltip content={<CustomTooltip />} />
                                 <Bar dataKey="value" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
                             </RechartsBarChart>
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
-            </div>
-            <div className="grid gap-6 md:grid-cols-1">
-                <Card className="bg-card/60 backdrop-blur-sm">
+                <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
                     <CardHeader>
                         <CardTitle>Top Sale Categories</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[150px]">
+                    <CardContent className="h-full">
                         <ResponsiveContainer width="100%" height="100%">
                              <PieChart>
+                                <Tooltip content={<CustomTooltip />} />
                                 <Pie 
                                     data={topProductsData} 
                                     dataKey="value" 
                                     nameKey="name" 
                                     cx="50%" 
-                                    cy="50%" 
-                                    outerRadius={60} 
+                                    cy="40%" 
+                                    outerRadius={80} 
                                     stroke="hsl(var(--background))" 
                                     strokeWidth={2}
                                 >
@@ -172,13 +177,7 @@ export default function KpiMetricDashboardPage() {
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: 'hsl(var(--background) / 0.9)',
-                                        borderColor: 'hsl(var(--border) / 0.5)',
-                                    }}
-                                />
-                                <Legend wrapperStyle={{paddingTop: '20px'}}/>
+                                <Legend wrapperStyle={{top: '80%'}}/>
                             </PieChart>
                         </ResponsiveContainer>
                     </CardContent>
