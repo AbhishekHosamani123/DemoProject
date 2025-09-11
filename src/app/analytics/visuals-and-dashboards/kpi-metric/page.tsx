@@ -256,6 +256,9 @@ export default function KpiMetricDashboardPage() {
             </main>
             <aside className="w-64 py-6 bg-transparent border-l-0 overflow-y-auto">
                  <Card className="bg-card/60 backdrop-blur-sm">
+                    <CardHeader>
+                        <CardTitle className="text-lg text-primary text-center">OPTIONS</CardTitle>
+                    </CardHeader>
                     <CardContent className="p-2">
                         <div className="space-y-2">
                             {Array.from({ length: 20 }, (_, i) => (
