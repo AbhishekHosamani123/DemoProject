@@ -155,7 +155,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 type ChartDisplayMode = 'chart' | 'numeric';
 type ChartCardId = 'revenueTrend' | 'salesByRegion' | 'monthlySales' | 'salesFunnel' | 'quarterlyPerformance';
-type ChartType = 'Area' | 'Pie' | 'Bar' | 'Line' | 'Composed' | 'Funnel' | 'Radar' | 'Scatter' | 'Bubble' | 'Heatmap' | 'Waterfall';
+type ChartType = 'Area' | 'Pie' | 'Bar' | 'Line' | 'Composed' | 'Funnel' | 'Radar' | 'Scatter';
 
 const chartDisplayOptions: {name: string, type: ChartType}[] = [
     { name: 'Pie Chart', type: 'Pie'}, 
@@ -165,9 +165,6 @@ const chartDisplayOptions: {name: string, type: ChartType}[] = [
     { name: 'Funnel Chart', type: 'Funnel' },
     { name: 'Radar Chart', type: 'Radar' },
     { name: 'Scatter Plot', type: 'Scatter' },
-    { name: 'Bubble Chart', type: 'Bubble' },
-    { name: 'Heatmap', type: 'Heatmap' },
-    { name: 'Waterfall Chart', type: 'Waterfall' }
 ];
 
 const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?: string) => {
@@ -258,7 +255,7 @@ const getChartComponent = (type: ChartType, data: any, dataKey: string, nameKey?
                 </ScatterChart>
             );
         default:
-             return <p>Unsupported chart type. Select another from the menu.</p>;
+             return <p className="text-center text-muted-foreground p-4">Unsupported chart type. Select another from the menu.</p>;
     }
 }
 
@@ -269,7 +266,6 @@ const ChartCard = ({
     onDisplayChange, 
     onChartTypeChange,
     displayMode, 
-    chartType,
     numericData,
     chartId
 }: { 
@@ -279,7 +275,6 @@ const ChartCard = ({
     onDisplayChange: (chartCardId: ChartCardId, mode: ChartDisplayMode) => void,
     onChartTypeChange: (chartCardId: ChartCardId, type: ChartType) => void,
     displayMode: ChartDisplayMode,
-    chartType: ChartType,
     numericData: { label: string, value: string | number }[],
     chartId: ChartCardId
 }) => {
@@ -418,6 +413,19 @@ export default function KpiMetricDashboardPage() {
         case 'salesByRegion':
             return getChartComponent(chartType, regionData, 'value', 'name');
         case 'monthlySales':
+            if (chartType === 'Composed') {
+                return (
+                    <ComposedChart data={salesData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
+                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
+                        <Legend />
+                        <Bar dataKey="sales" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+                        <Line type="monotone" dataKey="goal" stroke="hsl(var(--chart-1))" strokeWidth={2} />
+                    </ComposedChart>
+                );
+            }
             return getChartComponent(chartType, salesData, 'sales', 'month');
         case 'salesFunnel':
             return getChartComponent(chartType, funnelData, 'value', 'name');
@@ -431,19 +439,17 @@ export default function KpiMetricDashboardPage() {
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-        <div className="flex items-start justify-between">
-            <div className="space-y-4">
-                <Button
-                    onClick={() => router.back()}
-                    variant="outline"
-                >
-                    <ChevronLeft className="mr-2 h-4 w-4" />
-                    Back
-                </Button>
-                <h1 className="text-3xl font-bold tracking-tight">Sales Performance Dashboard</h1>
-            </div>
+        <div className="mb-8">
+          <Button onClick={() => router.back()} variant="outline">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
         </div>
-
+        <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
+                Sales Performance Dashboard
+            </h1>
+        </div>
         <main className="flex-1 overflow-y-auto pt-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {kpiData.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
@@ -457,7 +463,6 @@ export default function KpiMetricDashboardPage() {
                             onDisplayChange={handleDisplayChange}
                             onChartTypeChange={handleChartTypeChange}
                             displayMode={isCustomizeMode ? tempDisplayModes.revenueTrend : displayModes.revenueTrend}
-                            chartType={isCustomizeMode ? tempChartTypes.revenueTrend : chartTypes.revenueTrend}
                             numericData={revenueData.map(d => ({label: d.date, value: d.revenue}))}
                             chartId="revenueTrend"
                         >
@@ -469,7 +474,6 @@ export default function KpiMetricDashboardPage() {
                             onDisplayChange={handleDisplayChange}
                             onChartTypeChange={handleChartTypeChange}
                             displayMode={isCustomizeMode ? tempDisplayModes.salesByRegion : displayModes.salesByRegion}
-                            chartType={isCustomizeMode ? tempChartTypes.salesByRegion : chartTypes.salesByRegion}
                             numericData={regionData.map(d => ({label: d.name, value: d.value}))}
                             chartId="salesByRegion"
                         >
@@ -481,7 +485,6 @@ export default function KpiMetricDashboardPage() {
                             onDisplayChange={handleDisplayChange}
                             onChartTypeChange={handleChartTypeChange}
                             displayMode={isCustomizeMode ? tempDisplayModes.monthlySales : displayModes.monthlySales}
-                            chartType={isCustomizeMode ? tempChartTypes.monthlySales : chartTypes.monthlySales}
                             numericData={salesData.map(d => ({label: `${d.month} (Goal: ${d.goal})`, value: d.sales}))}
                             chartId="monthlySales"
                         >
@@ -493,7 +496,6 @@ export default function KpiMetricDashboardPage() {
                             onDisplayChange={handleDisplayChange}
                             onChartTypeChange={handleChartTypeChange}
                             displayMode={isCustomizeMode ? tempDisplayModes.salesFunnel : displayModes.salesFunnel}
-                            chartType={isCustomizeMode ? tempChartTypes.salesFunnel : chartTypes.salesFunnel}
                             numericData={funnelData.map(d => ({label: d.name, value: d.value}))}
                             chartId="salesFunnel"
                         >
@@ -506,7 +508,6 @@ export default function KpiMetricDashboardPage() {
                                 onDisplayChange={handleDisplayChange}
                                 onChartTypeChange={handleChartTypeChange}
                                 displayMode={isCustomizeMode ? tempDisplayModes.quarterlyPerformance : displayModes.quarterlyPerformance}
-                                chartType={isCustomizeMode ? tempChartTypes.quarterlyPerformance : chartTypes.quarterlyPerformance}
                                 numericData={quarterlyPerformanceData.flatMap(d => ([{label: `${d.subject} - Prod A`, value: d.A}, {label: `${d.subject} - Prod B`, value: d.B}]))}
                                 chartId="quarterlyPerformance"
                             >
@@ -516,11 +517,11 @@ export default function KpiMetricDashboardPage() {
                     </div>
                 </div>
                 <div className="col-span-12 lg:col-span-4">
-                    <Card className="bg-transparent shadow-none border-none">
+                    <Card className="bg-card/60 backdrop-blur-sm">
                       <CardHeader>
                           <CardTitle className="text-lg text-primary text-center">OPTIONS</CardTitle>
                       </CardHeader>
-                      <CardContent className="p-2">
+                      <CardContent className="p-4">
                           <div className="space-y-3">
                               {Array.from({ length: 20 }, (_, i) => (
                                   <div key={i + 1} className="block group cursor-pointer">
