@@ -21,6 +21,7 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
+  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -43,6 +44,12 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -241,6 +248,28 @@ const renderChart = (chart: any) => {
   }
 };
 
+const ChartCard = ({chart}: {chart: any}) => (
+    <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>{chart.title}</CardTitle>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-6 w-6">
+                        <MoreVertical className="h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                    <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </CardHeader>
+        <CardContent className="h-[calc(100%-4rem)] p-4">
+            {renderChart(chart)}
+        </CardContent>
+    </Card>
+)
+
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
@@ -356,8 +385,19 @@ export default function KpiMetricDashboardPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
             <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[250px]">
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle>{mainChart.title}</CardTitle>
+                     <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                            <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </CardHeader>
                 <CardContent className="h-[calc(100%-4rem)] pb-4">
                     {renderChart(mainChart)}
@@ -366,26 +406,12 @@ export default function KpiMetricDashboardPage() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {smallCharts.map((chart:any, index: number) => (
-                 <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
-                    <CardHeader>
-                        <CardTitle>{chart.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] p-4">
-                        {renderChart(chart)}
-                    </CardContent>
-                </Card>
+                 <ChartCard key={index} chart={chart} />
             ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {newCharts.map((chart:any, index: number) => (
-                    <Card key={index} className="bg-card/60 backdrop-blur-sm h-[300px]">
-                    <CardHeader>
-                        <CardTitle>{chart.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] p-4">
-                        {renderChart(chart)}
-                    </CardContent>
-                </Card>
+                <ChartCard key={index} chart={chart} />
             ))}
         </div>
 
@@ -407,3 +433,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
