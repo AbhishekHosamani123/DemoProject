@@ -50,12 +50,6 @@ import {
 } from "recharts";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const kpiIcons: Record<string, React.ReactNode> = {
   DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
@@ -142,9 +136,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col">
         <CardHeader>
-            <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold">{title}</CardTitle>
-            </div>
+            <CardTitle className="text-base font-semibold">{title}</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center">
             {children}
@@ -175,18 +167,10 @@ export default function KpiMetricDashboardPage() {
                     <Video className="mr-2 h-4 w-4" />
                     Generate Video
                 </Button>
-                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="sm" variant="secondary">
-                      <Wrench className="mr-2 h-4 w-4" />
-                      Customize
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Change to Numerics</DropdownMenuItem>
-                    <DropdownMenuItem>change style</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                 <Button size="sm" variant="secondary">
+                    <Wrench className="mr-2 h-4 w-4" />
+                    Customize
+                </Button>
             </div>
         </div>
 

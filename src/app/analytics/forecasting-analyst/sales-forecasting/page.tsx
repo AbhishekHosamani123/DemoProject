@@ -11,12 +11,6 @@ import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { SuggestionList } from "@/components/app/suggestion-list";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const suggestions = [
   { id: "suggestion-1", text: "Suggestion 1", percentage: 98 },
@@ -92,18 +86,10 @@ export default function SalesForecastingPage() {
               <Video className="mr-2 h-4 w-4" />
               Generate Video
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="lg" variant="secondary" className="w-full">
-                  <Wrench className="mr-2 h-4 w-4" />
-                  Customize
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Change to Numerics</DropdownMenuItem>
-                <DropdownMenuItem>change style</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button size="lg" variant="secondary" className="w-full">
+              <Wrench className="mr-2 h-4 w-4" />
+              Customize
+            </Button>
           </div>
         </div>
 

@@ -25,12 +25,6 @@ import {
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const problems = [
   {
@@ -161,18 +155,10 @@ export default function ProblemSuggestionDetailsPage() {
             <Video className="mr-2 h-5 w-5"/>
             VIDEO
         </Button>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="lg" variant="secondary" className="h-12 text-lg font-semibold">
-              <Wrench className="mr-2 h-5 w-5" />
-              Customize
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Change to Numerics</DropdownMenuItem>
-            <DropdownMenuItem>change style</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button size="lg" variant="secondary" className="h-12 text-lg font-semibold">
+            <Wrench className="mr-2 h-5 w-5" />
+            Customize
+        </Button>
       </div>
     </div>
   );
