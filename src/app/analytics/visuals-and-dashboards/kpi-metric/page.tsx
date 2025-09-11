@@ -21,9 +21,6 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
-  BarChart as BarChartIcon,
-  LineChart as LineChartIcon,
-  PieChart as PieChartIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -227,7 +224,7 @@ export default function KpiMetricDashboardPage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {currentDashboard.charts.map((chart:any, index: number) => (
-                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3 h-[300px]' : 'lg:col-span-1 h-[300px]')}>
+                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3 h-[300px]' : 'h-[300px]')}>
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
@@ -255,20 +252,35 @@ export default function KpiMetricDashboardPage() {
       </main>
       <aside className="w-64 space-y-4 sticky top-8">
           <h2 className="text-lg font-semibold text-primary pl-4">Dashboards</h2>
-          <ScrollArea className="h-[calc(100vh-12rem)] rounded-lg border bg-card/50">
-            <nav className="p-2 space-y-1">
-                {Object.keys(dashboardData).map((key, index) => (
-                    <Button
-                        key={key}
-                        variant={selectedDashboard === key ? "secondary" : "ghost"}
-                        className="w-full justify-start text-left h-auto py-2 px-4"
-                        onClick={() => setSelectedDashboard(key)}
-                    >
-                        {`Option ${index + 1}`}
-                    </Button>
-                ))}
-            </nav>
-        </ScrollArea>
+          <Card className="bg-card/60 backdrop-blur-sm">
+              <CardContent className="p-2">
+                <ScrollArea className="h-[calc(100vh-14rem)]">
+                    <div className="space-y-2">
+                    {Object.keys(dashboardData).map((key, index) => (
+                        <div 
+                            key={key} 
+                            onClick={() => setSelectedDashboard(key)}
+                            className={cn(
+                                "block group cursor-pointer p-3 rounded-lg border transition-colors",
+                                selectedDashboard === key 
+                                ? "bg-primary border-primary text-primary-foreground"
+                                : "bg-background/80 border-border hover:bg-accent"
+                            )}
+                        >
+                            <div className="flex items-center justify-between">
+                                <span className={cn(
+                                    "font-medium",
+                                    selectedDashboard === key ? "text-primary-foreground" : "group-hover:text-accent-foreground"
+                                )}>
+                                    {`Option ${index + 1}`}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                </ScrollArea>
+              </CardContent>
+          </Card>
       </aside>
     </div>
   );
