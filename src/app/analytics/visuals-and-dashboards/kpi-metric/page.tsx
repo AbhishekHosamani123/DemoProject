@@ -36,6 +36,14 @@ import {
   FunnelChart,
   Funnel,
   LabelList,
+  PieChart,
+  Pie,
+  Cell,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
 } from "recharts";
 
 const salesData = [
@@ -65,6 +73,21 @@ const funnelData = [
     { name: "Closed", value: 20, fill: "hsl(var(--chart-1))" },
 ]
 
+const regionData = [
+  { name: 'North America', value: 400 },
+  { name: 'Europe', value: 300 },
+  { name: 'APAC', value: 200 },
+  { name: 'LATAM', value: 100 },
+];
+
+const quarterlyPerformanceData = [
+  { subject: 'Q1', A: 120, B: 110, fullMark: 150 },
+  { subject: 'Q2', A: 98, B: 130, fullMark: 150 },
+  { subject: 'Q3', A: 86, B: 130, fullMark: 150 },
+  { subject: 'Q4', A: 99, B: 100, fullMark: 150 },
+];
+
+
 const kpiData = [
   {
     title: "Total Revenue",
@@ -90,6 +113,14 @@ const kpiData = [
     change: "+0.5% vs last period",
     icon: <Target className="h-5 w-5 text-primary" />
   },
+];
+
+const PIE_COLORS = [
+    "hsl(var(--chart-1))",
+    "hsl(var(--chart-2))",
+    "hsl(var(--chart-3))",
+    "hsl(var(--chart-4))",
+    "hsl(var(--chart-5))",
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -161,22 +192,7 @@ export default function KpiMetricDashboardPage() {
                     {kpiData.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
                 </div>
                 <div className="grid grid-cols-12 gap-6">
-                    <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Monthly Sales vs Goal">
-                            <ResponsiveContainer width="100%" height={250}>
-                                <ComposedChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
-                                    <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                                    <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
-                                    <Legend />
-                                    <Bar dataKey="sales" name="Sales" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
-                                    <Line type="monotone" dataKey="goal" name="Goal" stroke="hsl(var(--chart-1))" strokeWidth={2} />
-                                </ComposedChart>
-                            </ResponsiveContainer>
-                        </ChartCard>
-                    </div>
-                    <div className="col-span-12 lg:col-span-8">
+                    <div className="col-span-12 lg:col-span-7">
                        <ChartCard title="Revenue Trend">
                             <ResponsiveContainer width="100%" height={250}>
                                 <AreaChart data={revenueData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
@@ -195,7 +211,37 @@ export default function KpiMetricDashboardPage() {
                             </ResponsiveContainer>
                        </ChartCard>
                     </div>
-                     <div className="col-span-12">
+                    <div className="col-span-12 lg:col-span-5">
+                         <ChartCard title="Sales by Region">
+                            <ResponsiveContainer width="100%" height={250}>
+                                <PieChart>
+                                    <Tooltip content={<CustomTooltip />} />
+                                    <Pie data={regionData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                                        {regionData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Legend />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </ChartCard>
+                    </div>
+                    <div className="col-span-12 lg:col-span-4">
+                        <ChartCard title="Monthly Sales vs Goal">
+                            <ResponsiveContainer width="100%" height={250}>
+                                <ComposedChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
+                                    <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--accent) / 0.1)'}}/>
+                                    <Legend />
+                                    <Bar dataKey="sales" name="Sales" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+                                    <Line type="monotone" dataKey="goal" name="Goal" stroke="hsl(var(--chart-1))" strokeWidth={2} />
+                                </ComposedChart>
+                            </ResponsiveContainer>
+                        </ChartCard>
+                    </div>
+                     <div className="col-span-12 lg:col-span-4">
                         <ChartCard title="Sales Conversion Funnel">
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
@@ -208,6 +254,21 @@ export default function KpiMetricDashboardPage() {
                                         <LabelList position="right" fill="hsl(var(--foreground))" dataKey="name" />
                                     </Funnel>
                                 </FunnelChart>
+                            </ResponsiveContainer>
+                        </ChartCard>
+                    </div>
+                    <div className="col-span-12 lg:col-span-4">
+                        <ChartCard title="Quarterly Performance">
+                            <ResponsiveContainer width="100%" height={250}>
+                                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={quarterlyPerformanceData}>
+                                    <PolarGrid stroke="hsl(var(--border) / 0.2)" />
+                                    <PolarAngleAxis dataKey="subject" />
+                                    <PolarRadiusAxis />
+                                    <Radar name="Product A" dataKey="A" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
+                                    <Radar name="Product B" dataKey="B" stroke="hsl(var(--chart-2))" fill="hsl(var(--chart-2))" fillOpacity={0.6} />
+                                    <Tooltip content={<CustomTooltip />} />
+                                    <Legend />
+                                </RadarChart>
                             </ResponsiveContainer>
                         </ChartCard>
                     </div>
@@ -252,3 +313,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
