@@ -152,7 +152,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-const NumericalDataView = ({ data, title }: { data: any[], title: string }) => {
+const NumericalDataView = ({ data }: { data: any[] }) => {
     if (!data || data.length === 0) {
         return (
             <Card className="h-full flex items-center justify-center bg-card/60 backdrop-blur-sm">
@@ -305,13 +305,16 @@ export default function KpiMetricDashboardPage() {
   }
 
   const currentDashboard = dashboardData[selectedDashboard];
-  const allCharts = currentDashboard.charts;
+  
+  const mainChart = currentDashboard.charts[0];
+  const smallCharts = currentDashboard.charts.slice(1, 4);
+  const bottomCharts = currentDashboard.charts.slice(4, 6);
 
   const renderCardContent = (chart: any, index: number) => {
     const displayMode = chartDisplayModes[index] || 'chart';
 
     if (displayMode === 'numerical') {
-      return <NumericalDataView data={chart.data} title={chart.title} />;
+      return <NumericalDataView data={chart.data} />;
     }
     return renderChart(chart);
   };
@@ -340,7 +343,6 @@ export default function KpiMetricDashboardPage() {
                                     Change to graphical representation
                                 </DropdownMenuItem>
                             )}
-                            <DropdownMenuItem>Change chart style</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 )}
@@ -422,14 +424,15 @@ export default function KpiMetricDashboardPage() {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ChartCard chart={allCharts[0]} index={0} className="lg:col-span-3"/>
-            <ChartCard chart={allCharts[1]} index={1} />
-            <ChartCard chart={allCharts[2]} index={2} />
-            <ChartCard chart={allCharts[3]} index={3} />
+            <ChartCard chart={mainChart} index={0} className="lg:col-span-3"/>
+            {smallCharts.map((chart: any, i: number) => (
+                <ChartCard chart={chart} index={i + 1} key={`small-chart-${i}`} />
+            ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <ChartCard chart={allCharts[4]} index={4}/>
-            <ChartCard chart={allCharts[5]} index={5}/>
+            {bottomCharts.map((chart: any, i: number) => (
+                <ChartCard chart={chart} index={i + 4} key={`bottom-chart-${i}`}/>
+            ))}
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -450,3 +453,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
