@@ -9,6 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function BrdPage() {
   const router = useRouter();
@@ -81,10 +87,18 @@ export default function BrdPage() {
             <Video className="mr-2 h-4 w-4" />
             Generate Video
           </Button>
-          <Button size="lg" variant="secondary" className="w-full">
-            <Wrench className="mr-2 h-4 w-4" />
-            Customize
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="lg" variant="secondary" className="w-full">
+                <Wrench className="mr-2 h-4 w-4" />
+                Customize
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Change to Numerics</DropdownMenuItem>
+              <DropdownMenuItem>change style</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>

@@ -50,6 +50,12 @@ import {
 } from "recharts";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const kpiIcons: Record<string, React.ReactNode> = {
   DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
@@ -169,10 +175,18 @@ export default function KpiMetricDashboardPage() {
                     <Video className="mr-2 h-4 w-4" />
                     Generate Video
                 </Button>
-                 <Button size="sm" variant="secondary">
-                    <Wrench className="mr-2 h-4 w-4" />
-                    Customize
-                </Button>
+                 <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="sm" variant="secondary">
+                      <Wrench className="mr-2 h-4 w-4" />
+                      Customize
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem>Change to Numerics</DropdownMenuItem>
+                    <DropdownMenuItem>change style</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </div>
 
