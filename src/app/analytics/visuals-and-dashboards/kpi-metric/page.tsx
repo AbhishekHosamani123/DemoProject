@@ -226,6 +226,9 @@ const chartComponents: Record<string, React.FC<any>> = {
         strokeWidth={2}
         labelLine={false}
         label={false}
+        cx="50%"
+        cy="50%"
+        outerRadius={80}
       >
         {chart.data.map((_: any, index: number) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -234,7 +237,7 @@ const chartComponents: Record<string, React.FC<any>> = {
     </PieChart>
   ),
   radar: ({chart}) => (
-      <RadarChart data={chart.data}>
+      <RadarChart data={chart.data} cx="50%" cy="50%" outerRadius="80%">
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis />
@@ -306,9 +309,7 @@ export default function KpiMetricDashboardPage() {
 
   const currentDashboard = dashboardData[selectedDashboard];
   
-  const mainChart = currentDashboard.charts[0];
-  const smallCharts = currentDashboard.charts.slice(1, 4);
-  const bottomCharts = currentDashboard.charts.slice(4, 6);
+  const allCharts = currentDashboard.charts;
 
   const renderCardContent = (chart: any, index: number) => {
     const displayMode = chartDisplayModes[index] || 'chart';
@@ -424,15 +425,12 @@ export default function KpiMetricDashboardPage() {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ChartCard chart={mainChart} index={0} className="lg:col-span-3"/>
-            {smallCharts.map((chart: any, i: number) => (
-                <ChartCard chart={chart} index={i + 1} key={`small-chart-${i}`} />
-            ))}
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            {bottomCharts.map((chart: any, i: number) => (
-                <ChartCard chart={chart} index={i + 4} key={`bottom-chart-${i}`}/>
-            ))}
+            <ChartCard chart={allCharts[0]} index={0} className="lg:col-span-3"/>
+            <ChartCard chart={allCharts[1]} index={1} />
+            <ChartCard chart={allCharts[2]} index={2} />
+            <ChartCard chart={allCharts[3]} index={3} />
+            <ChartCard chart={allCharts[4]} index={4} className="lg:col-span-2"/>
+            <ChartCard chart={allCharts[5]} index={5} />
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
