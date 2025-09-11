@@ -44,14 +44,20 @@ interface Slide {
 export default function SalesStrategyPage() {
   const router = useRouter();
   const slides = parsePresentationText(generatedText);
+  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
   const { toast } = useToast();
 
   const handleCustomizeClick = () => {
-    toast({
-      title: "Customize Clicked!",
-      description: "The customize button is now clickable.",
-    });
+    setIsCustomizeOpen(true);
   };
+  
+  const handleApplyCustomization = () => {
+    toast({
+        title: "Customization Applied",
+        description: "Your presentation settings have been updated.",
+    });
+    setIsCustomizeOpen(false);
+  }
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -92,7 +98,7 @@ export default function SalesStrategyPage() {
                       <CardHeader>
                         <CardTitle className="text-center text-2xl">{slide.title.replace('Title: ', '')}</CardTitle>
                       </CardHeader>
-                      <CardContent className="text-left w-full max-w-2xl mx-auto text-sm">
+                      <CardContent className="text-left w-full max-w-2xl mx-auto text-base">
                         <ul className="list-disc pl-5 space-y-2">
                           {slide.content.map((item, i) => {
                             if (item.startsWith('- Subtitle:') || item.startsWith('- Date:') || item.startsWith('- Presenter:')) {
@@ -123,15 +129,29 @@ export default function SalesStrategyPage() {
             <Video className="mr-2 h-4 w-4" />
             Generate Video
           </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="w-full"
-            onClick={handleCustomizeClick}
-          >
-            <Wrench className="mr-2 h-4 w-4" />
-            New Customize
-          </Button>
+            <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
+              <DialogTrigger asChild>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    <Wrench className="mr-2 h-4 w-4" />
+                    Customize
+                  </Button>
+              </DialogTrigger>
+              <DialogContent>
+                  <DialogHeader>
+                      <DialogTitle>Customize Presentation</DialogTitle>
+                  </DialogHeader>
+                  <div className="py-4 space-y-4">
+                      <p>Customization options will go here.</p>
+                  </div>
+                  <DialogFooter>
+                      <Button onClick={handleApplyCustomization}>Apply</Button>
+                  </DialogFooter>
+              </DialogContent>
+            </Dialog>
         </div>
       </div>
     </div>
