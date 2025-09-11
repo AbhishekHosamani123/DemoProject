@@ -3,7 +3,6 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { SidebarMenuButton } from "./sidebar-menu-button"
 
 const Sidebar = React.forwardRef<
   HTMLDivElement,
