@@ -154,19 +154,28 @@ const dashboardData: Record<string, any> = {
         kpis: defaultKpiData,
         charts: [
             { 
+                type: 'line',
+                originalType: 'line',
+                title: 'Sales Growth Analysis',
+                dataKey: 'revenueData',
+                height: 250,
+                colSpan: 'lg:col-span-2',
+            },
+            {
+                type: 'bar',
+                originalType: 'bar',
+                title: 'Business Overview',
+                dataKey: 'businessOverviewData',
+                colSpan: 'lg:col-span-1',
+                height: 250,
+            },
+            { 
                 type: 'bar',
                 originalType: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
-                height: 250,
-                colSpan: 'lg:col-span-1',
-            },
-            {
-                type: 'table',
-                originalType: 'table',
-                title: 'Business Overview',
-                dataKey: 'businessOverviewData',
-                colSpan: 'lg:col-span-1',
+                height: 150,
+                colSpan: 'lg:col-span-2',
             },
             { 
                 type: 'pie',
@@ -175,14 +184,6 @@ const dashboardData: Record<string, any> = {
                 dataKey: 'topProductsData',
                 height: 150,
                 colSpan: 'lg:col-span-1',
-            },
-            { 
-                type: 'line',
-                originalType: 'line',
-                title: 'Sales Growth Analysis',
-                dataKey: 'revenueData',
-                height: 150,
-                colSpan: 'lg:col-span-2',
             },
         ],
         data: {
@@ -196,7 +197,7 @@ const dashboardData: Record<string, any> = {
                 { name: 'Product A', value: 400 }, { name: 'Product B', value: 300 }, { name: 'Product C', value: 300 }, { name: 'Product D', value: 200 },
             ],
             businessOverviewData: [
-                { metric: "Total Sales", value: "₹1.2Cr" }, { metric: "Avg. Sale", value: "₹8,540" }, { metric: "Total Orders", value: "1,405" }, { metric: "Returning Customers", value: "45%" },
+                { name: "Total Sales", value: 12000000 }, { name: "Avg. Sale", value: 8540 }, { name: "Total Orders", value: 1405 }, { name: "Returning Customers", value: 45 },
             ],
         }
     },
@@ -264,27 +265,27 @@ const diverseTopics = [
         { title: "Net Profit", value: `₹${(Math.random() * 10).toFixed(1)}Cr`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <DollarSign /> },
         { title: "Operating Margin", value: `${(Math.random() * 30).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp /> },
         { title: "Burn Rate", value: `₹${(Math.random() * 50).toFixed(1)}L`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <ArrowDown /> },
-    ]},
+    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
     { title: "Product Performance Metrics", kpis: [
         { title: "Active Users (MAU)", value: `${(Math.random() * 100).toFixed(1)}k`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", icon: <Users /> },
         { title: "Feature Adoption", value: `${(Math.random() * 60).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <Target /> },
         { title: "Churn Rate", value: `${(Math.random() * 5).toFixed(2)}%`, change: `-${(Math.random() * 1).toFixed(2)}%`, changeType: "decrease", icon: <Users2 /> },
-    ]},
+    ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
     { title: "Customer Support Insights", kpis: [
         { title: "Avg. Response Time", value: `${(Math.random() * 120).toFixed(0)} mins`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <Headset /> },
         { title: "CSAT Score", value: `${(Math.random() * 5).toFixed(2)}/5`, change: `+${(Math.random() * 0.5).toFixed(2)}`, changeType: "increase", icon: <Heart /> },
         { title: "Tickets Solved", value: `${Math.floor(Math.random() * 1000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", icon: <ClipboardList /> },
-    ]},
+    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
     { title: "Operations & Logistics", kpis: [
         { title: "Inventory Turnover", value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, changeType: "increase", icon: <Package /> },
         { title: "On-time Delivery", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `+${(Math.random() * 1).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp /> },
         { title: "Supplier Reliability", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `-${(Math.random() * 1).toFixed(1)}%`, changeType: "decrease", icon: <Building /> },
-    ]},
+    ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
     { title: "HR & Employee Engagement", kpis: [
         { title: "Employee Turnover", value: `${(Math.random() * 15).toFixed(1)}%`, change: `-${(Math.random() * 2).toFixed(1)}%`, changeType: "decrease", icon: <Users2 /> },
         { title: "Avg. Tenure", value: `${(Math.random() * 5).toFixed(1)} yrs`, change: `+${(Math.random() * 0.5).toFixed(1)}`, changeType: "increase", icon: <Users /> },
         { title: "eNPS Score", value: `${Math.floor(Math.random() * 100)}`, change: `+${Math.floor(Math.random() * 10)}`, changeType: "increase", icon: <Heart /> },
-    ]},
+    ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
 ];
 
 for (let i = 3; i <= 20; i++) {
@@ -299,8 +300,8 @@ for (let i = 3; i <= 20; i++) {
                 icon: React.cloneElement(icon, { className: "h-4 w-4 text-muted-foreground" }),
             };
         }),
-        charts: dashboardData['suggestion-2'].charts.map((c:any) => ({...c})),
-        data: dashboardData['suggestion-2'].data,
+        charts: topic.charts.map((c:any) => ({...c})),
+        data: topic.data,
     };
 }
 
@@ -486,5 +487,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
