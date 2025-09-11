@@ -32,6 +32,9 @@ import {
   Package,
   Headset,
   MoreVertical,
+  BarChart,
+  LineChart as LineChartIcon,
+  PieChart as PieChartIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -43,7 +46,7 @@ import {
   Tooltip,
   Legend,
   CartesianGrid,
-  BarChart,
+  BarChart as RechartsBarChart,
   Bar,
   PieChart,
   Pie,
@@ -105,14 +108,14 @@ const TableComponent = ({ data }: { data: any[] }) => {
 
 const chartComponents: Record<string, React.FC<any>> = {
   bar: ({ data, dataKey, nameKey }) => (
-    <BarChart data={data}>
+    <RechartsBarChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey={nameKey} />
       <YAxis />
       <Tooltip />
       <Legend />
       <Bar dataKey={dataKey} fill="hsl(var(--primary))" />
-    </BarChart>
+    </RechartsBarChart>
   ),
   line: ({ data }) => (
     <LineChart data={data}>
@@ -365,7 +368,7 @@ export default function KpiMetricDashboardPage() {
                         <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                                {kpi.icon}
+                                {kpi.icon ? kpi.icon : null}
                             </CardHeader>
                             <CardContent>
                                 <div className="text-2xl font-bold">{kpi.value}</div>
@@ -389,7 +392,12 @@ export default function KpiMetricDashboardPage() {
                         let chartData = currentDashboard.data[chart.dataKey];
                         
                         // Transform data for bar chart if needed
-                        if (chart.type === 'bar' && chart.valueKey) {
+                        if (chart.type === 'bar' && chart.valueKey === 'Value') {
+                             chartData = currentDashboard.data[chart.dataKey].map((item: any) => ({
+                                [chart.nameKey]: item.Metric,
+                                [chart.valueKey]: parseFloat(item.Value) || 0
+                            }));
+                        } else if (chart.type === 'bar' && chart.valueKey) {
                             chartData = chartData.map((item: any) => ({
                                 ...item,
                                 [chart.valueKey]: parseFloat(item[chart.valueKey]) || 0
@@ -402,7 +410,7 @@ export default function KpiMetricDashboardPage() {
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
                             <CardHeader className="flex flex-row justify-between items-center">
                                 <CardTitle>{chart.title}</CardTitle>
-                                {isCustomizeMode && chart.type === 'table' && (
+                                {isCustomizeMode && (
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Button variant="ghost" size="icon" className="h-6 w-6">
@@ -468,5 +476,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
