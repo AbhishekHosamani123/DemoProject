@@ -38,14 +38,6 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 
 const kpiData = [
@@ -120,12 +112,17 @@ export default function KpiMetricDashboardPage() {
                     <CardContent className="h-[250px]">
                         <ResponsiveContainer width="100%" height="100%">
                              <LineChart data={revenueData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
+                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                                <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                                <YAxis stroke="hsl(var(--muted-foreground))" />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: 'hsl(var(--background) / 0.9)',
+                                        borderColor: 'hsl(var(--border) / 0.5)',
+                                    }}
+                                />
                                 <Legend />
-                                <Line type="monotone" dataKey="revenue" stroke="hsl(var(--primary))" strokeWidth={2} />
+                                <Line type="monotone" dataKey="revenue" stroke="hsl(var(--chart-1))" strokeWidth={2} />
                                 <Line type="monotone" dataKey="profit" stroke="hsl(var(--chart-2))" strokeWidth={2} />
                             </LineChart>
                         </ResponsiveContainer>
@@ -138,11 +135,16 @@ export default function KpiMetricDashboardPage() {
                     <CardContent className="h-[250px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <RechartsBarChart data={salesByRegionData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="value" fill="hsl(var(--primary))" />
+                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                                <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                                <YAxis stroke="hsl(var(--muted-foreground))" />
+                                 <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: 'hsl(var(--background) / 0.9)',
+                                        borderColor: 'hsl(var(--border) / 0.5)',
+                                    }}
+                                />
+                                <Bar dataKey="value" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
                             </RechartsBarChart>
                         </ResponsiveContainer>
                     </CardContent>
@@ -154,12 +156,17 @@ export default function KpiMetricDashboardPage() {
                     <CardContent className="h-[150px]">
                         <ResponsiveContainer width="100%" height="100%">
                              <PieChart>
-                                <Pie data={topProductsData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" label>
+                                <Pie data={topProductsData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} stroke="hsl(var(--background))" strokeWidth={2} label>
                                     {topProductsData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
-                                <Tooltip />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: 'hsl(var(--background) / 0.9)',
+                                        borderColor: 'hsl(var(--border) / 0.5)',
+                                    }}
+                                />
                                 <Legend />
                             </PieChart>
                         </ResponsiveContainer>
