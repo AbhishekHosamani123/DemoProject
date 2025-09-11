@@ -162,7 +162,7 @@ const dashboardData: Record<string, any> = {
                 colSpan: 'lg:col-span-2',
             },
             {
-                type: 'bar',
+                type: 'table',
                 originalType: 'bar',
                 title: 'Business Overview',
                 dataKey: 'businessOverviewData',
@@ -197,7 +197,7 @@ const dashboardData: Record<string, any> = {
                 { name: 'Product A', value: 400 }, { name: 'Product B', value: 300 }, { name: 'Product C', value: 300 }, { name: 'Product D', value: 200 },
             ],
             businessOverviewData: [
-                { name: "Total Sales", value: 12000000 }, { name: "Avg. Sale", value: 8540 }, { name: "Total Orders", value: 1405 }, { name: "Returning Customers", value: 45 },
+                { "Metric": "Total Sales", "Value": "12,000,000" }, { "Metric": "Avg. Sale", "Value": "8,540" }, { "Metric": "Total Orders", "Value": "1,405" }, { "Metric": "Returning Customers", "Value": "45%" },
             ],
         }
     },
@@ -343,6 +343,11 @@ export default function KpiMetricDashboardPage() {
       const chart = newDashboard.charts[chartIndex];
       if (chart.type !== 'table') {
         chart.type = 'table';
+        if (chart.dataKey === 'businessOverviewData') {
+          newDashboard.data.businessOverviewData = [
+              { "Metric": "Total Sales", "Value": "12,000,000" }, { "Metric": "Avg. Sale", "Value": "8,540" }, { "Metric": "Total Orders", "Value": "1,405" }, { "Metric": "Returning Customers", "Value": "45%" },
+          ];
+        }
       }
       return newDashboard;
     });
@@ -354,6 +359,11 @@ export default function KpiMetricDashboardPage() {
       const chart = newDashboard.charts[chartIndex];
       if (chart.type === 'table') {
         chart.type = chart.originalType;
+         if (chart.dataKey === 'businessOverviewData') {
+           newDashboard.data.businessOverviewData = [
+                { name: "Total Sales", value: 12000000 }, { name: "Avg. Sale", value: 8540 }, { name: "Total Orders", value: 1405 }, { name: "Returning Customers", value: 45 },
+            ];
+        }
       }
       return newDashboard;
     });
