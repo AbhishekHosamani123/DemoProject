@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import {
   Card,
@@ -160,6 +160,7 @@ const dashboardData: Record<string, any> = {
         charts: [
             {
                 type: 'table',
+                originalType: 'line',
                 title: 'Sales Growth Analysis',
                 dataKey: 'revenueData',
                 height: 250,
@@ -167,6 +168,7 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
+                originalType: 'table',
                 title: 'Business Overview',
                 dataKey: 'businessOverviewData',
                 colSpan: 'lg:col-span-1',
@@ -174,6 +176,7 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
+                originalType: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
                 height: 150,
@@ -181,6 +184,7 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
+                originalType: 'pie',
                 title: 'Top Sale Categories',
                 dataKey: 'topProductsData',
                 height: 150,
@@ -215,6 +219,7 @@ const dashboardData: Record<string, any> = {
         charts: [
             {
                 type: 'table',
+                originalType: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
                 height: 250,
@@ -222,6 +227,7 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
+                originalType: 'pie',
                 title: 'Traffic Sources',
                 dataKey: 'trafficData',
                 colSpan: 'lg:col-span-1',
@@ -229,6 +235,7 @@ const dashboardData: Record<string, any> = {
             },
              {
                 type: 'table',
+                originalType: 'area',
                 title: 'SEO Keyword Funnel',
                 dataKey: 'seoData',
                 height: 150,
@@ -249,10 +256,10 @@ const dashboardData: Record<string, any> = {
                 { name: 'Referral', value: 1500 },
             ],
             seoData: [
-                { name: 'Awareness', revenue: 18000, profit: 12000 },
-                { name: 'Consideration', revenue: 11000, profit: 7000 },
-                { name: 'Conversion', revenue: 6000, profit: 4000 },
-                { name: 'Loyalty', revenue: 3000, profit: 2500 },
+                { name: 'Awareness', value: 18000 },
+                { name: 'Consideration', value: 11000 },
+                { name: 'Conversion', value: 6000 },
+                { name: 'Loyalty', value: 3000 },
             ],
         }
     }
@@ -292,7 +299,7 @@ for (let i = 3; i <= 20; i++) {
     dashboardData[`suggestion-${i}`] = {
         title: `${topic.title} #${Math.floor((i-3)/diverseTopics.length) + 1}`,
         kpis: topic.kpis,
-        charts: topic.charts.map((c:any) => ({...c})),
+        charts: topic.charts.map(c => ({ ...c, type: 'table' })), // Default all to table
         data: topic.data,
     };
 }
@@ -307,8 +314,22 @@ export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
   const [isCustomizeMode, setIsCustomizeMode] = useState(false);
+  const [dynamicDashboard, setDynamicDashboard] = useState(dashboardData[selectedOption]);
 
-  const currentDashboard = dashboardData[selectedOption] || dashboardData['suggestion-1'];
+  useEffect(() => {
+    setDynamicDashboard(dashboardData[selectedOption]);
+  }, [selectedOption]);
+
+  const handleConvertToGraph = (chartIndex: number) => {
+    const newCharts = [...dynamicDashboard.charts];
+    const chartToUpdate = newCharts[chartIndex];
+    if (chartToUpdate) {
+      chartToUpdate.type = chartToUpdate.originalType;
+      setDynamicDashboard({ ...dynamicDashboard, charts: newCharts });
+    }
+  };
+
+  const currentDashboard = dynamicDashboard;
 
   if (!currentDashboard) {
     return <div>Loading...</div>;
@@ -361,7 +382,7 @@ export default function KpiMetricDashboardPage() {
                         const heightClass = `h-[${chart.height}px]`;
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
-                            <CardHeader className="flex justify-between items-center">
+                            <CardHeader className="flex flex-row justify-between items-center">
                                 <CardTitle>{chart.title}</CardTitle>
                                 {isCustomizeMode && (
                                     <DropdownMenu>
@@ -371,14 +392,8 @@ export default function KpiMetricDashboardPage() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem>
-                                                Convert to Numeric
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => handleConvertToGraph(index)}>
                                                 Convert to Graph
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem>
-                                                Change Chart Type
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
@@ -433,3 +448,5 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
+    
