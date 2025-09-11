@@ -319,15 +319,14 @@ export default function KpiMetricDashboardPage() {
             </CardHeader>
             <CardContent>
                 <ScrollArea className="h-[calc(100vh-12rem)]">
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                     {Array.from({ length: 20 }, (_, i) => (
-                        <Button
+                        <button
                             key={i}
-                            variant="ghost"
-                            className="w-full justify-start"
+                            className="w-full text-left p-3 rounded-lg bg-background/80 border hover:bg-accent hover:text-accent-foreground transition-colors group"
                         >
-                            Option {i + 1}
-                        </Button>
+                            <span className="font-medium group-hover:text-accent-foreground">Option {i + 1}</span>
+                        </button>
                     ))}
                     </div>
                 </ScrollArea>
