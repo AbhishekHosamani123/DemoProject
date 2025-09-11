@@ -26,7 +26,6 @@ import {
   MousePointerClick,
   Filter,
   Users2,
-  MoreVertical,
   Heart,
   ClipboardList,
   Building,
@@ -59,12 +58,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -150,7 +143,6 @@ const dashboardData: Record<string, any> = {
         charts: [
             { 
                 type: 'line',
-                originalType: 'line',
                 title: 'Sales Growth Analysis',
                 dataKey: 'revenueData',
                 height: 250,
@@ -158,7 +150,6 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'table',
-                originalType: 'bar',
                 title: 'Business Overview',
                 dataKey: 'businessOverviewData',
                 colSpan: 'lg:col-span-1',
@@ -166,7 +157,6 @@ const dashboardData: Record<string, any> = {
             },
             { 
                 type: 'bar',
-                originalType: 'bar',
                 title: 'Sales Trend',
                 dataKey: 'salesByRegionData',
                 height: 150,
@@ -174,7 +164,6 @@ const dashboardData: Record<string, any> = {
             },
             { 
                 type: 'pie',
-                originalType: 'pie',
                 title: 'Top Sale Categories',
                 dataKey: 'topProductsData',
                 height: 150,
@@ -209,7 +198,6 @@ const dashboardData: Record<string, any> = {
         charts: [
             { 
                 type: 'bar',
-                originalType: 'bar',
                 title: 'Campaign Performance',
                 dataKey: 'campaignData',
                 height: 250,
@@ -217,7 +205,6 @@ const dashboardData: Record<string, any> = {
             },
             {
                 type: 'pie',
-                originalType: 'pie',
                 title: 'Traffic Sources',
                 dataKey: 'trafficData',
                 colSpan: 'lg:col-span-1',
@@ -225,7 +212,6 @@ const dashboardData: Record<string, any> = {
             },
              { 
                 type: 'line',
-                originalType: 'line',
                 title: 'SEO Keyword Funnel',
                 dataKey: 'seoData',
                 height: 150,
@@ -306,63 +292,15 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
     percentage: 98 - i,
 }));
 
-const chartCycle: (keyof typeof chartComponents)[] = ['bar', 'line', 'area'];
-
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState('suggestion-1');
-  const [isCustomizeMode, setIsCustomizeMode] = useState(false);
-  const [dynamicDashboard, setDynamicDashboard] = useState<any>(dashboardData[selectedOption]);
-
-  useEffect(() => {
-    // Deep copy to prevent state mutation issues
-    setDynamicDashboard(JSON.parse(JSON.stringify(dashboardData[selectedOption])));
-  }, [selectedOption]);
-
-  const handleChartTypeChange = (chartIndex: number) => {
-    setDynamicDashboard((prev: any) => {
-      const newDashboard = JSON.parse(JSON.stringify(prev));
-      const chart = newDashboard.charts[chartIndex];
-      if (chart.type === 'table' || chart.type === 'pie') return prev; 
-
-      const currentCycleIndex = chartCycle.indexOf(chart.type);
-      let nextCycleIndex = currentCycleIndex + 1;
-      if (nextCycleIndex >= chartCycle.length) {
-        nextCycleIndex = 0;
-      }
-      chart.type = chartCycle[nextCycleIndex];
-      return newDashboard;
-    });
-  };
-
-  const handleConvertToNumeric = (chartIndex: number) => {
-     setDynamicDashboard((prev: any) => {
-      const newDashboard = JSON.parse(JSON.stringify(prev));
-      const chart = newDashboard.charts[chartIndex];
-      if (chart.type !== 'table') {
-        chart.type = 'table';
-      }
-      return newDashboard;
-    });
-  };
-
-  const handleConvertToGraph = (chartIndex: number) => {
-     setDynamicDashboard((prev: any) => {
-      const newDashboard = JSON.parse(JSON.stringify(prev));
-      const chart = newDashboard.charts[chartIndex];
-      if (chart.type === 'table') {
-        chart.type = chart.originalType;
-      }
-      return newDashboard;
-    });
-  };
   
-  if (!dynamicDashboard) {
+  const currentDashboard = dashboardData[selectedOption] || dashboardData['suggestion-1'];
+  
+  if (!currentDashboard) {
     return <div>Loading...</div>;
   }
-  
-  const currentKpis = dashboardData[selectedOption].kpis;
-
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
@@ -375,7 +313,7 @@ export default function KpiMetricDashboardPage() {
 
         <div className="text-center mb-8">
             <h1 className="text-4xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-                {dynamicDashboard.title}
+                {currentDashboard.title}
             </h1>
         </div>
 
@@ -383,7 +321,7 @@ export default function KpiMetricDashboardPage() {
             {/* Main content */}
             <div className="lg:col-span-3 space-y-8">
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {currentKpis.map((kpi: any) => (
+                    {currentDashboard.kpis.map((kpi: any) => (
                         <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
@@ -405,35 +343,15 @@ export default function KpiMetricDashboardPage() {
                 </div>
                 
                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-                    {dynamicDashboard.charts.map((chart:any, index: number) => {
+                    {currentDashboard.charts.map((chart:any, index: number) => {
                         const ChartComponent = chartComponents[chart.type] || (() => <div>Unsupported chart type</div>);
-                        const chartData = dynamicDashboard.data[chart.dataKey];
+                        const chartData = currentDashboard.data[chart.dataKey];
                         const isTable = chart.type === 'table';
                         const heightClass = isTable ? "h-[300px]" : `h-[${chart.height}px]`;
                         return (
                         <Card key={index} className={`bg-card/60 backdrop-blur-sm ${chart.colSpan || ''}`}>
-                            <CardHeader className="flex flex-row items-center justify-between">
+                            <CardHeader>
                                 <CardTitle>{chart.title}</CardTitle>
-                                {isCustomizeMode && (
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                <MoreVertical className="h-4 w-4" />
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end">
-                                            <DropdownMenuItem onSelect={() => handleConvertToGraph(index)} disabled={!isTable}>
-                                                Convert to Graph
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem onSelect={() => handleChartTypeChange(index)} disabled={isTable || chart.type === 'pie'}>
-                                                Change Graph Style
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem onSelect={() => handleConvertToNumeric(index)} disabled={isTable}>
-                                                Convert to Numerics
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                )}
                             </CardHeader>
                             <CardContent className={heightClass}>
                                 <ResponsiveContainer width="100%" height="100%">
@@ -453,9 +371,9 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2" />
                         Generate Video
                     </Button>
-                    <Button size="lg" variant={isCustomizeMode ? "default" : "secondary"} onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
+                    <Button size="lg" variant="secondary">
                         <Wrench className="mr-2" />
-                        {isCustomizeMode ? "Finish Customizing" : "Customize"}
+                        Customize
                     </Button>
                 </div>
             </div>
