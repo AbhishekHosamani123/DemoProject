@@ -34,7 +34,7 @@ export default function ShareDailyUpdatePage() {
   const { toast } = useToast();
   const [phoneNumbers, setPhoneNumbers] = useState("");
   const [emailIds, setEmailIds] = useState("");
-  const [activeAlertId, setActiveAlertId] = useState<string | null>(latestUpdates[0].id);
+  const [activeAlertId, setActiveAlertId] = useState<string | null>(null);
 
   const handleAlertClick = (alertId: string) => {
     setActiveAlertId(prevId => prevId === alertId ? null : alertId);
@@ -80,24 +80,24 @@ export default function ShareDailyUpdatePage() {
             {latestUpdates.map(update => (
                  <div 
                     key={update.id}
-                    className="cursor-pointer inline-block"
+                    className="cursor-pointer"
                     onClick={() => handleAlertClick(update.id)}
                 >
-                    <h1 className={cn(
-                        "text-xl font-bold tracking-tight inline-flex items-center gap-4 border-2 rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm shadow-lg transition-all",
+                    <div className={cn(
+                        "text-xl font-bold tracking-tight inline-flex items-center gap-4 border-2 rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm shadow-lg transition-all w-full",
                         activeAlertId === update.id ? "border-primary text-primary" : "border-input text-foreground"
                         )}>
                         <BellRing className={cn("h-6 w-6", activeAlertId === update.id && "animate-pulse")} />
-                        <span className={cn(activeAlertId === update.id && "animate-pulse")}>ALERT:</span> {update.title}
-                    </h1>
+                        <span className="font-normal text-muted-foreground">ALERT:</span> {update.title}
+                    </div>
                 </div>
             ))}
         </div>
 
         <form onSubmit={handleSubmit}>
             <Card className={cn(
-                "bg-card/60 backdrop-blur-sm p-6 transition-all duration-500 ease-in-out",
-                activeAlertId ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0 !p-0 !m-0 border-0"
+                "bg-card/60 backdrop-blur-sm transition-all duration-500 ease-in-out",
+                activeAlertId ? "max-h-[1000px] opacity-100 p-6" : "max-h-0 opacity-0 !p-0 !m-0 border-0"
                 )}
             >
                 {activeUpdate && (
