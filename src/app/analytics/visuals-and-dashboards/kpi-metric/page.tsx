@@ -86,9 +86,6 @@ const chartComponents: Record<string, React.FC<any>> = {
       <Tooltip />
       <Legend />
       <Bar dataKey="value" fill="hsl(var(--primary))" />
-       <Bar dataKey="impressions" fill="hsl(var(--chart-2))" name="Impressions (k)" />
-      <Bar dataKey="conversions" fill="hsl(var(--primary))" name="Conversions" />
-      <Bar dataKey="sales" fill="hsl(var(--primary))" />
     </BarChart>
   ),
   line: (props) => (
@@ -98,14 +95,12 @@ const chartComponents: Record<string, React.FC<any>> = {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" />
       <Line type="monotone" dataKey="revenue" stroke="hsl(var(--primary))" strokeWidth={2} />
       <Line type="monotone" dataKey="profit" stroke="hsl(var(--chart-2))" strokeWidth={2} />
-      <Line type="monotone" dataKey="volume" stroke="hsl(var(--chart-4))" strokeWidth={2} />
     </LineChart>
   ),
   pie: ({data}) => {
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
     return (
       <PieChart>
         <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" label>
@@ -204,12 +199,12 @@ const dashboardData: Record<string, any> = {
     'suggestion-2': {
         title: `Marketing Campaign Dashboard`,
         kpis: [
-            { title: "Impressions", value: `${(Math.random() * 500).toFixed(1)}k`, change: `+${(Math.random() * 10).toFixed(1)}%`, changeType: "increase", icon: <Search className="h-4 w-4 text-muted-foreground" /> },
-            { title: "CTR", value: `${(Math.random() * 5).toFixed(2)}%`, change: `+${(Math.random() * 1).toFixed(2)}%`, changeType: "increase", icon: <MousePointerClick className="h-4 w-4 text-muted-foreground" /> },
-            { title: "CPC", value: `₹${(Math.random() * 100).toFixed(2)}`, change: `-${(Math.random() * 5).toFixed(1)}%`, changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
-            { title: "Conversions", value: `${Math.floor(Math.random() * 500)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", icon: <Filter className="h-4 w-4 text-muted-foreground" /> },
-            { title: "Organic Traffic", value: `${(Math.random() * 20).toFixed(1)}k`, change: `+${(Math.random() * 8).toFixed(1)}%`, changeType: "increase", icon: <Users2 className="h-4 w-4 text-muted-foreground" /> },
-            { title: "ROAS", value: `${(Math.random() * 10).toFixed(1)}x`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
+            { title: "Impressions", value: `523.1k`, change: `+12.1%`, changeType: "increase", icon: <Search className="h-4 w-4 text-muted-foreground" /> },
+            { title: "CTR", value: `2.87%`, change: `+0.5%`, changeType: "increase", icon: <MousePointerClick className="h-4 w-4 text-muted-foreground" /> },
+            { title: "CPC", value: `₹75.50`, change: `-3.2%`, changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
+            { title: "Conversions", value: `432`, change: `+18.9%`, changeType: "increase", icon: <Filter className="h-4 w-4 text-muted-foreground" /> },
+            { title: "Organic Traffic", value: `15.2k`, change: `+7.8%`, changeType: "increase", icon: <Users2 className="h-4 w-4 text-muted-foreground" /> },
+            { title: "ROAS", value: `4.5x`, change: `+1.2%`, changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
         ],
         charts: [
             { 
@@ -239,22 +234,22 @@ const dashboardData: Record<string, any> = {
         ],
         data: {
             campaignData: [
-                { name: 'Campaign A', impressions: Math.random() * 1000, conversions: Math.random() * 100 },
-                { name: 'Campaign B', impressions: Math.random() * 1000, conversions: Math.random() * 100 },
-                { name: 'Campaign C', impressions: Math.random() * 1000, conversions: Math.random() * 100 },
-                { name: 'Campaign D', impressions: Math.random() * 1000, conversions: Math.random() * 100 },
+                { name: 'Campaign A', value: 450, impressions: 1200, conversions: 50 },
+                { name: 'Campaign B', value: 380, impressions: 980, conversions: 42 },
+                { name: 'Campaign C', value: 510, impressions: 1500, conversions: 65 },
+                { name: 'Campaign D', value: 320, impressions: 850, conversions: 35 },
             ],
             trafficData: [
-                { name: 'Organic', value: Math.random() * 10000 },
-                { name: 'Paid', value: Math.random() * 5000 },
-                { name: 'Direct', value: Math.random() * 3000 },
-                { name: 'Referral', value: Math.random() * 2000 },
+                { name: 'Organic', value: 8200 },
+                { name: 'Paid', value: 4500 },
+                { name: 'Direct', value: 2100 },
+                { name: 'Referral', value: 1500 },
             ],
             seoData: [
-                { name: 'Awareness', value: Math.random() * 20000 },
-                { name: 'Consideration', value: Math.random() * 10000 },
-                { name: 'Conversion', value: Math.random() * 5000 },
-                { name: 'Loyalty', value: Math.random() * 2500 },
+                { name: 'Awareness', revenue: 18000, profit: 12000 },
+                { name: 'Consideration', revenue: 11000, profit: 7000 },
+                { name: 'Conversion', revenue: 6000, profit: 4000 },
+                { name: 'Loyalty', revenue: 3000, profit: 2500 },
             ],
         }
     }
@@ -262,29 +257,29 @@ const dashboardData: Record<string, any> = {
 
 const diverseTopics = [
     { title: "Financial Health Overview", kpis: [
-        { title: "Net Profit", value: `₹${(Math.random() * 10).toFixed(1)}Cr`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <DollarSign /> },
-        { title: "Operating Margin", value: `${(Math.random() * 30).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp /> },
-        { title: "Burn Rate", value: `₹${(Math.random() * 50).toFixed(1)}L`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <ArrowDown /> },
+        { title: "Net Profit", value: `₹8.2Cr`, change: `+4.1%`, changeType: "increase", icon: <DollarSign /> },
+        { title: "Operating Margin", value: `18.7%`, change: `+1.8%`, changeType: "increase", icon: <TrendingUp /> },
+        { title: "Burn Rate", value: `₹35L`, change: `-8.2%`, changeType: "decrease", icon: <ArrowDown /> },
     ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
     { title: "Product Performance Metrics", kpis: [
-        { title: "Active Users (MAU)", value: `${(Math.random() * 100).toFixed(1)}k`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", icon: <Users /> },
-        { title: "Feature Adoption", value: `${(Math.random() * 60).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", icon: <Target /> },
-        { title: "Churn Rate", value: `${(Math.random() * 5).toFixed(2)}%`, change: `-${(Math.random() * 1).toFixed(2)}%`, changeType: "decrease", icon: <Users2 /> },
+        { title: "Active Users (MAU)", value: `88.2k`, change: `+12.5%`, changeType: "increase", icon: <Users /> },
+        { title: "Feature Adoption", value: `45%`, change: `+4.2%`, changeType: "increase", icon: <Target /> },
+        { title: "Churn Rate", value: `2.1%`, change: `-0.8%`, changeType: "decrease", icon: <Users2 /> },
     ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
     { title: "Customer Support Insights", kpis: [
-        { title: "Avg. Response Time", value: `${(Math.random() * 120).toFixed(0)} mins`, change: `-${(Math.random() * 10).toFixed(1)}%`, changeType: "decrease", icon: <Headset /> },
-        { title: "CSAT Score", value: `${(Math.random() * 5).toFixed(2)}/5`, change: `+${(Math.random() * 0.5).toFixed(2)}`, changeType: "increase", icon: <Heart /> },
-        { title: "Tickets Solved", value: `${Math.floor(Math.random() * 1000)}`, change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", icon: <ClipboardList /> },
+        { title: "Avg. Response Time", value: `45 mins`, change: `-8.1%`, changeType: "decrease", icon: <Headset /> },
+        { title: "CSAT Score", value: `4.6/5`, change: `+0.2`, changeType: "increase", icon: <Heart /> },
+        { title: "Tickets Solved", value: `850`, change: `+15.3%`, changeType: "increase", icon: <ClipboardList /> },
     ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
     { title: "Operations & Logistics", kpis: [
-        { title: "Inventory Turnover", value: `${(Math.random() * 10).toFixed(1)}`, change: `+${(Math.random() * 1).toFixed(1)}`, changeType: "increase", icon: <Package /> },
-        { title: "On-time Delivery", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `+${(Math.random() * 1).toFixed(1)}%`, changeType: "increase", icon: <TrendingUp /> },
-        { title: "Supplier Reliability", value: `${(Math.random() * 10 + 90).toFixed(1)}%`, change: `-${(Math.random() * 1).toFixed(1)}%`, changeType: "decrease", icon: <Building /> },
+        { title: "Inventory Turnover", value: `6.2`, change: `+0.8`, changeType: "increase", icon: <Package /> },
+        { title: "On-time Delivery", value: `96.5%`, change: `+0.9%`, changeType: "increase", icon: <TrendingUp /> },
+        { title: "Supplier Reliability", value: `98.2%`, change: `-0.5%`, changeType: "decrease", icon: <Building /> },
     ], charts: dashboardData['suggestion-2'].charts, data: dashboardData['suggestion-2'].data },
     { title: "HR & Employee Engagement", kpis: [
-        { title: "Employee Turnover", value: `${(Math.random() * 15).toFixed(1)}%`, change: `-${(Math.random() * 2).toFixed(1)}%`, changeType: "decrease", icon: <Users2 /> },
-        { title: "Avg. Tenure", value: `${(Math.random() * 5).toFixed(1)} yrs`, change: `+${(Math.random() * 0.5).toFixed(1)}`, changeType: "increase", icon: <Users /> },
-        { title: "eNPS Score", value: `${Math.floor(Math.random() * 100)}`, change: `+${Math.floor(Math.random() * 10)}`, changeType: "increase", icon: <Heart /> },
+        { title: "Employee Turnover", value: `8.5%`, change: `-1.2%`, changeType: "decrease", icon: <Users2 /> },
+        { title: "Avg. Tenure", value: `3.2 yrs`, change: `+0.3`, changeType: "increase", icon: <Users /> },
+        { title: "eNPS Score", value: `55`, change: `+8`, changeType: "increase", icon: <Heart /> },
     ], charts: dashboardData['suggestion-1'].charts, data: dashboardData['suggestion-1'].data },
 ];
 
@@ -311,7 +306,7 @@ const suggestions = Array.from({ length: 20 }, (_, i) => ({
     percentage: 98 - i,
 }));
 
-const chartCycle: (keyof typeof chartComponents)[] = ['bar', 'line', 'area', 'pie'];
+const chartCycle: (keyof typeof chartComponents)[] = ['bar', 'line', 'area'];
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
@@ -328,10 +323,13 @@ export default function KpiMetricDashboardPage() {
     setDynamicDashboard((prev: any) => {
       const newDashboard = JSON.parse(JSON.stringify(prev));
       const chart = newDashboard.charts[chartIndex];
-      if (chart.type === 'table' || chart.type === 'pie') return prev; // Don't cycle table or pie for now
+      if (chart.type === 'table' || chart.type === 'pie') return prev; 
 
       const currentCycleIndex = chartCycle.indexOf(chart.type);
-      const nextCycleIndex = (currentCycleIndex + 1) % chartCycle.length;
+      let nextCycleIndex = currentCycleIndex + 1;
+      if (nextCycleIndex >= chartCycle.length) {
+        nextCycleIndex = 0;
+      }
       chart.type = chartCycle[nextCycleIndex];
       return newDashboard;
     });
@@ -343,11 +341,6 @@ export default function KpiMetricDashboardPage() {
       const chart = newDashboard.charts[chartIndex];
       if (chart.type !== 'table') {
         chart.type = 'table';
-        if (chart.dataKey === 'businessOverviewData') {
-          newDashboard.data.businessOverviewData = [
-              { "Metric": "Total Sales", "Value": "12,000,000" }, { "Metric": "Avg. Sale", "Value": "8,540" }, { "Metric": "Total Orders", "Value": "1,405" }, { "Metric": "Returning Customers", "Value": "45%" },
-          ];
-        }
       }
       return newDashboard;
     });
@@ -359,11 +352,6 @@ export default function KpiMetricDashboardPage() {
       const chart = newDashboard.charts[chartIndex];
       if (chart.type === 'table') {
         chart.type = chart.originalType;
-         if (chart.dataKey === 'businessOverviewData') {
-           newDashboard.data.businessOverviewData = [
-                { name: "Total Sales", value: 12000000 }, { name: "Avg. Sale", value: 8540 }, { name: "Total Orders", value: 1405 }, { name: "Returning Customers", value: 45 },
-            ];
-        }
       }
       return newDashboard;
     });
@@ -373,7 +361,6 @@ export default function KpiMetricDashboardPage() {
     return <div>Loading...</div>;
   }
   
-  // Re-instantiate JSX elements on each render
   const currentKpis = dashboardData[selectedOption].kpis;
 
 
@@ -438,7 +425,7 @@ export default function KpiMetricDashboardPage() {
                                             <DropdownMenuItem onSelect={() => handleConvertToGraph(index)} disabled={!isTable}>
                                                 Convert to Graph
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem onSelect={() => handleChartTypeChange(index)} disabled={isTable}>
+                                            <DropdownMenuItem onSelect={() => handleChartTypeChange(index)} disabled={isTable || chart.type === 'pie'}>
                                                 Change Graph Style
                                             </DropdownMenuItem>
                                             <DropdownMenuItem onSelect={() => handleConvertToNumeric(index)} disabled={isTable}>
@@ -497,3 +484,4 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
+
