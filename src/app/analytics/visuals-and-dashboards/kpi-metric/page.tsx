@@ -21,6 +21,9 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
+  BarChart,
+  LineChart as LineChartIcon,
+  PieChart as PieChartIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -39,29 +42,73 @@ import {
   Cell,
 } from "recharts";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const kpiData = [
-  { title: "Total Revenue", value: "₹45.2Cr", change: "+12.5%", changeType: "increase", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
-  { title: "Profit Margin", value: "24.5%", change: "+2.1%", changeType: "increase", icon: <TrendingUp className="h-4 w-4 text-muted-foreground" /> },
-  { title: "New Customers", value: "1,250", change: "+15.3%", changeType: "increase", icon: <Users className="h-4 w-4 text-muted-foreground" /> },
-  { title: "Conversion Rate", value: "3.5%", change: "+0.8%", changeType: "increase", icon: <Target className="h-4 w-4 text-muted-foreground" /> },
-  { title: "Customer Acquisition Cost", value: "₹2,500", change: "-5.2%", changeType: "decrease", icon: <DollarSign className="h-4 w-4 text-muted-foreground" /> },
-  { title: "Customer Lifetime Value", value: "₹15,800", change: "+8.9%", changeType: "increase", icon: <Briefcase className="h-4 w-4 text-muted-foreground" /> },
+
+const kpiIcons = {
+    DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
+    TrendingUp: <TrendingUp className="h-4 w-4 text-muted-foreground" />,
+    Users: <Users className="h-4 w-4 text-muted-foreground" />,
+    Target: <Target className="h-4 w-4 text-muted-foreground" />,
+    Briefcase: <Briefcase className="h-4 w-4 text-muted-foreground" />,
+    BarChart: <BarChart className="h-4 w-4 text-muted-foreground" />,
+    LineChartIcon: <LineChartIcon className="h-4 w-4 text-muted-foreground" />,
+    PieChartIcon: <PieChartIcon className="h-4 w-4 text-muted-foreground" />,
+};
+
+const dashboardData: Record<string, any> = {};
+
+const titles = [
+  "Sales Performance", "Marketing Funnel", "Customer Service", "Financial Health", "Product Usage", 
+  "Website Analytics", "E-commerce", "Supply Chain", "HR Dashboard", "Social Media",
+  "Project Management", "IT Operations", "Healthcare", "Real Estate", "Education",
+  "Manufacturing", "Retail", "Travel & Hospitality", "Energy Sector", "Automotive"
 ];
 
-const revenueData = [
-  { name: "Jan", revenue: 4000, profit: 2400 }, { name: "Feb", revenue: 3000, profit: 1398 }, { name: "Mar", revenue: 2000, profit: 9800 }, { name: "Apr", revenue: 2780, profit: 3908 }, { name: "May", revenue: 1890, profit: 4800 }, { name: "Jun", revenue: 2390, profit: 3800 }, { name: "Jul", revenue: 3490, profit: 4300 },
-];
+const chartTypes = ["line", "bar", "pie"];
 
-const salesByRegionData = [
-  { name: "North", value: 4000 }, { name: "South", value: 3000 }, { name: "East", value: 2000 }, { name: "West", value: 2780 },
-];
+for (let i = 0; i < titles.length; i++) {
+    const key = titles[i].toLowerCase().replace(/\s+/g, '-');
+    dashboardData[key] = {
+        title: `${titles[i]} Dashboard`,
+        kpis: [
+            { title: "Total Revenue", value: `₹${(Math.random() * 50 + 10).toFixed(1)}Cr`, change: `+${(Math.random() * 15).toFixed(1)}%`, changeType: "increase", iconName: "DollarSign" },
+            { title: "Profit Margin", value: `${(Math.random() * 30 + 10).toFixed(1)}%`, change: `+${(Math.random() * 5).toFixed(1)}%`, changeType: "increase", iconName: "TrendingUp" },
+            { title: "New Customers", value: (Math.floor(Math.random() * 2000) + 500).toLocaleString(), change: `+${(Math.random() * 20).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
+            { title: "Conversion Rate", value: `${(Math.random() * 5 + 1).toFixed(1)}%`, change: `+${(Math.random() * 2).toFixed(1)}%`, changeType: "increase", iconName: "Target" },
+            { title: "Avg. Order Value", value: `₹${(Math.floor(Math.random() * 5000) + 1000).toLocaleString()}`, change: `-${(Math.random() * 5).toFixed(1)}%`, changeType: "decrease", iconName: "Briefcase" },
+            { title: "Active Users", value: (Math.floor(Math.random() * 10000) + 2000).toLocaleString(), change: `+${(Math.random() * 8).toFixed(1)}%`, changeType: "increase", iconName: "Users" },
+        ],
+        charts: [
+            { 
+                title: "Metric Over Time", 
+                type: "line", 
+                data: Array.from({ length: 7 }, (_, j) => ({ name: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][j], value: Math.floor(Math.random() * 3000) + 1000, pv: Math.floor(Math.random() * 2000) + 1000 })),
+                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}, {name: "pv", color: "hsl(var(--chart-2))"}]
+            },
+            { 
+                title: "Distribution by Category", 
+                type: "bar", 
+                data: Array.from({ length: 4 }, (_, j) => ({ name: ["North", "South", "East", "West"][j], value: Math.floor(Math.random() * 4000) + 1000 })),
+                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
+            },
+            { 
+                title: "Source Breakdown", 
+                type: "pie", 
+                data: [
+                    { name: 'Organic', value: Math.floor(Math.random() * 500) + 200 },
+                    { name: 'Paid', value: Math.floor(Math.random() * 400) + 100 },
+                    { name: 'Direct', value: Math.floor(Math.random() * 300) + 100 },
+                    { name: 'Referral', value: Math.floor(Math.random() * 200) + 50 },
+                ],
+                dataKeys: [{name: "value", color: "hsl(var(--chart-1))"}]
+            },
+        ]
+    };
+}
 
-const topProductsData = [
-  { name: 'Product A', value: 400 }, { name: 'Product B', value: 300 }, { name: 'Product C', value: 300 }, { name: 'Product D', value: 200 },
-];
 
-const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
+const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -79,126 +126,155 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+const renderChart = (chart: any) => {
+  switch (chart.type) {
+    case 'line':
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={chart.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            {chart.dataKeys.map((key: any, i: number) => (
+                <Line key={key.name} type="monotone" dataKey={key.name} stroke={key.color || COLORS[i % COLORS.length]} strokeWidth={2} />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      );
+    case 'bar':
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <RechartsBarChart data={chart.data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            {chart.dataKeys.map((key: any, i: number) => (
+                 <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+            ))}
+          </RechartsBarChart>
+        </ResponsiveContainer>
+      );
+    case 'pie':
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Tooltip content={<CustomTooltip />} />
+            <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{paddingTop: "20px"}}/>
+            <Pie
+              data={chart.data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="45%"
+              outerRadius={80}
+              stroke="hsl(var(--background))"
+              strokeWidth={2}
+            >
+              {chart.data.map((_: any, index: number) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      );
+    default:
+      return <div>Invalid chart type</div>;
+  }
+};
+
+
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
+  const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
+  const currentDashboard = dashboardData[selectedDashboard];
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
-        <div className="mb-8">
-            <Button onClick={() => router.back()} variant="outline">
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex">
+      <aside className="w-64 pr-8">
+          <div className="mb-4">
+            <Button onClick={() => router.back()} variant="outline" className="w-full justify-start">
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              Back
             </Button>
-        </div>
-
-        <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
-                Sales Performance Dashboard
-            </h1>
-        </div>
-        
-        <div className="space-y-8">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {kpiData.map((kpi: any) => (
-                    <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                            {kpi.icon}
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">{kpi.value}</div>
-                            <p className={cn("text-xs text-muted-foreground flex items-center",
-                                kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'
-                            )}>
-                                <span className={`mr-1`}>
-                                    {kpi.changeType === 'increase' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
-                                </span>
-                                {kpi.change} vs last period
-                            </p>
-                        </CardContent>
-                    </Card>
+          </div>
+          <h2 className="text-lg font-semibold mb-4 text-primary">Dashboards</h2>
+          <ScrollArea className="h-[calc(100vh-12rem)]">
+            <nav className="space-y-2 pr-4">
+                {Object.keys(dashboardData).map((key) => (
+                    <Button
+                        key={key}
+                        variant={selectedDashboard === key ? "secondary" : "ghost"}
+                        className="w-full justify-start text-left h-auto py-2"
+                        onClick={() => setSelectedDashboard(key)}
+                    >
+                        {dashboardData[key].title.replace(' Dashboard', '')}
+                    </Button>
                 ))}
-            </div>
+            </nav>
+        </ScrollArea>
+      </aside>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-card/60 backdrop-blur-sm col-span-1 lg:col-span-3">
-                    <CardHeader>
-                        <CardTitle>Sales Growth Analysis</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                             <LineChart data={revenueData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-                                <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
-                                <YAxis stroke="hsl(var(--muted-foreground))" />
-                                <Tooltip content={<CustomTooltip />}/>
-                                <Legend />
-                                <Line type="monotone" dataKey="revenue" stroke="hsl(var(--chart-1))" strokeWidth={2} />
-                                <Line type="monotone" dataKey="profit" stroke="hsl(var(--chart-2))" strokeWidth={2} />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </CardContent>
-                </Card>
-                <Card className="bg-card/60 backdrop-blur-sm lg:col-span-2">
-                    <CardHeader>
-                        <CardTitle>Sales By Region</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <RechartsBarChart data={salesByRegionData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-                                <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
-                                <YAxis stroke="hsl(var(--muted-foreground))" />
-                                <Tooltip content={<CustomTooltip />} />
-                                <Bar dataKey="value" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
-                            </RechartsBarChart>
-                        </ResponsiveContainer>
-                    </CardContent>
-                </Card>
-                <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
-                    <CardHeader>
-                        <CardTitle>Top Sale Categories</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                             <PieChart>
-                                <Tooltip content={<CustomTooltip />} />
-                                <Pie 
-                                    data={topProductsData} 
-                                    dataKey="value" 
-                                    nameKey="name" 
-                                    cx="50%" 
-                                    cy="40%" 
-                                    outerRadius={80} 
-                                    stroke="hsl(var(--background))" 
-                                    strokeWidth={2}
-                                >
-                                    {topProductsData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Legend wrapperStyle={{top: '80%'}}/>
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </CardContent>
-                </Card>
-            </div>
-
-            <div className="flex justify-start gap-4 mt-auto">
-                <Button size="lg">
-                    <Download className="mr-2" />
-                    Download
-                </Button>
-                    <Button size="lg" variant="secondary">
-                    <Video className="mr-2" />
-                    Generate Video
-                </Button>
-                <Button size="lg" variant="secondary">
-                    <Wrench className="mr-2" />
-                    Customize
-                </Button>
-            </div>
+      <main className="flex-1 space-y-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold tracking-tight inline-block border rounded-lg px-6 py-3 bg-card/60 backdrop-blur-sm">
+            {currentDashboard.title}
+          </h1>
         </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {currentDashboard.kpis.map((kpi: any) => (
+            <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                {kpiIcons[kpi.iconName as keyof typeof kpiIcons] || null}
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{kpi.value}</div>
+                <p className={cn("text-xs text-muted-foreground flex items-center",
+                  kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'
+                )}>
+                  <span className={`mr-1`}>
+                    {kpi.changeType === 'increase' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
+                  </span>
+                  {kpi.change} vs last period
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {currentDashboard.charts.map((chart:any, index: number) => (
+                 <Card key={index} className={cn("bg-card/60 backdrop-blur-sm", chart.type === 'line' ? 'lg:col-span-3' : 'lg:col-span-1')}>
+                    <CardHeader>
+                        <CardTitle>{chart.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="h-[300px]">
+                        {renderChart(chart)}
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+
+        <div className="flex justify-start gap-4 mt-auto">
+          <Button size="lg">
+            <Download className="mr-2" />
+            Download
+          </Button>
+          <Button size="lg" variant="secondary">
+            <Video className="mr-2" />
+            Generate Video
+          </Button>
+          <Button size="lg" variant="secondary">
+            <Wrench className="mr-2" />
+            Customize
+          </Button>
+        </div>
+      </main>
     </div>
   );
 }
