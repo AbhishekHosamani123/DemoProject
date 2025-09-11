@@ -133,7 +133,7 @@ export default function SalesStrategyPage() {
           </Button>
           <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" className="w-full" variant="secondary">
+              <Button size="lg" variant="secondary" className="w-full">
                 <Wrench className="mr-2 h-4 w-4" />
                 Customize
               </Button>
