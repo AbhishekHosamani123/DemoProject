@@ -7,7 +7,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +20,7 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
+  Wrench,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -133,13 +133,12 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, description }: { title: string, children: React.ReactNode, description?: string }) => (
+const ChartCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col">
         <CardHeader>
             <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold">{title}</CardTitle>
             </div>
-            {description && <CardDescription>{description}</CardDescription>}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center">
             {children}
@@ -169,6 +168,10 @@ export default function KpiMetricDashboardPage() {
                 <Button size="sm" variant="secondary">
                     <Video className="mr-2 h-4 w-4" />
                     Generate Video
+                </Button>
+                 <Button size="sm" variant="secondary">
+                    <Wrench className="mr-2 h-4 w-4" />
+                    Customize
                 </Button>
             </div>
         </div>
