@@ -151,10 +151,6 @@ export default function ProblemSuggestionDetailsPage() {
         ))}
       </div>
       <div className="w-full max-w-6xl mx-auto mt-12 flex justify-center gap-4">
-        <Button size="lg" className="h-12 text-lg font-semibold">
-            <Video className="mr-2 h-5 w-5"/>
-            VIDEO
-        </Button>
         <Button size="lg" variant="secondary" className="h-12 text-lg font-semibold">
             <Wrench className="mr-2 h-5 w-5" />
             Customize
