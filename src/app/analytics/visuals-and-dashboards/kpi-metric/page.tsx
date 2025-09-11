@@ -335,11 +335,11 @@ export default function KpiMetricDashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="bg-card/60 backdrop-blur-sm lg:col-span-3 h-[250px]">
+            <Card className="bg-card/60 backdrop-blur-sm lg:col-span-3 h-[300px]">
                 <CardHeader>
                     <CardTitle>{mainChart.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
+                <CardContent className="h-[calc(100%-4rem)] p-2">
                     {renderChart(mainChart)}
                 </CardContent>
             </Card>
@@ -348,23 +348,23 @@ export default function KpiMetricDashboardPage() {
                     <CardHeader>
                         <CardTitle>{chart.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
+                    <CardContent className="h-[calc(100%-4rem)] p-2">
                         {renderChart(chart)}
                     </CardContent>
                 </Card>
             ))}
-            <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {bottomCharts.map((chart:any, index: number) => (
-                     <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
-                        <CardHeader>
-                            <CardTitle>{chart.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="h-[calc(100%-4rem)] p-4 pt-2">
-                            {renderChart(chart)}
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            {bottomCharts.map((chart:any, index: number) => (
+                    <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
+                    <CardHeader>
+                        <CardTitle>{chart.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="h-[calc(100%-4rem)] p-2">
+                        {renderChart(chart)}
+                    </CardContent>
+                </Card>
+            ))}
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -384,4 +384,5 @@ export default function KpiMetricDashboardPage() {
       </main>
     </div>
   );
-}
+
+    
