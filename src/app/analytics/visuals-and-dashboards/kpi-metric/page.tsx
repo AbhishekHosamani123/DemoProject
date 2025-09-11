@@ -147,7 +147,26 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ChartCard = ({ title, children, isCustomizeMode }: { title: string, children: React.ReactNode, isCustomizeMode: boolean }) => (
+type ChartDisplayMode = 'chart' | 'numeric';
+type ChartCardId = 'revenueTrend' | 'salesByRegion' | 'monthlySales' | 'salesFunnel' | 'quarterlyPerformance';
+
+const ChartCard = ({ 
+    title, 
+    children, 
+    isCustomizeMode, 
+    onDisplayChange, 
+    displayMode, 
+    numericData,
+    chartId
+}: { 
+    title: string, 
+    children: React.ReactNode, 
+    isCustomizeMode: boolean, 
+    onDisplayChange: (chartId: ChartCardId, mode: ChartDisplayMode) => void,
+    displayMode: ChartDisplayMode,
+    numericData: { label: string, value: string | number }[],
+    chartId: ChartCardId
+}) => (
     <Card className="bg-card/60 backdrop-blur-sm h-full flex flex-col border-primary/20 shadow-lg shadow-black/20">
         <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
             <CardTitle className="text-base font-semibold text-primary">{title}</CardTitle>
@@ -159,14 +178,22 @@ const ChartCard = ({ title, children, isCustomizeMode }: { title: string, childr
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Change to numerics</DropdownMenuItem>
-                        <DropdownMenuItem>Change graph style</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'numeric')}>Change to numerics</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onDisplayChange(chartId, 'chart')}>Change graph style</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col justify-center items-center p-2">
-            {children}
+            {displayMode === 'chart' ? (
+                children
+            ) : (
+                <div className="text-sm text-foreground p-4">
+                    <ul>
+                        {numericData.map((d, i) => <li key={i}>{d.label}: <strong>{d.value}</strong></li>)}
+                    </ul>
+                </div>
+            )}
         </CardContent>
     </Card>
 )
@@ -187,9 +214,37 @@ const KpiCard = ({ title, value, change, icon }: { title: string, value: string,
   </Card>
 )
 
+type ChartDisplayModes = Record<ChartCardId, ChartDisplayMode>;
+
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
+
+  const initialDisplayModes: ChartDisplayModes = {
+    revenueTrend: 'chart',
+    salesByRegion: 'chart',
+    monthlySales: 'chart',
+    salesFunnel: 'chart',
+    quarterlyPerformance: 'chart',
+  }
+
+  const [displayModes, setDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
+  const [tempDisplayModes, setTempDisplayModes] = React.useState<ChartDisplayModes>(initialDisplayModes);
+
+  const handleCustomizeClick = () => {
+    if (isCustomizeMode) {
+      // Apply changes
+      setDisplayModes(tempDisplayModes);
+    } else {
+        // Enter customize mode
+        setTempDisplayModes(displayModes);
+    }
+    setIsCustomizeMode(!isCustomizeMode);
+  };
+
+  const handleDisplayChange = (chartId: ChartCardId, mode: ChartDisplayMode) => {
+    setTempDisplayModes(prev => ({ ...prev, [chartId]: mode }));
+  };
 
   return (
     <div className="flex flex-1 flex-col h-screen overflow-hidden">
@@ -214,7 +269,14 @@ export default function KpiMetricDashboardPage() {
                 </div>
                 <div className="grid grid-cols-12 gap-6">
                     <div className="col-span-12 lg:col-span-7">
-                       <ChartCard title="Revenue Trend" isCustomizeMode={isCustomizeMode}>
+                       <ChartCard 
+                            title="Revenue Trend" 
+                            isCustomizeMode={isCustomizeMode}
+                            onDisplayChange={handleDisplayChange}
+                            displayMode={isCustomizeMode ? tempDisplayModes.revenueTrend : displayModes.revenueTrend}
+                            numericData={revenueData.map(d => ({label: d.date, value: d.revenue}))}
+                            chartId="revenueTrend"
+                        >
                             <ResponsiveContainer width="100%" height={250}>
                                 <AreaChart data={revenueData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                      <defs>
@@ -233,7 +295,14 @@ export default function KpiMetricDashboardPage() {
                        </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-5">
-                         <ChartCard title="Sales by Region" isCustomizeMode={isCustomizeMode}>
+                         <ChartCard 
+                            title="Sales by Region" 
+                            isCustomizeMode={isCustomizeMode}
+                            onDisplayChange={handleDisplayChange}
+                            displayMode={isCustomizeMode ? tempDisplayModes.salesByRegion : displayModes.salesByRegion}
+                            numericData={regionData.map(d => ({label: d.name, value: d.value}))}
+                            chartId="salesByRegion"
+                        >
                             <ResponsiveContainer width="100%" height={250}>
                                 <PieChart>
                                     <Tooltip content={<CustomTooltip />} />
@@ -248,7 +317,14 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Monthly Sales vs Goal" isCustomizeMode={isCustomizeMode}>
+                        <ChartCard 
+                            title="Monthly Sales vs Goal" 
+                            isCustomizeMode={isCustomizeMode}
+                            onDisplayChange={handleDisplayChange}
+                            displayMode={isCustomizeMode ? tempDisplayModes.monthlySales : displayModes.monthlySales}
+                            numericData={salesData.map(d => ({label: `${d.month} (Goal: ${d.goal})`, value: d.sales}))}
+                            chartId="monthlySales"
+                        >
                             <ResponsiveContainer width="100%" height={250}>
                                 <ComposedChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" vertical={false}/>
@@ -263,7 +339,14 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                      <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Sales Conversion Funnel" isCustomizeMode={isCustomizeMode}>
+                        <ChartCard 
+                            title="Sales Conversion Funnel" 
+                            isCustomizeMode={isCustomizeMode}
+                            onDisplayChange={handleDisplayChange}
+                            displayMode={isCustomizeMode ? tempDisplayModes.salesFunnel : displayModes.salesFunnel}
+                            numericData={funnelData.map(d => ({label: d.name, value: d.value}))}
+                            chartId="salesFunnel"
+                        >
                              <ResponsiveContainer width="100%" height={250}>
                                 <FunnelChart>
                                     <Tooltip content={<CustomTooltip />} />
@@ -279,7 +362,14 @@ export default function KpiMetricDashboardPage() {
                         </ChartCard>
                     </div>
                     <div className="col-span-12 lg:col-span-4">
-                        <ChartCard title="Quarterly Performance" isCustomizeMode={isCustomizeMode}>
+                        <ChartCard 
+                            title="Quarterly Performance" 
+                            isCustomizeMode={isCustomizeMode}
+                            onDisplayChange={handleDisplayChange}
+                            displayMode={isCustomizeMode ? tempDisplayModes.quarterlyPerformance : displayModes.quarterlyPerformance}
+                            numericData={quarterlyPerformanceData.flatMap(d => ([{label: `${d.subject} - Prod A`, value: d.A}, {label: `${d.subject} - Prod B`, value: d.B}]))}
+                            chartId="quarterlyPerformance"
+                        >
                             <ResponsiveContainer width="100%" height={250}>
                                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={quarterlyPerformanceData}>
                                     <PolarGrid stroke="hsl(var(--border) / 0.2)" />
@@ -303,9 +393,9 @@ export default function KpiMetricDashboardPage() {
                         <Video className="mr-2 h-4 w-4" />
                         Generate Video
                     </Button>
-                     <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
+                     <Button size="lg" variant="secondary" onClick={handleCustomizeClick}>
                         <Wrench className="mr-2 h-4 w-4" />
-                        {isCustomizeMode ? "Done" : "Customize"}
+                        {isCustomizeMode ? "Apply" : "Customize"}
                     </Button>
                 </div>
             </main>
