@@ -375,7 +375,7 @@ export default function KpiMetricDashboardPage() {
 
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col">
+    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col h-screen">
       <div className="flex-shrink-0">
         <div className="mb-8">
             <Button onClick={() => router.back()} variant="outline">
