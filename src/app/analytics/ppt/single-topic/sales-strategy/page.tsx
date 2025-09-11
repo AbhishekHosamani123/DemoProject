@@ -21,7 +21,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Download, Video, Wrench, ChevronLeft } from "lucide-react";
@@ -120,17 +119,15 @@ export default function SalesStrategyPage() {
             Generate Video
           </Button>
             <Dialog open={isCustomizeOpen} onOpenChange={setIsCustomizeOpen}>
-              <DialogTrigger asChild>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="w-full"
-                  onClick={() => setIsCustomizeOpen(true)}
-                >
-                  <Wrench className="mr-2 h-4 w-4" />
-                  Customize
-                </Button>
-              </DialogTrigger>
+              <Button
+                size="lg"
+                variant="secondary"
+                className="w-full"
+                onClick={() => setIsCustomizeOpen(true)}
+              >
+                <Wrench className="mr-2 h-4 w-4" />
+                Customize
+              </Button>
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Customize Presentation</DialogTitle>
