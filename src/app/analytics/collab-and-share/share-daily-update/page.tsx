@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const latestUpdate = {
   title: "SEBI (LODR) Second Amendment Regulations, 2023",
@@ -20,6 +21,7 @@ export default function ShareDailyUpdatePage() {
   const { toast } = useToast();
   const [phoneNumbers, setPhoneNumbers] = useState("");
   const [emailIds, setEmailIds] = useState("");
+  const [isSummaryVisible, setIsSummaryVisible] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,14 +50,23 @@ export default function ShareDailyUpdatePage() {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight inline-flex items-center gap-4 border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
-            <BellRing className="h-8 w-8 animate-pulse" />
-            <span className="animate-pulse">ALERT:</span> {latestUpdate.title}
-          </h1>
+            <div 
+                className="cursor-pointer inline-block"
+                onClick={() => setIsSummaryVisible(true)}
+            >
+                <h1 className="text-3xl font-bold tracking-tight inline-flex items-center gap-4 border-2 border-primary rounded-lg px-8 py-3 bg-card/60 backdrop-blur-sm text-primary shadow-lg">
+                    <BellRing className="h-8 w-8 animate-pulse" />
+                    <span className="animate-pulse">ALERT:</span> {latestUpdate.title}
+                </h1>
+            </div>
         </div>
 
         <form onSubmit={handleSubmit}>
-            <Card className="bg-card/60 backdrop-blur-sm p-6">
+            <Card className={cn(
+                "bg-card/60 backdrop-blur-sm p-6 transition-all duration-500 ease-in-out",
+                isSummaryVisible ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0 !p-0 !m-0 border-0"
+                )}
+            >
                 <CardContent className="space-y-6 p-0">
                     <div className="space-y-4">
                         <Label htmlFor="summary" className="text-xl font-semibold">MAIN SUMMARY BASED UPDATE</Label>
