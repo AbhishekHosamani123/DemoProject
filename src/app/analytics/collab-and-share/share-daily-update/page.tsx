@@ -145,10 +145,10 @@ export default function ShareDailyUpdatePage() {
                         </CardContent>
                         <CardFooter className="justify-center pt-8 p-0">
                             <div className="flex gap-4 w-full max-w-sm">
-                                <Button type="submit" size="lg" className="flex-1">
+                                <Button type="submit" className="flex-1">
                                     SEND NOTIFICATION
                                 </Button>
-                                <Button type="button" size="lg" variant="secondary" className="flex-1">
+                                <Button type="button" variant="secondary" className="flex-1">
                                     <Video className="mr-2 h-5 w-5" />
                                     Generate Video
                                 </Button>
