@@ -21,7 +21,14 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
+  MoreVertical,
 } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import {
   ResponsiveContainer,
@@ -46,6 +53,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 
 const kpiIcons: Record<string, React.ReactNode> = {
@@ -144,6 +152,36 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+const NumericalDataView = ({ data, title }: { data: any[], title: string }) => {
+    if (!data || data.length === 0) {
+        return (
+            <Card className="h-full flex items-center justify-center bg-card/60 backdrop-blur-sm">
+                <p className="text-muted-foreground">No data to display.</p>
+            </Card>
+        );
+    }
+    const headers = Object.keys(data[0]);
+
+    return (
+        <ScrollArea className="h-full">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        {headers.map(header => <TableHead key={header}>{header}</TableHead>)}
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {data.map((row, rowIndex) => (
+                        <TableRow key={rowIndex}>
+                            {headers.map(header => <TableCell key={header}>{row[header]}</TableCell>)}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </ScrollArea>
+    );
+};
+
 const chartComponents: Record<string, React.FC<any>> = {
   line: ({chart}) => (
     <LineChart data={chart.data}>
@@ -219,12 +257,23 @@ const renderChart = (chart: any) => {
   )
 };
 
+type DisplayMode = "chart" | "numerical";
 
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
   const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const [loading, setLoading] = React.useState(true);
+  const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
+  const [chartDisplayModes, setChartDisplayModes] = React.useState<Record<number, DisplayMode>>({});
+
+  const handleConvertToNumerical = (chartIndex: number) => {
+    setChartDisplayModes(prev => ({ ...prev, [chartIndex]: 'numerical' }));
+  };
+  
+  const handleConvertToChart = (chartIndex: number) => {
+    setChartDisplayModes(prev => ({ ...prev, [chartIndex]: 'chart' }));
+  };
 
   React.useEffect(() => {
     const data = generateDashboardData();
@@ -240,7 +289,7 @@ export default function KpiMetricDashboardPage() {
                 {Array.from({length: 6}).map((_, i) => <Skeleton key={i} className="h-28" />)}
             </div>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                 <Skeleton className="lg:col-span-3 h-[250px]" />
+                 <Skeleton className="lg:col-span-3 h-[300px]" />
                  <Skeleton className="h-[300px]" />
                  <Skeleton className="h-[300px]" />
                  <Skeleton className="h-[300px]" />
@@ -259,11 +308,52 @@ export default function KpiMetricDashboardPage() {
   }
 
   const currentDashboard = dashboardData[selectedDashboard];
-  
   const allCharts = currentDashboard.charts;
-  const mainChart = allCharts[0];
-  const smallCharts = allCharts.slice(1, 4);
-  const bottomCharts = allCharts.slice(4);
+
+  const renderCardContent = (chart: any, index: number) => {
+    const displayMode = chartDisplayModes[index] || 'chart';
+
+    if (displayMode === 'numerical') {
+      return <NumericalDataView data={chart.data} title={chart.title} />;
+    }
+    return renderChart(chart);
+  };
+  
+  const ChartCard = ({ chart, index, className }: { chart: any, index: number, className?: string }) => {
+    const displayMode = chartDisplayModes[index] || 'chart';
+
+    return (
+        <Card className={cn("bg-card/60 backdrop-blur-sm h-[300px]", className)}>
+            <CardHeader className="flex flex-row items-start justify-between">
+                <CardTitle>{chart.title}</CardTitle>
+                {isCustomizeMode && (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            {displayMode === 'chart' ? (
+                                <DropdownMenuItem onClick={() => handleConvertToNumerical(index)}>
+                                    Change to numerical
+                                </DropdownMenuItem>
+                            ) : (
+                                <DropdownMenuItem onClick={() => handleConvertToChart(index)}>
+                                    Change to graphical representation
+                                </DropdownMenuItem>
+                            )}
+                            <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )}
+            </CardHeader>
+            <CardContent className="h-[calc(100%-4rem)] p-2">
+              {renderCardContent(chart, index)}
+            </CardContent>
+        </Card>
+    );
+  };
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex items-start flex-row-reverse gap-8">
@@ -333,38 +423,16 @@ export default function KpiMetricDashboardPage() {
             </Card>
           ))}
         </div>
-
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="bg-card/60 backdrop-blur-sm lg:col-span-3 h-[300px]">
-                <CardHeader>
-                    <CardTitle>{mainChart.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="h-[calc(100%-4rem)] p-2">
-                    {renderChart(mainChart)}
-                </CardContent>
-            </Card>
-            {smallCharts.map((chart: any, index: number) => (
-                <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
-                    <CardHeader>
-                        <CardTitle>{chart.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] p-2">
-                        {renderChart(chart)}
-                    </CardContent>
-                </Card>
-            ))}
+            <ChartCard chart={allCharts[0]} index={0} className="lg:col-span-3"/>
+            <ChartCard chart={allCharts[1]} index={1} />
+            <ChartCard chart={allCharts[2]} index={2} />
+            <ChartCard chart={allCharts[3]} index={3} />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            {bottomCharts.map((chart:any, index: number) => (
-                    <Card key={index} className="bg-card/60 backdrop-blur-sm lg:col-span-1 h-[300px]">
-                    <CardHeader>
-                        <CardTitle>{chart.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[calc(100%-4rem)] p-2">
-                        {renderChart(chart)}
-                    </CardContent>
-                </Card>
-            ))}
+             <ChartCard chart={allCharts[4]} index={4} />
+             <ChartCard chart={allCharts[5]} index={5} />
         </div>
 
         <div className="flex justify-start gap-4 pt-4">
@@ -376,13 +444,12 @@ export default function KpiMetricDashboardPage() {
             <Video className="mr-2" />
             Generate Video
           </Button>
-          <Button size="lg" variant="secondary">
+          <Button size="lg" variant="secondary" onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
             <Wrench className="mr-2" />
-            Customize
+            {isCustomizeMode ? "Done" : "Customize"}
           </Button>
         </div>
       </main>
     </div>
   );
-
-    
+}
