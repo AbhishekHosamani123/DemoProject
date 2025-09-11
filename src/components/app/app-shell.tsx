@@ -22,13 +22,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { ClientTooltipProvider } from "./client-tooltip-provider";
+
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex">
-      <TooltipProvider>
+      <ClientTooltipProvider>
         <Sidebar>
           <SidebarHeader>
             <SidebarMenu>
@@ -114,7 +115,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
-      </TooltipProvider>
+      </ClientTooltipProvider>
       <main className="flex-1">{children}</main>
     </div>
   );
