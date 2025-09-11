@@ -49,7 +49,6 @@ export default function SalesStrategyPage() {
   const [toDate, setToDate] = useState<Date | undefined>();
   const [isFromDatePickerOpen, setIsFromDatePickerOpen] = useState(false);
   const [isToDatePickerOpen, setIsToDatePickerOpen] = useState(false);
-  const [isCustomizeDialogOpen, setIsCustomizeDialogOpen] = useState(false);
   const { toast } = useToast();
 
   const handleGenerate = () => {
@@ -58,7 +57,7 @@ export default function SalesStrategyPage() {
       description: "Your presentation has been customized.",
       duration: 2000,
     });
-    setIsCustomizeDialogOpen(false);
+    // The dialog will close automatically on button click if we don't control its state.
   };
 
   return (
@@ -131,7 +130,7 @@ export default function SalesStrategyPage() {
             <Video className="mr-2 h-4 w-4" />
             Generate Video
           </Button>
-          <Dialog open={isCustomizeDialogOpen} onOpenChange={setIsCustomizeDialogOpen}>
+          <Dialog>
             <DialogTrigger asChild>
               <Button size="lg" variant="secondary" className="w-full">
                 <Wrench className="mr-2 h-4 w-4" />
