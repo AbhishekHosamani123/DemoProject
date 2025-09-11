@@ -93,6 +93,7 @@ export default function MultipleTopicsPage() {
     toast({
       title: "Generating Presentation",
       description: `Creating a presentation with ${selectedTopics.length} topics.`,
+      duration: 2000,
     });
   };
 
