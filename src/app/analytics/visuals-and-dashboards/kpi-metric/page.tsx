@@ -183,6 +183,7 @@ const renderChart = (chart: any) => {
             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} />
+            <Legend />
             {chart.dataKeys.map((key: any, i: number) => (
                  <Bar key={key.name} dataKey={key.name} fill={key.color || COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} barSize={30}/>
             ))}
@@ -248,21 +249,23 @@ const renderChart = (chart: any) => {
   }
 };
 
-const ChartCard = ({chart}: {chart: any}) => (
+const ChartCard = ({chart, showMenu}: {chart: any, showMenu: boolean}) => (
     <Card className="bg-card/60 backdrop-blur-sm h-[300px]">
         <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{chart.title}</CardTitle>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-6 w-6">
-                        <MoreVertical className="h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-                    <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            {showMenu && (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-6 w-6">
+                            <MoreVertical className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                        <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
         </CardHeader>
         <CardContent className="h-[calc(100%-4rem)] p-4">
             {renderChart(chart)}
@@ -276,9 +279,12 @@ export default function KpiMetricDashboardPage() {
   const [dashboardData, setDashboardData] = React.useState<Record<string, any> | null>(null);
   const [selectedDashboard, setSelectedDashboard] = React.useState('sales-performance');
   const [loading, setLoading] = React.useState(true);
+  const [isCustomizeMode, setIsCustomizeMode] = React.useState(false);
+
 
   React.useEffect(() => {
-    setDashboardData(generateDashboardData());
+    const data = generateDashboardData();
+    setDashboardData(data);
     setLoading(false);
   }, []);
 
@@ -387,17 +393,19 @@ export default function KpiMetricDashboardPage() {
             <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm h-[250px]">
                 <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle>{mainChart.title}</CardTitle>
-                     <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem>Change to numerical</DropdownMenuItem>
-                            <DropdownMenuItem>Change chart style</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    {isCustomizeMode && (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-6 w-6">
+                                    <MoreVertical className="h-4 w-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem>Change to numerical</DropdownMenuItem>
+                                <DropdownMenuItem>Change chart style</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )}
                 </CardHeader>
                 <CardContent className="h-[calc(100%-4rem)] pb-4">
                     {renderChart(mainChart)}
@@ -406,12 +414,12 @@ export default function KpiMetricDashboardPage() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {smallCharts.map((chart:any, index: number) => (
-                 <ChartCard key={index} chart={chart} />
+                 <ChartCard key={index} chart={chart} showMenu={isCustomizeMode} />
             ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {newCharts.map((chart:any, index: number) => (
-                <ChartCard key={index} chart={chart} />
+                <ChartCard key={index} chart={chart} showMenu={isCustomizeMode} />
             ))}
         </div>
 
@@ -424,14 +432,12 @@ export default function KpiMetricDashboardPage() {
             <Video className="mr-2" />
             Generate Video
           </Button>
-          <Button size="lg" variant="secondary">
+          <Button size="lg" variant={isCustomizeMode ? "default": "secondary"} onClick={() => setIsCustomizeMode(!isCustomizeMode)}>
             <Wrench className="mr-2" />
-            Customize
+            {isCustomizeMode ? "Done" : "Customize"}
           </Button>
         </div>
       </main>
     </div>
   );
 }
-
-    
