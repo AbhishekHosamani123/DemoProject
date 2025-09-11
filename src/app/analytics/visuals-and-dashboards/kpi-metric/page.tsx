@@ -21,7 +21,6 @@ import {
   ArrowUp,
   ArrowDown,
   Video,
-  MoreVertical,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -139,7 +138,6 @@ const ChartCard = ({ title, children, description }: { title: string, children: 
         <CardHeader>
             <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold">{title}</CardTitle>
-                <MoreVertical className="h-4 w-4 text-muted-foreground" />
             </div>
             {description && <CardDescription>{description}</CardDescription>}
         </CardHeader>
@@ -338,5 +336,3 @@ export default function KpiMetricDashboardPage() {
     </div>
   );
 }
-
-    
