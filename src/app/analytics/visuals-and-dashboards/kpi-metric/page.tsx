@@ -42,7 +42,6 @@ import {
   Radar,
 } from "recharts";
 import { cn } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const kpiIcons: Record<string, React.ReactNode> = {
     DollarSign: <DollarSign className="h-4 w-4 text-muted-foreground" />,
@@ -117,7 +116,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                 <p className="label text-primary font-bold">{label || payload[0].name}</p>
                 {payload.map((pld: any, index: number) => (
                     <p key={index} style={{ color: pld.fill || pld.stroke }}>
-                        {`${pld.name}: ${pld.value.toLocaleString()}`}
+                        {`${pld.name || pld.dataKey}: ${pld.value.toLocaleString()}`}
                     </p>
                 ))}
             </div>
@@ -126,109 +125,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-const chartComponents: Record<string, React.FC<any>> = {
-  line: ({data}) => (
-    <LineChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <Tooltip content={<CustomTooltip />} />
-      <Legend iconType="plainline"/>
-      <Line type="monotone" dataKey="value" name="Current" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
-      <Line type="monotone" dataKey="pv" name="Previous" stroke="hsl(var(--chart-2))" strokeWidth={2} dot={false} />
-    </LineChart>
-  ),
-  bar: ({data}) => (
-    <BarChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <Tooltip content={<CustomTooltip />} />
-      <Bar dataKey="value" name="Value" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} barSize={30}/>
-    </BarChart>
-  ),
-  "stacked-bar": ({data}) => (
-    <BarChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
-      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-      <Tooltip content={<CustomTooltip />} />
-      <Legend />
-      <Bar dataKey="teamA" name="Team A" stackId="a" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]}/>
-      <Bar dataKey="teamB" name="Team B" stackId="a" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]}/>
-    </BarChart>
-  ),
-  pie: ({data}) => (
-    <PieChart>
-      <Tooltip content={<CustomTooltip />} />
-      <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
-      <Pie
-        data={data}
-        dataKey="value"
-        nameKey="name"
-        stroke="hsl(var(--background))"
-        strokeWidth={2}
-        labelLine={false}
-        label={false}
-      >
-        {data.map((_: any, index: number) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
-  ),
-  radar: ({data}) => (
-      <RadarChart data={data} >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="subject" />
-          <Tooltip content={<CustomTooltip />} />
-          <Radar name="Performance" dataKey="A" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
-      </RadarChart>
-  )
-};
-
-const renderChart = (chart: any) => {
-  const ChartComponent = chartComponents[chart.type];
-  if (!ChartComponent) return <div>Invalid chart type</div>;
-  return (
-    <ResponsiveContainer width="100%" height={300}>
-        <ChartComponent data={chart.data} />
-    </ResponsiveContainer>
-  )
-};
-
 export default function KpiMetricDashboardPage() {
   const router = useRouter();
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500); // Simulate loading
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <main className="flex-1 space-y-8">
-            <Skeleton className="h-10 w-24" />
-            <Skeleton className="h-16 w-1/2 mx-auto" />
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
-                {Array.from({length: 6}).map((_, i) => <Skeleton key={i} className="h-28" />)}
-            </div>
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                 <Skeleton className="lg:col-span-3 h-[350px]" />
-                 <Skeleton className="h-[350px]" />
-                 <Skeleton className="h-[350px]" />
-                 <Skeleton className="h-[350px]" />
-            </div>
-             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-                 <Skeleton className="h-[350px]" />
-                 <Skeleton className="h-[350px]" />
-            </div>
-        </main>
-      </div>
-    );
-  }
   
   const allCharts = dashboardData.charts;
 
@@ -274,7 +172,17 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[0].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[0])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={allCharts[0].data}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend iconType="plainline"/>
+                            <Line type="monotone" dataKey="value" name="Current" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
+                            <Line type="monotone" dataKey="pv" name="Previous" stroke="hsl(var(--chart-2))" strokeWidth={2} dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur-sm p-4">
@@ -282,7 +190,15 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[1].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[1])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={allCharts[1].data}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Bar dataKey="value" name="Value" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} barSize={30}/>
+                        </BarChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur-sm p-4">
@@ -290,7 +206,17 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[2].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[2])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
+                            <Pie data={allCharts[2].data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} stroke="hsl(var(--background))" strokeWidth={2} labelLine={false} label={false}>
+                                {(allCharts[2].data as any[]).map((_: any, index: number) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur-sm p-4">
@@ -298,7 +224,15 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[3].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[3])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={allCharts[3].data}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Bar dataKey="value" name="Value" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]}/>
+                        </BarChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
         </div>
@@ -309,7 +243,17 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[4].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[4])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={allCharts[4].data}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.2)" />
+                            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                            <Bar dataKey="teamA" name="Team A" stackId="a" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]}/>
+                            <Bar dataKey="teamB" name="Team B" stackId="a" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]}/>
+                        </BarChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur-sm p-4">
@@ -317,7 +261,14 @@ export default function KpiMetricDashboardPage() {
                     <CardTitle>{allCharts[5].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {renderChart(allCharts[5])}
+                    <ResponsiveContainer width="100%" height={300}>
+                        <RadarChart data={allCharts[5].data} cx="50%" cy="50%" outerRadius="80%">
+                            <PolarGrid />
+                            <PolarAngleAxis dataKey="subject" />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Radar name="Performance" dataKey="A" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.6} />
+                        </RadarChart>
+                    </ResponsiveContainer>
                 </CardContent>
             </Card>
         </div>
