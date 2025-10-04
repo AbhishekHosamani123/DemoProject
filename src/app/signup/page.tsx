@@ -36,7 +36,7 @@ export default function SignUpPage() {
         <p className="text-muted-foreground mb-8">Select the appropriate category to sign up.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl">
-            <Link href="#" className="flex group">
+            <Link href="/signup/industrialist-admin" className="flex group">
                  <Card className="w-full bg-card/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 p-6 text-center flex flex-col items-center justify-center">
                     <CardHeader>
                         <div className="flex justify-center mb-4">
@@ -74,4 +74,3 @@ export default function SignUpPage() {
     </main>
   );
 }
-
