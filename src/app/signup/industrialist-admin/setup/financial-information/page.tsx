@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
@@ -38,6 +38,22 @@ export default function FinancialInfoPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [jurisdiction, setJurisdiction] = useState("");
+  const [contacts, setContacts] = useState([{ id: 1, name: '', phone: '', email: '' }]);
+
+  const handleAddContact = () => {
+    setContacts([...contacts, { id: Date.now(), name: '', phone: '', email: '' }]);
+  };
+
+  const handleRemoveContact = (id: number) => {
+    setContacts(contacts.filter(contact => contact.id !== id));
+  };
+
+  const handleContactChange = (id: number, field: 'name' | 'phone' | 'email', value: string) => {
+    setContacts(contacts.map(contact => 
+      contact.id === id ? { ...contact, [field]: value } : contact
+    ));
+  };
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +71,7 @@ export default function FinancialInfoPage() {
       totalExpenses: data.totalExpenses,
       annualRevenue: data.annualRevenue,
       netProfit: data.netProfit,
+      contacts: contacts,
     };
     
     localStorage.setItem('financialInfo', JSON.stringify(financialInfo));
@@ -153,6 +170,62 @@ export default function FinancialInfoPage() {
                     </div>
                 </div>
             </fieldset>
+
+            <fieldset className="border p-4 rounded-lg space-y-4">
+              <legend className="px-2 text-primary font-semibold">Contact Details</legend>
+              <p className="text-sm text-muted-foreground">Add contact details to send alerts and messages.</p>
+              {contacts.map((contact, index) => (
+                <div key={contact.id} className="p-4 border rounded-md space-y-4 relative bg-card/50">
+                    {contacts.length > 1 && (
+                         <Button 
+                            type="button" 
+                            variant="ghost" 
+                            size="icon" 
+                            className="absolute top-2 right-2 h-6 w-6 text-destructive/70 hover:text-destructive hover:bg-destructive/10"
+                            onClick={() => handleRemoveContact(contact.id)}
+                        >
+                            <Trash2 className="h-4 w-4" />
+                            <span className="sr-only">Remove contact</span>
+                        </Button>
+                    )}
+                    <div className="space-y-2">
+                        <Label htmlFor={`name-${contact.id}`}>User {index + 1}: Name of the user</Label>
+                        <Input 
+                            id={`name-${contact.id}`} 
+                            value={contact.name}
+                            onChange={e => handleContactChange(contact.id, 'name', e.target.value)}
+                            placeholder="Enter name"
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor={`phone-${contact.id}`}>Phone Number</Label>
+                            <Input 
+                                id={`phone-${contact.id}`}
+                                value={contact.phone}
+                                onChange={e => handleContactChange(contact.id, 'phone', e.target.value)}
+                                placeholder="+91 XXXXX XXXXX"
+                                type="tel"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor={`email-${contact.id}`}>Email ID</Label>
+                            <Input
+                                id={`email-${contact.id}`}
+                                value={contact.email}
+                                onChange={e => handleContactChange(contact.id, 'email', e.target.value)}
+                                placeholder="user@example.com"
+                                type="email"
+                            />
+                        </div>
+                    </div>
+                </div>
+              ))}
+              <Button type="button" variant="outline" onClick={handleAddContact} className="w-full">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add More Contacts
+              </Button>
+            </fieldset>
             
           </CardContent>
           <CardFooter>
@@ -165,3 +238,5 @@ export default function FinancialInfoPage() {
     </main>
   );
 }
+
+    
