@@ -1,18 +1,20 @@
-# **App Name**: INERA Prototype Viewer
+# **App Name**: INERA Navigator
 
 ## Core Features:
 
-- Clone Project: Clone the specified GitHub repository: https://github.com/ZENXEIO/INERA-THE-PROTOTYPE.git.
-- Dependency Installation: Automatically install necessary project dependencies.
-- Live Reloading: Enable live reloading to reflect code changes instantly in the browser.
-- Basic UI Display: Set up a basic UI to view and interact with the prototype.
+- File Upload: Enable users to upload business data files (e.g., CSV, XLSX).
+- Cloud Connection: Connect to cloud data sources.
+- AI Insights Tool: Use a generative AI tool to provide high-level insights from uploaded data. It analyzes the data and provides a summary of key trends and potential issues.
+- Data Preview: Show a preview of the uploaded data in a tabular format.
+- Basic Chart Generation: Generate basic charts (bar, line, pie) from the uploaded data. Allow users to select columns for chart axes/segments.
+- Proceed to Analytics Button: Navigation button to detailed analytics and custom queries, can also trigger dashboard or further action.
 
 ## Style Guidelines:
 
-- Primary color: Deep blue (#3F51B5) for a professional and calming feel, evoking trust.
-- Background color: Light gray (#F5F5F5), a subtle tone that minimizes distractions, focusing attention on content.
-- Accent color: A touch of amber (#FFB300) to draw attention to interactive elements, a warm contrast to the cool blue.
-- Font: 'Inter', a sans-serif (grotesque style) suitable for both headers and body, ensures clarity and readability.
-- Use a set of simple, consistent icons, aligned with the app's function.
-- Maintain a clean and simple layout to ensure ease of use and to improve navigation within the cloned project.
-- Use subtle transitions and animations to provide feedback on user interactions, avoiding any distracting effects.
+- Primary color: Deep blue (#293462), echoing the brand identity of technological sophistication and trust.
+- Background color: Very dark blue (#0A1128), provides a modern, high-tech backdrop.
+- Accent color: Bright yellow (#FFC857) to highlight interactive elements and calls to action.
+- Body and headline font: 'Inter', a grotesque sans-serif, should be used for body text. For headlines, use 'Space Grotesk', also a sans-serif.
+- Use minimalist, geometric icons to represent data types, actions, and cloud connections.
+- Design a clean, spacious layout that directs the user's eye to key actions.
+- Incorporate subtle animations on data upload and insight generation.

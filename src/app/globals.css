@@ -4,57 +4,69 @@
 
 @layer base {
   :root {
-    --background: 0 0% 96.1%; /* #F5F5F5 */
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 231 48% 48%; /* #3F51B5 */
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 42 100% 50%; /* #FFB300 */
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 231 48% 48%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 0 0% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 231 48% 48%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 42 100% 50%;
-    --accent-foreground: 240 5.9% 10%;
+    --background: 224 80% 2%;
+    --foreground: 0 0% 100%; 
+    --card: 224 71.4% 6%; 
+    --card-foreground: 0 0% 100%;
+    --popover: 224 71.4% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 216 100% 15%; 
+    --secondary: 205 56% 74%; 
+    --secondary-foreground: 216 100% 10%;
+    --muted: 224 71.4% 6%;
+    --muted-foreground: 205 56% 74%;
+    --accent: 216 100% 40%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 231 48% 48%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 205 56% 74%;
+    --input: 216 100% 20%;
+    --ring: 45 100% 50%;
+    --chart-1: 45 100% 50%;
+    --chart-2: 205 56% 74%;
+    --chart-3: 0 0% 100%;
+    --chart-4: 45 100% 70%;
+    --chart-5: 216 100% 70%;
+    --sidebar-background: 224 71.4% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-accent: 45 100% 50%;
+    --sidebar-accent-foreground: 216 100% 15%;
+    --sidebar-border: 216 100% 20%;
+    --sidebar-ring: 45 100% 50%;
+  }
+
+  .dark {
+    --background: 224 80% 2%;
+    --foreground: 0 0% 100%; 
+    --card: 224 71.4% 6%; 
+    --card-foreground: 0 0% 100%;
+    --popover: 224 71.4% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 216 100% 15%; 
+    --secondary: 205 56% 74%; 
+    --secondary-foreground: 216 100% 10%;
+    --muted: 224 71.4% 6%;
+    --muted-foreground: 205 56% 74%;
+    --accent: 216 100% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 205 56% 74%;
+    --input: 216 100% 20%;
+    --ring: 45 100% 50%;
+    --chart-1: 45 100% 50%;
+    --chart-2: 205 56% 74%;
+    --chart-3: 0 0% 100%;
+    --chart-4: 45 100% 70%;
+    --chart-5: 216 100% 70%;
+    --sidebar-background: 224 71.4% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-accent: 45 100% 50%;
+    --sidebar-accent-foreground: 216 100% 15%;
+    --sidebar-border: 216 100% 20%;
+    --sidebar-ring: 45 100% 50%;
   }
 }
 
@@ -62,36 +74,20 @@
   * {
     @apply border-border;
   }
-  html {
-    @apply scroll-smooth;
-  }
   body {
-    @apply bg-background text-muted-foreground;
-  }
-  h1, h2, h3 {
-    @apply text-foreground font-semibold;
-  }
-}
-
-@layer components {
-  .container {
-    @apply max-w-4xl mx-auto px-4;
+    @apply bg-background text-foreground font-body;
   }
 
-  .grid {
-    @apply gap-6;
+  h1,h2,h3,h4,h5,h6 {
+    @apply font-headline text-primary;
   }
 
-  .section {
-    @apply py-16 sm:py-20 lg:py-24;
-  }
+  h1 { @apply text-5xl font-bold; } /* 48px */
+  h2 { @apply text-4xl font-bold; } /* 36px */
+  h3 { @apply text-3xl font-medium; } /* 28px -> 30px is closest default */
+  p { @apply text-lg; } /* 18px */
 
-  .section__title,
-  .section__title-1 {
-    @apply text-3xl mb-12 text-center font-semibold;
-  }
-
-  .section__title-1 {
-    @apply text-primary;
+  .text-secondary {
+    @apply text-slate-400;
   }
 }
