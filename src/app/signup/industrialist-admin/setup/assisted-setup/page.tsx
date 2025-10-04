@@ -49,7 +49,7 @@ export default function AssistedSetupPage() {
         return result.response;
     },
     initialMessages: [
-        { id: '1', role: 'assistant', content: 'Hello! I can help you set up your company profile. To start, could you please briefly describe what your business does?' }
+        { id: '1', role: 'model', content: 'Hello! I can help you set up your company profile. To start, could you please briefly describe what your business does?' }
     ]
   });
 
@@ -74,7 +74,7 @@ export default function AssistedSetupPage() {
             <div className="space-y-6 pb-4">
               {messages.map((m: Message) => (
                 <div key={m.id} className={cn("flex items-start gap-3", m.role === 'user' && 'justify-end')}>
-                  {m.role === 'assistant' && (
+                  {m.role === 'model' && (
                     <div className="bg-primary text-primary-foreground rounded-full p-2">
                         <Bot className="h-5 w-5" />
                     </div>

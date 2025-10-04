@@ -5,7 +5,7 @@ import { useState, ChangeEvent, FormEvent, useRef } from 'react';
 
 export interface Message {
   id: string;
-  role: 'user' | 'assistant';
+  role: 'user' | 'model';
   content: string;
 }
 
@@ -42,11 +42,11 @@ export function useChat({ initialMessages = [], api }: UseChatOptions) {
 
     try {
       const assistantResponse = await api(updatedMessages);
-      const newAssistantMessage: Message = { id: generateId(), role: 'assistant', content: assistantResponse };
+      const newAssistantMessage: Message = { id: generateId(), role: 'model', content: assistantResponse };
       setMessages(prevMessages => [...prevMessages, newAssistantMessage]);
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      const errorMessage: Message = { id: generateId(), role: 'assistant', content: 'Sorry, something went wrong.' };
+      const errorMessage: Message = { id: generateId(), role: 'model', content: 'Sorry, something went wrong.' };
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);

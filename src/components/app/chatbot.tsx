@@ -17,11 +17,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
+interface Message {
+  role: "user" | "model";
+  content: string;
+}
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
-      role: "assistant",
+      role: "model",
       content: "Welcome to InEra Software",
     },
   ]);
@@ -39,7 +44,7 @@ export function Chatbot() {
 
   const handleSendMessage = () => {
     if (input.trim() === "") return;
-    const newMessages = [...messages, { role: "user", content: input }];
+    const newMessages: Message[] = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
     setInput("");
 
@@ -48,7 +53,7 @@ export function Chatbot() {
       setMessages([
         ...newMessages,
         {
-          role: "assistant",
+          role: "model",
           content: "I'm still under development, but I'm learning fast!",
         },
       ]);
@@ -99,7 +104,7 @@ export function Chatbot() {
                         : "justify-start"
                     )}
                   >
-                     {message.role === 'assistant' && (
+                     {message.role === 'model' && (
                         <Avatar className="h-8 w-8">
                             <AvatarFallback className="bg-primary text-primary-foreground">
                                 <Bot className="h-5 w-5" />
