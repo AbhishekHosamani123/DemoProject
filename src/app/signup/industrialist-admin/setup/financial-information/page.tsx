@@ -22,6 +22,7 @@ import {
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
@@ -36,9 +37,28 @@ const indianStates = [
 export default function FinancialInfoPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const [jurisdiction, setJurisdiction] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    
+    const financialInfo = {
+      registrationJurisdiction: jurisdiction,
+      cin: data.cin,
+      pan: data.pan,
+      tan: data.tan,
+      gstin: data.gstin,
+      ptReg: data.ptReg,
+      companyCapital: data.companyCapital,
+      totalExpenses: data.totalExpenses,
+      annualRevenue: data.annualRevenue,
+      netProfit: data.netProfit,
+    };
+    
+    localStorage.setItem('financialInfo', JSON.stringify(financialInfo));
+
     toast({
       title: "Information Saved",
       description: "Company financial and regulatory details have been saved.",
@@ -72,7 +92,7 @@ export default function FinancialInfoPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="reg-jurisdiction">Registration Jurisdiction</Label>
-                    <Select>
+                    <Select onValueChange={setJurisdiction} value={jurisdiction}>
                         <SelectTrigger id="reg-jurisdiction">
                             <SelectValue placeholder="Select State/Territory" />
                         </SelectTrigger>
@@ -83,29 +103,29 @@ export default function FinancialInfoPage() {
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="cin">Corporate Identification Number (CIN)</Label>
-                    <Input id="cin" placeholder="21-digit alphanumeric CIN" />
+                    <Input id="cin" name="cin" placeholder="21-digit alphanumeric CIN" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  <div className="space-y-2">
                     <Label htmlFor="pan">Permanent Account Number (PAN)</Label>
-                    <Input id="pan" placeholder="10-digit alphanumeric PAN" />
+                    <Input id="pan" name="pan" placeholder="10-digit alphanumeric PAN" />
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="tan">Tax Deduction and Collection Account Number (TAN)</Label>
-                    <Input id="tan" placeholder="10-digit TAN" />
+                    <Input id="tan" name="tan" placeholder="10-digit TAN" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="gstin">Goods and Services Tax Identification Number (GSTIN)</Label>
-                    <Input id="gstin" placeholder="15-digit GSTIN" />
+                    <Input id="gstin" name="gstin" placeholder="15-digit GSTIN" />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="pt-reg">Professional Tax Registration Number</Label>
-                    <Input id="pt-reg" placeholder="If applicable" />
+                    <Input id="pt-reg" name="ptReg" placeholder="If applicable" />
                 </div>
               </div>
             </fieldset>
@@ -115,21 +135,21 @@ export default function FinancialInfoPage() {
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <Label htmlFor="company-capital">What is the capital of the company?</Label>
-                        <Input id="company-capital" type="number" placeholder="e.g., 500000" />
+                        <Input id="company-capital" name="companyCapital" type="number" placeholder="e.g., 500000" />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="total-expenses">What are the total expenses of the company?</Label>
-                        <Input id="total-expenses" type="number" placeholder="e.g., 200000" />
+                        <Input id="total-expenses" name="totalExpenses" type="number" placeholder="e.g., 200000" />
                     </div>
                 </div>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <Label htmlFor="annual-revenue">Annual Revenue (Last FY)</Label>
-                        <Input id="annual-revenue" type="number" placeholder="e.g., 1000000" />
+                        <Input id="annual-revenue" name="annualRevenue" type="number" placeholder="e.g., 1000000" />
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="net-profit">Net Profit (Last FY)</Label>
-                        <Input id="net-profit" type="number" placeholder="e.g., 300000" />
+                        <Input id="net-profit" name="netProfit" type="number" placeholder="e.g., 300000" />
                     </div>
                 </div>
             </fieldset>

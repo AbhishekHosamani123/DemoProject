@@ -37,6 +37,7 @@ export default function AssistedSetupPage() {
         }
         
         if (result.isComplete) {
+            localStorage.setItem('existenceInfo', JSON.stringify(result.classification || {}));
             toast({
                 title: "Classification Complete!",
                 description: "Your company has been classified. Redirecting you now...",

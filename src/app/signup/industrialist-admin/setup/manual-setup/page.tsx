@@ -65,6 +65,14 @@ export default function ManualSetupPage() {
   };
 
   const handleActivate = () => {
+    const existenceInfo = {
+        sector: selectedSector ? sectorData[selectedSector].name : '',
+        domain: selectedSector && selectedDomain ? (sectorData[selectedSector].domains as any)[selectedDomain].name : '',
+        industry: selectedIndustry,
+        subIndustry: subIndustry,
+    };
+    localStorage.setItem('existenceInfo', JSON.stringify(existenceInfo));
+
     toast({
         title: "System Activated!",
         description: "Your company profile and dashboard are now configured.",

@@ -38,8 +38,23 @@ export default function PersonalInfoPage() {
   const { toast } = useToast();
   const [date, setDate] = React.useState<Date>();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    
+    const personalInfo = {
+      companyName: data.companyName,
+      establishedDate: date ? format(date, "yyyy-MM-dd") : '',
+      registrationStatus: data.registrationStatus,
+      primaryEmail: data.primaryEmail,
+      secondaryEmail: data.secondaryEmail,
+      website: data.website,
+      legalStructure: data.legalStructure,
+    };
+
+    localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+
     toast({
       title: "Information Saved",
       description: "Company personal details have been saved.",
@@ -72,7 +87,7 @@ export default function PersonalInfoPage() {
                 <legend className="px-2 text-primary font-semibold">Basic Company Information</legend>
                 <div className="space-y-2">
                     <Label htmlFor="company-name">Company Name</Label>
-                    <Input id="company-name" placeholder="Enter the exact legal name as registered" />
+                    <Input id="company-name" name="companyName" placeholder="Enter the exact legal name as registered" />
                     <p className="text-xs text-muted-foreground">Ensure official identification and avoid name ambiguity.</p>
                 </div>
                 <div className="space-y-2">
@@ -104,7 +119,7 @@ export default function PersonalInfoPage() {
                 </div>
                 <div className="space-y-2">
                     <Label>Business Registration Status</Label>
-                    <RadioGroup defaultValue="active" className="flex gap-4 pt-2">
+                    <RadioGroup defaultValue="active" name="registrationStatus" className="flex gap-4 pt-2">
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="active" id="active" />
                             <Label htmlFor="active">Active</Label>
@@ -126,17 +141,17 @@ export default function PersonalInfoPage() {
                 <legend className="px-2 text-primary font-semibold">Contact Information</legend>
                  <div className="space-y-2">
                     <Label htmlFor="primary-email">Primary Email Address</Label>
-                    <Input id="primary-email" type="email" placeholder="official@company.com" />
+                    <Input id="primary-email" name="primaryEmail" type="email" placeholder="official@company.com" />
                      <p className="text-xs text-muted-foreground">Official business email for system notifications.</p>
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="secondary-email">Secondary Email Address</Label>
-                    <Input id="secondary-email" type="email" placeholder="backup@company.com" />
+                    <Input id="secondary-email" name="secondaryEmail" type="email" placeholder="backup@company.com" />
                      <p className="text-xs text-muted-foreground">Backup for account recovery and additional communications.</p>
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="website">Official Website URL</Label>
-                    <Input id="website" type="url" placeholder="https://www.company.com" />
+                    <Input id="website" name="website" type="url" placeholder="https://www.company.com" />
                      <p className="text-xs text-muted-foreground">Company's primary web presence for digital identity verification.</p>
                 </div>
             </fieldset>
@@ -145,7 +160,7 @@ export default function PersonalInfoPage() {
                 <legend className="px-2 text-primary font-semibold">Company Legal Structure</legend>
                 <div className="space-y-2">
                     <Label htmlFor="legal-structure">Select from dropdown menu:</Label>
-                    <Select>
+                    <Select name="legalStructure">
                         <SelectTrigger id="legal-structure">
                             <SelectValue placeholder="Select a legal structure" />
                         </SelectTrigger>
