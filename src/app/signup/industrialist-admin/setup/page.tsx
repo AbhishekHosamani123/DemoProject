@@ -16,19 +16,19 @@ import { useToast } from "@/hooks/use-toast";
 
 const setupOptions = [
   {
-    id: "option-1",
-    title: "Basic Setup",
-    description: "A standard configuration for most businesses.",
+    id: "personal-info",
+    title: "Personal Information of Company",
+    description: "Provide basic company details and contacts.",
   },
   {
-    id: "option-2",
-    title: "Advanced Setup",
-    description: "Includes more detailed analytics and reporting features.",
+    id: "existence-info",
+    title: "Existence Information of Company",
+    description: "Verify your company's legal and operational status.",
   },
   {
-    id: "option-3",
-    title: "Custom Setup",
-    description: "Tailor the setup to your specific needs.",
+    id: "financial-info",
+    title: "Financial and other Information of Company",
+    description: "Input financial data and other key business metrics.",
   },
 ];
 
@@ -46,9 +46,10 @@ export default function AdminSetupPage() {
         });
         return;
     }
+    const selectedTitle = setupOptions.find(opt => opt.id === selectedOption)?.title;
     toast({
         title: "Setup Submitted",
-        description: `You have selected: ${selectedOption}.`,
+        description: `You have submitted: ${selectedTitle}.`,
     });
     // TODO: Add actual submission logic
   };
@@ -62,9 +63,10 @@ export default function AdminSetupPage() {
         });
         return;
     }
+    const selectedTitle = setupOptions.find(opt => opt.id === selectedOption)?.title;
     toast({
         title: "Loading Preview",
-        description: `Showing a preview for: ${selectedOption}.`,
+        description: `Showing a preview for: ${selectedTitle}.`,
     });
      // TODO: Add actual preview logic
   }
@@ -92,7 +94,7 @@ export default function AdminSetupPage() {
               key={option.id}
               onClick={() => setSelectedOption(option.id)}
               className={cn(
-                "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1",
+                "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-between",
                 selectedOption === option.id && "border-primary"
               )}
             >
@@ -101,11 +103,11 @@ export default function AdminSetupPage() {
                     <CheckCircle2 className="h-6 w-6" />
                 </div>
               )}
-              <CardHeader>
+              <CardHeader className="flex-1">
                 <CardTitle>{option.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">{option.description}</p>
+                <p className="text-muted-foreground text-sm">{option.description}</p>
               </CardContent>
             </Card>
           ))}
