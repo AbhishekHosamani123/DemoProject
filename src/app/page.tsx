@@ -28,6 +28,31 @@ export default function LandingPage() {
                     where Intelligence at the speed of thought
                 </p>
 
+                <div className="container max-w-5xl mb-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <Card className="bg-card/60 backdrop-blur-sm border-primary/20">
+                            <CardHeader>
+                                <CardTitle className="text-center text-2xl tracking-wider">OUR MISSION</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-center text-lg text-muted-foreground leading-relaxed">
+                                    Empower every business with intelligent, fully automated decision-making.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-card/60 backdrop-blur-sm border-primary/20">
+                            <CardHeader>
+                                <CardTitle className="text-center text-2xl tracking-wider">OUR VISION</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-center text-lg text-muted-foreground leading-relaxed">
+                                    To become the Top leading autonomous BI operating system, providing instant AI-powered intelligence and making insights universally accessible.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-4">
                      <Button
                         size="lg"
@@ -46,31 +71,6 @@ export default function LandingPage() {
                         Sign Up
                         <ArrowRight className="ml-3 h-5 w-5"/>
                     </Button>
-                </div>
-            </div>
-
-             <div className="container max-w-5xl mt-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Card className="bg-card/60 backdrop-blur-sm border-primary/20">
-                        <CardHeader>
-                            <CardTitle className="text-center text-2xl tracking-wider">OUR MISSION</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-center text-lg text-muted-foreground leading-relaxed">
-                                Empower every business with intelligent, fully automated decision-making.
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card className="bg-card/60 backdrop-blur-sm border-primary/20">
-                        <CardHeader>
-                            <CardTitle className="text-center text-2xl tracking-wider">OUR VISION</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-center text-lg text-muted-foreground leading-relaxed">
-                                To become the Top leading autonomous BI operating system, providing instant AI-powered intelligence and making insights universally accessible.
-                            </p>
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
         </main>
