@@ -61,7 +61,6 @@ export async function classifyCompany(input: any): Promise<any> {
         input: { schema: ClassifyCompanyInputSchema },
         output: { schema: ClassifyCompanyOutputSchema },
         prompt: classificationPromptText,
-        model: 'googleai/gemini-1.5-flash',
         config: {
           temperature: 0.3,
         }
