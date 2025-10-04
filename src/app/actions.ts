@@ -1,3 +1,4 @@
+
 "use server";
 
 import {
@@ -37,6 +38,7 @@ export async function getClassifyCompanyResponse(
     return response;
   } catch (e) {
     console.error(e);
-    return { error: "Failed to get a response from the AI. Please try again." };
+    const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+    return { error: `Failed to get a response from the AI: ${errorMessage}` };
   }
 }

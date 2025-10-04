@@ -36,10 +36,6 @@ export const ClassifyCompanyOutputSchema = z.object({
 });
 export type ClassifyCompanyOutput = z.infer<typeof ClassifyCompanyOutputSchema>;
 
-export async function classifyCompany(input: ClassifyCompanyInput): Promise<ClassifyCompanyOutput> {
-  return classifyCompanyFlow(input);
-}
-
 const classificationPrompt = `You are an expert AI assistant designed to help users classify their business into a Sector, Domain, and Industry.
 Your goal is to have a natural conversation, asking one simple, 'baby-level' question at a time to narrow down the user's business category.
 You have been provided with a structured JSON object containing all possible classifications. Do not use any information outside of this data.
@@ -73,7 +69,7 @@ const classifyCompanyFlow = ai.defineFlow(
     const llmResponse = await ai.generate({
       prompt: classificationPrompt,
       input,
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-1.5-flash-latest',
       output: { schema: ClassifyCompanyOutputSchema },
       config: {
         temperature: 0.3,
@@ -88,3 +84,8 @@ const classifyCompanyFlow = ai.defineFlow(
     return output;
   }
 );
+
+
+export async function classifyCompany(input: ClassifyCompanyInput): Promise<ClassifyCompanyOutput> {
+  return await classifyCompanyFlow(input);
+}
