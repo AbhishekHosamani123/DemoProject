@@ -77,17 +77,13 @@ export default function AdminSetupPage() {
         return;
     }
     
-    toast({
-        title: "Setup Submitted Successfully!",
-        description: "Your company profile is now active.",
-    });
-
+    // Clear local storage on successful submission
     localStorage.removeItem('completedSteps');
     localStorage.removeItem('personalInfo');
     localStorage.removeItem('existenceInfo');
     localStorage.removeItem('financialInfo');
 
-    router.push('/dashboard');
+    router.push('/signup/complete?type=Admin');
   };
   
   const handlePreview = () => {
@@ -127,7 +123,7 @@ export default function AdminSetupPage() {
   }
 
   if (!isClient) {
-    return null; // or a loading spinner
+    return null; 
   }
 
   return (

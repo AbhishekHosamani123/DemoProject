@@ -23,10 +23,10 @@ export default function EmployeeSignUpPage() {
     e.preventDefault();
     // TODO: Add actual form validation and submission logic
     toast({
-      title: "Login Successful",
-      description: "Redirecting you to the dashboard...",
+      title: "Sign In Processing",
+      description: "Setting up your account...",
     });
-    router.push('/dashboard');
+    router.push('/signup/complete?type=Employee');
   };
 
   return (
