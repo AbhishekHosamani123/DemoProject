@@ -7,9 +7,9 @@ import {
 } from "@/ai/flows/generate-data-insights";
 import {
   classifyCompany,
-  type ClassifyCompanyInput,
-  type ClassifyCompanyOutput,
 } from "@/ai/flows/classify-company-flow";
+import type { ClassifyCompanyInput, ClassifyCompanyOutput } from "@/ai/flows/classify-company-flow";
+
 
 export async function getAIInsights(
   csvData: string
