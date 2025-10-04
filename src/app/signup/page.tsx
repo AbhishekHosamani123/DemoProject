@@ -17,6 +17,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -25,6 +26,7 @@ export default function SignUpPage() {
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
+    const [accountsToAdd, setAccountsToAdd] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUp = (e: React.FormEvent) => {
@@ -33,7 +35,7 @@ export default function SignUpPage() {
             toast({
                 variant: "destructive",
                 title: "Missing Information",
-                description: "Please fill out all fields.",
+                description: "Please fill out all required fields.",
             });
             return;
         }
@@ -129,6 +131,15 @@ export default function SignUpPage() {
                     value={retypePassword}
                     onChange={(e) => setRetypePassword(e.target.value)}
                     required 
+                />
+              </div>
+              <div className="grid gap-2 text-left">
+                <Label htmlFor="accounts-to-add">Grant Access To (optional)</Label>
+                <Textarea
+                    id="accounts-to-add" 
+                    placeholder="Enter comma-separated user IDs..."
+                    value={accountsToAdd}
+                    onChange={(e) => setAccountsToAdd(e.target.value)}
                 />
               </div>
             </CardContent>
