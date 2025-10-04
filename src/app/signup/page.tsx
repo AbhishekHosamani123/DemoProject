@@ -17,34 +17,21 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
-import { Textarea } from "@/components/ui/textarea";
 
 export default function SignUpPage() {
     const router = useRouter();
     const { toast } = useToast();
-    const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
-    const [retypePassword, setRetypePassword] = useState("");
-    const [accountsToAdd, setAccountsToAdd] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!username.trim() || !userId.trim() || !password.trim() || !retypePassword.trim()) {
+        if (!userId.trim() || !password.trim()) {
             toast({
                 variant: "destructive",
                 title: "Missing Information",
                 description: "Please fill out all required fields.",
-            });
-            return;
-        }
-
-        if (password !== retypePassword) {
-            toast({
-                variant: "destructive",
-                title: "Passwords do not match",
-                description: "Please make sure your passwords match.",
             });
             return;
         }
@@ -92,16 +79,6 @@ export default function SignUpPage() {
           <form onSubmit={handleSignUp}>
             <CardContent className="grid gap-4">
               <div className="grid gap-2 text-left">
-                <Label htmlFor="username">Username</Label>
-                <Input 
-                    id="username" 
-                    placeholder="Enter your username" 
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required 
-                />
-              </div>
-              <div className="grid gap-2 text-left">
                 <Label htmlFor="user-id">User ID</Label>
                 <Input 
                     id="user-id" 
@@ -120,26 +97,6 @@ export default function SignUpPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required 
-                />
-              </div>
-              <div className="grid gap-2 text-left">
-                <Label htmlFor="retype-password">Retype Password</Label>
-                <Input 
-                    id="retype-password" 
-                    type="password" 
-                    placeholder="Retype your password"
-                    value={retypePassword}
-                    onChange={(e) => setRetypePassword(e.target.value)}
-                    required 
-                />
-              </div>
-              <div className="grid gap-2 text-left">
-                <Label htmlFor="accounts-to-add">Grant Access To (optional)</Label>
-                <Textarea
-                    id="accounts-to-add" 
-                    placeholder="Enter comma-separated user IDs..."
-                    value={accountsToAdd}
-                    onChange={(e) => setAccountsToAdd(e.target.value)}
                 />
               </div>
             </CardContent>
