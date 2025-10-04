@@ -27,6 +27,7 @@ export default function IndustrialistAdminSignUpPage() {
       title: "Account Created",
       description: "The admin account has been successfully created.",
     });
+    router.push('/signup/industrialist-admin/setup');
   };
 
   return (
