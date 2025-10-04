@@ -26,7 +26,7 @@ const setupOptions = [
     id: "existence-info",
     title: "Existence Information of Company",
     description: "Verify your company's legal and operational status.",
-    href: "#"
+    href: "/signup/industrialist-admin/setup/existence-information"
   },
   {
     id: "financial-info",
@@ -110,7 +110,7 @@ export default function AdminSetupPage() {
                   selectedOption === option.id && "border-primary"
                 )}
               >
-                {(selectedOption === option.id || completedSteps.includes(option.id)) && (
+                {(completedSteps.includes(option.id)) && (
                   <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
                       <CheckCircle2 className="h-6 w-6" />
                   </div>
