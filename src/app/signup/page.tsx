@@ -24,15 +24,25 @@ export default function SignUpPage() {
     const { toast } = useToast();
     const [industryId, setIndustryId] = useState("");
     const [password, setPassword] = useState("");
+    const [retypePassword, setRetypePassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!industryId.trim() || !password.trim()) {
+        if (!industryId.trim() || !password.trim() || !retypePassword.trim()) {
             toast({
                 variant: "destructive",
                 title: "Missing Information",
-                description: "Please fill out both Industry ID and Password.",
+                description: "Please fill out all fields.",
+            });
+            return;
+        }
+
+        if (password !== retypePassword) {
+            toast({
+                variant: "destructive",
+                title: "Passwords do not match",
+                description: "Please make sure your passwords match.",
             });
             return;
         }
@@ -97,6 +107,17 @@ export default function SignUpPage() {
                     placeholder="Create a password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required 
+                />
+              </div>
+              <div className="grid gap-2 text-left">
+                <Label htmlFor="retype-password">Retype Password</Label>
+                <Input 
+                    id="retype-password" 
+                    type="password" 
+                    placeholder="Retype your password"
+                    value={retypePassword}
+                    onChange={(e) => setRetypePassword(e.target.value)}
                     required 
                 />
               </div>
