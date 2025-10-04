@@ -1,61 +1,24 @@
 
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, Shield, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignUpPage() {
     const router = useRouter();
-    const { toast } = useToast();
-    const [userId, setUserId] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleSignUp = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!userId.trim() || !password.trim()) {
-            toast({
-                variant: "destructive",
-                title: "Missing Information",
-                description: "Please fill out all required fields.",
-            });
-            return;
-        }
-
-        setIsLoading(true);
-        toast({
-            title: "Creating Account...",
-            description: "Please wait while we set things up for you.",
-        });
-
-        // Simulate network request
-        setTimeout(() => {
-            setIsLoading(false);
-            toast({
-                title: "Account Created!",
-                description: "Redirecting you to the dashboard.",
-            });
-            router.push('/dashboard');
-        }, 2000);
-    }
 
   return (
     <main className="relative flex-1 flex flex-col items-center justify-center p-4 min-h-screen bg-background">
-      <div className="absolute top-8 left-4 sm:left-8 z-10">
+      <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-10">
         <Button onClick={() => router.back()} variant="outline">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -69,45 +32,46 @@ export default function SignUpPage() {
             height={100}
             className="mb-6"
         />
-        <Card className="w-full max-w-sm bg-card/60 backdrop-blur-sm border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-2xl">Create an Account</CardTitle>
-            <CardDescription>
-              Enter your details to get started.
-            </CardDescription>
-          </CardHeader>
-          <form onSubmit={handleSignUp}>
-            <CardContent className="grid gap-4">
-              <div className="grid gap-2 text-left">
-                <Label htmlFor="user-id">User ID</Label>
-                <Input 
-                    id="user-id" 
-                    placeholder="Enter your user ID" 
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                    required 
-                />
-              </div>
-              <div className="grid gap-2 text-left">
-                <Label htmlFor="password">Password</Label>
-                <Input 
-                    id="password" 
-                    type="password" 
-                    placeholder="Create a password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required 
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full" type="submit" disabled={isLoading}>
-                {isLoading ? "Creating Account..." : "Create Account"}
-              </Button>
-            </CardFooter>
-          </form>
-        </Card>
+        <h1 className="text-3xl font-bold tracking-tight mb-2">Choose Your Role</h1>
+        <p className="text-muted-foreground mb-8">Select the appropriate category to sign up.</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl">
+            <Link href="#" className="flex group">
+                 <Card className="w-full bg-card/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 p-6 text-center flex flex-col items-center justify-center">
+                    <CardHeader>
+                        <div className="flex justify-center mb-4">
+                            <Shield className="h-12 w-12 text-primary" />
+                        </div>
+                        <CardTitle className="text-2xl">Industrialist & Admins</CardTitle>
+                        <CardDescription className="mt-2">
+                            Manage your organization, users, and data insights.
+                        </CardDescription>
+                    </CardHeader>
+                    <div className="mt-4 flex justify-end w-full">
+                        <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
+                    </div>
+                </Card>
+            </Link>
+
+            <Link href="#" className="flex group">
+                 <Card className="w-full bg-card/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 p-6 text-center flex flex-col items-center justify-center">
+                    <CardHeader>
+                        <div className="flex justify-center mb-4">
+                            <Users className="h-12 w-12 text-primary" />
+                        </div>
+                        <CardTitle className="text-2xl">Employees & Workers</CardTitle>
+                        <CardDescription className="mt-2">
+                            Access your dashboard and collaborate with your team.
+                        </CardDescription>
+                    </CardHeader>
+                     <div className="mt-4 flex justify-end w-full">
+                        <ArrowRight className="h-5 w-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary group-hover:translate-x-1" />
+                    </div>
+                </Card>
+            </Link>
+        </div>
       </div>
     </main>
   );
 }
+
