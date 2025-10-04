@@ -54,8 +54,8 @@ export default function SignUpPage() {
     }
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-4 min-h-screen bg-background">
-      <div className="absolute top-8 left-8">
+    <main className="relative flex-1 flex flex-col items-center justify-center p-4 min-h-screen bg-background">
+      <div className="absolute top-8 left-4 sm:left-8 z-10">
         <Button onClick={() => router.back()} variant="outline">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back

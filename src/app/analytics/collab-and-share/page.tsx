@@ -37,7 +37,7 @@ export default function CollabAndSharePage() {
   return (
     <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
-        <div className="mb-8">
+        <div className="mb-8 relative z-10">
           <Button onClick={() => router.back()} variant="outline">
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
