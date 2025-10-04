@@ -51,8 +51,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <Link href="/">
-                  <SidebarMenuButton tooltip="Home" isActive={pathname === "/"}>
+                <Link href="/dashboard">
+                  <SidebarMenuButton tooltip="Home" isActive={pathname.startsWith("/dashboard")}>
                     <Home />
                   </SidebarMenuButton>
                 </Link>

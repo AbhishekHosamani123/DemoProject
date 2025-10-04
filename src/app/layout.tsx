@@ -32,7 +32,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const backgroundVideo = pathname === "/" ? "/background-video.mp4" : "/background-video-2.mp4";
+  const isLandingPage = pathname === "/";
+  const backgroundVideo = isLandingPage ? "/background-video-2.mp4" : "/background-video.mp4";
+
+  if (isLandingPage) {
+     return (
+      <html lang="en" className="dark" suppressHydrationWarning>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body className={`${montserrat.variable} ${roboto.variable} font-body antialiased bg-background text-foreground`} suppressHydrationWarning>
+           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
+              {children}
+            </div>
+          <Toaster />
+        </body>
+      </html>
+    );
+  }
 
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
