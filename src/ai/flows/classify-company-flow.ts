@@ -33,7 +33,7 @@ export async function classifyCompany(input: any): Promise<any> {
       isComplete: z.boolean().describe("Set to true only when the classification is complete and confirmed by the user."),
     });
 
-    const classificationPrompt = `You are an expert AI assistant designed to help users classify their business into a Sector, Domain, and Industry.
+    const classificationPromptText = `You are an expert AI assistant designed to help users classify their business into a Sector, Domain, and Industry.
     Your goal is to have a natural conversation, asking one simple, 'baby-level' question at a time to narrow down the user's business category.
     You have been provided with a structured JSON object containing all possible classifications. Do not use any information outside of this data.
 
@@ -56,6 +56,17 @@ export async function classifyCompany(input: any): Promise<any> {
     {{/each}}
     `;
 
+    const classificationPrompt = ai.definePrompt({
+        name: 'classifyCompanyPrompt',
+        input: { schema: ClassifyCompanyInputSchema },
+        output: { schema: ClassifyCompanyOutputSchema },
+        prompt: classificationPromptText,
+        model: 'googleai/gemini-1.5-flash',
+        config: {
+          temperature: 0.3,
+        }
+    });
+
     const classifyCompanyFlow = ai.defineFlow(
       {
         name: 'classifyCompanyFlow',
@@ -63,21 +74,10 @@ export async function classifyCompany(input: any): Promise<any> {
         outputSchema: ClassifyCompanyOutputSchema,
       },
       async (flowInput) => {
-        const llmResponse = await ai.generate({
-          prompt: classificationPrompt,
-          input: flowInput,
-          model: 'googleai/gemini-1.5-flash',
-          output: { schema: ClassifyCompanyOutputSchema },
-          config: {
-            temperature: 0.3,
-          }
-        });
-
-        const output = llmResponse.output();
+        const { output } = await classificationPrompt(flowInput);
         if (!output) {
             throw new Error("Failed to get a response from the model.");
         }
-        
         return output;
       }
     );
