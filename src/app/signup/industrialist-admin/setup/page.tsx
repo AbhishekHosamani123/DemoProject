@@ -13,22 +13,26 @@ import { CheckCircle2, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const setupOptions = [
   {
     id: "personal-info",
     title: "Personal Information of Company",
     description: "Provide basic company details and contacts.",
+    href: "/signup/industrialist-admin/setup/personal-information"
   },
   {
     id: "existence-info",
     title: "Existence Information of Company",
     description: "Verify your company's legal and operational status.",
+    href: "#"
   },
   {
     id: "financial-info",
     title: "Financial and other Information of Company",
     description: "Input financial data and other key business metrics.",
+    href: "#"
   },
 ];
 
@@ -90,26 +94,26 @@ export default function AdminSetupPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {setupOptions.map((option) => (
-            <Card
-              key={option.id}
-              onClick={() => setSelectedOption(option.id)}
-              className={cn(
-                "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-between",
-                selectedOption === option.id && "border-primary"
-              )}
-            >
-              {selectedOption === option.id && (
-                <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
-                    <CheckCircle2 className="h-6 w-6" />
-                </div>
-              )}
-              <CardHeader className="flex-1">
-                <CardTitle>{option.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-sm">{option.description}</p>
-              </CardContent>
-            </Card>
+             <Link href={option.href} key={option.id} onClick={() => setSelectedOption(option.id)} className="h-full">
+              <Card
+                className={cn(
+                  "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-between",
+                  selectedOption === option.id && "border-primary"
+                )}
+              >
+                {selectedOption === option.id && (
+                  <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
+                      <CheckCircle2 className="h-6 w-6" />
+                  </div>
+                )}
+                <CardHeader className="flex-1">
+                  <CardTitle>{option.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-sm">{option.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
