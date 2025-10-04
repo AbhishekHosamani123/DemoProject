@@ -21,6 +21,7 @@ import Image from "next/image";
 export default function SignUpPage() {
     const router = useRouter();
     const { toast } = useToast();
+    const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
@@ -28,7 +29,7 @@ export default function SignUpPage() {
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!userId.trim() || !password.trim() || !retypePassword.trim()) {
+        if (!username.trim() || !userId.trim() || !password.trim() || !retypePassword.trim()) {
             toast({
                 variant: "destructive",
                 title: "Missing Information",
@@ -88,6 +89,16 @@ export default function SignUpPage() {
           </CardHeader>
           <form onSubmit={handleSignUp}>
             <CardContent className="grid gap-4">
+              <div className="grid gap-2 text-left">
+                <Label htmlFor="username">Username</Label>
+                <Input 
+                    id="username" 
+                    placeholder="Enter your username" 
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required 
+                />
+              </div>
               <div className="grid gap-2 text-left">
                 <Label htmlFor="user-id">User ID</Label>
                 <Input 
