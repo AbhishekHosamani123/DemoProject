@@ -34,7 +34,7 @@ export default function ManualSetupPage() {
   
   const [currentStep, setCurrentStep] = React.useState(0);
   const [selectedSector, setSelectedSector] = React.useState<SectorKey | null>(null);
-  const [selectedDomain, setSelectedDomain] = React.useState<string | null>(null);
+  const [selectedDomain, setSelectedDomain] = React.useState<DomainKey<SectorKey> | null>(null);
   const [selectedIndustry, setSelectedIndustry] = React.useState<string | null>(null);
   const [subIndustry, setSubIndustry] = React.useState("");
 
@@ -77,8 +77,12 @@ export default function ManualSetupPage() {
       case 0: // Select Sector
         return (
           <div className="space-y-4">
-            <Label className="text-lg">Step 2: Select Primary Sector</Label>
-            <Select onValueChange={(v) => setSelectedSector(v as SectorKey)} value={selectedSector || ""}>
+            <Label className="text-lg">Step 1: Select Primary Sector</Label>
+            <Select onValueChange={(v) => {
+              setSelectedSector(v as SectorKey);
+              setSelectedDomain(null);
+              setSelectedIndustry(null);
+            }} value={selectedSector || ""}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a sector..." />
               </SelectTrigger>
@@ -96,8 +100,11 @@ export default function ManualSetupPage() {
         const domains = sectorData[selectedSector].domains;
         return (
           <div className="space-y-4">
-            <Label className="text-lg">Step 3: Select Domain</Label>
-            <Select onValueChange={setSelectedDomain} value={selectedDomain || ""}>
+            <Label className="text-lg">Step 2: Select Domain</Label>
+            <Select onValueChange={(v) => {
+              setSelectedDomain(v as DomainKey<SectorKey>);
+              setSelectedIndustry(null);
+            }} value={selectedDomain || ""}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a domain..." />
               </SelectTrigger>
@@ -116,7 +123,7 @@ export default function ManualSetupPage() {
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-                <Label className="text-lg">Step 3 (cont.): Select Industry</Label>
+                <Label className="text-lg">Step 3: Select Industry</Label>
                 <Select onValueChange={setSelectedIndustry} value={selectedIndustry || ""}>
                 <SelectTrigger>
                     <SelectValue placeholder="Select an industry..." />
@@ -129,7 +136,7 @@ export default function ManualSetupPage() {
                 </Select>
             </div>
             <div className="space-y-4">
-                <Label htmlFor="sub-industry" className="text-lg">Enter Sub-industry</Label>
+                <Label htmlFor="sub-industry" className="text-lg">Enter Sub-industry (Optional)</Label>
                 <Input id="sub-industry" value={subIndustry} onChange={(e) => setSubIndustry(e.target.value)} placeholder="e.g., Rice Cultivation" />
             </div>
           </div>
@@ -177,20 +184,22 @@ export default function ManualSetupPage() {
             Follow the steps to classify your company.
           </CardDescription>
         </CardHeader>
-        <CardContent className="min-h-[250px]">
-          {renderStepContent()}
-        </CardContent>
-        <CardFooter className="flex justify-end">
-          {currentStep < steps.length - 1 ? (
-             <Button onClick={handleNext}>
-                Next <ChevronRight className="ml-2 h-4 w-4" />
-             </Button>
-          ) : (
-             <Button onClick={handleActivate} className="bg-green-600 hover:bg-green-700">
-                Activate System
-             </Button>
-          )}
-        </CardFooter>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <CardContent className="min-h-[250px]">
+            {renderStepContent()}
+          </CardContent>
+          <CardFooter className="flex justify-end">
+            {currentStep < steps.length - 1 ? (
+              <Button onClick={handleNext} type="button">
+                  Next <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button onClick={handleActivate} type="submit" className="bg-green-600 hover:bg-green-700">
+                  Activate System
+              </Button>
+            )}
+          </CardFooter>
+        </form>
       </Card>
     </main>
   );
