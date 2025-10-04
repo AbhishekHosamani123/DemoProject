@@ -44,7 +44,7 @@ export default function PersonalInfoPage() {
       title: "Information Saved",
       description: "Company personal details have been saved.",
     });
-    router.push('/signup/industrialist-admin/setup');
+    router.push('/signup/industrialist-admin/setup?completed=personal-info');
   };
 
   return (

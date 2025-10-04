@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CheckCircle2, ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
@@ -38,8 +38,17 @@ const setupOptions = [
 
 export default function AdminSetupPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
+  const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  useEffect(() => {
+    const completed = searchParams.get('completed');
+    if (completed && !completedSteps.includes(completed)) {
+      setCompletedSteps(prev => [...prev, completed]);
+    }
+  }, [searchParams, completedSteps]);
 
   const handleSubmit = () => {
     if (!selectedOption) {
@@ -101,7 +110,7 @@ export default function AdminSetupPage() {
                   selectedOption === option.id && "border-primary"
                 )}
               >
-                {selectedOption === option.id && (
+                {(selectedOption === option.id || completedSteps.includes(option.id)) && (
                   <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
                       <CheckCircle2 className="h-6 w-6" />
                   </div>
