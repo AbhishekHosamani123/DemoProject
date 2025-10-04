@@ -35,7 +35,7 @@ export default function ExistenceInfoPage() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl mx-auto">
-          <Link href="#" className="flex group">
+          <Link href="/signup/industrialist-admin/setup/manual-setup" className="flex group">
             <Card className="w-full bg-card/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 p-6 text-center flex flex-col items-center justify-center">
               <CardHeader>
                 <div className="flex justify-center mb-4">
