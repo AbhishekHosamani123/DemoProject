@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
@@ -22,14 +21,14 @@ import Image from "next/image";
 export default function SignUpPage() {
     const router = useRouter();
     const { toast } = useToast();
-    const [industryId, setIndustryId] = useState("");
+    const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!industryId.trim() || !password.trim() || !retypePassword.trim()) {
+        if (!userId.trim() || !password.trim() || !retypePassword.trim()) {
             toast({
                 variant: "destructive",
                 title: "Missing Information",
@@ -84,18 +83,18 @@ export default function SignUpPage() {
           <CardHeader>
             <CardTitle className="text-2xl">Create an Account</CardTitle>
             <CardDescription>
-              Enter your industry details to get started.
+              Enter your details to get started.
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSignUp}>
             <CardContent className="grid gap-4">
               <div className="grid gap-2 text-left">
-                <Label htmlFor="industry-id">Industry ID</Label>
+                <Label htmlFor="user-id">User ID</Label>
                 <Input 
-                    id="industry-id" 
-                    placeholder="Enter your industry ID" 
-                    value={industryId}
-                    onChange={(e) => setIndustryId(e.target.value)}
+                    id="user-id" 
+                    placeholder="Enter your user ID" 
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
                     required 
                 />
               </div>
@@ -124,7 +123,7 @@ export default function SignUpPage() {
             </CardContent>
             <CardFooter>
               <Button className="w-full" type="submit" disabled={isLoading}>
-                {isLoading ? "Signing Up..." : "Sign Up"}
+                {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </CardFooter>
           </form>
