@@ -11,13 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -91,20 +84,6 @@ export default function IndustrialistAdminSignUpPage() {
                 placeholder="Enter user IDs, separated by commas..."
                 className="min-h-[100px]"
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="roles">Roles</Label>
-              <Select>
-                <SelectTrigger id="roles">
-                  <SelectValue placeholder="Select a role to assign" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="viewer">Viewer</SelectItem>
-                  <SelectItem value="editor">Editor</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
             <Button type="submit" className="w-full !mt-6">
               Create Account
