@@ -22,7 +22,7 @@ export default function LandingPage() {
                     className="mb-6 animate-pulse"
                 />
                 <h1 className="text-5xl font-bold tracking-tight text-white mb-4">
-                    Welcome to <span className="text-primary">INERA SOFTWARE PVT.LTD</span>
+                    Welcome to <span className="text-primary">INERA SOFTWARE</span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
                     where Intelligence at the speed of thought
