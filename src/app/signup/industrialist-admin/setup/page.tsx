@@ -32,7 +32,7 @@ const setupOptions = [
     id: "financial-info",
     title: "Financial and other Information of Company",
     description: "Input financial data and other key business metrics.",
-    href: "#"
+    href: "/signup/industrialist-admin/setup/financial-information"
   },
 ];
 
