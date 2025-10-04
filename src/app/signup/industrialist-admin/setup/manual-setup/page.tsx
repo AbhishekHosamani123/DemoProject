@@ -194,7 +194,7 @@ export default function ManualSetupPage() {
                   Next <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
-              <Button onClick={handleActivate} type="submit" className="bg-green-600 hover:bg-green-700">
+              <Button onClick={handleActivate} type="button" className="bg-green-600 hover:bg-green-700">
                   Activate System
               </Button>
             )}
