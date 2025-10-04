@@ -66,7 +66,7 @@ export async function classifyCompany(input: any): Promise<any> {
         const llmResponse = await ai.generate({
           prompt: classificationPrompt,
           input: flowInput,
-          model: 'googleai/gemini-1.5-flash-latest',
+          model: 'googleai/gemini-1.5-flash',
           output: { schema: ClassifyCompanyOutputSchema },
           config: {
             temperature: 0.3,
