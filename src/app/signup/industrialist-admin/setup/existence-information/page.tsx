@@ -60,7 +60,7 @@ export default function ExistenceInfoPage() {
                 </div>
                 <CardTitle className="text-2xl">Need Assistance</CardTitle>
                 <CardDescription className="mt-2">
-                  Request help from our team to set up your account.
+                  Get guidance from our AI assistant to set up your account.
                 </CardDescription>
               </CardHeader>
               <div className="mt-4 flex justify-end w-full">
