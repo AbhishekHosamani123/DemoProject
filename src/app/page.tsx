@@ -62,15 +62,16 @@ export default function LandingPage() {
                         <LogIn className="mr-3 h-5 w-5"/>
                         Sign In
                     </Button>
-                    <Button
-                        size="lg"
-                        variant="secondary"
-                        className="h-14 px-10 text-lg font-bold"
-                        disabled
-                    >
-                        Sign Up
-                        <ArrowRight className="ml-3 h-5 w-5"/>
-                    </Button>
+                    <Link href="/signup">
+                        <Button
+                            size="lg"
+                            variant="secondary"
+                            className="h-14 px-10 text-lg font-bold"
+                        >
+                            Sign Up
+                            <ArrowRight className="ml-3 h-5 w-5"/>
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </main>
