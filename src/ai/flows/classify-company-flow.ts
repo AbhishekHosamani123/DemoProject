@@ -5,8 +5,6 @@
  * @fileOverview An AI agent for classifying a company into a sector, domain, and industry.
  *
  * - classifyCompany - A function that handles the company classification process.
- * - ClassifyCompanyInput - The input type for the classifyCompany function.
- * - ClassifyCompanyOutput - The return type for the classifyCompany function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -64,10 +62,10 @@ export async function classifyCompany(input: any): Promise<any> {
         inputSchema: ClassifyCompanyInputSchema,
         outputSchema: ClassifyCompanyOutputSchema,
       },
-      async (input) => {
+      async (flowInput) => {
         const llmResponse = await ai.generate({
           prompt: classificationPrompt,
-          input,
+          input: flowInput,
           model: 'googleai/gemini-1.5-flash-latest',
           output: { schema: ClassifyCompanyOutputSchema },
           config: {
@@ -86,22 +84,3 @@ export async function classifyCompany(input: any): Promise<any> {
 
     return await classifyCompanyFlow(input);
 }
-
-export type ClassifyCompanyInput = z.infer<typeof (z.object({
-    businessDescription: z.string().optional(),
-    conversation: z.array(z.object({
-        role: z.enum(['user', 'model']),
-        content: z.string(),
-    })),
-}))>;
-
-export type ClassifyCompanyOutput = z.infer<typeof (z.object({
-    response: z.string(),
-    classification: z.object({
-        sector: z.string().optional(),
-        domain: z.string().optional(),
-        industry: z.string().optional(),
-        subIndustry: z.string().optional(),
-    }).optional(),
-    isComplete: z.boolean(),
-}))>;

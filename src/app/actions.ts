@@ -8,7 +8,29 @@ import {
 import {
   classifyCompany,
 } from "@/ai/flows/classify-company-flow";
-import type { ClassifyCompanyInput, ClassifyCompanyOutput } from "@/ai/flows/classify-company-flow";
+import { z } from "zod";
+
+
+const ClassifyCompanyInputSchema = z.object({
+    businessDescription: z.string().optional(),
+    conversation: z.array(z.object({
+        role: z.enum(['user', 'model']),
+        content: z.string(),
+    })),
+});
+export type ClassifyCompanyInput = z.infer<typeof ClassifyCompanyInputSchema>;
+
+const ClassifyCompanyOutputSchema = z.object({
+    response: z.string(),
+    classification: z.object({
+        sector: z.string().optional(),
+        domain: z.string().optional(),
+        industry: z.string().optional(),
+        subIndustry: z.string().optional(),
+    }).optional(),
+    isComplete: z.boolean(),
+});
+export type ClassifyCompanyOutput = z.infer<typeof ClassifyCompanyOutputSchema>;
 
 
 export async function getAIInsights(
