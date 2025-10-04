@@ -4,6 +4,11 @@ import {
   generateDataInsights,
   type GenerateDataInsightsOutput,
 } from "@/ai/flows/generate-data-insights";
+import {
+  classifyCompany,
+  type ClassifyCompanyInput,
+  type ClassifyCompanyOutput,
+} from "@/ai/flows/classify-company-flow";
 
 export async function getAIInsights(
   csvData: string
@@ -21,5 +26,17 @@ export async function getAIInsights(
   } catch (e) {
     console.error(e);
     return { error: "Failed to generate insights. Please try again." };
+  }
+}
+
+export async function getClassifyCompanyResponse(
+  input: ClassifyCompanyInput
+): Promise<ClassifyCompanyOutput | { error: string }> {
+  try {
+    const response = await classifyCompany(input);
+    return response;
+  } catch (e) {
+    console.error(e);
+    return { error: "Failed to get a response from the AI. Please try again." };
   }
 }
