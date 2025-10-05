@@ -4,7 +4,7 @@ Welcome to INERA Navigator, an intelligent Business Intelligence (BI) platform d
 
 ## Core Features
 
-- **AI-Powered Data Analysis**: Upload your business data (CSV, XLSX) and receive high-level insights, key trends, and potential issues identified by our generative AI.
+- **AI-Powered Data Analysis**: Upload your business data (CSV, XLSX) and receive high-level insights, key trends, and potential issues identified by our generative AI. 
 - **Advanced Analytics Suite**: Dive deep into your data with a comprehensive set of tools:
     - **Forecasting Analyst**: Predict future sales, customer behavior, and inventory needs.
     - **Problem & Suggestion Engine**: Automatically identifies business problems from your data and provides AI-powered solutions.
