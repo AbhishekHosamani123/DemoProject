@@ -76,13 +76,13 @@ export function Chatbot() {
   }, [toast]);
 
   useEffect(() => {
-    if (messages.length > 0) {
+    if (isOpen && messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage.role === 'model') {
         speak(lastMessage.content);
       }
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   const speak = (text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -92,13 +92,17 @@ export function Chatbot() {
   }
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
-     if (isOpen) { // If we are closing the chat
+    const willBeOpen = !isOpen;
+    setIsOpen(willBeOpen);
+    if (!willBeOpen) { // If we are closing the chat
       window.speechSynthesis.cancel(); // Stop any speech
       if (isListening && recognitionRef.current) {
         recognitionRef.current.stop();
         setIsListening(false);
       }
+    } else { // If we are opening the chat
+      // Start listening automatically after a short delay to allow UI to render
+      setTimeout(() => handleMicClick(), 100); 
     }
   };
 
