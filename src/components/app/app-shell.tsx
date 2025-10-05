@@ -42,10 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       alt="Company Logo"
                       width={32}
                       height={32}
-<<<<<<< HEAD
                       priority
-=======
->>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
                     />
                   </SidebarMenuButton>
                 </Link>
@@ -55,13 +52,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-<<<<<<< HEAD
                 <Link href="/dashboard">
                   <SidebarMenuButton tooltip="Home" isActive={pathname.startsWith("/dashboard")}>
-=======
-                <Link href="/">
-                  <SidebarMenuButton tooltip="Home" isActive={pathname === "/"}>
->>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
                     <Home />
                   </SidebarMenuButton>
                 </Link>
