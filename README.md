@@ -1,4 +1,4 @@
-# INERA Navigator
+# INERA BI Navigator
 
 Welcome to INERA Navigator, an intelligent Business Intelligence (BI) platform designed to transform your business data into actionable insights. This application leverages generative AI to provide data analysis, forecasting, and automated document generation, helping you make smarter, data-driven decisions.
 
