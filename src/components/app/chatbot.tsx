@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -76,10 +77,18 @@ export function Chatbot() {
 
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
-     if (isListening) {
-      recognition.current?.stop();
-      setIsListening(false);
+    const newIsOpen = !isOpen;
+    setIsOpen(newIsOpen);
+
+    if (newIsOpen) {
+      // Start listening when opening
+      handleMicClick();
+    } else {
+      // Stop listening when closing
+      if (isListening) {
+        recognition.current?.stop();
+        setIsListening(false);
+      }
     }
   };
 
