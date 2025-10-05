@@ -9,13 +9,8 @@ export default function FinancePage() {
   const router = useRouter();
 
   return (
-<<<<<<< HEAD
     <div className="relative flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
       <div className="absolute top-8 left-4 sm:left-8 z-10">
-=======
-    <div className="flex-1 container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
-      <div className="absolute top-8 left-8">
->>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
         <Button onClick={() => router.back()} variant="outline">
           <ChevronLeft className="mr-2 h-4 w-4" />
           Back
