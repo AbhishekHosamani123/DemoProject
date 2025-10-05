@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { Bot, Send, X, Mic, MicOff } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Bot, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -32,64 +32,13 @@ export function Chatbot() {
   ]);
   const [input, setInput] = useState("");
   const [isMounted, setIsMounted] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  
-  const recognition = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
-    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognition.current = new SpeechRecognition();
-      recognition.current.continuous = false;
-      recognition.current.interimResults = false;
-      recognition.current.lang = 'en-US';
-
-      recognition.current.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setInput(transcript);
-        setIsListening(false);
-      };
-
-      recognition.current.onerror = (event) => {
-        console.error('Speech recognition error', event.error);
-        setIsListening(false);
-      };
-      
-      recognition.current.onend = () => {
-        setIsListening(false);
-      }
-    }
   }, []);
 
-  const speak = (text: string) => {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  useEffect(() => {
-    if (messages.length > 0 && messages[messages.length - 1].role === 'model') {
-        speak(messages[messages.length - 1].content);
-    }
-  }, [messages]);
-
-
   const handleToggle = () => {
-    const newIsOpen = !isOpen;
-    setIsOpen(newIsOpen);
-
-    if (newIsOpen) {
-      // Start listening when opening
-      handleMicClick();
-    } else {
-      // Stop listening when closing
-      if (isListening) {
-        recognition.current?.stop();
-        setIsListening(false);
-      }
-    }
+    setIsOpen(!isOpen);
   };
 
   const handleSendMessage = () => {
@@ -113,18 +62,6 @@ export function Chatbot() {
     }, 1000);
   };
   
-  const handleMicClick = () => {
-    if (!recognition.current) return;
-
-    if (isListening) {
-      recognition.current.stop();
-      setIsListening(false);
-    } else {
-      recognition.current.start();
-      setIsListening(true);
-    }
-  };
-
   if (!isMounted) {
     return null;
   }
@@ -197,14 +134,9 @@ export function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                placeholder={isListening ? "Listening..." : "Type your message..."}
+                placeholder="Type your message..."
                 className="flex-1"
               />
-              {recognition.current && (
-                <Button onClick={handleMicClick} size="icon" variant={isListening ? "destructive" : "secondary"}>
-                  {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-                </Button>
-              )}
               <Button onClick={handleSendMessage} size="icon" variant="primary">
                 <Send className="h-4 w-4" />
               </Button>
