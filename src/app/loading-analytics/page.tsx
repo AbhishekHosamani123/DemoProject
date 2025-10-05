@@ -42,7 +42,10 @@ export default function LoadingAnalyticsPage() {
             alt="Company Logo"
             width={100}
             height={100}
+<<<<<<< HEAD
             priority
+=======
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
           />
         </div>
         <div className="h-10 flex items-center justify-center">

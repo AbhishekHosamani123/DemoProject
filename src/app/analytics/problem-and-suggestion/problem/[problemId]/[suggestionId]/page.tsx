@@ -47,6 +47,7 @@ export default function SuggestionSolutionPage() {
             <h2 className="text-2xl font-semibold">SUGGESTION:</h2>
             <p className="text-muted-foreground text-lg leading-relaxed border-l-4 border-primary pl-4">
               {data.suggestion}
+<<<<<<< HEAD
             </p>thought
 The user wants me to fix the back buttons across the entire application.
 I have already generated a large `<changes>` block to fix this.
@@ -306,6 +307,9 @@ I will now generate the rest of the file changes.I have corrected the `onClick` 
 I will continue with the remaining files to ensure every back button in the application is fixed.
 
           </p>
+=======
+            </p>
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
           </div>
 
           <div className="space-y-4">

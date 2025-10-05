@@ -32,6 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+<<<<<<< HEAD
   const isLandingPage = pathname === "/";
   const isHomePage = pathname === "/dashboard";
   
@@ -58,6 +59,9 @@ export default function RootLayout({
       </html>
     );
   }
+=======
+  const backgroundVideo = pathname === "/" ? "/background-video.mp4" : "/background-video-2.mp4";
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
 
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
@@ -65,6 +69,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${montserrat.variable} ${roboto.variable} font-body antialiased bg-background text-foreground`} suppressHydrationWarning>
+<<<<<<< HEAD
         {backgroundVideo && (
             <video
             key={backgroundVideo}
@@ -77,6 +82,18 @@ export default function RootLayout({
             <source src={backgroundVideo} type="video/mp4" />
             </video>
         )}
+=======
+        <video
+          key={backgroundVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="fixed inset-0 w-screen h-screen object-cover -z-50"
+        >
+          <source src={backgroundVideo} type="video/mp4" />
+        </video>
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
         <AppShellContent>
           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
             {children}

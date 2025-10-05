@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
 "use server";
 
 import {
   generateDataInsights,
   type GenerateDataInsightsOutput,
 } from "@/ai/flows/generate-data-insights";
+<<<<<<< HEAD
 import {
   classifyCompany,
 } from "@/ai/flows/classify-company-flow";
@@ -32,6 +36,8 @@ const ClassifyCompanyOutputSchema = z.object({
 });
 export type ClassifyCompanyOutput = z.infer<typeof ClassifyCompanyOutputSchema>;
 
+=======
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
 
 export async function getAIInsights(
   csvData: string
@@ -51,6 +57,7 @@ export async function getAIInsights(
     return { error: "Failed to generate insights. Please try again." };
   }
 }
+<<<<<<< HEAD
 
 export async function getClassifyCompanyResponse(
   input: ClassifyCompanyInput
@@ -64,3 +71,5 @@ export async function getClassifyCompanyResponse(
     return { error: `Failed to get a response from the AI: ${errorMessage}` };
   }
 }
+=======
+>>>>>>> 0587db9e554d528414ad04f1d6f28159f3dc25d4
