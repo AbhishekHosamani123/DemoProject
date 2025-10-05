@@ -25,7 +25,7 @@ export default function LandingPage() {
                     Welcome to <span className="text-primary">INERA SOFTWARE</span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-                    where Intelligence at the speed of thought
+                    Intelligence at the speed of thought
                 </p>
 
                 <div className="container max-w-5xl mb-10">
