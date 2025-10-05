@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import { Bot, Send, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Bot, Send, X, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -32,13 +32,49 @@ export function Chatbot() {
   ]);
   const [input, setInput] = useState("");
   const [isMounted, setIsMounted] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
 
   useEffect(() => {
     setIsMounted(true);
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+      
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
   }, []);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+  
+  const handleMicClick = () => {
+    if (recognitionRef.current && !isListening) {
+      recognitionRef.current.start();
+    } else if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+    }
   };
 
   const handleSendMessage = () => {
@@ -137,6 +173,11 @@ export function Chatbot() {
                 placeholder="Type your message..."
                 className="flex-1"
               />
+              {recognitionRef.current && (
+                <Button onClick={handleMicClick} size="icon" variant={isListening ? "destructive" : "secondary"}>
+                  <Mic className="h-4 w-4" />
+                </Button>
+              )}
               <Button onClick={handleSendMessage} size="icon" variant="primary">
                 <Send className="h-4 w-4" />
               </Button>
