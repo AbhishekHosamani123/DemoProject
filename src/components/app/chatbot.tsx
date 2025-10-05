@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import { Bot, Mic, Send, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Bot, Mic, Send, X, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 
 interface Message {
   role: "user" | "model";
@@ -27,24 +28,85 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "model",
-      content: "Welcome to InEra Software",
+      content: "Welcome to InEra Software. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");
   const [isMounted, setIsMounted] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const { toast } = useToast();
+  
+  const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    
+    // Check for browser support and initialize SpeechRecognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
 
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+        // Automatically send the message after transcription
+        handleSendMessage(transcript);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error("Speech recognition error:", event.error);
+        toast({
+          variant: "destructive",
+          title: "Voice Error",
+          description: `Could not recognize speech: ${event.error}`,
+        });
+        setIsListening(false);
+      };
+      
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+
+    } else {
+        console.warn("Speech Recognition not supported in this browser.");
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === 'model') {
+        speak(lastMessage.content);
+      }
+    }
+  }, [messages]);
+
+  const speak = (text: string) => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel(); // Cancel any previous speech
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+  }
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+     if (isOpen) { // If we are closing the chat
+      window.speechSynthesis.cancel(); // Stop any speech
+      if (isListening && recognitionRef.current) {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      }
+    }
   };
 
-  const handleSendMessage = () => {
-    if (input.trim() === "") return;
-    const newMessages: Message[] = [...messages, { role: "user", content: input }];
+  const handleSendMessage = (messageContent?: string) => {
+    const content = (messageContent || input).trim();
+    if (content === "") return;
+
+    const newMessages: Message[] = [...messages, { role: "user", content }];
     setMessages(newMessages);
     setInput("");
 
@@ -60,6 +122,23 @@ export function Chatbot() {
     }, 1000);
   };
 
+  const handleMicClick = () => {
+     if (!recognitionRef.current) {
+        toast({
+            variant: "destructive",
+            title: "Browser Not Supported",
+            description: "Your browser does not support voice recognition."
+        });
+        return;
+    }
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+      setIsListening(true);
+    }
+  };
+  
   if (!isMounted) {
     return null;
   }
@@ -78,7 +157,7 @@ export function Chatbot() {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="text-lg text-primary">
-                AI Assistant
+                AI Voice Assistant
               </CardTitle>
               <CardDescription>Ask me anything</CardDescription>
             </div>
@@ -132,14 +211,14 @@ export function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                placeholder="Type a message..."
+                placeholder="Type or speak..."
                 className="flex-1"
               />
-              <Button onClick={handleSendMessage} size="icon" variant="secondary">
+              <Button onClick={() => handleSendMessage()} size="icon" variant="secondary">
                 <Send className="h-4 w-4" />
               </Button>
-              <Button variant="primary" size="icon">
-                <Mic className="h-4 w-4" />
+              <Button onClick={handleMicClick} variant={isListening ? "destructive" : "primary"} size="icon">
+                {isListening ? <Square className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
               </Button>
             </div>
           </CardFooter>
