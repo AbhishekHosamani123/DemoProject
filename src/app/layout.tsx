@@ -8,6 +8,7 @@ import { AppShellContent } from "@/components/app/app-shell-content";
 import { Chatbot } from "@/components/app/chatbot";
 import { usePathname } from "next/navigation";
 import { Montserrat, Roboto } from "next/font/google";
+import { ClientTooltipProvider } from "@/components/app/client-tooltip-provider";
 
 const metadata: Metadata = {
   title: "INERA Navigator",
@@ -77,11 +78,13 @@ export default function RootLayout({
             <source src={backgroundVideo} type="video/mp4" />
             </video>
         )}
-        <AppShellContent>
-          <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
-            {children}
-          </div>
-        </AppShellContent>
+        <ClientTooltipProvider>
+            <AppShellContent>
+            <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
+                {children}
+            </div>
+            </AppShellContent>
+        </ClientTooltipProvider>
         <Toaster />
         <Chatbot />
       </body>
