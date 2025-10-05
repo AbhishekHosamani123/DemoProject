@@ -31,6 +31,7 @@ export default function SignUpPage() {
             width={100}
             height={100}
             className="mb-6"
+            priority
         />
         <h1 className="text-3xl font-bold tracking-tight mb-2">Choose Your Role</h1>
         <p className="text-muted-foreground mb-8">Select the appropriate category to sign up.</p>

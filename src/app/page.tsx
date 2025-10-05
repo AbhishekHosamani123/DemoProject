@@ -20,6 +20,7 @@ export default function LandingPage() {
                     width={120}
                     height={120}
                     className="mb-6 animate-pulse"
+                    priority
                 />
                 <h1 className="text-5xl font-bold tracking-tight text-white mb-4">
                     Welcome to <span className="text-primary">INERA SOFTWARE</span>

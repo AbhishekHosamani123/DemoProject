@@ -42,6 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       alt="Company Logo"
                       width={32}
                       height={32}
+                      priority
                     />
                   </SidebarMenuButton>
                 </Link>
