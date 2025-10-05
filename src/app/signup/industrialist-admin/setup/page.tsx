@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CheckCircle2, ChevronLeft } from "lucide-react";
+import { CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -43,17 +43,15 @@ const setupOptions = [
   },
 ];
 
-export default function AdminSetupPage() {
+function AdminSetupContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [isPreviewed, setIsPreviewed] = useState(false);
   const [previewData, setPreviewData] = useState<any>({});
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
     const stepsFromStorage = JSON.parse(localStorage.getItem('completedSteps') || '[]');
     setCompletedSteps(stepsFromStorage);
 
@@ -65,7 +63,7 @@ export default function AdminSetupPage() {
     }
   }, [searchParams]);
 
-  const allStepsCompleted = isClient && completedSteps.length === setupOptions.length;
+  const allStepsCompleted = completedSteps.length === setupOptions.length;
 
   const handleSubmit = () => {
     if (!allStepsCompleted || !isPreviewed) {
@@ -122,84 +120,90 @@ export default function AdminSetupPage() {
     })
   }
 
-  if (!isClient) {
-    return null; 
-  }
-
   return (
-    <main className="relative flex-1 flex flex-col items-center justify-center p-4 min-h-screen bg-background">
-      <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-10">
-        <Button onClick={() => router.back()} variant="outline">
-          <ChevronLeft className="mr-2 h-4 w-4" />
-          Back
+    <div className="w-full max-w-4xl text-center">
+      <h1 className="text-3xl font-bold tracking-tight mb-2">
+        Admin Account Setup
+      </h1>
+      <p className="text-muted-foreground mb-8">
+        Choose a configuration to start with. You can customize it later.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {setupOptions.map((option) => (
+           <Link href={option.href} key={option.id} className="h-full">
+            <Card
+              className={cn(
+                "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-between"
+              )}
+            >
+              {(completedSteps.includes(option.id)) && (
+                <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
+                    <CheckCircle2 className="h-6 w-6" />
+                </div>
+              )}
+              <CardHeader className="flex-1">
+                <CardTitle>{option.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm">{option.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex justify-center gap-4">
+        <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" variant="secondary" onClick={handlePreview} disabled={!allStepsCompleted}>
+                  Preview
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md bg-card/90 backdrop-blur-md">
+                <DialogHeader>
+                    <DialogTitle>Setup Information Preview</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 max-h-[60vh] overflow-y-auto p-4">
+                    <div>
+                        <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Personal Information</h3>
+                        <div className="space-y-1">{renderPreviewData(previewData.personalInfo || {})}</div>
+                    </div>
+                     <div>
+                        <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Existence Information</h3>
+                         <div className="space-y-1">{renderPreviewData(previewData.existenceInfo || {})}</div>
+                    </div>
+                     <div>
+                        <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Financial Information</h3>
+                         <div className="space-y-1">{renderPreviewData(previewData.financialInfo || {})}</div>
+                    </div>
+                </div>
+            </DialogContent>
+        </Dialog>
+
+        <Button size="lg" onClick={handleSubmit} disabled={!allStepsCompleted || !isPreviewed}>
+          Submit
         </Button>
       </div>
-
-      <div className="w-full max-w-4xl text-center">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
-          Admin Account Setup
-        </h1>
-        <p className="text-muted-foreground mb-8">
-          Choose a configuration to start with. You can customize it later.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {setupOptions.map((option) => (
-             <Link href={option.href} key={option.id} className="h-full">
-              <Card
-                className={cn(
-                  "group relative cursor-pointer bg-card/60 backdrop-blur-sm border-2 border-input hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-between"
-                )}
-              >
-                {(completedSteps.includes(option.id)) && (
-                  <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground rounded-full p-1 shadow-lg">
-                      <CheckCircle2 className="h-6 w-6" />
-                  </div>
-                )}
-                <CardHeader className="flex-1">
-                  <CardTitle>{option.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm">{option.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex justify-center gap-4">
-          <Dialog>
-              <DialogTrigger asChild>
-                <Button size="lg" variant="secondary" onClick={handlePreview} disabled={!allStepsCompleted}>
-                    Preview
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-card/90 backdrop-blur-md">
-                  <DialogHeader>
-                      <DialogTitle>Setup Information Preview</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4 max-h-[60vh] overflow-y-auto p-4">
-                      <div>
-                          <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Personal Information</h3>
-                          <div className="space-y-1">{renderPreviewData(previewData.personalInfo || {})}</div>
-                      </div>
-                       <div>
-                          <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Existence Information</h3>
-                           <div className="space-y-1">{renderPreviewData(previewData.existenceInfo || {})}</div>
-                      </div>
-                       <div>
-                          <h3 className="text-lg font-bold text-primary mb-2 border-b pb-1">Financial Information</h3>
-                           <div className="space-y-1">{renderPreviewData(previewData.financialInfo || {})}</div>
-                      </div>
-                  </div>
-              </DialogContent>
-          </Dialog>
-
-          <Button size="lg" onClick={handleSubmit} disabled={!allStepsCompleted || !isPreviewed}>
-            Submit
-          </Button>
-        </div>
-      </div>
-    </main>
+    </div>
   );
+}
+
+
+export default function AdminSetupPage() {
+    const router = useRouter();
+
+    return (
+        <main className="relative flex-1 flex flex-col items-center justify-center p-4 min-h-screen bg-background">
+            <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-10">
+                <Button onClick={() => router.back()} variant="outline">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Back
+                </Button>
+            </div>
+            <Suspense fallback={<Loader2 className="h-16 w-16 text-primary animate-spin" />}>
+                <AdminSetupContent />
+            </Suspense>
+        </main>
+    );
 }
