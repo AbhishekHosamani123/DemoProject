@@ -92,6 +92,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <SidebarMenuButton
                     tooltip="Integration Hub"
                     isActive={pathname === "/integration-hub"}
+                    className="hover:bg-black"
                   >
                     <AppWindow className="text-primary" />
                   </SidebarMenuButton>
