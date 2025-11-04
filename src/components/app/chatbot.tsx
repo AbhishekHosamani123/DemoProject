@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Bot, Send, X, Mic } from "lucide-react";
+import { Bot, Send, X, Mic, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -178,6 +178,9 @@ export function Chatbot() {
                   <Mic className="h-4 w-4" />
                 </Button>
               )}
+              <Button onClick={() => {}} size="icon" variant="secondary">
+                <Video className="h-4 w-4" />
+              </Button>
               <Button onClick={handleSendMessage} size="icon" variant="primary">
                 <Send className="h-4 w-4" />
               </Button>
