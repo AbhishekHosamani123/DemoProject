@@ -29,7 +29,7 @@ export default function LandingPage() {
                     Welcome to <span className="text-primary">QUICK-IS</span>
                 </h1>
                 <p className="text-sm text-muted-foreground mb-10">
-                    Powered by Inera Software
+                    Powered by Inera Softwares
                 </p>
 
                 <div className="container max-w-5xl mb-10">
