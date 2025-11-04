@@ -25,9 +25,12 @@ export default function LandingPage() {
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
                     Intelligence at the speed of thought
                 </p>
-                <h1 className="text-5xl font-bold tracking-tight text-white mb-10">
+                <h1 className="text-5xl font-bold tracking-tight text-white mb-2">
                     Welcome to <span className="text-primary">QUICK-IS</span>
                 </h1>
+                <p className="text-sm text-muted-foreground mb-10">
+                    Powered by Inera Software
+                </p>
 
                 <div className="container max-w-5xl mb-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
