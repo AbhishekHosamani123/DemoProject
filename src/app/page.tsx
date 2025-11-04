@@ -22,12 +22,12 @@ export default function LandingPage() {
                     className="mb-6 animate-pulse"
                     priority
                 />
-                <h1 className="text-5xl font-bold tracking-tight text-white mb-4">
-                    Welcome to <span className="text-primary">INERA SOFTWARE</span>
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
                     Intelligence at the speed of thought
                 </p>
+                <h1 className="text-5xl font-bold tracking-tight text-white mb-10">
+                    Welcome to <span className="text-primary">INERA SOFTWARE</span>
+                </h1>
 
                 <div className="container max-w-5xl mb-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
