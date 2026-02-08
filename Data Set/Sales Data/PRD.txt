@@ -1,0 +1,228 @@
+# Business Requirements Document (BRD)
+
+## 1. Document Control
+
+| Version | Date        | Author            | Description                                |
+| ------ | ----------- | ----------------- | ------------------------------------------ |
+| 1.0    | 08-Feb-2026 | Abhishek Hosamani | Initial BRD for Sales Data Analysis System |
+
+---
+
+## 2. Purpose of the Document
+
+The purpose of this Business Requirements Document (BRD) is to clearly define the business needs, objectives, functional requirements, and non-functional requirements for the **Sales Data Analysis and Reporting System**.
+
+This system will utilize historical sales data to provide insights into:
+
+- Sales performance  
+- Customer behavior  
+- Profitability  
+- Operational efficiency  
+
+to support data-driven decision-making.
+
+---
+
+## 3. Business Background
+
+The organization maintains sales transaction data across multiple regions, customers, product categories, and payment modes.
+
+Currently, insights are derived manually or through limited reporting, which is:
+
+- Time-consuming  
+- Prone to inconsistencies  
+
+There is a need for a **structured, automated, and scalable solution** to analyze sales data efficiently.
+
+---
+
+## 4. Business Objectives
+
+- Analyze overall sales performance across time, location, and product categories
+- Identify profitable and non-profitable products and regions
+- Understand customer purchasing patterns
+- Track order volume, revenue, profit, and quantity sold
+- Support strategic decisions with accurate dashboards and reports
+
+---
+
+## 5. Scope
+
+### 5.1 In-Scope
+
+- Analysis of sales orders and order details
+- Reporting based on:
+  - Order Date
+  - State and City
+  - Customer Name
+  - Product Category and Sub-Category
+  - Payment Mode
+  - Revenue, Profit, and Quantity
+- Dashboard and report generation
+- Data visualization for business users
+
+### 5.2 Out-of-Scope
+
+- Real-time transaction processing
+- Integration with external ERP or CRM systems
+- Data entry or modification features
+
+---
+
+## 6. Stakeholders
+
+| Role           | Description                             |
+| -------------- | --------------------------------------- |
+| Business Owner | Defines business goals and KPIs         |
+| Sales Manager  | Uses insights to improve sales strategy |
+| Finance Team   | Reviews profit and revenue performance  |
+| Data Analyst   | Builds reports and dashboards           |
+| IT Team        | Maintains technical infrastructure      |
+
+---
+
+## 7. Data Sources
+
+The system will use the following datasets:
+
+### 7.1 Orders Dataset
+
+- Order ID
+- Order Date
+- Customer Name
+- State
+- City
+
+### 7.2 Order Details Dataset
+
+- Order ID
+- Amount (Sales Revenue)
+- Profit
+- Quantity
+- Category
+- Sub-Category
+- Payment Mode
+
+---
+
+## 8. Functional Requirements
+
+### 8.1 Data Integration
+
+- The system shall merge Orders and Order Details datasets using **Order ID** as the primary key.
+- The system shall validate data consistency and completeness.
+
+### 8.2 Sales Analysis
+
+- The system shall calculate total sales amount by:
+  - Date
+  - State
+  - City
+  - Category
+- The system shall provide:
+  - Monthly summaries
+  - Quarterly summaries
+  - Yearly summaries
+
+### 8.3 Profit Analysis
+
+- The system shall calculate total and average profit per:
+  - Category
+  - Sub-Category
+- The system shall identify loss-making orders and products.
+
+### 8.4 Customer Analysis
+
+- The system shall identify top customers by:
+  - Revenue
+  - Profit
+- The system shall analyze repeat versus single-time customers.
+
+### 8.5 Product Analysis
+
+- The system shall show performance by Category and Sub-Category.
+- The system shall display quantity sold by product type.
+
+### 8.6 Payment Mode Analysis
+
+- The system shall analyze sales and profit distribution by Payment Mode, including:
+  - Cash on Delivery (COD)
+  - EMI
+  - Credit Card
+  - Other payment methods
+
+### 8.7 Reporting and Dashboards
+
+- The system shall provide interactive dashboards.
+- The system shall allow filtering by:
+  - Date
+  - Region
+  - Category
+  - Payment Mode
+- The system shall export reports in:
+  - Excel format
+  - PDF format
+
+---
+
+## 9. Non-Functional Requirements
+
+### 9.1 Performance
+
+- Reports should load within **3–5 seconds** for standard queries.
+
+### 9.2 Security
+
+- Access should be role-based.
+- Data should be read-only for business users.
+
+### 9.3 Usability
+
+- Dashboards should be easy to understand for non-technical users.
+- Visuals should be clear and consistent.
+
+### 9.4 Scalability
+
+- The system should support future data growth.
+
+---
+
+## 10. Assumptions
+
+- The provided sales data is accurate and complete.
+- Order ID uniquely identifies each transaction.
+- All monetary values are in a single currency.
+
+---
+
+## 11. Constraints
+
+- Analysis limited to historical data only.
+- No live data updates.
+
+---
+
+## 12. Risks
+
+| Risk               | Impact              | Mitigation               |
+| ------------------ | ------------------- | ------------------------ |
+| Incomplete data    | Inaccurate insights | Data validation checks   |
+| Data inconsistency | Reporting errors    | Data cleansing processes |
+
+---
+
+## 13. Success Metrics
+
+- Accuracy of reports
+- User adoption rate
+- Reduction in manual reporting effort
+- Improved decision-making speed
+
+---
+
+## 14. Approval
+
+| Name | Role            | Signature | Date |
+| ---- | --------------- | --------- | ---- |
+|      | Business Owner  |           |      |
+|      | Project Manager |           |      |

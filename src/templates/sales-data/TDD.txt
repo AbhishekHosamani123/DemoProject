@@ -1,0 +1,40 @@
+# Technical Design Document (TDD)
+
+## 1. Introduction
+This document outlines the technical design for the Sales Data Analysis System.
+
+## 2. Architecture
+The system uses a Next.js (React) frontend with a serverless backend for AI processing.
+
+### 2.1 Tech Stack
+- **Frontend**: Next.js, Tailwind CSS, ShadCN UI
+- **Backend**: Next.js Server Actions
+- **AI**: Genkit (Google AI SDK)
+- **Data Processing**: `xlsx` library for Excel parsing
+
+## 3. Component Design
+
+### 3.1 File Uploader
+- Parses Excel/CSV files on the client side.
+- Stores data in `DataContext`.
+
+### 3.2 AI Insights
+- Sends data to `generateDataInsights` server action.
+- Uses Genkit to generate natural language summaries.
+
+### 3.3 Document Generator
+- Receives document type and data.
+- Uses predefined templates or AI prompts to generate Markdown content.
+
+## 4. Data Flow
+1. User uploads file -> `FileUploader` -> `DataContext`
+2. `Dashboard` reads `DataContext` -> renders charts
+3. User requests document -> `DocumentPage` -> `generateDocumentAction` -> AI/Template -> Response
+
+## 5. Security
+- Input validation using Zod.
+- No sensitive data persistence on server.
+
+## 6. Scalability
+- Serverless architecture allows automatic scaling.
+- Client-side processing reduces server load.

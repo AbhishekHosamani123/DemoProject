@@ -1,0 +1,191 @@
+# Technical Design Document (TDD)
+
+## 1. Introduction
+
+### 1.1 Purpose
+
+The purpose of this Technical Design Document (TDD) is to define the **technical architecture, data flow, system components, and design decisions** for the Sales Data Analytics System.
+
+This document explains **how the system will be built** to satisfy the requirements defined in the BRD, PRD, and FRD.
+
+### 1.2 Intended Audience
+
+- Data Analysts
+- BI Developers
+- Technical Architects
+- IT Support Team
+
+---
+
+## 2. System Architecture
+
+### 2.1 Architecture Overview
+
+The Sales Data Analytics System follows a **layered analytics architecture**, consisting of the following layers:
+
+1. Data Source Layer  
+2. Data Processing Layer  
+3. Analytics & Semantic Layer  
+4. Visualization & Reporting Layer  
+
+This architecture ensures scalability, maintainability, and efficient reporting.
+
+---
+
+## 3. Technology Stack
+
+| Layer            | Technology / Tools                 |
+| ---------------- | ---------------------------------- |
+| Data Source      | Excel / CSV files                  |
+| Data Processing  | Python / Power Query               |
+| Data Storage     | Local file system / BI data model  |
+| Analytics Layer  | DAX / SQL (if applicable)          |
+| Visualization    | Power BI / Tableau                 |
+| Deployment       | Local system / Cloud BI workspace  |
+
+---
+
+## 4. Data Design
+
+### 4.1 Data Sources
+
+#### Orders Table
+
+- Order ID (Primary Key)
+- Order Date
+- Customer Name
+- State
+- City
+
+#### Order Details Table
+
+- Order ID (Foreign Key)
+- Amount (Sales Revenue)
+- Profit
+- Quantity
+- Category
+- Sub-Category
+- Payment Mode
+
+---
+
+### 4.2 Data Model Design
+
+- One-to-many relationship between **Orders** and **Order Details** using Order ID
+- Star-schema–like design for optimized analytics
+- Date field used for time-based aggregations (month, quarter, year)
+
+---
+
+## 5. Data Flow Design
+
+1. Raw sales data loaded from Excel / CSV files
+2. Data cleaning and validation:
+   - Null value checks
+   - Data type validation
+   - Duplicate removal
+3. Data transformation and aggregation
+4. Creation of calculated measures:
+   - Sales
+   - Profit
+   - Quantity
+5. Data loaded into BI model for reporting and visualization
+
+---
+
+## 6. Business Logic & Calculations
+
+- **Total Sales** = Sum of Amount  
+- **Total Profit** = Sum of Profit  
+- **Average Profit** = Total Profit / Number of Orders  
+- **Top Customers** = Ranked by Total Sales  
+- **Loss-Making Orders** = Orders where Profit < 0  
+
+---
+
+## 7. Dashboard Design
+
+### 7.1 Key Dashboards
+
+- Sales Overview Dashboard
+- Profit Analysis Dashboard
+- Product Performance Dashboard
+- Customer Insights Dashboard
+- Payment Mode Analysis Dashboard
+
+### 7.2 Filters & Slicers
+
+- Date
+- State
+- City
+- Category
+- Payment Mode
+
+---
+
+## 8. Performance & Optimization
+
+- Use aggregated tables where possible
+- Minimize calculated columns
+- Optimize relationships in the data model
+- Apply data caching for faster dashboard load times
+
+---
+
+## 9. Security Design
+
+- Role-based, read-only access for business users
+- Restricted access for data model editing
+- Security managed at BI tool and workspace level
+
+---
+
+## 10. Deployment Strategy
+
+- Publish dashboards to BI workspace
+- Schedule data refresh:
+  - Manual refresh
+  - Periodic refresh (daily/weekly)
+- Maintain version control through file backups
+
+---
+
+## 11. Error Handling & Logging
+
+- Validation checks during data loading
+- Error logs for:
+  - Missing Order IDs
+  - Mismatched relationships
+- Alerts for data refresh failures
+
+---
+
+## 12. Assumptions & Constraints
+
+### Assumptions
+
+- Data volume is moderate and manageable
+- Only historical data is used for analysis
+
+### Constraints
+
+- No real-time data processing
+- No write-back or data modification functionality
+
+---
+
+## 13. Risks & Mitigation
+
+| Risk               | Impact              | Mitigation           |
+| ------------------ | ------------------- | -------------------- |
+| Poor data quality  | Incorrect analytics | Validation rules     |
+| Performance issues | Slow dashboards     | Model optimization   |
+
+---
+
+## 14. Approval
+
+| Name | Role            | Signature | Date |
+| ---- | --------------- | --------- | ---- |
+|      | Technical Lead  |           |      |
+|      | Project Manager |           |      |

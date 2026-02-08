@@ -83,6 +83,51 @@ export default function PptPage() {
           </Link>
         ))}
       </div>
+
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold tracking-tight mb-6 text-center">Available Presentations</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <File className="h-5 w-5 text-primary" />
+                Sales Overview (PPT 1)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Comprehensive sales data overview and analysis.
+              </p>
+              <a href="/api/ppt/ppt1.pptx" download>
+                <Button className="w-full">
+                  <ArrowRight className="mr-2 h-4 w-4" />
+                  Download PPT 1
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card/60 backdrop-blur-sm border-primary/20 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <File className="h-5 w-5 text-primary" />
+                Market Analysis (PPT 2)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                In-depth market trends and future projections.
+              </p>
+              <a href="/api/ppt/ppt2.pptx" download>
+                <Button className="w-full">
+                  <ArrowRight className="mr-2 h-4 w-4" />
+                  Download PPT 2
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }

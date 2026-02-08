@@ -9,6 +9,7 @@ import { Chatbot } from "@/components/app/chatbot";
 import { usePathname } from "next/navigation";
 import { Montserrat, Roboto } from "next/font/google";
 import { ClientTooltipProvider } from "@/components/app/client-tooltip-provider";
+import { DataProvider } from "@/contexts/data-context";
 
 const metadata: Metadata = {
   title: "INERA Navigator",
@@ -35,7 +36,7 @@ export default function RootLayout({
   const pathname = usePathname();
   const isLandingPage = pathname === "/";
   const isHomePage = pathname === "/dashboard";
-  
+
   let backgroundVideo: string | null = "/background-video-2.mp4";
   if (isLandingPage) {
     backgroundVideo = null;
@@ -45,15 +46,15 @@ export default function RootLayout({
 
 
   if (isLandingPage) {
-     return (
+    return (
       <html lang="en" className="dark" suppressHydrationWarning>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </head>
         <body className={`${montserrat.variable} ${roboto.variable} font-body antialiased bg-background text-foreground`} suppressHydrationWarning>
-           <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
-              {children}
-            </div>
+          <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
+            {children}
+          </div>
           <Toaster />
         </body>
       </html>
@@ -67,23 +68,25 @@ export default function RootLayout({
       </head>
       <body className={`${montserrat.variable} ${roboto.variable} font-body antialiased bg-background text-foreground`} suppressHydrationWarning>
         {backgroundVideo && (
-            <video
+          <video
             key={backgroundVideo}
             autoPlay
             loop
             muted
             playsInline
             className="fixed inset-0 w-screen h-screen object-cover -z-50"
-            >
+          >
             <source src={backgroundVideo} type="video/mp4" />
-            </video>
+          </video>
         )}
         <ClientTooltipProvider>
-            <AppShellContent>
-            <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
+          <AppShellContent>
+            <DataProvider>
+              <div key={pathname} className="relative flex-1 animate-in fade-in duration-500">
                 {children}
-            </div>
-            </AppShellContent>
+              </div>
+            </DataProvider>
+          </AppShellContent>
         </ClientTooltipProvider>
         <Toaster />
         <Chatbot />

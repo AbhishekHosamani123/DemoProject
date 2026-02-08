@@ -36,37 +36,37 @@ const documentTypes = [
     title: "PRD",
     icon: <FileText className="h-5 w-5 mb-2 text-primary" />,
     description: "Product Requirements",
-    href: "/documents/brd",
+    href: "/documents/prd",
   },
   {
     title: "FRD",
     icon: <FunctionSquare className="h-5 w-5 mb-2 text-primary" />,
     description: "Functional Requirements",
-    href: "/documents/brd",
+    href: "/documents/frd",
   },
   {
     title: "TDD",
     icon: <GitBranchPlus className="h-5 w-5 mb-2 text-primary" />,
     description: "Technical Design",
-    href: "/documents/brd",
+    href: "/documents/tdd",
   },
   {
     title: "Business Case",
     icon: <Lightbulb className="h-5 w-5 mb-2 text-primary" />,
     description: "Feasibility Analysis",
-    href: "/documents/brd",
+    href: "/documents/business-case",
   },
   {
     title: "Gap Analysis",
     icon: <Scaling className="h-5 w-5 mb-2 text-primary" />,
     description: "Current vs. Target State",
-    href: "/documents/brd",
+    href: "/documents/gap-analysis",
   },
   ...Array.from({ length: 21 }, (_, i) => ({
     title: `Doc ${i + 7}`,
     icon: <FileText className="h-5 w-5 mb-2 text-primary" />,
     description: `This is a description for Doc ${i + 7}.`,
-    href: "/documents/brd",
+    href: `/documents/doc-${i + 7}`,
   })),
 ];
 

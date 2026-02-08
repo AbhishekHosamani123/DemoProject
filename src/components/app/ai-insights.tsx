@@ -19,15 +19,18 @@ interface AiInsightsProps {
   data: string;
 }
 
+import { useData } from "@/contexts/data-context";
+
 export function AiInsights({ data }: AiInsightsProps) {
   const [insights, setInsights] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { fileName } = useData();
 
   const handleGenerateInsights = async () => {
     setIsLoading(true);
     setInsights("");
-    const result = await getAIInsights(data);
+    const result = await getAIInsights(data, fileName);
 
     if ("error" in result) {
       toast({

@@ -1,0 +1,32 @@
+# Functional Requirements Document (FRD)
+
+## 1. Introduction
+This document details the functional requirements for the Sales Data Analysis System.
+
+## 2. System Overview
+The system processes uploaded sales data files and generates visual insights and downloadable reports.
+
+## 3. Functional Requirements
+
+### 3.1 File Upload
+- **FR-01**: User shall be able to upload .xlsx and .csv files.
+- **FR-02**: System shall validate file format and size.
+
+### 3.2 Data Processing
+- **FR-03**: System shall parse uploaded files and store data in memory/context.
+- **FR-04**: System shall calculate key metrics (total sales, profit, quantity).
+
+### 3.3 Dashboard
+- **FR-05**: System shall display a summary of key metrics.
+- **FR-06**: System shall display charts for sales by region, category, and time.
+
+### 3.4 Reporting
+- **FR-07**: User shall be able to generate BRD, PRD, FRD, and TDD documents.
+- **FR-08**: Generated documents shall be downloadable.
+
+## 4. User Interface
+- **UI-01**: The interface shall be responsive and accessible.
+- **UI-02**: The dashboard shall use a dark mode theme by default.
+
+## 5. Data Handling
+- **DH-01**: Data shall be processed securely and not persisted permanently without user consent.

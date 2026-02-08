@@ -58,7 +58,7 @@ export function Chatbot() {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
       };
-      
+
       recognitionRef.current.onend = () => {
         setIsListening(false);
       };
@@ -68,7 +68,7 @@ export function Chatbot() {
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
-  
+
   const handleMicClick = () => {
     if (recognitionRef.current && !isListening) {
       recognitionRef.current.start();
@@ -97,16 +97,16 @@ export function Chatbot() {
       ]);
     }, 1000);
   };
-  
+
   if (!isMounted) {
     return null;
   }
 
   return (
-    <div className="fixed bottom-0 right-0 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-lg ml-auto">
+    <div className="fixed bottom-0 right-0 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-lg ml-auto pointer-events-none">
       <div
         className={cn(
-          "w-80 sm:w-96 rounded-lg bg-card/90 backdrop-blur-md border shadow-xl transition-all duration-300 ease-in-out ml-auto mb-4",
+          "w-80 sm:w-96 rounded-lg bg-card/90 backdrop-blur-md border shadow-xl transition-all duration-300 ease-in-out ml-auto mb-4 pointer-events-auto",
           isOpen
             ? "max-h-[80vh] sm:max-h-[500px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
@@ -142,13 +142,13 @@ export function Chatbot() {
                         : "justify-start"
                     )}
                   >
-                     {message.role === 'model' && (
-                        <Avatar className="h-8 w-8">
-                            <AvatarFallback className="bg-primary text-primary-foreground">
-                                <Bot className="h-5 w-5" />
-                            </AvatarFallback>
-                        </Avatar>
-                     )}
+                    {message.role === 'model' && (
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="bg-primary text-primary-foreground">
+                          <Bot className="h-5 w-5" />
+                        </AvatarFallback>
+                      </Avatar>
+                    )}
                     <div
                       className={cn(
                         "max-w-[80%] rounded-lg px-3 py-2 text-sm",
@@ -178,7 +178,7 @@ export function Chatbot() {
                   <Mic className="h-4 w-4" />
                 </Button>
               )}
-              <Button onClick={() => {}} size="icon" variant="secondary">
+              <Button onClick={() => { }} size="icon" variant="secondary">
                 <Video className="h-4 w-4" />
               </Button>
               <Button onClick={handleSendMessage} size="icon" variant="primary">
@@ -189,17 +189,17 @@ export function Chatbot() {
         </Card>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end pointer-events-auto">
         <Button
-            onClick={handleToggle}
-            className={cn(
+          onClick={handleToggle}
+          className={cn(
             "rounded-full w-16 h-16 shadow-lg transition-transform duration-300",
             isOpen ? "scale-0" : "scale-100"
-            )}
-            size="icon"
-            variant="primary"
+          )}
+          size="icon"
+          variant="primary"
         >
-            <Bot className="h-8 w-8" />
+          <Bot className="h-8 w-8" />
         </Button>
       </div>
     </div>

@@ -16,15 +16,15 @@ export default function LoadingAnalyticsPage() {
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setHideLoader(true);
-    }, 4000); 
+    }, 1500);
 
     const timer2 = setTimeout(() => {
       setShowContinue(true);
-    }, 5000);
+    }, 2000);
 
     return () => {
-        clearTimeout(timer1)
-        clearTimeout(timer2)
+      clearTimeout(timer1)
+      clearTimeout(timer2)
     };
   }, []);
 

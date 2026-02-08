@@ -1,0 +1,145 @@
+# Functional Requirements Document (FRD)
+
+## 1. Introduction
+
+### 1.1 Purpose
+
+The purpose of this Functional Requirements Document (FRD) is to define **detailed functional requirements** for the Sales Data Analytics System.  
+This document explains *what the system will do* to meet business and product requirements.
+
+### 1.2 Scope
+
+This FRD covers functionalities related to:
+- Sales analysis
+- Profit tracking
+- Customer insights
+- Product performance
+- Payment mode analysis
+- Reporting using historical sales data
+
+---
+
+## 2. System Overview
+
+The Sales Data Analytics System ingests historical sales data and transforms it into interactive dashboards and reports.  
+The system is designed for business users to analyze performance without technical expertise.
+
+---
+
+## 3. User Roles
+
+| Role          | Description                       |
+| ------------- | --------------------------------- |
+| Business User | Views dashboards and reports      |
+| Sales Manager | Analyzes sales trends and regions |
+| Finance User  | Reviews profit and loss           |
+| Admin         | Manages data refresh and access   |
+
+---
+
+## 4. Functional Requirements
+
+### FR-1: Data Ingestion & Validation
+
+- The system shall import sales order and order detail datasets.
+- The system shall validate records for missing or invalid values.
+- The system shall use Order ID as a unique identifier to join datasets.
+
+---
+
+### FR-2: Sales Performance Analysis
+
+- The system shall calculate total sales revenue.
+- The system shall display sales trends by month, state, and city.
+- The system shall allow filtering by date range and location.
+
+---
+
+### FR-3: Profit Analysis
+
+- The system shall calculate total and average profit.
+- The system shall identify loss-making orders and products.
+- The system shall display profit by category and sub-category.
+
+---
+
+### FR-4: Product Analysis
+
+- The system shall display performance by product category and sub-category.
+- The system shall show quantity sold per product.
+- The system shall identify top and bottom-performing products.
+
+---
+
+### FR-5: Customer Analysis
+
+- The system shall identify top customers by revenue and profit.
+- The system shall display customer contribution to total sales.
+
+---
+
+### FR-6: Payment Mode Analysis
+
+- The system shall display sales and profit by payment mode.
+- The system shall compare COD and digital payment performance.
+
+---
+
+### FR-7: Dashboards & Visualization
+
+- The system shall provide interactive dashboards.
+- The system shall allow filtering by date, region, product, and payment mode.
+- The system shall update visuals dynamically based on selected filters.
+
+---
+
+### FR-8: Reporting & Export
+
+- The system shall allow export of reports in Excel and PDF formats.
+- The system shall generate summary and detailed reports.
+
+---
+
+### FR-9: Access Control
+
+- The system shall provide role-based read-only access.
+- The system shall restrict data modification capabilities.
+
+---
+
+## 5. Non-Functional Requirements (Summary)
+
+- Reports shall load within 3–5 seconds.
+- The system shall support increasing data volume.
+- The interface shall be easy to use for non-technical users.
+
+---
+
+## 6. Assumptions
+
+- Sales data provided is accurate and complete.
+- All data is historical and static.
+
+---
+
+## 7. Constraints
+
+- No real-time analytics or live integrations.
+- No data creation or editing features.
+
+---
+
+## 8. Success Criteria
+
+- Accurate and consistent analytical outputs
+- Reduced manual reporting effort
+- Improved visibility into sales and profit trends
+
+---
+
+## 9. Approval
+
+| Name | Role             | Signature | Date |
+| ---- | ---------------- | --------- | ---- |
+|      | Functional Owner |           |      |
+|      | Project Manager  |           |      |
